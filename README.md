@@ -41,7 +41,7 @@ In search-based generation, two solutions can be in two different forms:
 
 Using **phenotype** form is useful for testers to read however this isn't the ideal representation for metaheuristic search algorithms because it can't be manipulated. As for these problems the **genotype** form is the most important and crucial to use.
 
-The **genotype** representation associated with a fitness function can improve to it's representation by the scores given by the latter. A **genotype** can be a bad solution in it's early stages however over time and with usage of a fitness function it can improve.
+The **genotype** representation associated with a fitness function can improve it's representation by the scores given by the latter. A **genotype** can be a bad solution in it's early stages however over time and with usage of a fitness function it can improve.
 
 ## 4.2 Fitness Functions
 
