@@ -106,7 +106,26 @@ Search budget is **expressed as a number of generations** which are **cycles of 
 
 Metaheuristic algorithm that performs guess and check processes. In summary, it starts by a making a initial random guess for the solution and tries to improve it by making small changes to it (process of **mutation**). Everytime he guesses better than the last one, he adopts it as the current best solution to use and continues to make the respective changes. It continues to do this until we reach the maximum number of tries and maximum number of restarts (search resets).
 
+
+**Mutation process:**
+
+![](https://i.imgur.com/zCRweHL.png)
+
 (see algorithm: https://github.com/Greg4cr/PythonUnitTestGeneration/blob/main/src/hill_climber.py)
+
+### Genetic Algorithm
+
+Another metaheuristic algorithm that can be used to find better solutions is the **Genetic Algorithm**. In this case this algorithm models the evolution of a population over time. It has the same idea of the **Hill Climber** algorithm with two major differences. 
+
+- It manages a **population** of different solutions instead of evolving a single solution;
+- It uses a **selection process** to choose the best individuals in a population and uses a **crossover process** that produces new solutions by **merging test cases ("genes") of parent solutions ("chromossomes").** 
+
+After the **crossover** operation further **mutations** can be applied in the resulting children in order to further improve the solutions that the children have. If any of the children are better (measured by **fitness functions**) than the current solution then the latter is overwrited by the better child. There may be times where no improvement can be seen which leads to **stagnation**. If this happens the process is stopped to lower computacional cost.
+
+![](https://i.imgur.com/9Fy0FfX.png)
+
+
+
 
 
 
