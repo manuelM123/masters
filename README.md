@@ -124,8 +124,34 @@ After the **crossover** operation further **mutations** can be applied in the re
 
 ![](https://i.imgur.com/9Fy0FfX.png)
 
+## 4.4 Examining the resulting test suites 
+**(see paper)**
+
+# 5. Advanced Concepts
+
+## 5.1 Distance-Based Coverage Fitness Function
+
+:::info
+ver papers mencionados
+::: 
 
 
+**Distance-Based Coverage Fitness Function** is a an advanced type of **search-based input generation** technique. This inherently uses a more complex fitness function. **The principal objective of this technique is to determain how close a test suite came to cover the outcomes of the code.**
+
+**Branch coverage** - measure the number of outcomes that are performed by the test case.
+
+The branch mentioned is divided into a **set of goals/combinations of coverage**.
+
+
+## 5.2 Multiple and Many Objectives 
+
+When defining certain test cases we have some goals that need to be achieved. This goals are important because they define the objectives we have for the creation of test cases.
+
+For multiple objectives we can considerer merging all of them into a single fitness function and optimize it returning a single score. However in this case some of the goals can compete with each other and the returned value can not be what we are hoping for. A huge problem for this situation is to decide which objectives should be prioritized against others. 
+
+An alternative and better way to do this is to keep each goal with it's specific fitness function and try to optimize each of them while taking account the optimization of the others (balance the optimizations). **Multi-objective optimizations** does not refer to a single best solution but to a set of solutions that are balanced or have good trade-offs between the objectives. In summary it represents a set of objectives that each have their importance and neither of them are more important in comparison with another objectives.
+
+(see paper)
 
 
 
