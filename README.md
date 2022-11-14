@@ -154,12 +154,38 @@ An alternative and better way to do this is to keep each goal with it's specific
 (see paper)
 
 
+## 5.3 Human-readable Tests
 
+Typically generated test cases by automation don't look similar to what developers and tests would write leading up to situations of misunderstanding. This can be hard to use future test cases by humans. So generating readable test cases is one important aspect regarding automated test generation. Combining AI techniques with multi-objective optimzation can automatically generate readable test cases.
 
+## 5.4 Finding Input Boundaries
 
+Choosing input boundaries for tests is a importante aspect. This has the objective to identify values at the boundary between diferent program behaviours. This boundary can demonstrate faults by minor mistakes/errors (small input values at the boundary can lead to faults depending on the program behaviour to that input).
 
+**Program derivative** measures how sensible a program is to behaviour changes for differents sets of inputs. Conveys how function values (output) change when varying independent variables (input). We can detect boundary values when we see major output differences when applying similar inputs.
 
+Similarity between input and output is measured using distance functions. **Low distance values** indicate that input and output are similar to each other. **High distance values** indicate that input and ouput are really different from each other.
 
+For the program derivative:
+- High derivative values (high numerator) indicates dissimilar output with similar inputs (low denominator) reveals sets of input values that are more sensitive to changes in program behaviour.
+- High numerator values and low denominator values => indicate high sensibility
+- Low numerator values and high denominator values => indicate low sensibility or almost non-existent.
+
+(see paper)
+
+## Finding Diverse Test Suites
+
+When executing test cases to a certain system we want them to cover most of the behaviour of our system. However certain behaviours can not be found if we rerun the same set of tests or even very similar tests. For this problem we want to choose a test suite that adequates this situations. We want to a find a **Diverse Test Suite**. With this we can have a more controled view about possible behaviours of the system and even have better coverage and better chances to find faults within the system.
+
+(see paper)
+
+## Oracle Generation and Specification Mining
+
+Automating oracle generation is a very difficult task to do. The previous chapters focused on how to automate generation of test inputs and actions for test cases however we can't judge faithfully if the behaviour of the system under test is correct.
+
+(see paper)
+
+## Other AI Techniques ==> SEE PAPER TO BE USED LATER
 
 
 
