@@ -192,6 +192,9 @@ Automating oracle generation is a very difficult task to do. The previous chapte
 
 ---
 # Abstract of paper
+
+Title: Automated Unit Test Generation Using Machine Learning Techniques
+
 One of the most important aspects regarding the development process of a software it's the process of unit testing. Unit testing focuses on testing a segment of the code in a isolated state from the rest of the system. A framework utilized for this purpose and discussed in this paper, is the pytest framework responsible for unit testing in Python. 
 
 The creation of unit tests is proven to be an intensive process regarding time and effort with many of it's elements being made manually. The need for automatization is a crucial point regarding this current thematic. The introduction of AI can support this need through the use of search-based unit test generation. This paper introduces this technique comprising fitness functions and respective metaheuristic algorithms. The algorithms mentioned generate unit tests in a pytest format with the objective to obtain coverage of code statements. 
