@@ -200,6 +200,74 @@ One of the most important aspects regarding the development process of a softwar
 The creation of unit tests is proven to be an intensive process regarding time and effort with many of it's elements being made manually. The need for automatization is a crucial point regarding this current thematic. The introduction of AI can support this need through the use of search-based unit test generation. This paper introduces this technique comprising fitness functions and respective metaheuristic algorithms. The algorithms mentioned generate unit tests in a pytest format with the objective to obtain coverage of code statements. 
 More complex AI and Machine Learning techniques are applied in this paper to generate more unit tests. This paper includes the analysis of results obtained by applying metaheuristic algorithms and AI techniques mentioned. This work concludes by specifying the importance of the automatization when generating units tests and discussing conclusions obtained with the development of this work.
 
+# Automated Test Case Generation - Gregory Gay class
 
+- automated generation of tests
+- search-based generation with optimization
+- testing is expensive in order perfomance, security vulnerabilities
+- can be used for repetitive tasks that do not need human attention
+- assertions to check the right output for functions (to evaluate correctness of the generated test cases)
+
+## Search-Based Test Generation
+
+- create tests is a search problem (using metaheuristic algorithms => to find a feasable solution and fitness functions to evaluate if said solutions are better than others)
+- random generation is a possibility => search for methods (class testing) / using interfaces to call functions (system testing)
+- pytest is a valid framework to execute the generated tests
+
+### Structure
+ 
+1. create empty test case
+2. instantiate class-under-test with random values
+3. insert methods/functions with random value for parameters that correspond to the class under test
+
+### Random Search
+ 
+- no bias involved (all inputs are considered equal)
+- spamming the system with input
+
+### Search Problem
+
+- we need goals to fulfill => assess performance, code coverage, find faults and so on
+- search for a test suite (set of test cases) that achieves the goal
+- based on **guess-and-check** process with feedback (knowledge received) deciding if we stop there and continue guessing
+- we can measure goals => search can be automated
+- maximing our code coverage we can maximize our chances of finding exceptions/faults
+- this search is done repetitively until the try time is met
+
+### Search-Based Test Generation
+
+- Strategy: metaheuristic => find feasable solutions 
+- metaheuristic + fitness functions = meet goals
+
+#### Solution
+-  is a test suite
+-  test suite contains a set of test cases
+-  each test case interacts with class-under-test, is initialized with the class-under-test (if constructor exists) and uses one or more actions from the class-under-test 
+
+#### External vs Internal Representation
+
+- phenotypes and genotypes
+
+#### Fitness Function
+
+- function takes solution and returns a numeric score of how good that solution is
+- can be optimized at the time or multiple at once (can be combined into a single score) => HOWEVER we can obtain a score regarding one specific goal undermining the rest of the goals
+- does not return boolean values => it doesn't tell you explicitly if the provided solution is good or not (is not measurable)
+
+#### Code Coverage
+
+- Attain branch coverage of the code => measure coverage and trying to maximize the % statements covered
+- maximize this in order to find faults in code analysed
+- approach level => depends if the bramnc is evaluated to true (1) or false (0)
+- branch distance => how close we are to the target outcome
+
+#### Metaheuristic Algorithms
+
+- Selection of the solutions 
+- random guess on the first attempt
+- gives feedback through fitness functions
+
+- **local search** - focus a single solution and applies small changes to it
+- **global search** - larger changes to multiples solutions
 
 
