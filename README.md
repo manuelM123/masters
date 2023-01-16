@@ -1,8 +1,6 @@
 # masters
 Master's work
 
-...
-
 # 4 Search-Based Test Generation
 
 **UUT** - unit under testing
@@ -270,4 +268,101 @@ More complex AI and Machine Learning techniques are applied in this paper to gen
 - **local search** - focus a single solution and applies small changes to it
 - **global search** - larger changes to multiples solutions
 
+---
+# Structure of Paper
 
+## State of Art
+
+- Unit Testing
+    - Introduction
+    - Context
+        - Definition
+        - Arrange, Act and Assert Phases (creation of unit tests)
+    - White Box Testing
+        - Practices
+    - Black Box Testing
+        - Practices
+    - Grey Box Testing
+        - Study and practices
+    - Applications
+        - Dynamic vs Static Languages
+        - Available frameworks
+
+- Unit Test Generation 
+    - Metaheuristic Algorithms
+        - Fitness Functions
+            - Branch Coverage
+            - Line Coverage
+            - Statement Coverage
+            - Distance-Based Coverage Fitness Function
+            - Adaptive Fitness Function Selection
+    - Unit Test Generation Techniques
+        - Single-Objective Formulation Algorithms
+        - Many-Objective Formulation Algorithms
+        - Reinforcement Learning
+            - Deep Reinforcement Learning
+    - Mutation Testing
+    - Regression Testing
+
+- Impact of Software Quality
+    - Context
+    - Software Development and Deployment
+    - Further studies
+
+---
+
+# PRISMA Statement to Apply
+
+## Objectives
+present line XX-ZZ, section, page where items are checklisted
+
+**see checklist advanced file for proper description of each of the below items**
+
+https://prisma.shinyapps.io/checklist/
+![](https://i.imgur.com/E7inuaX.png)
+![](https://i.imgur.com/gcYF5i8.png)
+
+1. [ ]
+2. [ ]
+3. [ ]
+4. [ ]
+5. [ ]
+6. [ ]
+7. [ ]
+8. [ ]
+9. [ ]
+10. == 10a. [ ] / 10b. [ ]
+11. [ ]
+12. [ ]
+13. == 13a. [ ] / 13b. [ ] / 13c. [ ] / 13d. [ ] / 13e. [ ] / 13f. [ ]
+14. [ ]
+15. [ ]
+16. == 16a. [ ] / 16b. [ ]
+17. [ ]
+18. [ ]
+19. [ ]
+20. == 20a. [ ] / 20b. [ ] / 20c. [ ] / 20d. [ ]
+21. [ ]
+22. [ ]
+23. == 23a. [ ] / 23b. [ ] / 23c. [ ] / 23d. [ ]
+24. == 24a. [ ] / 24b. [ ] / 24c. [ ]
+25. [ ]
+26. [ ]
+27. [ ]
+
+## Abstracts
+
+![](https://i.imgur.com/lTGPcoC.png)
+
+1. [ ]
+2. [ ]
+3. [ ]
+4. [ ]
+5. [ ]
+6. [ ]
+7. [ ]
+8. [ ]
+9. [ ]
+10. [ ]
+11. [ ]
+12. [ ]
