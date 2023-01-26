@@ -4,15 +4,52 @@ Sources:
 
 [1] (last searched: 17/1/2023) https://www.guru99.com/unit-testing-guide.html
 
-[2] (last searched: 17/1/2023)
+[2] (last searched: 26/1/2023)
 https://livebook.manning.com/book/unit-testing/chapter-1/6
 
 [3] (last searched: 17/1/2023)
 https://thevaluable.dev/fighting-software-entropy/
 
-## Definition
+[4] (last searched: 26/1/2023)
+http://xunitpatterns.com/
 
-Unit testing can be defined as an activity which main objective is to perform tests in segments of code in a isolated state, separated from the rest of the constituent parts of the system. 
+## What is a Unit Test
+
+### Definition
+
+Unit testing can be defined as an activity which the main objective is to perform tests in segments of code in a isolated state, separated from the rest of the constituent parts of the system. The realm of unit testing is a highly multifaceted theme, where differing perspectives and interpretations are commonplace. Amongst the various approaches, two stand out as prominent - the Classical approach and the London school of unit testing. These approaches, while both focused on unit testing, possess distinct variations in their understanding and handling of the concept of "isolation" within a unit test. 
+
+### Classical Approach
+...
+
+### London School of Unit Testing
+
+This approach considers isolating the unit test from its collaborators, which means if a certain class is our SUT (System Under Test) and it has a dependency on another class, then this dependency must be substitued by a *test double*. In this way, the behavior of the class under test won't be affected by any external influence. 
+
+*Test Double* - operation used in unit testing to replace a object or component present in the system under test. It acts and looks similar to the object/component replaced but its a lot less complex and facilitates testing in the SUT. 
+
+Figure ... shows the isolation in this approach is achieved by replacing SUT dependencies by test doubles:
+
+![](https://i.imgur.com/2JCxKGC.png) [2]
+
+One of the major advantages of this approach is shown in an eventual case of failure when testing. In these situations, is easy to identify where the failure occurred, having it happen in the system under test. The failure couldn't happen at any other place, the SUT neighbours are test doubles. 
+
+When a unit test is executed, the test double replaces the dependencies of the SUT by simpler objects. The test double is configured to provide certain inputs and outputs or to record information about how it was called by the SUT. These provide the ability to control the behavior of the SUT and to verify if the behavior occured as expected. 
+
+The test doubles can be used in a multitude of ways, it can be done manually or by using a testing library that provides this sort of functionality. A wide range of types of test doubles exists and they can be divided in the following points:
+
+* ***Dummy Object***: it acts as a placeholder object that is passed to the SUT as an argument but is never used[4];
+* ***Test Stub*** : objects that replaces a component of the SUT. In this way, the test can control the indirect inputs of the SUT, making it exercise certain paths of the code he otherwise would not;
+* ***Test Spy***: advanced version of a *Test Stub* which records information about how it was called. Used for inspections of interactions between the SUT and the test double;
+* ***Mock Object***: object replacing a component that the SUT depends on. Records information about how it was called, allows the specification on how it should be called and is used to stimulate the behavior of the replaced component;
+* ***Fake Object***: objects replacing the functionality of the replaced component with a different implementation for the functionality[4].
+
+This approach also defends the creation of a set of classes for each unit being tested. This enables the testing of a unit at a time comprising a well structured unit test suite.
+
+![](https://i.imgur.com/aSbVYD4.png) [2]
+
+### Differences between approaches
+...
 
 ## Purpose 
 
@@ -23,7 +60,9 @@ In another words, it's used to verify the correctness of a certain segment of co
 The identification of possible faults in the early stages of development is more important than to find at later stages. The correction of a fault is minimized when found at early stages of development where it's located at a certain unit. When a system runs and a fault occurs, it's more time-consuming and costly to correct it at system level than at the unit level where is isolated from the rest of the system.
 
 ### Re-Use
-Despite the identification of faults, unit testing can lead to code reuse. In this case, a portion of the testing done can be used again in a different system when the objectives/functionalities are similar between the different systems.
+Despite the identification of faults, unit testing can lead to code reuse. In this case, a portion of the testing done can be used again in a different system when the objectives/functionalities are similar between the different systems. 
+
+A unit test can be used for refactoring. The unit test can be updated according the code developed for the application. In this way, unit tests are constantly updated to accompany the evolution of code in the system. 
 
 ### Development Speed
 The application of unit testing can enable a sustainable growth of a software project. In a really early stage of development, there is a low quantity of code to be worried about, enabling a rapid development and progress in the creation of the product. However, as time goes by, more code is created, more architeture ideas are developed and the probability of finding a fault is higher [2].
@@ -40,10 +79,13 @@ Unit testing can help reduce this problem. By applying tests in a specific compo
 
 ## Unit Test Structure
 
+
+### Arrange, Act, Assert Pattern (AAA)
+
 A unit test can be created using a the **AAA (Arrange, Act, Assert)** pattern. This pattern is divided in three parts, which can be clarified below:
 
-* **Arrange** - Identifiying the segment of code to be under test. In another words, a part of the system is chosen to apply tests, being this part our SUT (system under test);
-* **Act** - Deciding which tests to perform in the SUT. A test example would be making method calls of the SUT;
+* **Arrange** - Identifiying the segment of code to be under test. In another words, a part of the system is chosen to apply tests, being this part the SUT (system under test);
+* **Act** - Deciding which tests to perform in the SUT. A test example would be making method or constructor calls;
 * **Assert** - Verifying the output result of the test performed. In this phase, the output of the test is compared to the expected output in order to determine the overall correctness. It's made an evaluation of the expected behaviour, ultimately deciding if a test passes or fails.
 
 An example of the use of the AAA pattern to create a unit test is presented in the following figure:
@@ -70,9 +112,9 @@ In the above example, Arrange, Act and Assert phases are implemented. It possess
 :::info
 The **Arrange section** holds the class to be tested. In this case, the constructor of the class division is called. This will be the SUT.
 
-The **Act section** is intended to perform an "action" on the SUT chosen. A method call of the Division class is performed and stored in a variable.
+The **Act section** is intended to perform an "action" on the SUT chosen. A method call of the Division class is performed and the result is stored in a variable.
 
-The **Assert section** verifies the outcome from the Act section. A verification will be made to see if the output from the previous section corresponds to the expected result. This determines if the test passes or 
+The **Assert section** verifies the outcome from the Act section. A verification will be made to see if the value of the variable from the previous section corresponds to the expected result. This determines if the test passes or 
 fails.
 :::
 
@@ -88,12 +130,13 @@ In order to design a unit test, according the AAA pattern, the arrange section c
 
 In a TDD, the tests are created before any code is done, in other words, tests are developed before any type of functionality is created and formulation of the functionalities is done taking into account the tests, hence the term TDD. In this situation, it's best to start with the assertion phase where a set of evaluations is performed continuously with code writing. After a set of continuous steps, a unit test that meets the expectation can be achieved.
 
-### Writing Unit Tests
+### Teardown Phase
 
-
+This phase can be an additional section to unit testing. Its purpose comprehends the cleaning of resources and other tasks after the unit tests are created. It can be viewed as a "non strictly necessary" section, a unit test has an independent nature and as such it doesn't talk to out-of-process dependencies. The implementation of this phase is heavily associated as part of an integration testing instead of unit testing.
 
 
 ## Automated and Manual Testing
+...
 
 ## Techniques
 These kinds of faults can be found through a wide variety of techniques, all specified within the scope of unit testing.
