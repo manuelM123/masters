@@ -17,10 +17,8 @@ http://xunitpatterns.com/
 
 ### Definition
 
-Unit testing can be defined as an activity which the main objective is to perform tests in segments of code in a isolated state, separated from the rest of the constituent parts of the system. The realm of unit testing is a highly multifaceted theme, where differing perspectives and interpretations are commonplace. Amongst the various approaches, two stand out as prominent - the Classical approach and the London school of unit testing. These approaches, while both focused on unit testing, possess distinct variations in their understanding and handling of the concept of "isolation" within a unit test. 
+Unit testing can be defined as an activity which the main objective is to perform quick tests in small segments of code in a isolated state, separated from the rest of the constituent parts of the system. The realm of unit testing is a highly multifaceted theme, where differing perspectives and interpretations are commonplace. Amongst the various approaches, two stand out as prominent - the Classical school approach and the London school of unit testing. These approaches, while both focused on unit testing, possess distinct variations in their understanding and handling of the concept of "isolation" within a unit test. 
 
-### Classical Approach
-...
 
 ### London School of Unit Testing
 
@@ -48,8 +46,44 @@ This approach also defends the creation of a set of classes for each unit being 
 
 ![](https://i.imgur.com/aSbVYD4.png) [2]
 
-### Differences between approaches
+### Classical School Approach
+
+The classical school approach defends that unit tests must be in a isolated state regarding the rest of the system. Additionally each unit test must be independent from each other as to not exist external interference in the behavior of unit tests.
+
+Unit tests can exercise a set of classes at once, however these must not reach a shared state, they must not interfere each other. A example of shared state is a out-of-process dependency like a database for example [2].
+
+In cases where multiple tests are executed in parallel, the use of shared resources can lead to unexpected and undesirable behavior. For instance, imagine two unit tests that are designed to perform different actions on a shared database, one adding a record and the other removing a record. If these tests are run concurrently, and the second test completes before the first, the first test may fail not due to any issue within the test itself, but rather due to the interference caused by the second test altering the state of the shared resource.
+
+This highlights the possible dangers of shared dependencies within unit testing. Some can cause undesirable behaviors because of interference as the unit tests are not isolated. Types of dependencies that can affect unit testing are as follows:
+
+* ***Shared dependency***: dependency shared between tests providing means for the tests to affect each other's behavior;
+* ***Private dependency***: dependency that isn't shared with tests, it only exists internally within the unit being tested;
+* ***Out-of-process dependency***: dependency that runs outside a application execution process. It can usually correspond to a shared dependency but not always. A database, for example, is both shared and out-of-process, it runs outside of the tests scope and is used by the tests to alter data. However, a read-only database, is only out-of-process because it can't be used by the tests to alter data and consecutively tests can't affect each others behavior [2].
+
+These dependencies situations are handled differently in the classical school approach. In this approach, only shared dependencies are replaced and private ones are maintained as the figure X.XX shows. 
+
+![](https://i.imgur.com/Vf4o1vU.png)
+
+Shared dependencies are shared *between unit tests*, not between SUTs (units). In this way of thinking, a singleton dependency is not shared if it's possible to create a new instance of it for each test. If there is only one instance of a singleton in production code, then this latter is shared between all unit tests in the SUT as a shared dependency.
+
+Replacing shared dependecies proves to be quite useful regarding the increase of test execution speeds. Calls to shared dependencies take more time than calls to the privates ones, because the shared dependencies are out of execution process of the tests. Unit testing requires the execution of **quick tests** being this an important aspect taking into account.
+
+The use of dependencies is part of the realm of unit testing and integration testing. The way every every unit of the system interacts with the use of dependencies is a very important theme to provide a correct process of creation of a system. The actual use of dependencies and its impact on the general behaviour of a system are talked more in depth in the subsection **"Relationship between Unit and Integration Testing"**.
+
+### Differences between approaches (see section 2.3)
+
+The root diference between the two approaches is the isolation attribute of a unit test. Classical approach defends the isolation must be between the unit tests themselves on the contrary, London school says that the isolation must be done for the SUT, separating the latter from its collaborators. A summary of the principal differences between each approach can be found in the following table:
+
+
+|  | Isolation of | Unit test | Test doubles for |
+| -------- | -------- | -------- | -------- |
+| ***London school***     | Units (SUT)     | Is a class     | All but immutable dependencies     |
+| ***Classical school***     | Unit tests     | Is a class or set of classes     | Shared dependencies     |
+
+
 ...
+
+### Relationship between Unit and Integration Testing (TODO)
 
 ## Purpose 
 
