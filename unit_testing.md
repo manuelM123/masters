@@ -4,7 +4,7 @@ Sources:
 
 [1] (last searched: 17/1/2023) https://www.guru99.com/unit-testing-guide.html
 
-[2] (last searched: 26/1/2023)
+[2] (last searched: 30/1/2023)
 https://livebook.manning.com/book/unit-testing/chapter-1/6
 
 [3] (last searched: 17/1/2023)
@@ -22,7 +22,7 @@ Unit testing can be defined as an activity which the main objective is to perfor
 
 ### London School of Unit Testing
 
-This approach considers isolating the unit test from its collaborators, which means if a certain class is our SUT (System Under Test) and it has a dependency on another class, then this dependency must be substitued by a *test double*. In this way, the behavior of the class under test won't be affected by any external influence. 
+This approach considers isolating the SUT from its collaborators, which means if a certain class is our SUT (System Under Test) and it has a dependency on another class, then this dependency must be substitued by a *test double*. In this way, the behavior of the class under test won't be affected by any external influence. 
 
 *Test Double* - operation used in unit testing to replace a object or component present in the system under test. It acts and looks similar to the object/component replaced but its a lot less complex and facilitates testing in the SUT. 
 
@@ -70,6 +70,35 @@ Replacing shared dependecies proves to be quite useful regarding the increase of
 
 The use of dependencies is part of the realm of unit testing and integration testing. The way every every unit of the system interacts with the use of dependencies is a very important theme to provide a correct process of creation of a system. The actual use of dependencies and its impact on the general behaviour of a system are talked more in depth in the subsection **"Relationship between Unit and Integration Testing"**.
 
+
+
+### How the approaches handle the dependencies
+
+Both schools handle differently the dependencies according their ideals. The London school allows immutable dependencies to be used in their original form. These kind of dependencies possess a content that cannot be changed. This fact does not introduce a problem regarding the change in the behavior of a certain SUT and because of this it's not incorrect to leave this type of dependency as it is.
+
+These immutable dependencies or immutable objects are called ***value objects*** or ***values***. These objects do not possess any kind of behavior or state and are simply used to represent a certain value that is being passed on to a testing method. A immutable object can be instanciated a reasonable amount of times without ever being a problem because these instances have the same content being interchangeable.
+
+Resuming the point in section "*Classical School Approach*", a dependency can be of three types: *shared*, *private* or *out-of-process*. *Shared* dependencies can only be mutable, its content is being changed by other parts of the system. 
+
+*Private* dependencies can either be mutable or immutable. A instance that is only available to the unit being tested can possess a content that is changed within the scope of the SUT (mutable nature). A private instance can also be immutable representing, for example, a value that is only being used for certain methods. 
+
+A simpler example would be having two instances regarding a store themed application. A *Store* and a *Product* instances being both only available to a SUT (private dependencies). The *Store* manages different aspects of the products such as: quantity, price and amount sold. The *Product* only has description, type and name associated to a product. The *Product* instance can be considered a immutable object as the *Store* instance can be a mutable object. The *Store* content will be constantly changed as the *Product* content only represents values (being a *value object*).
+
+Classical school considers all shared dependencies to be replaced as these interferes with the behavior of unit tests.
+
+A representation of how each schools handles the dependencies can be visualized in the figure X.XX:
+
+![](https://i.imgur.com/SylakSZ.png) [2]
+
+Often times the term *collaborator* is used for the London School approach to mention the dependencies, however this term needs to be explained as it posseses a different meaning. **Collaborator** is a dependency of a shared or mutable nature. Taking the example of the *Store* and *Product* instances mentioned above, *Store* can be considered as a collaborator because its content can be changed (mutable nature) while the *Product* can't be considered as such (immutable nature).
+
+Another aspect to take into account is where a *out-of-process* dependencies blends in all this rationale. Not all dependencies of this type are *out-of-process*, it depends on certain situations:
+
+* *Shared* and *out-of-process*: an example of this is a database. It is used by tests (shared) and it's out of the main process (out-of-process);
+* *Shared* and non *out-of-process*: a singleton is a good example for this. Being reused by tests (shared) but it is not out of the main process of the tests (non *out-of-process*);
+* Non *Shared* and *out-of-process*: an API service can be an example of this type of situation. Tests can't modify the API and therefore can't interfere in each other's behavior (non *shared*) while being out of the main process (*out-of-process*).
+
+
 ### Differences between approaches (see section 2.3)
 
 The root diference between the two approaches is the isolation attribute of a unit test. Classical approach defends the isolation must be between the unit tests themselves on the contrary, London school says that the isolation must be done for the SUT, separating the latter from its collaborators. A summary of the principal differences between each approach can be found in the following table:
@@ -80,8 +109,13 @@ The root diference between the two approaches is the isolation attribute of a un
 | ***London school***     | Units (SUT)     | Is a class     | All but immutable dependencies     |
 | ***Classical school***     | Unit tests     | Is a class or set of classes     | Shared dependencies     |
 
+Both approaches possess different benefits according their specific use. Overall a group of points can be made regarding the choice of each approach:
 
-...
+* **Granularity**: the tests following the London approach are fine-grained and check only one class at time instead of the Classical approach who checks a set of classes. Checking once at a time reduces the complexity to resolve certain erroneous situations when they happen. Code being fine-grained allows easier testing of units, making it easier to write focused tests for specific units; 
+* **Testing in a large amount**: when testing with a grand quantity of interconnected classes (lots of shared dependencies in a unit), it can be troublesome to design a specific test that comprehends the problem domain of the unit being tested. The classical approach only replaces the shared dependencies as the London approach replaces all the dependencies (except for the immutable ones) with the use of mock objects referred in section X.XX. This provides a reduction in complexity reducing substantially the amount of preparation necessary for a unit test;
+* **Bug location**:
+* **Test-driven development (TDD)**:
+* **System specifications**:
 
 ### Relationship between Unit and Integration Testing (TODO)
 
