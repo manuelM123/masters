@@ -4,7 +4,7 @@ Sources:
 
 [1] (last searched: 17/1/2023) https://www.guru99.com/unit-testing-guide.html
 
-[2] (last searched: 30/1/2023)
+[2] (last searched: 31/1/2023)
 https://livebook.manning.com/book/unit-testing/chapter-1/6
 
 [3] (last searched: 17/1/2023)
@@ -12,6 +12,9 @@ https://thevaluable.dev/fighting-software-entropy/
 
 [4] (last searched: 26/1/2023)
 http://xunitpatterns.com/
+
+[5] (last searched: 31/1/2023)
+https://8thlight.com/insights/tdd-from-the-inside-out-or-the-outside-in
 
 ## What is a Unit Test
 
@@ -111,11 +114,13 @@ The root diference between the two approaches is the isolation attribute of a un
 
 Both approaches possess different benefits according their specific use. Overall a group of points can be made regarding the choice of each approach:
 
-* **Granularity**: the tests following the London approach are fine-grained and check only one class at time instead of the Classical approach who checks a set of classes. Checking once at a time reduces the complexity to resolve certain erroneous situations when they happen. Code being fine-grained allows easier testing of units, making it easier to write focused tests for specific units; 
+* **Granularity**: the tests following the London approach are more fine-grained and check only one class at time instead of the Classical approach who can more than one class in certain situations. Checking once at a time reduces the complexity to resolve certain erroneous situations when they happen. Code being fine-grained allows easier testing of units, making it easier to write focused tests for specific units; 
 * **Testing in a large amount**: when testing with a grand quantity of interconnected classes (lots of shared dependencies in a unit), it can be troublesome to design a specific test that comprehends the problem domain of the unit being tested. The classical approach only replaces the shared dependencies as the London approach replaces all the dependencies (except for the immutable ones) with the use of mock objects referred in section X.XX. This provides a reduction in complexity reducing substantially the amount of preparation necessary for a unit test;
-* **Bug location**:
-* **Test-driven development (TDD)**:
-* **System specifications**:
+* **Bug location**: when applying a London approach, only tests whose SUT has the bug will fail. With the London approach is easier to track the location of the bug. When applying a Classical approach, all the tests that target clients of the defective class will all be affected, this situation tends to provoke failures across the parts of the system. With the Classical approach, various parts of the system will fail, and it is extremely complex to find the location of the bug. However this latter reveals itself favorable in certain situations. Failures happening in lots of tests is a good indication that the altered code, that provoked the failures, is important for the overall functionality of the system being a useful information to keep in mind when adjusting the code [2].
+* **Test-driven development (TDD)**: London and Classical approaches have different types to apply TDD: 
+    * **Classical Approach**: applies a inside-out TDD (Bottom Up approach). With this approach, each part (i.e. an individual class or module) is created sequentially until the overall system is built up. Building up a part at a time reduces the complexity of the work to be done [5]. Tests are created for simpler levels of the system (initial parts) in a sequential manner being added more tests as the system develops; 
+    * **London Approach**: applies a outside-in TDD (Top Down approach). With this approach, higher-level tests are made that set expectations for the whole functionality of the system. The tests are based on user scenarios, and all the parts are interconnected at the start [5]. Initial tests that cover interactions between parts are made and sequentially more tests will be created covering more specifically each constituent part of the system;
+    * **Over-specification**: this entails the coupling of tests to a SUT implementation. The London approach tends to produce tests that couple to the implementation more often than the classical approach because of the use of test doubles [2]. This higher coupling can lead to tests that are fragile and prone to failures when the implementations changes. Higher the coupling, higher the chances to occur test failures when changes are made to the SUT implementation.
 
 ### Relationship between Unit and Integration Testing (TODO)
 
