@@ -4,7 +4,7 @@ Sources:
 
 [1] (last searched: 17/1/2023) https://www.guru99.com/unit-testing-guide.html
 
-[2] (last searched: 31/1/2023)
+[2] (last searched: 2/3/2023)
 https://livebook.manning.com/book/unit-testing/chapter-1/6
 
 [3] (last searched: 17/1/2023)
@@ -16,11 +16,20 @@ http://xunitpatterns.com/
 [5] (last searched: 31/1/2023)
 https://8thlight.com/insights/tdd-from-the-inside-out-or-the-outside-in
 
+[6] (last searched: 2/3/2023)
+https://enterprisecraftsmanship.com/posts/when-to-mock/
+
 ## What is a Unit Test
 
 ### Definition
 
-Unit testing can be defined as an activity which the main objective is to perform quick tests in small segments of code in a isolated state, separated from the rest of the constituent parts of the system. The realm of unit testing is a highly multifaceted theme, where differing perspectives and interpretations are commonplace. Amongst the various approaches, two stand out as prominent - the Classical school approach and the London school of unit testing. These approaches, while both focused on unit testing, possess distinct variations in their understanding and handling of the concept of "isolation" within a unit test. 
+Unit testing can be defined as an activity which the main objective is to perform quick tests in small segments of code in a isolated state, separated from the rest of the constituent parts of the system. More concretly, a unit test must follow three requeriments:
+
+* Verifies a single unit of behavior;
+* Performs it quickly;
+* Isolated from other tests.
+
+The realm of unit testing is a highly multifaceted theme, where differing perspectives and interpretations are commonplace. Amongst the various approaches, two stand out as prominent - the Classical school approach and the London school of unit testing. These approaches, while both focused on unit testing, possess distinct variations in their understanding and handling of the concept of "isolation" within a unit test. 
 
 
 ### London School of Unit Testing
@@ -67,12 +76,11 @@ These dependencies situations are handled differently in the classical school ap
 
 ![](https://i.imgur.com/Vf4o1vU.png)
 
-Shared dependencies are shared *between unit tests*, not between SUTs (units). In this way of thinking, a singleton dependency is not shared if it's possible to create a new instance of it for each test. If there is only one instance of a singleton in production code, then this latter is shared between all unit tests in the SUT as a shared dependency.
+Shared dependencies are shared *between unit tests*, not between SUTs (units). In this way of thinking, a dependency is not shared if it's possible to create a new instance of it for each test. If there is only one instance of a dependency in production code, then this latter is shared between all unit tests in the SUT as a shared dependency.
 
 Replacing shared dependecies proves to be quite useful regarding the increase of test execution speeds. Calls to shared dependencies take more time than calls to the privates ones, because the shared dependencies are out of execution process of the tests. Unit testing requires the execution of **quick tests** being this an important aspect taking into account.
 
 The use of dependencies is part of the realm of unit testing and integration testing. The way every every unit of the system interacts with the use of dependencies is a very important theme to provide a correct process of creation of a system. The actual use of dependencies and its impact on the general behaviour of a system are talked more in depth in the subsection **"Relationship between Unit and Integration Testing"**.
-
 
 
 ### How the approaches handle the dependencies
@@ -122,7 +130,31 @@ Both approaches possess different benefits according their specific use. Overall
     * **London Approach**: applies a outside-in TDD (Top Down approach). With this approach, higher-level tests are made that set expectations for the whole functionality of the system. The tests are based on user scenarios, and all the parts are interconnected at the start [5]. Initial tests that cover interactions between parts are made and sequentially more tests will be created covering more specifically each constituent part of the system;
     * **Over-specification**: this entails the coupling of tests to a SUT implementation. The London approach tends to produce tests that couple to the implementation more often than the classical approach because of the use of test doubles [2]. This higher coupling can lead to tests that are fragile and prone to failures when the implementations changes. Higher the coupling, higher the chances to occur test failures when changes are made to the SUT implementation.
 
-### Relationship between Unit and Integration Testing (TODO)
+### Mocks and Test Fragility
+
+The use of mocks can introduce some fragility to the SUT being tested. Replacing certain dependencies with mocks can add dissonances when the SUT in question is changed. These fragilities can be caused by a set of factors who will be explained in the following sections.
+
+#### Communications between systems
+
+Communications within a application is a important aspect to take into account as this is directly correlated to the use of mock objects. It's necessary to distinguish two types of communication: **Intra-system communication** and **Inter-system communication**.
+
+Intra-system communications consist in communications between classes within the application. Inter-system communications encompass all the external communications between a application and external applications.
+
+The intra-system communications are the implementation details within a application because the classes themselves communicate in the application domain in order to perform an operation. Coupling to these collaborations between classes can induce fragile tests [2].
+
+The inter-system communications describe the way a application or system talks to external entities which forms an observable behavior of the system (result of output according a certain input.)
+
+Mocks can be used for intra and inter communications. It can be used to verify internal and external communications within a system however, as stated before, verifying communications between classes in a system results in tests that couple more to the implementation details leading to fragile tests. In this situation, unit tests with low resistance to refactoring are created.
+
+The figure X.XX demonstrates a visual representation a example of each type of communication between a communication, it's constituent parts and external entities. 
+
+![](https://i.imgur.com/v63LZTI.png) [6]
+
+#### Classical and London Approaches on Mocks
+
+The approaches refered in sections X.XX and X.XX, have different ways to apply mocks (test doubles) to replace dependencies within a system.
+
+
 
 ## Purpose 
 
@@ -207,6 +239,12 @@ In a TDD, the tests are created before any code is done, in other words, tests a
 
 This phase can be an additional section to unit testing. Its purpose comprehends the cleaning of resources and other tasks after the unit tests are created. It can be viewed as a "non strictly necessary" section, a unit test has an independent nature and as such it doesn't talk to out-of-process dependencies. The implementation of this phase is heavily associated as part of an integration testing instead of unit testing.
 
+## Unit Test Quality
+
+(ver secção 4 - 4.3)
+
+## Relationship between Unit and Integration Testing (TODO)
+...
 
 ## Automated and Manual Testing
 ...
