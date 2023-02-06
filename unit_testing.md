@@ -38,7 +38,7 @@ This approach considers isolating the SUT from its collaborators, which means if
 
 *Test Double* - operation used in unit testing to replace a object or component present in the system under test. It acts and looks similar to the object/component replaced but its a lot less complex and facilitates testing in the SUT. 
 
-Figure ... shows the isolation in this approach is achieved by replacing SUT dependencies by test doubles:
+Figure X.XX shows how the isolation in this approach is achieved by replacing SUT dependencies by test doubles:
 
 ![](https://i.imgur.com/2JCxKGC.png) [2]
 
@@ -57,6 +57,8 @@ The test doubles can be used in a multitude of ways, it can be done manually or 
 This approach also defends the creation of a set of classes for each unit being tested. This enables the testing of a unit at a time comprising a well structured unit test suite.
 
 ![](https://i.imgur.com/aSbVYD4.png) [2]
+
+This approach is also heavily associated with the use of mock objects to simulate the behavior of dependencies.
 
 ### Classical School Approach
 
@@ -128,13 +130,13 @@ Both approaches possess different benefits according their specific use. Overall
 * **Test-driven development (TDD)**: London and Classical approaches have different types to apply TDD: 
     * **Classical Approach**: applies a inside-out TDD (Bottom Up approach). With this approach, each part (i.e. an individual class or module) is created sequentially until the overall system is built up. Building up a part at a time reduces the complexity of the work to be done [5]. Tests are created for simpler levels of the system (initial parts) in a sequential manner being added more tests as the system develops; 
     * **London Approach**: applies a outside-in TDD (Top Down approach). With this approach, higher-level tests are made that set expectations for the whole functionality of the system. The tests are based on user scenarios, and all the parts are interconnected at the start [5]. Initial tests that cover interactions between parts are made and sequentially more tests will be created covering more specifically each constituent part of the system;
-    * **Over-specification**: this entails the coupling of tests to a SUT implementation. The London approach tends to produce tests that couple to the implementation more often than the classical approach because of the use of test doubles [2]. This higher coupling can lead to tests that are fragile and prone to failures when the implementations changes. Higher the coupling, higher the chances to occur test failures when changes are made to the SUT implementation.
+* **Over-specification**: this entails the coupling of tests to a SUT implementation. The London approach tends to produce tests that couple to the implementation more often than the classical approach because of the use of test doubles [2]. This higher coupling can lead to tests that are fragile and prone to failures when the implementations changes. Higher the coupling, higher the chances to occur test failures when changes are made to the SUT implementation.
 
 ### Mocks and Test Fragility
 
 The use of mocks can introduce some fragility to the SUT being tested. Replacing certain dependencies with mocks can add dissonances when the SUT in question is changed. These fragilities can be caused by a set of factors who will be explained in the following sections.
 
-#### Communications between systems
+#### Communications in a system
 
 Communications within a application is a important aspect to take into account as this is directly correlated to the use of mock objects. It's necessary to distinguish two types of communication: **Intra-system communication** and **Inter-system communication**.
 
@@ -144,17 +146,24 @@ The intra-system communications are the implementation details within a applicat
 
 The inter-system communications describe the way a application or system talks to external entities which forms an observable behavior of the system (result of output according a certain input.)
 
-Mocks can be used for intra and inter communications. It can be used to verify internal and external communications within a system however, as stated before, verifying communications between classes in a system results in tests that couple more to the implementation details leading to fragile tests. In this situation, unit tests with low resistance to refactoring are created.
+Mocks can be used for intra-system and inter-system communications. It can be used to verify internal and external communications within a system however, as stated before, verifying communications between classes (at a internal level) in a system results in tests that couple more to the implementation details leading to fragile tests. In this situation, unit tests with low resistance to refactoring are created. This latter attribute refers to the degree to which a test can sustain refactoring without introducing any kind of error (failing). Tests that are thightly coupled to the implementation tend to be fragile tests, as a constant maintenance is needed as the SUT changes. Mocks are mostly recommended for external communications or in this case inter-system communications. 
 
 The figure X.XX demonstrates a visual representation a example of each type of communication between a communication, it's constituent parts and external entities. 
 
 ![](https://i.imgur.com/v63LZTI.png) [6]
 
-#### Classical and London Approaches on Mocks
+#### Classical and London Approaches Revisited
 
-The approaches refered in sections X.XX and X.XX, have different ways to apply mocks (test doubles) to replace dependencies within a system.
+London approach, as mentioned in section X.XX, defends the use of test doubles to replace all but immutable dependencies and because of this it doesn't differentiate between intra-system and inter-system communications. It's main purpose is to simulate behavior of the dependencies and verify the SUT. As a result, these tests verify the communications between classes as much they verify the communications between external entities.
 
+Classical approach, as referred in section X.XX, it only replaces the shared dependencies between unit tests. This approach prevents the unit tests in SUT from running in parallel and consecutively it doesn't allow for tests to interfere with each other's executions. However as it deals with the internal scope of a aplication, it is not ideal for inter-system communications.
 
+In cases for the non out-of-process shared dependencies, they can be prevented by instanciating them on each test run. In situations where this type of dependency is out-of-process, testing gets harder because instanciating out-of-process elements before each test execution is not correct (instanciating a new database for example) as this slows down the test suite. For these types of cases, replacing the dependencies with test doubles such as mocks objects is more correct. London school approach is known to use test doubles to replace the dependencies with the use of mocks. But as stated in section "Communications in a system", mocks can lead to fragile tests. 
+
+#### Proper use of Mocks
+One way to eliminate the fragility of the mocks is to use them for ***unmanaged dependencies***. Interactions with this type of dependency are observed *externally*. Interactions produce an observable behavior of the system that communicates with a external system. There is a clear distinction between *unmanaged dependencies* and *managed dependencies* and it's the ability to have control over them. *Managed* refers to dependencies that are only acessible through a application (application has full control over them) as *Unmanaged*  refers to dependencies that a application cannot control completely. One example of an unmanaged dependency would be as SMTP server, the ability to send emails is not controlled by the application but by a external service. A example of a managed dependency would be a database, as this latter is acessed by the application through the use of APIs.
+
+Dependencies are an essential part of an application domain being extremely important for communications at an internal state (intra-system) or at an external level (inter-system). Mocks should be used for *unmanaged dependencies* as these ones maintain it's functionality no matter any type of refactoring done at the system's internal level. With this, prevention is made regarding fragile tests as the main reason mocks are fragile correlates to the resistance-to-factoring metric already mentioned in section "Communications in a system".
 
 ## Purpose 
 
