@@ -250,7 +250,71 @@ This phase can be an additional section to unit testing. Its purpose comprehends
 
 ## Unit Test Quality
 
-(ver secção 4 - 4.3)
+For a unit test to be considered of high quality it must follow four attributes being:
+* Protection against regressions;
+* Resistant to refactoring operations;
+* Provide fast feedback;
+* Maintainability.
+
+A unit test can be evaluated according to these attributes as all tests exhibits some degree of each attribute. Each of these attributes possess different particularities, being this explained in order of appearance.
+
+### Protection against regressions
+
+In the scope of software, *regression* is when a feature stops working as intented after a certain event was done [2]. The term *regression* can also be called *software bug*.
+
+Regression is more likely to appear when a project possesses a large code base. As more functionalities are developed, higher the chances *software bugs* will appear and because of this a much needed protection must be present in order to sustain a project in the long run. A test can be measured regarding its protection against regressions according to three metrics:
+
+1. **How much code is executed during the test;**
+2. **Complexity of the code executed;**
+3. **How important the code is for the intended domain.**
+
+- For point **1**, higher the amount of code executed, higher the chances the test will reveal a presence of a regression. Testing large amounts of code can help determine how well the latter is protected against possible regressions;
+
+ - For point **2**, complex code is better than trivial code. It's rare to occur regressions in trivial code rather than complex code as it is more simple. Simpler code sometimes does not possess complex elements, like libraries or frameworks for example, that increase the overall complexity of the code and can introduce an higher chance of occurrence of *sofware bugs*;
+
+- For point **3**, code that is not relevant for the problem domain is not even worthwhile to measure its protection against regressions. Only code that targets the domain problem should be measured.
+
+### Resistance to refactoring
+
+This attribute refers how much a test can sustain refactoring operations without being compromised or in another words, keeping its functionality without failing. Refactoring is an operation that consists in changing existing code without altering its observable behavior being normally done for code improvements. In order to evalue how good a test is resistant to refactoring operations, a term must be introduced being this the ***false positive*** term. The lower the false positives, higher the resistance the test possesses and vice-versa.
+
+#### False Positive
+
+When refactoring operations are made in a working system, often times after these operations are made, certain tests accuse failures on their execution. These failures do not accuse anything wrong with the system features as these continue to work as intended despite the failures from the tests. The problem here is that the tests are tightly coupled to the implementation details of the SUT and with SUT changes, that were made by refactoring operations, these tests accuse a failure raising a false alarm. This type of situation is referred as a ***false positive*** [2]. The test fails however the functionality it covers works as intended.
+
+False positives often appear in refactoring situations, where a change is made in the implementation but the observable behavior is kept intact. They can be devastating for the overall development of a project as it can damage the perceptivity of the overall correctness of the latter. Initially developers take test failures as a serious matter dealing with them accordingly. However if a constant sequence of failures is presented, developers tend to ignore them more each time and this is because of previous false alarms they had (provoked by false positives). Eventually a released software will possess a good amount of bugs lowering the value of the latter. This is why false positives can be damaging and the tests should not couple too much to the implementation details of the unit they are testing. 
+
+In order to reduce the brittleness of the tests, these need verify the end result of the SUT and not couple too much to the implementation details within [2]. A verification of the result can provide more resistance to refactoring operations, the test is not too concerned about which steps were necessary to do something, it's concerned about the end result of the SUT and if this corresponds to the expected result.
+
+### Fast Feedback
+
+A unit test that produces a faster feedback is always more advantageous that one that does not. Faster tests enable faster feedback which then can be used to fix bugs rapidly in case they appear. Slower tests produce a slower feedback, increasing the period of time to correct a certain bug and thus increasing overall time of correction of successive bugs that appear in the long run. Slower tests can also cause a "discouragement" effect for the developer, these take to much time to run and most of these tests will be ignored due to the extensive time they take to execute compromising the quality of the software in the end.
+
+### Maintainability
+
+Regarding the maintainability aspect, this metric corresponds to what extent a unit test can suffer modifications to be modified, improved or updated without introducing bugs or issues. A unit that is maintainable is better that one who is not. This attribute can be divided in two important aspects:
+
+* ***Is it hard to understand the test**?*: this question is correlated to the size of test. A test with a huge amount of lines of code, the less readable it is and it's harder to modify. A test with fewer amount of code should always be the priority as it's more easier to read and to modify it. The reduction of the size should always be sought out without compromising the quality of the unit test;
+* ***Is it hard to run the test?***: this question corresponds to the complexity of execution of the test. A test that is harder to run, requires more time or more effort that ones that are simpler. Tests that uses out-of-process dependencies, for example, need much more effort and time to execute than one that does not. Such tests are harder to modify.
+
+### Test Accuracy (section 4.2.1)
+
+The attributes mentioned in section "Protection against regressions" and "Resistance to refactoring" are related regarding the accuracy of a unit test. Both of them contribute for the accuracy in different forms as the main objective it's to try maximize the latter.
+
+When speaking about test accuracy, three additional terms must be explained as the *false positive* term was already introduced in section "Resistance to refactoring". These terms can be shown in the following table:
+
+|             | Correct Functionality | Broken Functionality 
+| ----------- | --------------------- | --------------------
+| Test Passes | Correct inference (True negative) | False negative |
+| Test Fails  | False positive | Correct inference (True positive) |
+
+* **True negative**: a test passes and the behavior of the SUT occurs as expected;
+* **True positive**: a test fails and the correspondent functionality of the SUT is broken. It's expected for the test to fail if the functionality is broken;
+* **False negative**: the test passes and the functionality does not present a expected behavior. This is associated with the *Protection against regressions* attribute. Tests with good protection against regressions help avoid *false negatives*;
+* **False positive**: the test fails but the functionality occurs as expected. This is associated with the *Resistance to refactoring* attribute. Tests that have a good resistance to refactoring help avoid *false positives*.
+
+(continue ...)
+
 
 ## Relationship between Unit and Integration Testing (TODO)
 ...
