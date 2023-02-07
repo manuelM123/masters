@@ -313,7 +313,7 @@ When speaking about test accuracy, three additional terms must be explained as t
 * **False negative**: the test passes and the functionality does not present a expected behavior. This is associated with the *Protection against regressions* attribute. Tests with good protection against regressions help avoid *false negatives*;
 * **False positive**: the test fails but the functionality occurs as expected. This is associated with the *Resistance to refactoring* attribute. Tests that have a good resistance to refactoring help avoid *false positives*.
 
-(continue ...)
+(continue)
 
 
 ## Relationship between Unit and Integration Testing (TODO)
