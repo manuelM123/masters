@@ -4,7 +4,7 @@ Sources:
 
 [1] (last searched: 17/1/2023) https://www.guru99.com/unit-testing-guide.html
 
-[2] (last searched: 2/3/2023)
+[2] (last searched: 8/2/2023)
 https://livebook.manning.com/book/unit-testing/chapter-1/6
 
 [3] (last searched: 17/1/2023)
@@ -16,7 +16,7 @@ http://xunitpatterns.com/
 [5] (last searched: 31/1/2023)
 https://8thlight.com/insights/tdd-from-the-inside-out-or-the-outside-in
 
-[6] (last searched: 2/3/2023)
+[6] (last searched: 3/2/2023)
 https://enterprisecraftsmanship.com/posts/when-to-mock/
 
 ## What is a Unit Test
@@ -76,7 +76,7 @@ This highlights the possible dangers of shared dependencies within unit testing.
 
 These dependencies situations are handled differently in the classical school approach. In this approach, only shared dependencies are replaced and private ones are maintained as the figure X.XX shows. 
 
-![](https://i.imgur.com/Vf4o1vU.png)
+![](https://i.imgur.com/Vf4o1vU.png) [2]
 
 Shared dependencies are shared *between unit tests*, not between SUTs (units). In this way of thinking, a dependency is not shared if it's possible to create a new instance of it for each test. If there is only one instance of a dependency in production code, then this latter is shared between all unit tests in the SUT as a shared dependency.
 
@@ -107,9 +107,9 @@ Often times the term *collaborator* is used for the London School approach to me
 
 Another aspect to take into account is where a *out-of-process* dependencies blends in all this rationale. Not all dependencies of this type are *out-of-process*, it depends on certain situations:
 
-* *Shared* and *out-of-process*: an example of this is a database. It is used by tests (shared) and it's out of the main process (out-of-process);
-* *Shared* and non *out-of-process*: a singleton is a good example for this. Being reused by tests (shared) but it is not out of the main process of the tests (non *out-of-process*);
-* Non *Shared* and *out-of-process*: an API service can be an example of this type of situation. Tests can't modify the API and therefore can't interfere in each other's behavior (non *shared*) while being out of the main process (*out-of-process*).
+* ***Shared* and *out-of-process***: an example of this is a database. It is used by tests (shared) and it's out of the main process (out-of-process);
+* ***Shared* and non *out-of-process***: a singleton is a good example for this. Being reused by tests (shared) but it is not out of the main process of the tests (non *out-of-process*);
+* **Non *Shared* and *out-of-process***: an API service can be an example of this type of situation. Tests can't modify the API and therefore can't interfere in each other's behavior (non *shared*) while being out of the main process (*out-of-process*).
 
 
 ### Differences between approaches (see section 2.3)
@@ -288,7 +288,7 @@ In order to reduce the brittleness of the tests, these need verify the end resul
 
 ### Fast Feedback
 
-A unit test that produces a faster feedback is always more advantageous that one that does not. Faster tests enable faster feedback which then can be used to fix bugs rapidly in case they appear. Slower tests produce a slower feedback, increasing the period of time to correct a certain bug and thus increasing overall time of correction of successive bugs that appear in the long run. Slower tests can also cause a "discouragement" effect for the developer, these take to much time to run and most of these tests will be ignored due to the extensive time they take to execute compromising the quality of the software in the end.
+A unit test that produces a faster feedback is always more advantageous that one that does not. Faster tests enable faster feedback which then can be used to fix bugs rapidly in case they appear. Slower tests produce a slower feedback, increasing the period of time to correct a certain bug and thus increasing overall time of correction of successive bugs that appear in the long run. Slower tests can also cause a "discouragement" effect for the developer, these take to much time to run and most of these tests will be ignored due to the extensive time they take to execute, compromising the quality of the software in the end.
 
 ### Maintainability
 
@@ -297,7 +297,7 @@ Regarding the maintainability aspect, this metric corresponds to what extent a u
 * ***Is it hard to understand the test**?*: this question is correlated to the size of test. A test with a huge amount of lines of code, the less readable it is and it's harder to modify. A test with fewer amount of code should always be the priority as it's more easier to read and to modify it. The reduction of the size should always be sought out without compromising the quality of the unit test;
 * ***Is it hard to run the test?***: this question corresponds to the complexity of execution of the test. A test that is harder to run, requires more time or more effort that ones that are simpler. Tests that uses out-of-process dependencies, for example, need much more effort and time to execute than one that does not. Such tests are harder to modify.
 
-### Test Accuracy (section 4.2.1)
+### Test Accuracy
 
 The attributes mentioned in section "Protection against regressions" and "Resistance to refactoring" are related regarding the accuracy of a unit test. Both of them contribute for the accuracy in different forms as the main objective it's to try maximize the latter.
 
@@ -308,14 +308,51 @@ When speaking about test accuracy, three additional terms must be explained as t
 | Test Passes | Correct inference (True negative) | False negative |
 | Test Fails  | False positive | Correct inference (True positive) |
 
-* **True negative**: a test passes and the behavior of the SUT occurs as expected;
-* **True positive**: a test fails and the correspondent functionality of the SUT is broken. It's expected for the test to fail if the functionality is broken;
-* **False negative**: the test passes and the functionality does not present a expected behavior. This is associated with the *Protection against regressions* attribute. Tests with good protection against regressions help avoid *false negatives*;
-* **False positive**: the test fails but the functionality occurs as expected. This is associated with the *Resistance to refactoring* attribute. Tests that have a good resistance to refactoring help avoid *false positives*.
+* ***True negative***: a test passes and the behavior of the SUT occurs as expected;
+* ***True positive***: a test fails and the correspondent functionality of the SUT is broken. It's expected for the test to fail if the functionality is broken;
+* ***False negative***: the test passes and the functionality does not present a expected behavior. This is associated with the *Protection against regressions* attribute. Tests with good protection against regressions help avoid *false negatives*;
+* ***False positive***: the test fails but the functionality occurs as expected. This is associated with the *Resistance to refactoring* attribute. Tests that have a good resistance to refactoring help avoid *false positives*.
 
-(continue)
+The accuracy of a unit test can be measured according the probability of *false positives* and *false negatives*. The lower the probability, higher the accuracy of the test. As mentioned above, each of these correspond to two important attributes for a good unit test being *protection against regressions* (*false negatives*) and *resistance to refactoring* (*false positives*). The accuracy is measured on how good the test indicates the presence of bugs (lack of *false negatives*, *protection against regressions*) and how good the test indicates the absence of bugs (*lack of false positives*, *resistance to refactoring*) [2].
 
+(info adicional em baixo)
 
+:::info
+
+**Absence of Bugs**
+
+The absence of bugs in the SUT is directly related to false positives in a unit test because if there are no bugs in the SUT, the test should not report any failures or errors. If the unit test reports failures or errors in this scenario, it is a false positive and the test is not accurate. On the other hand, if a unit test correctly reports the absence of bugs in the SUT, it is considered accurate, and this means that it is less prone to false positives. The accuracy of a unit test in indicating the absence of bugs is an important metric to measure the quality of the test and its usefulness in detecting real problems in the SUT.
+
+**Presence of Bugs**
+
+False negatives occur when a unit test fails to catch a bug that exists in the system under test (SUT). If a bug is present in the SUT, the unit test should detect it and indicate failure. If the test passes but the bug is still present, this is a false negative and the bug can go unnoticed and cause problems later on. The presence of bugs in the SUT and the resulting false negatives can negatively impact the reliability and confidence in the results of the unit tests, leading to a lack of trust in the test suite.
+:::
+
+Another way to perform a accuracy measure of a unit test can be demonstrated in the following formula [2]:
+
+$Test \ accuracy = Signal \ (number \ of \ bugs \ found) \ / \ Noise \ (number \ of \ false \ alarms \ raised)$
+
+The formula uses a signal-noise ratio to measure how a accurate a unit test can be. A accurate unit test must possess a higher *signal* (higher numerator which indicates the test is capable of finding regressions) and a lower *noise* (lower denominator which indicates the test is better at not raising false alarms). A test that can't find bugs but does not raise false alarms (lower numerator and lower denominator) is not of any use. The same can be said in the opposite situation, a test that can find bugs but raises false alarms (higher numerator and higher denominator) is not of any use either. These situations are useful to measure how a accurate a test can be relatively to finding regressions and raising false alarms. 
+
+### Best attribute ratio
+
+A good unit test, as mentioned in the beginning of the section "Unit Test Quality", must follow four attributes being *protection against regressions*, *resistance to refactoring*, *fast feedback* and *maintainability*. However it's extremely difficult to achieve a unit test that excels in *protection against regressions*, *resistance to refactoring* and *fast feedback* at the same time [2]. In this case, excelling in a certain attribute comes at a cost of lacking in another.
+
+There's multiple praticle examples of types of tests that prove the point being:
+
+* ***End-to-end tests***: these tests are focused in the user's perspective, they emulate users interactions in a system. This type of test is well protected against regressions as exercises a large amount of code (including libraries, frameworks, and another related applications) and *false positives* are generally less common as these tests verify the behavior of the system as a whole making it less likely to react to refactoring operations (if refactoring is done correctly and does not change interactions between components). However it does not fare well in the *fast feedback* attribute, as it exercises a large amount of code being specially slow. It's a hassle to apply when developing a software to be fast delivered;
+
+* ***Trivial tests***: simple tests that check if a basic functionality of a SUT works as expected. These tests fare well in the *fast feedback* attribute as they are simple tests that provide fast responses. They also are less prone to produce *false positives* as they verify the end result of the SUT rather than the implementation details. This means if the end result stays the same after refactoring operations, these tests will pass even after a change in the internal details of a SUT. For these reasons, they are more resistant to refactoring and less prone to fragile tests. However these are not protected against regressions, being simple tests they are almost meaningless, they test the basic functionality of the SUT not covering important parts and thus not able to detect possible bugs to occur;
+
+* ***Brittle tests***: these tests are known to be fragile because they are not resistant to refactoring operations. They are very prone to *false positives*, the tests will acuse failures after refactoring operations. A slight chance on the implementation details of a SUT can accuse a failure from the test even if the functionality remains as expected. Despite this, these tests fare well in the *protection against regressions* and *fast feedback* attributes as they typically detect changes in the system and as they are not too complex, they provide a fast response when executed.
+
+#### Balance between attributes
+
+It's especially hard to create a unit test that has a perfect score for the *protection against regressions*, *resistance to refactoring* and *fast feedback* attributes. A unit test, can excel in two attributes at the cost of one of them as demonstrated in the previous section. A unit test should possess a healthy balance between these three attributes without letting any of them behind. 
+It's nearly impossible to create a ideal test that maximizes these three attributes [2], the necessity to apply trade-offs for the attributes is a harsh reality. In accordance to the three attributes, each one of them must be viewed with different levels of malleability.
+For the *resistance to refactoring* attribute, this is one is a very important one because a test either has resistance or it does not, there is almost no stages in between [2]. A test can't concede between a much or less resistance, either it has resistance or none at all. The trade-off comes regarding the remaining two attributes *protection against regressions* and *fast feedback* as these two are more malleable. A test can be less or more quick to respond as the same can be said for a test that can protect more against bugs or one that does not protect as much. A balanced choice must be made between these attributes in order for them to not be less impactful than the other.
+
+Regarding the maintainability attribute, while not being correlated to the first three, a code must be as maintainable as possible. A test that is large in size, like a end-to-end test, that exercises a large amount of code it's necessary an effort to keep everything operational in the long run.
 ## Relationship between Unit and Integration Testing (TODO)
 ...
 
