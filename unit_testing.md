@@ -82,7 +82,11 @@ Shared dependencies are shared *between unit tests*, not between SUTs (units). I
 
 Replacing shared dependecies proves to be quite useful regarding the increase of test execution speeds. Calls to shared dependencies take more time than calls to the privates ones, because the shared dependencies are out of execution process of the tests. Unit testing requires the execution of **quick tests** being this an important aspect taking into account.
 
+:::warning
+**(usar na secção unit and integration testing???)**
+
 The use of dependencies is part of the realm of unit testing and integration testing. The way every every unit of the system interacts with the use of dependencies is a very important theme to provide a correct process of creation of a system. The actual use of dependencies and its impact on the general behaviour of a system are talked more in depth in the subsection **"Relationship between Unit and Integration Testing"**.
+:::
 
 
 ### How the approaches handle the dependencies
@@ -142,9 +146,9 @@ Communications within a application is a important aspect to take into account a
 
 Intra-system communications consist in communications between classes within the application. Inter-system communications encompass all the external communications between a application and external applications.
 
-The intra-system communications are the implementation details within a application because the classes themselves communicate in the application domain in order to perform an operation. Coupling to these collaborations between classes can induce fragile tests [2].
+The **intra-system communications** are the implementation details within a application because the classes themselves communicate in the application domain in order to perform an operation. Coupling to these collaborations between classes can induce fragile tests [2].
 
-The inter-system communications describe the way a application or system talks to external entities which forms an observable behavior of the system (result of output according a certain input.)
+The **inter-system communications** describe the way a application or system talks to external entities which forms an observable behavior of the system (result of output according a certain input.)
 
 Mocks can be used for intra-system and inter-system communications. It can be used to verify internal and external communications within a system however, as stated before, verifying communications between classes (at a internal level) in a system results in tests that couple more to the implementation details leading to fragile tests. In this situation, unit tests with low resistance to refactoring are created. This latter attribute refers to the degree to which a test can sustain refactoring without introducing any kind of error (failing). Tests that are thightly coupled to the implementation tend to be fragile tests, as a constant maintenance is needed as the SUT changes. Mocks are mostly recommended for external communications or in this case inter-system communications. 
 
@@ -161,9 +165,37 @@ Classical approach, as referred in section X.XX, it only replaces the shared dep
 In cases for the non out-of-process shared dependencies, they can be prevented by instanciating them on each test run. In situations where this type of dependency is out-of-process, testing gets harder because instanciating out-of-process elements before each test execution is not correct (instanciating a new database for example) as this slows down the test suite. For these types of cases, replacing the dependencies with test doubles such as mocks objects is more correct. London school approach is known to use test doubles to replace the dependencies with the use of mocks. But as stated in section "Communications in a system", mocks can lead to fragile tests. 
 
 #### Proper use of Mocks
-One way to eliminate the fragility of the mocks is to use them for ***unmanaged dependencies***. Interactions with this type of dependency are observed *externally*. Interactions produce an observable behavior of the system that communicates with a external system. There is a clear distinction between *unmanaged dependencies* and *managed dependencies* and it's the ability to have control over them. *Managed* refers to dependencies that are only acessible through a application (application has full control over them) as *Unmanaged*  refers to dependencies that a application cannot control completely. One example of an unmanaged dependency would be as SMTP server, the ability to send emails is not controlled by the application but by a external service. A example of a managed dependency would be a database, as this latter is acessed by the application through the use of APIs.
+One way to eliminate the fragility of the mocks is to use them for ***unmanaged dependencies***. Interactions with this type of dependency are observed *externally*. Interactions produce an observable behavior of the system that communicates with a external system. There is a clear distinction between *unmanaged dependencies* and *managed dependencies* and it's the ability to have control over them. *Managed* refers to dependencies that are only acessible through a application (application has full control over them) as *Unmanaged*  refers to dependencies that a application cannot control completely. One example of an unmanaged dependency would be a SMTP server, the ability to send emails is not controlled by the application but by a external service. A example of a managed dependency would be a database, as this latter is acessed by the application through the use of APIs.
 
 Dependencies are an essential part of an application domain being extremely important for communications at an internal state (intra-system) or at an external level (inter-system). Mocks should be used for *unmanaged dependencies* as these ones maintain it's functionality no matter any type of refactoring done at the system's internal level. With this, prevention is made regarding fragile tests as the main reason mocks are fragile correlates to the resistance-to-factoring metric already mentioned in section "Communications in a system".
+
+#### Unit and Integration Testing 
+
+Unit testing isn't the only operation necessary to contribute for a well working system as this latter only verifies the behavior of a individual component of the system. In order to provide a thorough verification of the  behavior between system components, a operation called ***Integration Testing*** is needed. This operation verifies the behavior of the constituent parts of a system, how they communicate and behave with each other. 
+Unit tests and integration tests are correlated regarding their main objective that is to provide a well working system by in a first instance test early layers of the system in a individual scope (executed by unit testing) and afterwards test if the units that compose the system, behave as expected (executed by integration testing).
+
+##### Dependencies usage
+
+The use of dependencies is part of the realm of unit testing and integration testing. The way every every unit of the system interacts with the use of dependencies is a very important theme to provide a correct process of creation of a system. For example a certain SUT, that represents a part of the system, is chosen to be tested to verify if the implementation behaves according expectation. This latter can possibily necessitate to use a dependency in order to perform its operations. In the realm of unit testing, the objective is to verify the SUT behavior in isolation, as in the realm of integration testing is to verify the communications and interactions between units of a system. However as stated before, to test certain units some dependencies are needed to perform the SUT operations. According to the different approaches on unit testing, Classical and London approaches, dependencies are treated differently  however the main objective remains and that is to perform tests on components of a system. 
+
+The themes of unit testing and integration testing are deeply connected in this dependency topic. An example could be a shared dependency that is used in unit testing to provide necessary inputs or services for the SUT and in integration testing used to verify communications between units of a system. These types of dependencies, as well other types spoken in section "How the approaches handle dependencies", are a major component for unit tests and integration tests as they help testing components of the system in different situations.
+
+##### Differences between operations
+
+Despite being correlated to favor a well-designed and implemented system, unit and integration testing have a set of differences that distinguish them between one another. These can be viewed in the following table: 
+
+
+| Unit Test | Integration Test |
+| -------- | -------- | 
+| Test a component of a system in a isolated form, separated from the rest of the system to verify its correctfulness     | Test and verify communications and behaviors between constituent parts of the system to ensure they are functioning as expected|
+| Can be performed at any time | Can be performed after unit testing but before system testing
+| Focuses on a single module | Checks integration between two or more modules
+| Kind of white-box testing | Kind of black-box testing
+| Scope-limited, as it covers a piece of code | Wide scope, as it covers more parts of the system
+
+(...)
+
+
 
 ## Purpose 
 
@@ -334,7 +366,7 @@ $Test \ accuracy = Signal \ (number \ of \ bugs \ found) \ / \ Noise \ (number \
 
 The formula uses a signal-noise ratio to measure how a accurate a unit test can be. A accurate unit test must possess a higher *signal* (higher numerator which indicates the test is capable of finding regressions) and a lower *noise* (lower denominator which indicates the test is better at not raising false alarms). A test that can't find bugs but does not raise false alarms (lower numerator and lower denominator) is not of any use. The same can be said in the opposite situation, a test that can find bugs but raises false alarms (higher numerator and higher denominator) is not of any use either. These situations are useful to measure how a accurate a test can be relatively to finding regressions and raising false alarms. 
 
-### Best attribute ratio
+#### Best attribute ratio
 
 A good unit test, as mentioned in the beginning of the section "Unit Test Quality", must follow four attributes being *protection against regressions*, *resistance to refactoring*, *fast feedback* and *maintainability*. However it's extremely difficult to achieve a unit test that excels in *protection against regressions*, *resistance to refactoring* and *fast feedback* at the same time [2]. In this case, excelling in a certain attribute comes at a cost of lacking in another.
 
@@ -353,13 +385,12 @@ It's nearly impossible to create a ideal test that maximizes these three attribu
 For the *resistance to refactoring* attribute, this is one is a very important one because a test either has resistance or it does not, there is almost no stages in between [2]. A test can't concede between a much or less resistance, either it has resistance or none at all. The trade-off comes regarding the remaining two attributes *protection against regressions* and *fast feedback* as these two are more malleable. A test can be less or more quick to respond as the same can be said for a test that can protect more against bugs or one that does not protect as much. A balanced choice must be made between these attributes in order for them to not be less impactful than the other.
 
 Regarding the maintainability attribute, while not being correlated to the first three, a code must be as maintainable as possible. A test that is large in size, like a end-to-end test, that exercises a large amount of code it's necessary an effort to keep everything operational in the long run.
-## Relationship between Unit and Integration Testing (TODO)
+
+
+## Automated and Manual Testing (TODO)
 ...
 
-## Automated and Manual Testing
-...
-
-## Techniques
+## Techniques (TODO)
 These kinds of faults can be found through a wide variety of techniques, all specified within the scope of unit testing.
 
 These techniques can be listed as follows: 
@@ -367,11 +398,11 @@ These techniques can be listed as follows:
 * **White Box Testing**
 * **Gray Box Testing**
 
-### Black Box Testing
+### Black Box Testing (see section 4.5.2 and correlate)
 
 #### Test-Driven Development
 
-### White Box Testing
+### White Box Testing (see section 4.5.2 and correlate)
 
 ### Gray Box Testing
 
