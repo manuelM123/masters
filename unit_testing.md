@@ -2,9 +2,10 @@
 
 Sources: 
 
-[1] (last searched: 17/1/2023) https://www.guru99.com/unit-testing-guide.html
+[1] (last searched: 17/1/2023) 
+https://www.guru99.com/unit-testing-guide.html
 
-[2] (last searched: 8/2/2023)
+[2] (last searched: 15/2/2023 => **book**)
 https://livebook.manning.com/book/unit-testing/chapter-1/6
 
 [3] (last searched: 17/1/2023)
@@ -18,6 +19,18 @@ https://8thlight.com/insights/tdd-from-the-inside-out-or-the-outside-in
 
 [6] (last searched: 3/2/2023)
 https://enterprisecraftsmanship.com/posts/when-to-mock/
+
+[7] (last searched: 15/2/2023)
+https://www.softwaretestinghelp.com/black-box-testing/
+
+[8] (last searched: 15/2/2023)
+https://www.softwaretestinghelp.com/guide-to-functional-testing/
+
+[9] (last searched: 15/2/2023)
+https://www.softwaretestinghelp.com/white-box-testing-techniques-with-example/
+
+[10] (last searched: 15/2/2023)
+https://www.browserstack.com/guide/code-coverage-vs-test-coverage
 
 ## What is a Unit Test
 
@@ -169,18 +182,18 @@ One way to eliminate the fragility of the mocks is to use them for ***unmanaged 
 
 Dependencies are an essential part of an application domain being extremely important for communications at an internal state (intra-system) or at an external level (inter-system). Mocks should be used for *unmanaged dependencies* as these ones maintain it's functionality no matter any type of refactoring done at the system's internal level. With this, prevention is made regarding fragile tests as the main reason mocks are fragile correlates to the resistance-to-factoring metric already mentioned in section "Communications in a system".
 
-#### Unit and Integration Testing 
+### Unit and Integration Testing 
 
 Unit testing isn't the only operation necessary to contribute for a well working system as this latter only verifies the behavior of a individual component of the system. In order to provide a thorough verification of the  behavior between system components, a operation called ***Integration Testing*** is needed. This operation verifies the behavior of the constituent parts of a system, how they communicate and behave with each other. 
 Unit tests and integration tests are correlated regarding their main objective that is to provide a well working system by in a first instance test early layers of the system in a individual scope (executed by unit testing) and afterwards test if the units that compose the system, behave as expected (executed by integration testing).
 
-##### Dependencies usage
+#### Dependencies usage
 
 The use of dependencies is part of the realm of unit testing and integration testing. The way every every unit of the system interacts with the use of dependencies is a very important theme to provide a correct process of creation of a system. For example a certain SUT, that represents a part of the system, is chosen to be tested to verify if the implementation behaves according expectation. This latter can possibily necessitate to use a dependency in order to perform its operations. In the realm of unit testing, the objective is to verify the SUT behavior in isolation, as in the realm of integration testing is to verify the communications and interactions between units of a system. However as stated before, to test certain units some dependencies are needed to perform the SUT operations. According to the different approaches on unit testing, Classical and London approaches, dependencies are treated differently  however the main objective remains and that is to perform tests on components of a system. 
 
-The themes of unit testing and integration testing are deeply connected in this dependency topic. An example could be a shared dependency that is used in unit testing to provide necessary inputs or services for the SUT and in integration testing used to verify communications between units of a system. These types of dependencies, as well other types spoken in section "How the approaches handle dependencies", are a major component for unit tests and integration tests as they help testing components of the system in different situations.
+The themes of unit testing and integration testing are deeply connected in this dependency topic. An example could be a shared dependency that is used in unit testing to provide necessary inputs or services for the SUT and in integration testing used to verify communications between units of a system. These types of dependencies, as well other types spoken in section "How the approaches handle dependencies", are a major component for unit tests and integration tests as they help testing components of the system in different situations. This dependencies theme is part of the communications between a system theme already mentioned in section "Communications in a system".
 
-##### Differences between operations
+#### Differences between operations
 
 Despite being correlated to favor a well-designed and implemented system, unit and integration testing have a set of differences that distinguish them between one another. These can be viewed in the following table: 
 
@@ -192,9 +205,10 @@ Despite being correlated to favor a well-designed and implemented system, unit a
 | Focuses on a single module | Checks integration between two or more modules
 | Kind of white-box testing | Kind of black-box testing
 | Scope-limited, as it covers a piece of code | Wide scope, as it covers more parts of the system
+| Internal structure of the application is known | Almost no internal structure of the application is known
 
-(...)
 
+The main difference between Unit and Integration testing lies in their primary objectives. Unit testing focuses on testing individual units or components of code in isolation to verify their behavior, while Integration testing examines how the different parts of a system work together and interact with each other to assess the overall system correctness.
 
 
 ## Purpose 
@@ -386,27 +400,14 @@ For the *resistance to refactoring* attribute, this is one is a very important o
 
 Regarding the maintainability attribute, while not being correlated to the first three, a code must be as maintainable as possible. A test that is large in size, like a end-to-end test, that exercises a large amount of code it's necessary an effort to keep everything operational in the long run.
 
+### Code Coverage Metrics
 
-## Automated and Manual Testing (TODO)
-...
+Another way to measure if a unit test is of good quality is to use code coverage metrics. These can be divided in various types with different objectives, however this topic of *coverage metric* needs to be viewed carefully.
 
-## Techniques (TODO)
-These kinds of faults can be found through a wide variety of techniques, all specified within the scope of unit testing.
+For starters, a *coverage metric* can be defined as a operation to show how code was executed. This operation is primarely used in the realm of unit testing with the main objective to perform an assessment of quality of unit tests [10]. *Coverage metric* can be measured in a percentage value, i.e, from none to 100% that represents percentage of code covered for example. In this situation, a higher value is perceived as a good indicator however, in reality, it's not that simple. A higher code coverage value does not represent if a code is of quality or not, it only means the test was able coverage a *x* amount of code. It can be said for lower values that the test is not exercing enough code however a higher amount cannot guarantee a good-quality unit test.
 
-These techniques can be listed as follows: 
-* **Black Box Testing**
-* **White Box Testing**
-* **Gray Box Testing**
+(continue)
 
-### Black Box Testing (see section 4.5.2 and correlate)
-
-#### Test-Driven Development
-
-### White Box Testing (see section 4.5.2 and correlate)
-
-### Gray Box Testing
-
-#### Code Coverage Metrics
 * Line Coverage
 * Statement Coverage
 * Branch Coverage
@@ -414,6 +415,36 @@ These techniques can be listed as follows:
 * Decision Coverage
 
 (coverage and such)
+
+## Automated and Manual Testing (TODO)
+...
+
+## Techniques (TODO)
+Faults in a software can be found through a wide variety of techniques, all specified within the scope of unit testing.
+
+These techniques can be listed as follows: 
+* **Black Box Testing**
+* **White Box Testing**
+* **Gray Box Testing**
+
+### Black Box Testing (see section 4.5.2 and correlate / see links [7] e [8])
+
+*Black Box Testing* is a software testing method that analyzes the functionality of the software without knowing almost nothing about its internal structure. It derives tests through the specification of requirements  of the software to be tested, being a test driven development operation where all tests are elaborated according a expected result for a functionality of the software. 
+
+Black Box testing can be divided in two principal types being *Functional Testing* and *Non-Functional Testing*. 
+
+*Functional Testing* can be defined as a kind of black-box testing method that is used to perform a functionality verification of a system to assess if it acts as expected [8].
+
+*Non-Functional Testing* is a software testing method for non-functional requeriments, it covers the aspects that are not covered by the *functional testing* [9]. This type of testing is normally done to assess non-functional attributes of a system like execution speed, load limit and failure recovery for example.
+
+### White Box Testing (see section 4.5.2 and correlate / see links [7] e [9])
+
+*White Box Testing* is a software testing method that evaluates the code and the internal structure of a software. Emphasizes code evaluation, measuring a multitude of attributes within the structure of the latter in order to verify if it obeys to the specifications made [9]. Opposite to the *Black Box Testing* method, tests are created to verify the internal structure of the code and are not made from the specification of requirements.
+
+(continue)
+
+### Gray Box Testing
+
 
 
 
