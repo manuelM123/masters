@@ -5,7 +5,7 @@ Sources:
 [1] (last searched: 17/1/2023) 
 https://www.guru99.com/unit-testing-guide.html
 
-[2] (last searched: 15/2/2023 => **book**)
+[2] (last searched: 26/2/2023 => **book**)
 https://livebook.manning.com/book/unit-testing/chapter-1/6
 
 [3] (last searched: 17/1/2023)
@@ -31,6 +31,9 @@ https://www.softwaretestinghelp.com/white-box-testing-techniques-with-example/
 
 [10] (last searched: 15/2/2023)
 https://www.browserstack.com/guide/code-coverage-vs-test-coverage
+
+[11] (last searched: 26/2/2023)
+https://www.guru99.com/code-coverage.html
 
 ## What is a Unit Test
 
@@ -404,15 +407,63 @@ Regarding the maintainability attribute, while not being correlated to the first
 
 Another way to measure if a unit test is of good quality is to use code coverage metrics. These can be divided in various types with different objectives, however this topic of *coverage metric* needs to be viewed carefully.
 
-For starters, a *coverage metric* can be defined as a operation to show how code was executed. This operation is primarely used in the realm of unit testing with the main objective to perform an assessment of quality of unit tests [10]. *Coverage metric* can be measured in a percentage value, i.e, from none to 100% that represents percentage of code covered for example. In this situation, a higher value is perceived as a good indicator however, in reality, it's not that simple. A higher code coverage value does not represent if a code is of quality or not, it only means the test was able coverage a *x* amount of code. It can be said for lower values that the test is not exercing enough code however a higher amount cannot guarantee a good-quality unit test.
-
-(continue)
+For starters, a *coverage metric* can be defined as a operation to show how code was executed. This operation is primarely used in the realm of unit testing with the main objective to perform an assessment of quality of unit tests [10]. *Coverage metric* can be measured in a percentage value, i.e, from 0% to 100% that represents percentage of code covered for example. In this situation, a higher value is perceived as a good indicator however, in reality, it's not that simple. A higher code coverage value does not represent if a code is of quality or not, it only means the test was able coverage a *x* amount of code. It can be said for lower values that the test is not exercing enough code however a higher amount cannot guarantee a good-quality unit test.
 
 * Line Coverage
-* Statement Coverage
+    * It is one of the most used metrics to evaluate coverage within a piece of code. This metric evaluates the ratio between the number of lines of code executed by the test and the total number of lines present in the code. 
+
+    $Line \ Coverage = Lines\ of\ code\ executed\ / \ Total\ number\ of\ lines\ of\ code\ X\ 100$
+
+    :::warning
+        (method)
+        
+        public static bool numberIsEven(int number)
+        {
+            if(number % 2 == 0)
+                return true;
+            
+            return false;
+        }
+        
+        -------
+        
+        (test)
+        
+        public void numberTest()
+        {
+            bool isEven = numberIsEven(3);
+            assertTrue(false == isEven);
+        }
+    :::
+    
+    * In the example shown by listing X.XX, the method verifies if a integer provided as a input parameter is even or not. The test exercises the method using "3" as the input parameter and verifies if this number is even or not. The method possesses five lines of code in total. The test run only executed four out of those five lines providing a 80% line coverage.
+
 * Branch Coverage
-* Condition Coverage
+    * This metric assesses coverage regarding branches present in the code. In another words, it focuses on control structures like if statements for example. It evaluates how many branches of code were traversed by a test. This metric only accounts for the number of branches not taking into consideration the quantity of lines of code needed to implement them [2].
+
+    $Branch\ coverage = Branches\ traversed\ /\ Total\ number\ of\ branches\ X\ 100$
+    
+    * Taking the example shown in listing X.XX, the method only possesses two branches in total. One that identifies the number as an even number and one that doesn’t. The test run identified the number as not being an even number and as such only one branch out of the two was traversed, providing a 50% branch coverage.
+* Statement Coverage
+    * Statement coverage is a metric used to evaluate the extent to which a test suite executes all the individual statements in the code under test. It is calculated by dividing the number of statements executed during the test by the total number of statements in the code. This metric tries to cover all possible paths, statements and lines in the code [11].
+    
+    $Statement\ Coverage = Number\ of\ executed\ statements\ /\ Total\ number\ of\ statements\ X\ 100$ 
+    
+    * Applied to the example in listing X.XX, the same result obtained by the line coverage can be verified. Out of the five statements only four of them were executed, providing a 80% statement coverage.
+
 * Decision Coverage
+    * This metric evaluates boolean expressions of the code under test. It tries to cover all the decisions points within a code by verifying each branch for that matter. 
+
+    $Decision\ Coverage = Number\ of\ Decision\ Outcomes\ Exercised\ /\ Total\ Number\ of\ Decision\ Outcomes\ X\ 100$
+    
+    * For the example in listing X.XX, a 50% decision coverage is obtained. The boolean expression returns false and thus *returns true* is not executed.
+    
+* Condition Coverage
+    * Metric that evaluates the variables or sub-expressions in a conditional statement with the objective to check outcomes for each logical condition [11]. It aims to ensure that each condition is evaluated as true and false at least once.
+
+    $Condition\ Coverage = Number\ of\ Executed\ Operands\ /\ Total\ Number\ of\ Operands$
+    
+    * This metric, applied to the example in listing X.XX, obtains a 50% condition coverage. The example only has 2 possible values. The number is even (boolean expression returns *true*) or not (boolean expression returns *false*).
 
 (coverage and such)
 
@@ -439,7 +490,7 @@ Black Box testing can be divided in two principal types being *Functional Testin
 
 ### White Box Testing (see section 4.5.2 and correlate / see links [7] e [9])
 
-*White Box Testing* is a software testing method that evaluates the code and the internal structure of a software. Emphasizes code evaluation, measuring a multitude of attributes within the structure of the latter in order to verify if it obeys to the specifications made [9]. Opposite to the *Black Box Testing* method, tests are created to verify the internal structure of the code and are not made from the specification of requirements.
+*White Box Testing* is a software testing method that evaluates the code and the internal structure of a software. Emphasizes code evaluation, measuring a multitude of attributes within the structure of the latter in order to verify if it obeys to the specifications made [9]. Opposite to the *Black Box Testing* method, tests are created to verify the internal structure of the code and are not made from the specification of requirements. 
 
 (continue)
 
