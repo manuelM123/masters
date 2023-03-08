@@ -39,18 +39,18 @@ https://www.guru99.com/code-coverage.html
 
 ### Definition
 
-Unit testing can be defined as an activity which the main objective is to perform quick tests in small segments of code in a isolated state, separated from the rest of the constituent parts of the system. More concretly, a unit test must follow three requeriments:
+Unit testing can be defined as an activity in which the main objective is to perform quick tests in small segments of code in an isolated state, separated from the rest of the constituent parts of the system. More concretely, a unit test must follow three requirements:
 
 * Verifies a single unit of behavior;
 * Performs it quickly;
 * Isolated from other tests.
 
-The realm of unit testing is a highly multifaceted theme, where differing perspectives and interpretations are commonplace. Amongst the various approaches, two stand out as prominent - the Classical school approach and the London school of unit testing. These approaches, while both focused on unit testing, possess distinct variations in their understanding and handling of the concept of "isolation" within a unit test. 
+The realm of unit testing is a highly multifaceted theme, where differing perspectives and interpretations are commonplace. Amongst the various approaches, two stand out as prominent — the Classical school approach and the London school of unit testing. These approaches, while both focused on unit testing, possess distinct variations in their understanding and handling of the concept of “isolation” within a unit test. 
 
 
 ### London School of Unit Testing
 
-This approach considers isolating the SUT from its collaborators, which means if a certain class is our SUT (System Under Test) and it has a dependency on another class, then this dependency must be substitued by a *test double*. In this way, the behavior of the class under test won't be affected by any external influence. 
+This approach considers isolating the SUT from its collaborators, which means if a certain class is our SUT (System Under Test) and it has a dependency on another class, then this dependency must be substituted by a *test double*. In this way, the behavior of the class under test won't be affected by any external influence. 
 
 *Test Double* - operation used in unit testing to replace a object or component present in the system under test. It acts and looks similar to the object/component replaced but its a lot less complex and facilitates testing in the SUT. 
 
@@ -58,9 +58,9 @@ Figure X.XX shows how the isolation in this approach is achieved by replacing SU
 
 ![](https://i.imgur.com/2JCxKGC.png) [2]
 
-One of the major advantages of this approach is shown in an eventual case of failure when testing. In these situations, is easy to identify where the failure occurred, having it happen in the system under test. The failure couldn't happen at any other place, the SUT neighbours are test doubles. 
+One of the major advantages of this approach is shown in an eventual case of failure when testing. In these situations, is easy to identify where the failure occurred, having it happen in the system under test. The failure couldn't happen at any other place, the SUT neighbors are test doubles. 
 
-When a unit test is executed, the test double replaces the dependencies of the SUT by simpler objects. The test double is configured to provide certain inputs and outputs or to record information about how it was called by the SUT. These provide the ability to control the behavior of the SUT and to verify if the behavior occured as expected. 
+When a unit test is executed, the test double replaces the dependencies of the SUT by simpler objects. The test double is configured to provide certain inputs and outputs or to record information about how it was called by the SUT. These provide the ability to control the behavior of the SUT and to verify if the behavior occurred as expected. 
 
 The test doubles can be used in a multitude of ways, it can be done manually or by using a testing library that provides this sort of functionality. A wide range of types of test doubles exists and they can be divided in the following points:
 
@@ -132,7 +132,7 @@ Another aspect to take into account is where a *out-of-process* dependencies ble
 * **Non *Shared* and *out-of-process***: an API service can be an example of this type of situation. Tests can't modify the API and therefore can't interfere in each other's behavior (non *shared*) while being out of the main process (*out-of-process*).
 
 
-### Differences between approaches (see section 2.3)
+### Differences between approaches
 
 The root diference between the two approaches is the isolation attribute of a unit test. Classical approach defends the isolation must be between the unit tests themselves on the contrary, London school says that the isolation must be done for the SUT, separating the latter from its collaborators. A summary of the principal differences between each approach can be found in the following table:
 
@@ -153,6 +153,16 @@ Both approaches possess different benefits according their specific use. Overall
 * **Over-specification**: this entails the coupling of tests to a SUT implementation. The London approach tends to produce tests that couple to the implementation more often than the classical approach because of the use of test doubles [2]. This higher coupling can lead to tests that are fragile and prone to failures when the implementations changes. Higher the coupling, higher the chances to occur test failures when changes are made to the SUT implementation.
 
 ### Mocks and Test Fragility
+
+#### Mocks vs Stubs
+
+As previously mentioned in section "London School of Unit Testing", a *test double* is primarily used to facilitate unit testing. This element can replace a dependency used by the SUT in order to fully isolate it from the rest of the system. This isolation enables a steady and reliable testing in a SUT as any type of errors found when testing can only be traced to the SUT itself and not for external elements.
+
+A important point to make regarding test doubles is to differentiate between *mocks* and *stubs*. The principal difference relies on the types of interactions they cover.
+* *Stubs* cover *incoming* interactions. They encompass calls made by the SUT to obtain input data from the dependencies;
+* *Mocks* cover *outcoming* interactions. They encompass calls made by the SUT to the dependencies in order to change the SUT state.
+
+These two types of *test doubles* are used regularly in software programs, to enable isolation within a SUT for a concise and correct unit testing. The choice between one another depends on the type of dependency or purpose for the SUT implementation. For the rest of this work, any type of external dependencies or libraries will be mentioned as "*mocks*".
 
 The use of mocks can introduce some fragility to the SUT being tested. Replacing certain dependencies with mocks can add dissonances when the SUT in question is changed. These fragilities can be caused by a set of factors who will be explained in the following sections.
 
@@ -405,9 +415,7 @@ Regarding the maintainability attribute, while not being correlated to the first
 
 ### Code Coverage Metrics
 
-Another way to measure if a unit test is of good quality is to use code coverage metrics. These can be divided in various types with different objectives, however this topic of *coverage metric* needs to be viewed carefully.
-
-For starters, a *coverage metric* can be defined as a operation to show how code was executed. This operation is primarely used in the realm of unit testing with the main objective to perform an assessment of quality of unit tests [10]. *Coverage metric* can be measured in a percentage value, i.e, from 0% to 100% that represents percentage of code covered for example. In this situation, a higher value is perceived as a good indicator however, in reality, it's not that simple. A higher code coverage value does not represent if a code is of quality or not, it only means the test was able coverage a *x* amount of code. It can be said for lower values that the test is not exercing enough code however a higher amount cannot guarantee a good-quality unit test.
+A *coverage metric* can be defined as a operation to show how code was executed. This operation is primarily used in the realm of unit testing with the main objective to perform an assessment of quality of a test suite [10]. *Coverage metric* can be measured in a percentage value, i.e, from 0% to 100% that represents percentage of code covered for example. In this situation, a higher value is perceived as a good indicator however, in reality, it's not that simple. A higher code coverage value does not represent if a code is of quality or not, it only means the test was able coverage a *x* amount of code. It can be said for lower values that the test is not exercising enough code however a higher amount cannot guarantee a good-quality unit test.
 
 * Line Coverage
     * It is one of the most used metrics to evaluate coverage within a piece of code. This metric evaluates the ratio between the number of lines of code executed by the test and the total number of lines present in the code. 
@@ -417,7 +425,7 @@ For starters, a *coverage metric* can be defined as a operation to show how code
     :::warning
         (method)
         
-        public static bool numberIsEven(int number)
+        public static boolean numberIsEven(int number)
         {
             if(number % 2 == 0)
                 return true;
@@ -431,7 +439,7 @@ For starters, a *coverage metric* can be defined as a operation to show how code
         
         public void numberTest()
         {
-            bool isEven = numberIsEven(3);
+            boolean isEven = numberIsEven(3);
             assertTrue(false == isEven);
         }
     :::
@@ -439,7 +447,7 @@ For starters, a *coverage metric* can be defined as a operation to show how code
     * In the example shown by listing X.XX, the method verifies if a integer provided as a input parameter is even or not. The test exercises the method using "3" as the input parameter and verifies if this number is even or not. The method possesses five lines of code in total. The test run only executed four out of those five lines providing a 80% line coverage.
 
 * Branch Coverage
-    * This metric assesses coverage regarding branches present in the code. In another words, it focuses on control structures like if statements for example. It evaluates how many branches of code were traversed by a test. This metric only accounts for the number of branches not taking into consideration the quantity of lines of code needed to implement them [2].
+    * This metric assesses coverage regarding branches present in the code. In other words, it focuses on control structures like if statements, for example. It evaluates how many branches of code were traversed by a test. This metric only accounts for the number of branches, not taking into consideration the quantity of lines of code needed to implement them [2].
 
     $Branch\ coverage = Branches\ traversed\ /\ Total\ number\ of\ branches\ X\ 100$
     
@@ -465,10 +473,55 @@ For starters, a *coverage metric* can be defined as a operation to show how code
     
     * This metric, applied to the example in listing X.XX, obtains a 50% condition coverage. The example only has 2 possible values. The number is even (boolean expression returns *true*) or not (boolean expression returns *false*).
 
-(coverage and such)
+#### Problems
 
-## Automated and Manual Testing (TODO)
-...
+One of the big problems associated to coverage metrics is the unreliability to determine the quality of a test suite for a SUT. Two principal problems can be identified when apply these metrics being:
+* It's impossible to guarantee if the test verifies all possible outcomes within a SUT;
+* Code paths of external libraries, used by the SUT, are not covered.
+
+These two problems can be explained further by the use of the following example in listing X.XX:
+
+:::warning
+    public static bool higherThanFive = false;
+    
+    public static bool higherNumber(int number)
+    {
+        boolean result = number > 5;
+        higherThanFive = result;
+        return result;
+    }
+    
+    public void Test(){
+        boolean result = higherNumber(5);
+        assertEqual(false, result)
+    }
+    
+    public static String integerToString(int number){
+        return Integer.toString(number);
+    }
+    
+    public void TestString(){
+        String message = integerToString(5);
+        assertEqual("5", message);
+    }
+:::
+
+#### Not all outcomes are guaranteed to be verified
+
+In the example shown in listing X.XX, it's possible to observe that the *higherNumber* method, executed by the test, provides two different outcomes, one implicit and one explicit. The explicit one is encoded by the return value meanwhile the implicit one is the new value of the static variable. In spite of not verifying the implicit outcome, the coverage metrics would still show the same result regarding line and branch coverage for example. It would show 100% line coverage and 50% branch coverage. As stated, these metrics do not guarantee that the code is tested, only that is executed at some point.
+
+#### External libraries code paths are not covered
+
+Another problem associated with these coverage metrics is the non coverage of code paths of external libraries. When a SUT is chosen and tested, it can use certain methods that require the use of functions that are provided by external libraries. In this particular case, coverage is made only for the corresponding results (obtained by said functions) and not for the code path executed by them. 
+
+
+The example shown in listing X.XX, more concretely for *integerToString* method, we can observe this type of situation. A 100% branch coverage is obtained by the test, verifying all components within the SUT however the hidden code paths of the Java's method for integer conversion into string is not verified. For example, three paths can be possible for the method mentioned above. The parameter (integer) can follow different paths such as being a null value, being a actual integer type or even not being of that type. These kinds of paths are not covered by the tests and logically the values for branch coverage would change a lot if these hidden paths were taken into account.
+
+#### Indicator of enough testing
+
+Although coverage metrics do not consider code paths in external libraries, this does not necessarily make them a poor evaluation method. While these paths should not be covered normally, it is important to recognize that coverage metrics alone do not provide a comprehensive measure of test quality.
+
+As the problems were stated in sections X.XX and X.XX, using solely coverage metrics to evaluate a quality of a test suite is not a good approach. *Coverage metrics are a good negative indicator, but a bad positive one* [2]. Obtaining a lower coverage number can indicate that the test is not executing as much code as originally intended, but a higher value does not mean anything, as there could still be some inconsistencies in the implementation. Coverage metrics can provide a quantitative measure of the test coverage and identification of possible gaps. Certainly they can be used as a point to evaluate quality, however it can't be solely used to evaluate this attribute because they do not guarantee if the tests are adequate to the overall objective of implementation. 
 
 ## Techniques (TODO)
 Faults in a software can be found through a wide variety of techniques, all specified within the scope of unit testing.
@@ -486,13 +539,15 @@ Black Box testing can be divided in two principal types being *Functional Testin
 
 *Functional Testing* can be defined as a kind of black-box testing method that is used to perform a functionality verification of a system to assess if it acts as expected [8].
 
-*Non-Functional Testing* is a software testing method for non-functional requeriments, it covers the aspects that are not covered by the *functional testing* [9]. This type of testing is normally done to assess non-functional attributes of a system like execution speed, load limit and failure recovery for example.
+*Non-Functional Testing* is a software testing method for non-functional requirements, it covers the aspects that are not covered by the *functional testing* [9]. This type of testing is normally done to assess non-functional attributes of a system like execution speed, load limit and failure recovery for example.
 
 ### White Box Testing (see section 4.5.2 and correlate / see links [7] e [9])
 
 *White Box Testing* is a software testing method that evaluates the code and the internal structure of a software. Emphasizes code evaluation, measuring a multitude of attributes within the structure of the latter in order to verify if it obeys to the specifications made [9]. Opposite to the *Black Box Testing* method, tests are created to verify the internal structure of the code and are not made from the specification of requirements. 
 
-(continue)
+Certain frameworks enable the generation of unit tests through a white box testing approach, they generate the test cases according the internal structure of the SUT. 
+
+
 
 ### Gray Box Testing
 
