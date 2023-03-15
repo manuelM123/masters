@@ -35,6 +35,12 @@ https://www.browserstack.com/guide/code-coverage-vs-test-coverage
 [11] (last searched: 26/2/2023)
 https://www.guru99.com/code-coverage.html
 
+[12] (last searched: 3/15/2023)
+https://heracleia.uta.edu/~sharifara/5321/8_MutationTesting.pdf
+
+[13] (last searched: 3/15/2023)
+https://www.softwaretestinghelp.com/what-is-mutation-testing/
+
 ## What is a Unit Test
 
 ### Definition
@@ -420,7 +426,7 @@ A *coverage metric* can be defined as a operation to show how code was executed.
 * Line Coverage
     * It is one of the most used metrics to evaluate coverage within a piece of code. This metric evaluates the ratio between the number of lines of code executed by the test and the total number of lines present in the code. 
 
-    $Line \ Coverage = Lines\ of\ code\ executed\ / \ Total\ number\ of\ lines\ of\ code\ X\ 100$
+    $Line \ Coverage = Lines\ of\ code\ executed\ / \ Total\ number\ of\ lines\ of\ code\ X\ 100\%$
 
     :::warning
         (method)
@@ -449,27 +455,27 @@ A *coverage metric* can be defined as a operation to show how code was executed.
 * Branch Coverage
     * This metric assesses coverage regarding branches present in the code. In other words, it focuses on control structures like if statements, for example. It evaluates how many branches of code were traversed by a test. This metric only accounts for the number of branches, not taking into consideration the quantity of lines of code needed to implement them [2].
 
-    $Branch\ coverage = Branches\ traversed\ /\ Total\ number\ of\ branches\ X\ 100$
+    $Branch\ coverage = Branches\ traversed\ /\ Total\ number\ of\ branches\ X\ 100\%$
     
     * Taking the example shown in listing X.XX, the method only possesses two branches in total. One that identifies the number as an even number and one that doesn’t. The test run identified the number as not being an even number and as such only one branch out of the two was traversed, providing a 50% branch coverage.
 * Statement Coverage
     * Statement coverage is a metric used to evaluate the extent to which a test suite executes all the individual statements in the code under test. It is calculated by dividing the number of statements executed during the test by the total number of statements in the code. This metric tries to cover all possible paths, statements and lines in the code [11].
     
-    $Statement\ Coverage = Number\ of\ executed\ statements\ /\ Total\ number\ of\ statements\ X\ 100$ 
+    $Statement\ Coverage = Number\ of\ executed\ statements\ /\ Total\ number\ of\ statements\ X\ 100\%$ 
     
     * Applied to the example in listing X.XX, the same result obtained by the line coverage can be verified. Out of the five statements only four of them were executed, providing a 80% statement coverage.
 
 * Decision Coverage
     * This metric evaluates boolean expressions of the code under test. It tries to cover all the decisions points within a code by verifying each branch for that matter. 
 
-    $Decision\ Coverage = Number\ of\ Decision\ Outcomes\ Exercised\ /\ Total\ Number\ of\ Decision\ Outcomes\ X\ 100$
+    $Decision\ Coverage = Number\ of\ Decision\ Outcomes\ Exercised\ /\ Total\ Number\ of\ Decision\ Outcomes\ X\ 100\%$
     
     * For the example in listing X.XX, a 50% decision coverage is obtained. The boolean expression returns false and thus *returns true* is not executed.
     
 * Condition Coverage
     * Metric that evaluates the variables or sub-expressions in a conditional statement with the objective to check outcomes for each logical condition [11]. It aims to ensure that each condition is evaluated as true and false at least once.
 
-    $Condition\ Coverage = Number\ of\ Executed\ Operands\ /\ Total\ Number\ of\ Operands$
+    $Condition\ Coverage = Number\ of\ Executed\ Operands\ /\ Total\ Number\ of\ Operands\ X\ 100\%$
     
     * This metric, applied to the example in listing X.XX, obtains a 50% condition coverage. The example only has 2 possible values. The number is even (boolean expression returns *true*) or not (boolean expression returns *false*).
 
@@ -541,15 +547,48 @@ Black Box testing can be divided in two principal types being *Functional Testin
 
 *Non-Functional Testing* is a software testing method for non-functional requirements, it covers the aspects that are not covered by the *functional testing* [9]. This type of testing is normally done to assess non-functional attributes of a system like execution speed, load limit and failure recovery for example.
 
+#### Regression Testing
+One of the techniques associated with black box testing is ***regression testing***. Regression testing is a software testing technique that involves re-executing previously passed test cases on a modified version of the software to ensure that the system still behaves as expected after changes have been made. This technique is critical in detecting defects that may have been introduced inadvertently during the modification process. Regression testing can be performed at various stages of software development, but it is primarily used in unit testing, where it can quickly and efficiently verify that the modified code has not introduced new defects or broken any existing functionality. The goal of regression testing is to catch and prevent any regressions in the software, ensuring that it continues to function correctly even as changes are made.
+
 ### White Box Testing (see section 4.5.2 and correlate / see links [7] e [9])
 
 *White Box Testing* is a software testing method that evaluates the code and the internal structure of a software. Emphasizes code evaluation, measuring a multitude of attributes within the structure of the latter in order to verify if it obeys to the specifications made [9]. Opposite to the *Black Box Testing* method, tests are created to verify the internal structure of the code and are not made from the specification of requirements. 
 
-Certain frameworks enable the generation of unit tests through a white box testing approach, they generate the test cases according the internal structure of the SUT. 
+Certain frameworks enable the generation of unit tests through a white box testing approach, they generate the test cases according to the internal structure of the SUT. 
+
+#### Mutation Testing
+
+Mutation testing is a white box technique that involves making small changes to the source code to create "mutants," which are modified versions of the original program. The purpose is to evaluate whether the generated test cases can detect errors or faults in the system. The goal is to create mutants that are similar to the original code but contain a specific fault, changing implementation aspects within the chosen program. The mutation process is repeated multiple times, generating different mutants that represent different types of faults. The quality of the test suite is evaluated by measuring the ability of the test cases to detect these faults. This method is also known as **fault-based testing**.
+
+This type of technique is composed of the following elements:
+- **Mutants**: Mutant version of the source code. This one is a modified version of the original with the purpose of introducing a fault into it. These mutants can be of different types:
+    - **Survived and killed mutants**: The mutants can be alive or be killed in the testing phase. Killing a mutant, in this context, refers to the test failing when running the mutant version of the source code. This means the fault was detected and the test didn't pass because of it. If a test passes in a mutant version of the source code, then this means the test is not able to detect the fault introduced (**mutant survived**) and thus should be changed;
+- **Mutation operations**: These define what kind of operation was made to the source code to include a mutant. This can also be referred as **faults** or **mutation rules** [13];
+- **Mutation score**: This defines a score based on the number of killed mutants and total number of mutants in a percentage value. This metric is used to evaluate the effectiveness of the test cases in detecting faults. The formula to its calculation can be represented by:
+
+    $Mutation\ score\ = (Number\ of\ killed\ mutants\ /\ Number\ of\ mutants) * 100\%$
+    
+    For this score, a desired outcome should be a high percentage of mutation score. This means all the mutants added were killed, or in another words, the test cases were able to identify the added faults, concluding the test was well constructed for this purpose.
+    
+When using mutation testing, the tests are both executed in the original source code and in the mutation version. After the execution, the outputs of both versions, or more accurately, the outputs of the test cases, are compared in order to obtain conclusions. There is two possible outcomes:
+
+- **Matching outputs**: If the outputs are the same then this means the mutant survived the tests. This a terrible outcome as it concludes the used test cases are unable to detect the fault introduced by the mutant version;
+- **Different outputs**: If the outputs differ from one another, then this means the mutant was killed, or in another words, the fault was detected when the test was executed. This is a sign that the generated test cases are well constructed to verify faults for the chosen code.
+
+In mutation testing, different types can be applied that involve different objectives within the code. These can be either:
+- **Value mutations**: modifications in values or parameters;
+- **Statement mutations**: modifications on statements in code. Can either be modification or the removal of an entire statement;
+- **Decision mutations**: modifications on logic operations in the code. 
 
 
 
-### Gray Box Testing
+
+
+
+
+
+
+
 
 
 
