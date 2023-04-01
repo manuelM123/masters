@@ -481,7 +481,7 @@ A *coverage metric* can be defined as a operation to show how code was executed.
 
 #### Problems
 
-One of the big problems associated to coverage metrics is the unreliability to determine the quality of a test suite for a SUT. Two principal problems can be identified when apply these metrics being:
+One of the big problems associated to coverage metrics is the unreliability to determine the quality of a test suite for a SUT. Two principal problems can be identified when applying these metrics being:
 * It's impossible to guarantee if the test verifies all possible outcomes within a SUT;
 * Code paths of external libraries, used by the SUT, are not covered.
 
@@ -529,7 +529,7 @@ Although coverage metrics do not consider code paths in external libraries, this
 
 As the problems were stated in sections X.XX and X.XX, using solely coverage metrics to evaluate a quality of a test suite is not a good approach. *Coverage metrics are a good negative indicator, but a bad positive one* [2]. Obtaining a lower coverage number can indicate that the test is not executing as much code as originally intended, but a higher value does not mean anything, as there could still be some inconsistencies in the implementation. Coverage metrics can provide a quantitative measure of the test coverage and identification of possible gaps. Certainly they can be used as a point to evaluate quality, however it can't be solely used to evaluate this attribute because they do not guarantee if the tests are adequate to the overall objective of implementation. 
 
-## Techniques (TODO)
+## Techniques
 Faults in a software can be found through a wide variety of techniques, all specified within the scope of unit testing.
 
 These techniques can be listed as follows: 
@@ -554,8 +554,6 @@ One of the techniques associated with black box testing is ***regression testing
 
 *White Box Testing* is a software testing method that evaluates the code and the internal structure of a software. Emphasizes code evaluation, measuring a multitude of attributes within the structure of the latter in order to verify if it obeys to the specifications made [9]. Opposite to the *Black Box Testing* method, tests are created to verify the internal structure of the code and are not made from the specification of requirements. 
 
-Certain frameworks enable the generation of unit tests through a white box testing approach, they generate the test cases according to the internal structure of the SUT. 
-
 #### Mutation Testing
 
 Mutation testing is a white box technique that involves making small changes to the source code to create "mutants," which are modified versions of the original program. The purpose is to evaluate whether the generated test cases can detect errors or faults in the system. The goal is to create mutants that are similar to the original code but contain a specific fault, changing implementation aspects within the chosen program. The mutation process is repeated multiple times, generating different mutants that represent different types of faults. The quality of the test suite is evaluated by measuring the ability of the test cases to detect these faults. This method is also known as **fault-based testing**.
@@ -563,7 +561,8 @@ Mutation testing is a white box technique that involves making small changes to 
 This type of technique is composed of the following elements:
 - **Mutants**: Mutant version of the source code. This one is a modified version of the original with the purpose of introducing a fault into it. These mutants can be of different types:
     - **Survived and killed mutants**: The mutants can be alive or be killed in the testing phase. Killing a mutant, in this context, refers to the test failing when running the mutant version of the source code. This means the fault was detected and the test didn't pass because of it. If a test passes in a mutant version of the source code, then this means the test is not able to detect the fault introduced (**mutant survived**) and thus should be changed;
-- **Mutation operations**: These define what kind of operation was made to the source code to include a mutant. This can also be referred as **faults** or **mutation rules** [13];
+- **Mutation operations**: These refer to specific changes made to the source code in order to create a mutant version. These changes can include replacing operators, modifying branch conditions, or deleting and altering statements. By introducing these mutations, the aim is to create potential faults in the code and assess whether the test cases detect them. Mutation operations can also be referred to as "faults" or "mutation rules" [13].
+
 - **Mutation score**: This defines a score based on the number of killed mutants and total number of mutants in a percentage value. This metric is used to evaluate the effectiveness of the test cases in detecting faults. The formula to its calculation can be represented by:
 
     $Mutation\ score\ = (Number\ of\ killed\ mutants\ /\ Number\ of\ mutants) * 100\%$
@@ -573,7 +572,7 @@ This type of technique is composed of the following elements:
 When using mutation testing, the tests are both executed in the original source code and in the mutation version. After the execution, the outputs of both versions, or more accurately, the outputs of the test cases, are compared in order to obtain conclusions. There is two possible outcomes:
 
 - **Matching outputs**: If the outputs are the same then this means the mutant survived the tests. This a terrible outcome as it concludes the used test cases are unable to detect the fault introduced by the mutant version;
-- **Different outputs**: If the outputs differ from one another, then this means the mutant was killed, or in another words, the fault was detected when the test was executed. This is a sign that the generated test cases are well constructed to verify faults for the chosen code.
+- **Different outputs**: If the outputs differ from one another, then this means the mutant was killed, or in other words, the fault was detected when the test was executed. This is a sign that the generated test cases are well constructed to verify faults for the chosen code.
 
 In mutation testing, different types can be applied that involve different objectives within the code. These can be either:
 - **Value mutations**: modifications in values or parameters;
