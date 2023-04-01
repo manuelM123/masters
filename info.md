@@ -181,8 +181,6 @@ When executing test cases to a certain system we want them to cover most of the 
 
 Automating oracle generation is a very difficult task to do. The previous chapters focused on how to automate generation of test inputs and actions for test cases however we can't judge faithfully if the behaviour of the system under test is correct.
 
-
-
 (see paper)
 
 ## Other AI Techniques ==> SEE PAPER TO BE USED LATER
@@ -256,7 +254,7 @@ More complex AI and Machine Learning techniques are applied in this paper to gen
 
 - Attain branch coverage of the code => measure coverage and trying to maximize the % statements covered
 - maximize this in order to find faults in code analysed
-- approach level => depends if the bramnc is evaluated to true (1) or false (0)
+- approach level => depends if the branch is evaluated to true (1) or false (0)
 - branch distance => how close we are to the target outcome
 
 #### Metaheuristic Algorithms
@@ -264,7 +262,6 @@ More complex AI and Machine Learning techniques are applied in this paper to gen
 - Selection of the solutions 
 - random guess on the first attempt
 - gives feedback through fitness functions
-
 - **local search** - focus a single solution and applies small changes to it
 - **global search** - larger changes to multiples solutions
 
@@ -275,20 +272,55 @@ More complex AI and Machine Learning techniques are applied in this paper to gen
 
 - Unit Testing
     - Introduction
-    - Context
+    - What is a Unit Test
         - Definition
-        - Arrange, Act and Assert Phases (creation of unit tests)
-    - White Box Testing
-        - Practices
-    - Black Box Testing
-        - Practices
-    - Grey Box Testing
-        - Study and practices
-    - Applications
-        - Dynamic vs Static Languages
-        - Available frameworks
-
+        - London School of Unit Testing
+        - Classical School Approach
+        - How the approaches handle the dependencies
+        - Differences between approaches
+        - Mocks and Test Fragility
+            - Communications in a system
+            - Classical and London Approaches Revisited
+            - Proper use of Mocks
+        - Unit and Integration Testing
+            - Dependencies usage
+            - Differences between operations
+        - Purpose
+            - Faults
+            - Re-Use
+            - Development Speed
+        - Structure
+            - Arrange, Act, Assert Phases
+            - Teardown Phase
+            - (see more)
+    - Unit Test Quality
+        - Protection against regressions
+        - Resistance to refactoring
+            - False Positive
+        - Fast Feedback
+        - Maintainability
+        - Test Accuracy 
+            - Best attribute ratio
+            - Balance between attributes
+    - Code Coverage Metrics
+        - Line Coverage
+        - Branch Coverage
+        - Statement Coverage
+        - Decision Coverage
+        - Condition Coverage
+        - Problems
+            - Not all outcomes are guaranteed to be verified
+            - External libraries code paths are not covered
+            - Indicator of enough testing
+    - Techniques
+        - Black Box Testing
+            - Regression Testing
+        - White Box Testing
+            - Mutation Testing
 - Unit Test Generation 
+    - Automated and Manual Generation
+    - Dynamic vs Static Languages
+    - Available frameworks (mencionar aqui quais frameworks são white box / black box based)
     - Metaheuristic Algorithms
         - Fitness Functions
             - Branch Coverage
@@ -296,20 +328,26 @@ More complex AI and Machine Learning techniques are applied in this paper to gen
             - Statement Coverage
             - Distance-Based Coverage Fitness Function
             - Adaptive Fitness Function Selection
-    - Unit Test Generation Techniques
+    - Unit Test Generation Techniques (para esta secção, a nível prático usar 3 metodos => aplicação de algoritmos, uso de *frameworks* e aprender *reinforcement learning* => utilizar para um conjunto de dados de projetos opensource)
         - Single-Objective Formulation Algorithms
         - Many-Objective Formulation Algorithms
+        - Frameworks for Automation of Test Generation
+            - Evosuite / JUnit
+            - Pynguin
         - Reinforcement Learning
             - Deep Reinforcement Learning
-    - Mutation Testing
-    - Regression Testing
 
-- Impact of Software Quality
+- Impact in Software Quality
     - Context
     - Software Development and Deployment
     - Further studies
 
+- Trabalhos relacionados
 ---
+
+# Links interessantes:
+
+- biblioteca para inserir mutações no source code (mutmut): https://towardsdatascience.com/how-to-test-your-unit-tests-afe18d6e19d8
 
 # PRISMA Statement to Apply
 
