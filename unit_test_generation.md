@@ -12,6 +12,10 @@
 - https://arxiv.org/abs/2110.13575 (Automated Support for Unit Test Generation A Tutorial Book Chapter) [10]
 - https://www.sciencedirect.com/science/article/abs/pii/S0950584901001896 (Search-based software engineering) [11]
 - https://onlinelibrary.wiley.com/doi/abs/10.1002/stvr.1701 (Choosing The Fitness Function for the Job: Automated Generation of Test Suites that Detect Real Faults) [12]
+- https://www.hindawi.com/journals/jcnc/2019/7983583/ (The Characteristics of Metaheuristic Method in Selection of Path Pairs on Multicriteria Ad Hoc Networks) [13]
+- https://www.baeldung.com/cs/heuristics-vs-meta-heuristics-vs-probabilistic-algorithms [14]
+- https://www.researchgate.net/publication/220516273_Search-based_software_test_data_generation_a_survey_Research_Articles (Search-based software test data generation: a survey) [15]
+- https://www.mygreatlearning.com/blog/an-introduction-to-hill-climbing-algorithm/ [16]
 
 ## Automated and Manual Testing
 
@@ -70,11 +74,66 @@ Common methods to measure adequacy are coverage of structural elements of the so
 
 ### Metaheuristic algorithms
 
-Metaheuristic algorithms implement a search procedure to find the best solution possible within a search space (referred normally as "search budget") while also obeying a restrict time limit. They are also a powerful aid to ensure the search of a near-optimal solution with incomplete ou imperfect information with the available resources [9]. 
+Metaheuristic algorithms implement a search procedure to find the best solution possible within a search space (referred normally as "search budget") while also obeying a restrict time limit. They are also a powerful aid to ensure the search of a near-optimal solution with incomplete ou imperfect information with the available resources [9]. The objective - behind these algorithms - is to find new strategies to resolve a problem as they use heuristics for that matter. 
 
-Optimization problems can be found diversily in search-based software testing. One pratical example of this situation
+The major distinction between a metaheuristic and a heuristic is that the latter needs to be tailored to a specific problem. A metaheuristic is a general algorithm which can be used in different types of problems being an problem-independent algorithm [14] being generally associated to a black-box technique. In context of search-based test generation this can be exemplified regarding coverage metrics. The same heuristic cannot be used for two different coverage problems as the heuristic needs to be tailored to a specific coverage problem, however the use of a metaheuristic proves to be better as it can take a problem in a general context, i.e, does not need to be specified for a specific problem.
 
-The application of metaheuristic algorithms in conjunction 
+Applying metaheuristic algorithms in conjunction with fitness functions can aid in the stable and efficient search for near-optimal solutions in the context of search-based test generation. The process of generating test cases can be seen as an optimization problem, where the objective is to search within a space of possible inputs and improve the quality of the solutions over time. The use of fitness functions in this optimization process is crucial. Fitness functions assign scores to individual test cases based on their adherence to specific adequacy criteria, such as coverage metrics or other relevant quality measures. These scores guide the metaheuristic algorithms to explore the search space and find better, more optimized solutions with each iteration.
+
+By leveraging the power of metaheuristic algorithms and fitness functions, search-based test generation aims to continuously improve the quality of generated test cases within the constraints of a given search budget. The process involves iteratively evaluating and refining the solutions based on their fitness scores, ultimately leading to test suites that better achieve a specific goal.
+
+#### Hill Climber
+
+Hill Climber is a metaheuristic algorithm that focuses in searching a local optimal solution within a search space. The algorithm starts with an initial solution chosen randomly and makes continuous searches around the neighbourhood to find better solutions. If a better solution is found - within that neighbourhood - then the current solution is replaced by the better solution. This last process is repeated continously until the search budget is reached or if no improved neighbours can be found.
+
+This algorithm is essentially a local search algorithm. It tries to find a local optima, i.e, trying to find the local maximum within the search space, which represents the state who maximizes the value of a objective function (in this case fitness function). This however is a limitation to the algorithm as it may not achieve the most desired score which is the global maximum, which represents the highest objective score.
+
+During the search, a local maximum can be found and limit the search as it is not possible to find a better neighbour within that search scope (further "climbing" is not made) because the neighbours values are worse than the current found solution [16]. Another problem is that the search may lead to search spaces where the solution cannot be improved any further because of the neighbours sharing the same objective score, i.e, there is a high quantity of values that are equal to the current solution. All these equal values are designated as "flat" local maximums. A problem that also associated to these "flat" values is the **shoulder problem**. This identifies a range of equal objective values which prevents founding the best solution within that search space. The regions where all neighbours have the same values are called **plateau** regions.
+
+Despite all the problems listed above, the major limitation behind this algorithm lies upon the starting solution. If a bad solution is chosen to start the search, there is a higher chance that the search scope can be very limited not providing enough good solutions. In this case, the best solution can be found almost imediately which is a bad indicator for the search as it means the starting solution was not a good choice and the peak - within the search space of the starting solution - was almost instantly achieved.
+
+##### Adopted strategy
+
+(falar de Simple Hill Climbing, Steepest Ascent Hill climbing e Stochastic Hill Climbing)
+
+(escolher tipo de estrategia para aplicar)
+
+![](https://hackmd.io/_uploads/BJkFJBndn.png) [16]
+
+
+#### Genetic Algorithm
+
+:::info
+**Local vs Global Optima**
+
+Local optima and global optima are concepts related to optimization problems, including those solved by hill climbers and genetic algorithms. Let's understand the distinctions:
+
+Local Optima:
+
+Local optima refer to solutions that are optimal within a specific region of the search space. These solutions may be the best in their local vicinity, but they are not necessarily the best solution globally across the entire search space.
+In the context of optimization algorithms like hill climbers, when the algorithm starts from a specific point in the search space and iteratively explores its neighboring solutions, it may converge to a local optimum that is the best in that particular neighborhood.
+The drawback of local optima is that they may prevent the algorithm from finding the overall best solution if that solution exists in a different region of the search space.
+Global Optima:
+
+Global optima, on the other hand, refer to the best possible solution across the entire search space. These are the optimal solutions that one would ideally like to find when solving an optimization problem.
+In the context of optimization algorithms like genetic algorithms, which use a population of solutions and evolutionary processes, the algorithm aims to explore different regions of the search space and converge to the global optimum, i.e., the best possible solution overall.
+Finding the global optimum can be challenging, especially in complex and high-dimensional search spaces, as the algorithm needs to overcome local optima to reach the best possible solution.
+Distinction in Hill Climber and Genetic Algorithm:
+
+Hill Climber:
+
+Hill climbers are local search algorithms that start from a specific point in the search space and iteratively move to neighboring solutions that improve the objective function.
+They are prone to getting stuck in local optima, as they focus on exploring the nearby solutions and may not venture far enough to find the global optimum.
+Hill climbers are computationally efficient and work well for some simple optimization problems with a well-defined landscape.
+Genetic Algorithm:
+
+Genetic algorithms, on the other hand, are population-based metaheuristics that maintain a population of solutions and apply genetic operators (crossover, mutation, selection) to evolve the population over generations.
+By maintaining a diverse population and applying genetic operators, genetic algorithms are more capable of exploring different regions of the search space, which helps them avoid getting trapped in local optima and increases the chance of finding the global optimum.
+However, genetic algorithms might require more computational resources and can be slower compared to hill climbers, especially for problems with a large search space.
+In summary, hill climbers are more prone to finding local optima due to their localized search strategy, while genetic algorithms are better suited to explore the search space globally and have a higher chance of finding global optima. However, genetic algorithms might require more computational resources and be computationally expensive compared to hill climbers, making the choice of optimization algorithm dependent on the specific problem characteristics and available resources.
+:::
+
+
 
 
 
