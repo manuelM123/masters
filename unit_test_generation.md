@@ -16,6 +16,11 @@
 - https://www.baeldung.com/cs/heuristics-vs-meta-heuristics-vs-probabilistic-algorithms [14]
 - https://www.researchgate.net/publication/220516273_Search-based_software_test_data_generation_a_survey_Research_Articles (Search-based software test data generation: a survey) [15]
 - https://www.mygreatlearning.com/blog/an-introduction-to-hill-climbing-algorithm/ [16]
+- https://link.springer.com/article/10.1007/s11042-020-10139-6 (A review on genetic algorithm: past, present, and future) [17]
+- https://ieeexplore.ieee.org/document/488968 (Particle swarm optimization) [18]
+- https://www.researchgate.net/publication/261741691_Genetic_Algorithms_Data_Structures_Evolution_Programs_by_Z_Michalewicz (Genetic Algorithms + Data Structures = Evolution Programs) [19]
+- https://ieeexplore.ieee.org/document/4129846 (Ant colony optimization) [20]
+- https://warin.ca/ressources/books/2015_Book_IntroductionToEvolutionaryComp.pdf (Introduction to Evolutionary Computing) [21]
 
 ## Automated and Manual Testing
 
@@ -84,24 +89,45 @@ By leveraging the power of metaheuristic algorithms and fitness functions, searc
 
 #### Hill Climber
 
-Hill Climber is a metaheuristic algorithm that focuses in searching a local optimal solution within a search space. The algorithm starts with an initial solution chosen randomly and makes continuous searches around the neighbourhood to find better solutions. If a better solution is found - within that neighbourhood - then the current solution is replaced by the better solution. This last process is repeated continously until the search budget is reached or if no improved neighbours can be found.
+Hill Climber is a metaheuristic algorithm that focuses in searching a local optimal solution within a search space. The algorithm starts with a single initial solution chosen randomly and makes continuous searches around its neighbourhood to find better solutions. If a better solution is found - within that neighbourhood - then the current solution is replaced by the better solution. This last process is repeated continously until the search budget is reached or if no improved neighbours can be found. It is considered as a single-solution based metaheuristic [17].
 
-This algorithm is essentially a local search algorithm. It tries to find a local optima, i.e, trying to find the local maximum within the search space, which represents the state who maximizes the value of a objective function (in this case fitness function). This however is a limitation to the algorithm as it may not achieve the most desired score which is the global maximum, which represents the highest objective score.
+This algorithm is essentially a local search algorithm. It tries to find a local optima, i.e, trying to find the local maximum within the search space, which represents the state who maximizes the value of a objective function (fitness function). This however is a limitation to the algorithm as it may not achieve the most desired score which is the global maximum, which represents the highest objective score. 
 
 During the search, a local maximum can be found and limit the search as it is not possible to find a better neighbour within that search scope (further "climbing" is not made) because the neighbours values are worse than the current found solution [16]. Another problem is that the search may lead to search spaces where the solution cannot be improved any further because of the neighbours sharing the same objective score, i.e, there is a high quantity of values that are equal to the current solution. All these equal values are designated as "flat" local maximums. A problem that also associated to these "flat" values is the **shoulder problem**. This identifies a range of equal objective values which prevents founding the best solution within that search space. The regions where all neighbours have the same values are called **plateau** regions.
 
 Despite all the problems listed above, the major limitation behind this algorithm lies upon the starting solution. If a bad solution is chosen to start the search, there is a higher chance that the search scope can be very limited not providing enough good solutions. In this case, the best solution can be found almost imediately which is a bad indicator for the search as it means the starting solution was not a good choice and the peak - within the search space of the starting solution - was almost instantly achieved.
 
-##### Adopted strategy
-
-(falar de Simple Hill Climbing, Steepest Ascent Hill climbing e Stochastic Hill Climbing)
-
-(escolher tipo de estrategia para aplicar)
-
 ![](https://hackmd.io/_uploads/BJkFJBndn.png) [16]
 
 
 #### Genetic Algorithm
+
+Not all metaheuristic algorithms delve onto the local search scope, as some of them also perform a global search and consider a wide set of candidate solutions within the search space. These algorithms are called "Population-based metaheuristics" and can maintain diversity in the population (set of solutions) while also prevent the search to be stuck in a local optima [17]. A few example of these algorithms are swarm optimization (PSO) [18], genetic algorithm (GA) [19] and ant colony optimization (ACO) [20]. 
+
+For this work, genetic algorithm was implemented and as such, a much needed contextualization about evolutionary algorithms must be presented. An evolutionary algorithm is an algorithm who uses a search strategy to evolve candidate solutions using genetics and natural selections inspired operators [15]. A more detailed definition can be defined as: "**given a population of individuals within some environment that has limited resources, competition for those resources causes natural selection (survival of the fittest)**" mentioned by A.E. Eiben and J.E. Smith [21]. 
+
+Evolutionary algorithms (EAs) are inspired by the Darwinian Evolution, where the solutions are identified as individual organisms in a population (set of solutions). Within that population, each individual is tested for fitness (how well they can resolve a problem) and a set of them are selected for reproduction, which includes crossover and mutation operators. Genetic algorithm is a class of the evolutionary algorithms and as such also employs bio-inspired operators for its generation of solutions.
+
+
+##### Natural phenomena
+
+A genetic algorithm is a optimization algorithm that uses bio-inspired operators for its generation of solutions. Being a population-based search algorith it employs the concept of survival of the fittest [19]. New populations are formed iteratively through genetic operators applied on the individuals of the present population. These genetic operators will alter the fittest individuals of the population and will apply crossover and mutation operations to them in order to generate even better individuals. This process is repeated until a certain budget is met and the population will contain the best generated individuals until then. The application of GA, with biological terms, can be explained in a simple step scheme:
+
+1. **Population**: a set of $n$ chromossomes, where each one of them represents one individual, is initialized randomly;
+2. **Selection**: operation that selects the fittest individuals of the current population. the $t$ chosen individuals (chromossomes) are selected through their fitness score value (the $t$ highest fitness score values are chosen);
+3. **Crossover**: the chosen chromossomes undergo crossover operations, i.e, they exchange information between each other according the type of mutation specified. The newly created chromossomes are now reffered to as "offsprings";
+4. **Mutation**: according to the type of mutation operator, small changes will be made to the offsprings in order to add more evolution/information;
+5. **Adding offsprings**: after the mutation process, the offsprings are placed in a new population replacing the old population entirely. After this step the search will continue in the new population;
+6. **Repetition of step 2 - 5**: the steps 2 through 5 are repeated until a certain limit or budget is reached within the generation process.
+
+In biological terms, an individual or chromossome components are called genes, the values for each component are reffered to as alleles and their position within the sequence of the chromossome are called locus. In this work, these biological terms will be referred interchangeably between sections.
+
+###### Selection operators
+
+###### Crossover operators
+
+###### Mutation operators
+
 
 :::info
 **Local vs Global Optima**
