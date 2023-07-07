@@ -21,6 +21,9 @@
 - https://www.researchgate.net/publication/261741691_Genetic_Algorithms_Data_Structures_Evolution_Programs_by_Z_Michalewicz (Genetic Algorithms + Data Structures = Evolution Programs) [19]
 - https://ieeexplore.ieee.org/document/4129846 (Ant colony optimization) [20]
 - https://warin.ca/ressources/books/2015_Book_IntroductionToEvolutionaryComp.pdf (Introduction to Evolutionary Computing) [21]
+- https://ia800200.us.archive.org/29/items/2008IntroductionToGeneticAlgorithmsS.N.Sivanandam/2008%20-%20Introduction%20to%20Genetic%20Algorithms%20%28S.%20N.%20Sivanandam%29.pdf (Introduction to Genetic Algorithms) [22]
+- https://garph.co.uk/ijarie/mar2013/1.pdf (Encoding schemes in genetic algorithm) [23]
+- https://www.baeldung.com/cs/genetic-algorithms-roulette-selection [24]
 
 ## Automated and Manual Testing
 
@@ -79,7 +82,7 @@ Common methods to measure adequacy are coverage of structural elements of the so
 
 ### Metaheuristic algorithms
 
-Metaheuristic algorithms implement a search procedure to find the best solution possible within a search space (referred normally as "search budget") while also obeying a restrict time limit. They are also a powerful aid to ensure the search of a near-optimal solution with incomplete ou imperfect information with the available resources [9]. The objective - behind these algorithms - is to find new strategies to resolve a problem as they use heuristics for that matter. 
+Metaheuristic algorithms implement a search procedure to find the best solution possible within a search space while also obeying a restrict time limit or search budget. They are also a powerful aid to ensure the search of a near-optimal solution with incomplete ou imperfect information with the available resources [9]. The objective - behind these algorithms - is to find new strategies to resolve a problem as they use heuristics for that matter. 
 
 The major distinction between a metaheuristic and a heuristic is that the latter needs to be tailored to a specific problem. A metaheuristic is a general algorithm which can be used in different types of problems being an problem-independent algorithm [14] being generally associated to a black-box technique. In context of search-based test generation this can be exemplified regarding coverage metrics. The same heuristic cannot be used for two different coverage problems as the heuristic needs to be tailored to a specific coverage problem, however the use of a metaheuristic proves to be better as it can take a problem in a general context, i.e, does not need to be specified for a specific problem.
 
@@ -95,7 +98,7 @@ This algorithm is essentially a local search algorithm. It tries to find a local
 
 During the search, a local maximum can be found and limit the search as it is not possible to find a better neighbour within that search scope (further "climbing" is not made) because the neighbours values are worse than the current found solution [16]. Another problem is that the search may lead to search spaces where the solution cannot be improved any further because of the neighbours sharing the same objective score, i.e, there is a high quantity of values that are equal to the current solution. All these equal values are designated as "flat" local maximums. A problem that also associated to these "flat" values is the **shoulder problem**. This identifies a range of equal objective values which prevents founding the best solution within that search space. The regions where all neighbours have the same values are called **plateau** regions.
 
-Despite all the problems listed above, the major limitation behind this algorithm lies upon the starting solution. If a bad solution is chosen to start the search, there is a higher chance that the search scope can be very limited not providing enough good solutions. In this case, the best solution can be found almost imediately which is a bad indicator for the search as it means the starting solution was not a good choice and the peak - within the search space of the starting solution - was almost instantly achieved.
+Another major limitation behind this algorithm lies upon the starting solution. If a bad solution is chosen to start the search, there is a higher chance that the search scope can be very limited not providing enough good solutions. In this case, the best solution can be found almost imediately which is a bad indicator for the search as it means the starting solution was not a good choice and the peak - within the search space of the starting solution - was almost instantly achieved.
 
 ![](https://hackmd.io/_uploads/BJkFJBndn.png) [16]
 
@@ -111,20 +114,52 @@ Evolutionary algorithms (EAs) are inspired by the Darwinian Evolution, where the
 
 ##### Natural phenomena
 
-A genetic algorithm is a optimization algorithm that uses bio-inspired operators for its generation of solutions. Being a population-based search algorith it employs the concept of survival of the fittest [19]. New populations are formed iteratively through genetic operators applied on the individuals of the present population. These genetic operators will alter the fittest individuals of the population and will apply crossover and mutation operations to them in order to generate even better individuals. This process is repeated until a certain budget is met and the population will contain the best generated individuals until then. The application of GA, with biological terms, can be explained in a simple step scheme:
+A genetic algorithm is a optimization algorithm that uses bio-inspired operators for its generation of solutions. Being a population-based search algorithm, it employs the concept of survival of the fittest [19] where only the individuals with the highest fitness scores survive. New populations are formed iteratively through genetic operators applied on the individuals of the present population. These genetic operators will alter the fittest individuals of the population and will apply crossover and mutation operations to them in order to generate even better individuals. This process is repeated until a certain budget is met and the population will contain the best generated individuals until then. The application of GA, with biological terms, can be explained in a simple step scheme:
 
 1. **Population**: a set of $n$ chromossomes, where each one of them represents one individual, is initialized randomly;
 2. **Selection**: operation that selects the fittest individuals of the current population. the $t$ chosen individuals (chromossomes) are selected through their fitness score value (the $t$ highest fitness score values are chosen);
-3. **Crossover**: the chosen chromossomes undergo crossover operations, i.e, they exchange information between each other according the type of mutation specified. The newly created chromossomes are now reffered to as "offsprings";
+3. **Crossover**: the chosen chromossomes undergo crossover operations, i.e, they exchange information between each other according the type of mutation specified. The newly created chromossomes are now referred to as "offsprings";
 4. **Mutation**: according to the type of mutation operator, small changes will be made to the offsprings in order to add more evolution/information;
 5. **Adding offsprings**: after the mutation process, the offsprings are placed in a new population replacing the old population entirely. After this step the search will continue in the new population;
 6. **Repetition of step 2 - 5**: the steps 2 through 5 are repeated until a certain limit or budget is reached within the generation process.
 
-In biological terms, an individual or chromossome components are called genes, the values for each component are reffered to as alleles and their position within the sequence of the chromossome are called locus. In this work, these biological terms will be referred interchangeably between sections.
+###### Individuals representation
 
-###### Selection operators
+In natural evolution terms, an individual or chromossome components are called genes, the values for each component are referred to as alleles and their position within the sequence of the chromossome are called locus. In this work, these biological terms will be referred interchangeably between future sections.
+
+Before applying a genetic algorithm to a domain problem is necessary to decide how the components of the domain (more accurately the solutions) will be represented as. In this case, the chromossomes (solutions) must be stored and manipulated in way that a computer can understand it. The objects that encompass possible solutions within the problem context are called as **phenotypes** and their respective enconding form is called **genotypes**. This first step is called **representation** where mapping from phenotypes onto a set of genotypes is necessary for proper representation of the solutions as the search is conducted in the genotype space [21].
+
+The solutions must be encoded in a fixed-length bit string [22]. Next, a type of enconding is necessary, where for problems involving genetic algorithms, a binary enconding is often recommended [17]. However, it's worth noting that there are other encoding schemes that can be used in genetic algorithms, including octal, hexadecimal, permutation, value-based, and tree encodings [23].
+
+In binary encoding scheme, a chromossome is represented as a string of values 1 or 0 (binary string) and in this enconding each bit represents the characteristics of the solution. Using a binary enconding provides a faster implementation of crossover and mutation operators [17] as each allele is one of two values providing simpler operations. 
+
+###### Selection types
+
+After a proper representation of the individuals, a few of them must be selected to start reproduction which include crossover and mutation operations. This selection is made according to the fitness score value of the individuals - in a population - according to how well they resolve a defined problem. In this process, $n$ fittest chromossomes will be chosen to act as **parents** for the next stage of the algorithm (reproduction phase). This selection process is typically randomized, with the probability of selection depending on the fitness of the individuals [22]. The higher the fitness of the individual, higher the chance he will be picked as a parent for reproduction. 
+
+There is two major categories of methods for using fitness in the selection operation:
+- **Deterministic methods**: these methods involve selecting $n$-fittest individuals of a population. Only the $n$ individuals with the highest fitness scores are chosen for reproduction. This can lead the population to reach a local maximum which consecutively stops the evolution process;
+- **Stochastic methods**: as one of the major objectives of genetic algorithms is to provide a global search within the population, stochastic methods are often recommend to avoid the population to get stuck in local optima. These methods select individuals randomly with a probability according to fitness values [22]. 
+
+Selection types:
+
+- **Random selection**
+    - As the name suggests, the chromossomes are selected randomly, within the population, without any analysis on the fitness scores of the individuals;
+- **Roulette Wheel selection**
+    - One of the traditional genetic algorithm techniques where an individual is selected, from a population, with a probability proportional to the fitness score [22] being it considered as a stochastic method. 
+    - The roulette wheel selection can be described, in simpler terms, as a wheel divided in sequential spaces where each these spaces or slots are proportional to the fitness score of each individual within the population. 
+    - This technique promotes a linear search through the wheel (population) defining a target value to be achieved. This target value corresponds to a random proportion of the sum of the fitness values of all individuals in the population. The population is searched until the target value is reached. This however constitutes a potential problem.
+        - It's not guaranteed that fit individuals are selected despite having bigger chances (their fitness scores are higher). If a fit individual does not exceed the target value, there might be a chance that the next individual in line can exceed the target value while being weaker that the previous one. In this technique the population must not be sorted by fitness scores in order to prevent bias in the selection [22].
+
+        ![](https://hackmd.io/_uploads/Sy-_jjHY3.png) [22]
+
+- **Rank selection**
+    - 
+- **Tournament selection**
+    - 
 
 ###### Crossover operators
+
 
 ###### Mutation operators
 
@@ -144,6 +179,9 @@ Global Optima:
 Global optima, on the other hand, refer to the best possible solution across the entire search space. These are the optimal solutions that one would ideally like to find when solving an optimization problem.
 In the context of optimization algorithms like genetic algorithms, which use a population of solutions and evolutionary processes, the algorithm aims to explore different regions of the search space and converge to the global optimum, i.e., the best possible solution overall.
 Finding the global optimum can be challenging, especially in complex and high-dimensional search spaces, as the algorithm needs to overcome local optima to reach the best possible solution.
+
+![](https://hackmd.io/_uploads/ByWBycrFh.png) []
+
 Distinction in Hill Climber and Genetic Algorithm:
 
 Hill Climber:
