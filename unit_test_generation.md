@@ -24,6 +24,11 @@
 - https://ia800200.us.archive.org/29/items/2008IntroductionToGeneticAlgorithmsS.N.Sivanandam/2008%20-%20Introduction%20to%20Genetic%20Algorithms%20%28S.%20N.%20Sivanandam%29.pdf (Introduction to Genetic Algorithms) [22]
 - https://garph.co.uk/ijarie/mar2013/1.pdf (Encoding schemes in genetic algorithm) [23]
 - https://www.baeldung.com/cs/genetic-algorithms-roulette-selection [24]
+- https://www.researchgate.net/publication/257720048_Genetic_Algorithm_for_the_History_Matching_Problem (Genetic Algorithm for the History Matching Problem) [25]
+- https://www.researchgate.net/publication/259461147_Selection_Methods_for_Genetic_Algorithms (Selection Methods for Genetic Algorithms) [26]
+- https://www.sciencedirect.com/science/article/abs/pii/B9780080506845500082 (A Comparative Analysis of Selection Schemes Used in Genetic Algorithms) [27]
+- https://link.springer.com/chapter/10.1007/978-3-642-16493-4_19 (A Review of Tournament Selection in Genetic Programming) [28]
+- https://www.tutorialspoint.com/genetic_algorithms/genetic_algorithms_parent_selection.htm [29]
 
 ## Automated and Manual Testing
 
@@ -144,19 +149,42 @@ There is two major categories of methods for using fitness in the selection oper
 Selection types:
 
 - **Random selection**
-    - As the name suggests, the chromossomes are selected randomly, within the population, without any analysis on the fitness scores of the individuals;
+    - The chromossomes are selected randomly, within the population, without any analysis on the fitness scores of the individuals. This in on itself is a huge problem for proper generation of unit tests that are representative of the problem context as random selection of the parent chromossomes generally does not provide an adequate generation in the later stages;
 - **Roulette Wheel selection**
     - One of the traditional genetic algorithm techniques where an individual is selected, from a population, with a probability proportional to the fitness score [22] being it considered as a stochastic method. 
-    - The roulette wheel selection can be described, in simpler terms, as a wheel divided in sequential spaces where each these spaces or slots are proportional to the fitness score of each individual within the population. 
+    - The roulette wheel selection can be described, in simpler terms, as a wheel divided in sequential spaces where each of these spaces or slots are proportional to the fitness score of each individual within the population. 
     - This technique promotes a linear search through the wheel (population) defining a target value to be achieved. This target value corresponds to a random proportion of the sum of the fitness values of all individuals in the population. The population is searched until the target value is reached. This however constitutes a potential problem.
         - It's not guaranteed that fit individuals are selected despite having bigger chances (their fitness scores are higher). If a fit individual does not exceed the target value, there might be a chance that the next individual in line can exceed the target value while being weaker that the previous one. In this technique the population must not be sorted by fitness scores in order to prevent bias in the selection [22].
+        - Another problem associated to this technique is that more predominant individuals (with high fitness scores) will introduce bias to the initial search as they occupy a major portion of the wheel. This leads to premature convergence and loss of diversity as another individuals have low chances to be selected. This situation can hinder the search process as it almost limits the search to only one individual in the population being this almost compared to the situation of local optima in single-solution based metaheuristics.
+        - **Selection probabilities** 
+            - ![](https://hackmd.io/_uploads/Hko97tYYn.png) - total sum of probability of each chromossome (this **must be equal to one**) where $n$ represents the **number of chromossomes** and $p_{i}$ is the **probability of the $i$ chromossome**
+            - ![](https://hackmd.io/_uploads/HyFrVKYYn.png) - $p_{x}$ probability value of a $x$ chromossome where the probability is the **quotient** between its **fitness score** $f_{x}$ and **sum of fitness scores of all chromossomes** in the population where $f_{i}$ represents the **fitness score of the $i$ chromossome** out of $n$ chromossomes in the population. For **maximization problems this is the formula to use**, for minimization problems $f_{i}$ would be $\frac{1}{f_{i}}$ instead
 
         ![](https://hackmd.io/_uploads/Sy-_jjHY3.png) [22]
+        
+        ![](https://hackmd.io/_uploads/Hy3iIYtFh.png) [25]
+        
+- This selection method has a $O(N^2)$ time complexity. A linear search is made through the wheel and with a population of size $n$ ($n$ spins) it has $O(n)$ just for the linear search for the whole wheel. As this method is repeated $n$ times an additional time complexity is added totalling $O(n^2)$ time complexity [27].
+
 
 - **Rank selection**
-    - 
+    - A ranking operation is made for each chromossome within the population. Each individual receives its rank according to the fitness value that each one was. The worst individual will have rank 1 while the best individual will have rank $N$ whereas $N$ refers to the number of chromossomes within the population. 
+    - In this technique, the individuals in a population are initially ordered by their fitness scores in ascending order of fitness. After the ordering, each respective individual is assigned a rank starting from the initial position of the ordered values. The rank is assigned from 1 (worst individual with the lowest fitness score) to $N$ (best individual with the highest fitness score). Then this technique, as already mentioned previously, determines the selection using the ranks and not fitness scores themselves. For this matter, a selection probability is determined using the ranks of each individual and population size. There is two ways to calculate this selection probability which are:
+        - **Linear rank selection**: ![](https://hackmd.io/_uploads/ByfS-nqF2.png) whereas $i$ represents the $i^{th}$ individual in the population and $n$ represents the population size (total number of individuals). [26]
+
+        - **Exponential rank selection**: ![](https://hackmd.io/_uploads/SJcIwRqFh.png) whereas $i$ represents the rank of the $i^{th}$ individual in the population and $c$ represents a normalization factor chosen so that the sum of the probabilities of all individuals equals to one.
+
+- This method has a time complexity of $O(n * log\ n)$. The technique is a two step process as it needs a sorting operation first before making the selection operation. Taking this into account, for the sorting operation, a time complexity of $O(n * log\ n)$ is needed (using standard sorting techniques), a propriate selection method varies its complexity between $O(n)$ and $O(n^2)$ [27]. According to these steps, the standard ranking selection method has a time complexity of $O(n * log\ n)$.
+
 - **Tournament selection**
-    - 
+    - A variation of rank-based selection aproaches as it consists in a random selection of $k$ individuals from a population. This is made to select the fittest individual out of the $k$ individuals in order to become a parent for the reproduction process. This process can be repeated $N$ times until the required number of parents are selected and it does not apply the sorting of fitness as the base rank selection method does [15]. The sorting part is a operation that consumes a lot of time, being this critical in population with million of individuals and as this method does not perform any sorting whatsoever it contributes for a lower time complexity [28].
+    - This technique vastly differs from the previous ones regarding the selection operation regarding the size of the population. As this method selects $k$ individuals from a population for the tournaments, a global knowledge of the population is not necessary [21]. However **the quantity of individuals in each tournament** (tournament size) is a **important parameter to evaluate**. The larger the tournament size, the greater are the chances to obtain better fit individuals, as the smaller the tournament size the greater the chances to obtain less fit individuals. As the tournament size increases, higher the probability of high-fitness individuals to be selected and lower the probability of low-fitness individuals to be selected [21]. Standard used tournament sizes are 2, 4 and 7 [28].
+
+    ![](https://hackmd.io/_uploads/H1el2W2c2.png) [29]
+
+    - This method is the most popular selection technique used in genetic algorithms due to its time complexity $O(n)$ (linear time complexity).
+
+
 
 ###### Crossover operators
 
@@ -165,7 +193,10 @@ Selection types:
 
 
 :::info
-**Local vs Global Optima**
+
+**Additional info**
+
+Local vs Global Optima
 
 Local optima and global optima are concepts related to optimization problems, including those solved by hill climbers and genetic algorithms. Let's understand the distinctions:
 
@@ -180,7 +211,7 @@ Global optima, on the other hand, refer to the best possible solution across the
 In the context of optimization algorithms like genetic algorithms, which use a population of solutions and evolutionary processes, the algorithm aims to explore different regions of the search space and converge to the global optimum, i.e., the best possible solution overall.
 Finding the global optimum can be challenging, especially in complex and high-dimensional search spaces, as the algorithm needs to overcome local optima to reach the best possible solution.
 
-![](https://hackmd.io/_uploads/ByWBycrFh.png) []
+![](https://hackmd.io/_uploads/ByWBycrFh.png) 
 
 Distinction in Hill Climber and Genetic Algorithm:
 
