@@ -29,6 +29,7 @@
 - https://www.sciencedirect.com/science/article/abs/pii/B9780080506845500082 (A Comparative Analysis of Selection Schemes Used in Genetic Algorithms) [27]
 - https://link.springer.com/chapter/10.1007/978-3-642-16493-4_19 (A Review of Tournament Selection in Genetic Programming) [28]
 - https://www.tutorialspoint.com/genetic_algorithms/genetic_algorithms_parent_selection.htm [29]
+- https://www.researchgate.net/publication/220741401_An_analysis_of_multi-sampled_issue_and_no-replacement_tournament_selection (An analysis of multi-sampled issue and no-replacement tournament selection) [30]
 
 ## Automated and Manual Testing
 
@@ -123,10 +124,10 @@ A genetic algorithm is a optimization algorithm that uses bio-inspired operators
 
 1. **Population**: a set of $n$ chromossomes, where each one of them represents one individual, is initialized randomly;
 2. **Selection**: operation that selects the fittest individuals of the current population. the $t$ chosen individuals (chromossomes) are selected through their fitness score value (the $t$ highest fitness score values are chosen);
-3. **Crossover**: the chosen chromossomes undergo crossover operations, i.e, they exchange information between each other according the type of mutation specified. The newly created chromossomes are now referred to as "offsprings";
+3. **Recombination**: the chosen chromossomes undergo crossover operations, i.e, they exchange information between each other according the type of mutation specified. The newly created chromossomes are now referred to as "offsprings";
 4. **Mutation**: according to the type of mutation operator, small changes will be made to the offsprings in order to add more evolution/information;
 5. **Adding offsprings**: after the mutation process, the offsprings are placed in a new population replacing the old population entirely. After this step the search will continue in the new population;
-6. **Repetition of step 2 - 5**: the steps 2 through 5 are repeated until a certain limit or budget is reached within the generation process.
+6. **Repetition of step 2 - 5**: the steps 2 through 5 are repeated until a certain limit, budget or objective is reached within the generation process.
 
 ###### Individuals representation
 
@@ -174,22 +175,63 @@ Selection types:
 
         - **Exponential rank selection**: ![](https://hackmd.io/_uploads/SJcIwRqFh.png) whereas $i$ represents the rank of the $i^{th}$ individual in the population and $c$ represents a normalization factor chosen so that the sum of the probabilities of all individuals equals to one.
 
+![](https://hackmd.io/_uploads/r1b8iXp92.png) [22]
+
 - This method has a time complexity of $O(n * log\ n)$. The technique is a two step process as it needs a sorting operation first before making the selection operation. Taking this into account, for the sorting operation, a time complexity of $O(n * log\ n)$ is needed (using standard sorting techniques), a propriate selection method varies its complexity between $O(n)$ and $O(n^2)$ [27]. According to these steps, the standard ranking selection method has a time complexity of $O(n * log\ n)$.
 
+
 - **Tournament selection**
-    - A variation of rank-based selection aproaches as it consists in a random selection of $k$ individuals from a population. This is made to select the fittest individual out of the $k$ individuals in order to become a parent for the reproduction process. This process can be repeated $N$ times until the required number of parents are selected and it does not apply the sorting of fitness as the base rank selection method does [15]. The sorting part is a operation that consumes a lot of time, being this critical in population with million of individuals and as this method does not perform any sorting whatsoever it contributes for a lower time complexity [28].
-    - This technique vastly differs from the previous ones regarding the selection operation regarding the size of the population. As this method selects $k$ individuals from a population for the tournaments, a global knowledge of the population is not necessary [21]. However **the quantity of individuals in each tournament** (tournament size) is a **important parameter to evaluate**. The larger the tournament size, the greater are the chances to obtain better fit individuals, as the smaller the tournament size the greater the chances to obtain less fit individuals. As the tournament size increases, higher the probability of high-fitness individuals to be selected and lower the probability of low-fitness individuals to be selected [21]. Standard used tournament sizes are 2, 4 and 7 [28].
+    - A variation of rank-based selection aproaches as it consists in a random selection of $k$ individuals from a population (with or without replacement). This is made to select the fittest individual out of the $k$ individuals selected in order to become a parent for the reproduction process. This process can be repeated $N$ times until the required number of parents are selected and it does not apply the sorting of fitness as the base rank selection method does [15]. Sorting is an operation that consumes a lot of time, being this critical in a population with million of individuals and as this method does not perform any sorting whatsoever, it contributes for a lower time complexity [28].
+    - This technique vastly differs from the previous ones regarding the selection operation regarding the size of the population. As this method selects $k$ individuals from a population for the tournaments, a global knowledge of the population is not necessary [21]. However **the quantity of individuals in each tournament** (tournament size) is a **important parameter to evaluate**. The larger the tournament size, the greater are the chances to obtain better fit individuals, the smaller the tournament size the greater the chances to obtain less fit individuals. As the tournament size increases, higher the probability of high-fitness individuals to be selected and lower the probability of low-fitness individuals to be selected [21]. Standard used tournament sizes are 2, 4 and 7 [28].
 
     ![](https://hackmd.io/_uploads/H1el2W2c2.png) [29]
 
-    - This method is the most popular selection technique used in genetic algorithms due to its time complexity $O(n)$ (linear time complexity).
+    - This method is the most popular selection technique used in genetic algorithms due to its time complexity $O(n)$ (linear time complexity). The random selection of a constant number of individuals out of a population of $n$ individuals while also comparing the chosen individuals between each other, done in constant time, all translate into a time complexity of $O(n)$ for this selection method.
+    - The sampling from the population can be done with or without replacement. This is of great importance as it can bring some inconsistencies during the selection process as the same individual can be sampled from the population multiple times for the tournament, being this problem referred to as a multi-sampled issue [30]. The sampling issue of a tournament with replacement can be easily solved by not replacing any chosen individuals for the tournament, i.e., not returning individuals to the population that were chosen for the tournament until the parent is chosen.
+
+![](https://hackmd.io/_uploads/r1Z2cmp53.png) [28]
 
 
+###### Recombination operators
 
-###### Crossover operators
+- After the parents are selected, the next phase of the genetic algorithm consists in exchanging information between the selected individuals in order to generate offsprings. This phase is designated as **recombination**, where a new individual is created from information of two or more parents [21]. This introduces genetic diversity as genes will be exchanged between individuals to create new chromossomes with different information from their parents. While the term "recombination" is more used to refer to exchange of information between parents, the term "crossover" can also be used for this phase.
+- The recombination process is one of a probabilistic nature. This process is applied according to a crossover probability ($P_c$). This probability decides whether the crossover happens between two parents selected from the population. This characteristic does have some implications according to the selected probability value:
+    - A higher probability does apply crossover operations between parents more often. However this can lead to a faster convergence to a optimal solution which, in certain situations, cannot cover a major portion of the individuals in the population resulting in a loss of diversity in the solutions;
+    - A lower probability results in a lower rate of crossover operations, leading to the offspring being similar to their parents. Although this slower convergence may delay the attainment of a solution, it can also limit the acquisition of fitter individuals compared to the initial population. In terms of the crossover probability $P_c$, the likelihood of a crossover not occuring is  $1 - P_c$.
 
+- There is a multitude of different crossover operators to apply in genetic algorithms for the recombination process. The standard crossover operators used in genetic algorithms applications are:
+
+Crossover operators
+
+- One-Point Crossover:
+    - Exchange of genes between parents occurs after a specific position within the chromosome sequence. The selection of the split position is determined randomly, choosing one allele within the range from the first to the penultimate position in the chromosome sequence. In this type of crossover, the head and tail of one chromossome cannot be exchanged and if they contain good genetic information this can be a drawback [22]. In this operator, after the spliting position has been decided, the succeeding genes are exchanged.
+    ![](https://hackmd.io/_uploads/H1f60aJon.png) [21]
+    
+- N-Point Crossover:
+    - Similar to the one-point crossover operator however $n$ spliting points can be chosen to exchange the genes. The following image presents an example for $n = 2$. The genes situated between the spliting positions are exchanged. This type of crossover enables the passage of information from both the head and tail, of a chromossome sequence, to the offspring unlike the one-point crossover.
+    ![](https://hackmd.io/_uploads/BkXMy01s3.png) [21]
+
+- Uniform Crossover:
+    - In this operator, each gene is treated independently, i.e, there is no exchange based on sequences of contiguous genes. This process makes a random choice to select the genes to exchange between parents. 
+    - For the length of the chromossome sequence, a list of random values in a uniform distribution $[0,1]$ is made and a parameter $p$ is chosen to permit the exchange (usually 0.5). For each gene its corresponding value in the list will be compared to the parameter created. If the value is below the parameter $p$ the gene is inherited from the first parent. In the opposite situation the gene is inherited from the second parent. A second offspring is created according to the inverse mapping of the first offspring created by this process [21]. The following image shows the uniform crossover for the list $[0.3, 0.6, 0.1, 0.4, 0.8, 0.7, 0.3, 0.5, 0.3]$ and $p$ = 0.5. 
+
+![](https://hackmd.io/_uploads/ryyhwgljn.png) [21]
+
+- For different encoding schemes, different crossover variations need to be applied. For example for binary enconding schemes only one-point, n-point and uniform crossover can be applied whereas for a tree encoding scheme a subtree crossover is necessary. Another known crossover operations include shuffle, Precedence Preservative Crossover (PPX), ordered crossover, Partially Matched Crossover (PMX) and others [22].
 
 ###### Mutation operators
+
+- Mutation is next phase after the recombination process. In of itself, is a variation operator to add more diversity into the offsprings generated from the recombination by adding new information to them. Adding new information consists in altering a gene within the chromossome sequence in order to generate a individual with new information. 
+
+- This operation prevents the genetic algorithm to enter in a local minimum as also recovers any genetic information lost from the recombination process. Mutation is viewed as a process that mantains the genetic diversity in a population [22] as it introduces new information in the population by randomly changing genes in the resulting individuals from the recombination process. 
+
+- In a binary representation, a simple mutation consists in inverting values for each gene of the chromossome with a probability. Usually this probability is about $1/L$ being $L$ the length of the chromossome that will undergo a mutation process. The bit flipping method is a popular mutation operator for binary representation.
+
+- Mutation operations are representation dependent (different encoding schemes have different ways to apply mutation).
+
+Mutation operators:
+
+...
 
 
 :::info
@@ -227,28 +269,3 @@ By maintaining a diverse population and applying genetic operators, genetic algo
 However, genetic algorithms might require more computational resources and can be slower compared to hill climbers, especially for problems with a large search space.
 In summary, hill climbers are more prone to finding local optima due to their localized search strategy, while genetic algorithms are better suited to explore the search space globally and have a higher chance of finding global optima. However, genetic algorithms might require more computational resources and be computationally expensive compared to hill climbers, making the choice of optimization algorithm dependent on the specific problem characteristics and available resources.
 :::
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
