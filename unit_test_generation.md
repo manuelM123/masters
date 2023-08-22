@@ -1,3 +1,5 @@
+# Unit Test Generation - Masters
+
 ## Links:
 
 - https://dl.acm.org/doi/pdf/10.1145/3511430.3511433 (Human-based Test Design versus Automated Test Generation: A Literature Review and Meta-Analysis) [1]
@@ -30,6 +32,16 @@
 - https://link.springer.com/chapter/10.1007/978-3-642-16493-4_19 (A Review of Tournament Selection in Genetic Programming) [28]
 - https://www.tutorialspoint.com/genetic_algorithms/genetic_algorithms_parent_selection.htm [29]
 - https://www.researchgate.net/publication/220741401_An_analysis_of_multi-sampled_issue_and_no-replacement_tournament_selection (An analysis of multi-sampled issue and no-replacement tournament selection) [30]
+- https://www.researchgate.net/publication/321065158_Termination_Criteria_in_Evolutionary_Algorithms_A_Survey (Termination Criteria in Evolutionary Algorithms: A Survey) [31]
+- https://www.researchgate.net/publication/262219658_Variance_as_a_Stopping_Criterion_for_Genetic_Algorithms_with_Elitist_Model (Variance as a Stopping Criterion for Genetic Algorithms with Elitist Model) [32]
+- https://www.researchgate.net/publication/220701522_An_Emperical_Study_on_GAs_Without_Parameters (An empirical study on GAs “without parameters”) [33]
+- https://www.sciencedirect.com/science/article/pii/S2212671613000449 (APOGA: An Adaptive Population Pool Size Based Genetic Algorithm) [34]
+- https://www.researchgate.net/publication/3623609_Sizing_the_population_with_respect_to_the_local_progress_in_1l-evolution_strategies-a_theoretical_analysis (The choice of the offspring population size in the (1,λ) evolutionary algorithm) [35]
+- https://direct.mit.edu/evco/article-abstract/13/4/413/1223/On-the-Choice-of-the-Offspring-Population-Size-in?redirectedFrom=fulltext (On the Choice of the Offspring Population Size in Evolutionary Algorithms) [36]
+- https://ieeexplore.ieee.org/document/350039 (GAVaPS - a Genetic Algorithm with Varying Population Size) [37]
+- https://link.springer.com/chapter/10.1007/3-540-45356-3_31 (An empirical study on GAs “without parameters”) [38]
+- https://www.researchgate.net/publication/220702069_Evolutionary_Algorithms_with_On-the-Fly_Population_Size_Adjustment (Evolutionary Algorithms with on-the-fly Population Size Adjustment) [39]
+- https://www.sciencedirect.com/science/article/pii/S2212671613000449 (APOGA: An Adaptive Population Pool Size Based Genetic Algorithm) [40]
 
 ## Automated and Manual Testing
 
@@ -117,6 +129,12 @@ For this work, genetic algorithm was implemented and as such, a much needed cont
 
 Evolutionary algorithms (EAs) are inspired by the Darwinian Evolution, where the solutions are identified as individual organisms in a population (set of solutions). Within that population, each individual is tested for fitness (how well they can resolve a problem) and a set of them are selected for reproduction, which includes crossover and mutation operators. Genetic algorithm is a class of the evolutionary algorithms and as such also employs bio-inspired operators for its generation of solutions.
 
+The search procedure behind these algorithms can be divided in exploration and exploitation phases. Initially the search must focus in exploring  different regions of the search space to find feasible solutions being this identified as a **exploration phase**. Additionally, when good solutions are found, more of these solutions must be sought after around their vicinity, i.e, more search should be made in the region where the good solutions where found being this a **exploitation phase**. Howewer, neither of these phases must have a higher impact than other because it can lead to undesired outcomes. A higher exploration can hinder the performance of the algorithm as it can induce an inefficient search (unnecessary search can be made) and a higher exploitation can lead to **premature convergence** where a good solution if found too quickly and the search gets stuck in a region where no improvement can me made (despite possible better solutions can exist) not enabling a proper search of the search space. These two phases must be complemented between each other and balanced as it can prevent the algorithm to be stuck in local optima and provide a higher chance for a global optima to be found within the search space.
+
+:::warning
+**(VER PAPER E ACRESCENTAR ESTA DEFINIÇÃO)**
+![](https://hackmd.io/_uploads/r1VT1Ck23.png) [32]
+:::
 
 ##### Natural phenomena
 
@@ -124,7 +142,7 @@ A genetic algorithm is a optimization algorithm that uses bio-inspired operators
 
 1. **Population**: a set of $n$ chromossomes, where each one of them represents one individual, is initialized randomly;
 2. **Selection**: operation that selects the fittest individuals of the current population. the $t$ chosen individuals (chromossomes) are selected through their fitness score value (the $t$ highest fitness score values are chosen);
-3. **Recombination**: the chosen chromossomes undergo crossover operations, i.e, they exchange information between each other according the type of mutation specified. The newly created chromossomes are now referred to as "offsprings";
+3. **Recombination**: the chosen chromossomes undergo crossover operations, i.e, they exchange information between each other according the type of crossover specified. The newly created chromossomes are now referred to as "offsprings";
 4. **Mutation**: according to the type of mutation operator, small changes will be made to the offsprings in order to add more evolution/information;
 5. **Adding offsprings**: after the mutation process, the offsprings are placed in a new population replacing the old population entirely. After this step the search will continue in the new population;
 6. **Repetition of step 2 - 5**: the steps 2 through 5 are repeated until a certain limit, budget or objective is reached within the generation process.
@@ -221,18 +239,154 @@ Crossover operators
 
 ###### Mutation operators
 
-- Mutation is next phase after the recombination process. In of itself, is a variation operator to add more diversity into the offsprings generated from the recombination by adding new information to them. Adding new information consists in altering a gene within the chromossome sequence in order to generate a individual with new information. 
+- Mutation is the next phase after the recombination process. In of itself, is a variation operator to add more diversity into the offsprings generated from the recombination by adding new information to them. Adding new information consists in altering a gene within the chromossome sequence in order to generate a individual with new information. 
 
-- This operation prevents the genetic algorithm to enter in a local minimum as also recovers any genetic information lost from the recombination process. Mutation is viewed as a process that mantains the genetic diversity in a population [22] as it introduces new information in the population by randomly changing genes in the resulting individuals from the recombination process. 
+- This operation prevents the genetic algorithm to enter in a local minimum as also recovers any genetic information lost from the recombination process. Mutation is viewed as a process that mantains the genetic diversity in a population [22] as it introduces new information in the population by randomly changing genes. 
 
-- In a binary representation, a simple mutation consists in inverting values for each gene of the chromossome with a probability. Usually this probability is about $1/L$ being $L$ the length of the chromossome that will undergo a mutation process. The bit flipping method is a popular mutation operator for binary representation.
+- In a binary representation, a simple mutation consists in inverting values for each gene of the chromossome with a probability $p_m$. Usually this probability is about $1/L$ being $L$ the length of the chromossome that will undergo a mutation process. The bit flipping method is a popular mutation operator for binary representation. Important to note that given the implementation of the mutation process, the parameter that regulates the mutation can be a mutation probability, a mutation rate or a mutation step size [21].
+
+- The mutation parameter is crucial to consider, as varying mutation rates can have a significant impact on the generation of fit individuals. A lower mutation rate is often recommended for populations who contain a high proportion of high fitness individuals as to not disrupt the quality of the population. Conversely, where only a small percentage of the population is composed of fit individuals, a higher mutation rate is recommended to introduce more diversity.
 
 - Mutation operations are representation dependent (different encoding schemes have different ways to apply mutation).
 
 Mutation operators:
 
-...
+- Flipping:
+    - This mutation operator consists in changing a gene value to its inverse. This is typically associated with bit flipping changing values from within the interval of integer values $[0,1]$.
+    - In this method, each gene has a probability $p_m$ for its value to be changed (bit flip of a gene). The number of values to be changed is not fixed, as it is a random choice in the interval of integer values $[1,L]$, where $L$ represents the length of the chromosome sequence undergoing mutation. On average $L\ *\ p_m$ genes will undergo changes within the chromossome sequence [21].
 
+    ![](https://hackmd.io/_uploads/Sy7mvq1nh.png) [22]
+
+- Interchanging:
+    - Two random genes in the chromossome sequence are chosen and interchanged between them. Two random genes are chosen from the interval of integer values $[1,L]$ (the genes must be different from each other), occuring a interchange between those genes.
+    
+    ![](https://hackmd.io/_uploads/SyBZ9c132.png) [22]
+
+- Reversing:
+    - A random gene is chosen in the chromossome sequence and all the locus after it are reversed between each other. For the interval of integer values $[1,L]$, a random number $n$ is chosen and all the values in the interval of $(n,L]$ (whose values refer to the loci of the chromossome) have their corresponding genes reversed between each other.
+
+    ![](https://hackmd.io/_uploads/H16j6913n.png) [22]
+    
+- Other methods that are widely used for mutation include the displacement mutation operator (DM), simple inversion operator (SIM), scramble mutation operator (SM) [17].
+
+
+###### Termination Criteria
+
+- After the mutation process occurs, the new generated individuals will be placed in a new population. This new population will undergo the same evolution process mentioned in the earlier sections comprising the selection, crossover and mutation methods. However, this evolution cannot go on forever as it would cost a great amount of computacional resources as well it would not be efficent for the generation process itself as a convergence point can be reached. If the algorithm reaches a point where the fittest individual is found and there is no margin for more evolution then the algorithm must stop generating individuals. This situation brings forth the question of "when can we stop the generation" and for this situation, stopping criterias must be defined for the algorithm.
+
+- Stopping criterias enable the algorithm to achieve definitive outcomes while conserving computational resources and minimizing execution times. By carefully defining these criteria, the algorithm can strike a balance between thorough exploration and efficiency. Some standard stopping criterias used for evolutionary algorithms are listed below:
+    -  **Maximum number of generations**: the algorithm continues the generation process until it reaches a maximum number of generations/iterations where the best seen solution, until then, is taken as the optimal one [32].
+    -  **Time budget**: after a certain time limit has elapsed, the process of generation stops and the best seen solution is taken as the best one. This time can be measured as absolute time or CPU-time.
+    -  **Stagnation of fitness score**: if the overall fitness score of the generation process does not improve for a specified number of generations, the execution stops and the best seen individual until then is obtained.
+    -  **Maximum number of objective function evaluations**: the algorithm stops after reaching a maximum number of objective function evalutions. 
+    -  **Best and Worst individual**: the execution stops when the best and worst objective value are less or equal than a given threshold $s \ge 0$.
+
+###### Parameter Optimization
+
+- Population Size
+    - A small population size can induce a quicker search for a good solution, however the chances associated with the search being stuck in a local optimum are much higher with a reduced population size despite requiring less computacional power.
+    - A higher population size can prevent the search to be stuck in local optima situations. This gives more room for the search to find a global optima, however more computational resources are needed as more evaluations of individuals are made for bigger populations.
+    - Given the problems according the sizes of the population an ideal situation, by convention the population size must be a fixed value until the generation ends. However a better implementation would be the dynamic control of population size during the generation process. A lot of works have applied different methods to implement this dynamic variance of the population. A few of them will be explained more in detail than others depending on the relevance of aplication for this work. The investigated works about dynamic variance of population size are as follows:
+        - An adaptive population scheme by Hansen, Gawelczyk and Ostermeier that consists in adapting the offspring population size for $(1,\lambda)$ evolution strategies according to the differences in fitness scores between the second fittest offspring and the parents [35].
+        - Another method, employed by Jansen, De Jong and Wegener, were they implemented a scheme that enables the control of the offspring population size in a $(1+\lambda)$ evolutionary algorithms. Utilizes two major components such as the number of successes (offsprings with better fitness scores than parents) and the offspring population size $\lambda$. The offspring population size is dynamically controlled according to the number of successes [36].
+        - An age-based population size control, presented by Arabas, Michalewicz and Mulawka, which introduces the concept of "age" for chromossomes in the evolution process. 
+            - The algorithm employed by his work is denominated as Genetic Algorithm with Varying Population Size (GAVaPS). The authors applied this method to find optimal values for test functions. This algorithm does not considerate any type of selection mechanism during the generation as this is replaced with the concept of an aging process for the chromossomes.
+            - The algorithm processes a population $P$ and performs a selection of chromossomes, with a selection ratio $p$, without regard to their fitness scores (this step is not considered as a selection step because a fitness evaluation is not made) and an auxiliary population $P'$ is created to insert the future offsprings [37] during the recombination step. The chromossomes are selected with equal probability during the selection process. After selection, genetic operators such as crossover and mutation are applied to the chromossomes.
+            - The age-based method of this algorithm consists in assigning a lifetime parameter to the chromossomes applying a aging process to them, i.e, each chromossome will have a fixed lifetime expectancy. In each iteration of the generation, the age of each chromossome is increased by 1 (their age is initially set to 0). After a chromossome exceeds its lifetime, the chromossome will be eliminated from the population. This strategy proposes to reduce computational costs provided by standard selection methods by providing easier calculations [37].
+            - Lifetime calculation must obey a set of strategies. For one, the individuals with above-average fitness should prevail in the population and to ensure this they must be able to liver longer, i.e, having higher lifetime values. In contrast, the individuals with below-average fitness scores should obtain a short lifetime. A set of measures needed for the lifetime calculations are as follows:
+                - Average fitness in the current population ($AvgFit$)
+                - Maximum fitness in the current population ($MaxFit$)
+                - Minimum fitness in the current population ($MinFit$)
+                - Maximal fitness value found during the generation ($AbsFitMax$)
+                - Minimal fitness value found during the generation ($AbsFitMin$)
+                - Maximal lifetime value ($MaxLT$ - parameter of the algorithm)
+                - Minimal lifetime value ($MinLT$ - parameter of the algorithm)
+            - Lifetime was applied to the chromossomes according to three different calculations for maximization:
+                ![](https://hackmd.io/_uploads/r1Rmhvsnn.png)
+                
+                - Proportional allocation
+                    - Based upon a roulette-wheel selection technique where the lifetime of an individual is proportional to its fitness score. Similar to the roulette wheel technique where the probability of selection is proportional to the fitness score.
+                    - However it does not take into account an overall sense of objective. It only envisions the information of the current population while not using information of best seen values. 
+                    ![](https://hackmd.io/_uploads/r1dAFDi3n.png)
+                - Linear allocation
+                    - This technique analyses best seen values for the lifetime calculation during the generation process. It takes an approach on a more global aspect.
+                    - However as it delves on global values, it does not evaluate properly values within the population undergoing the generation process. One example of this is related to the average fitness score for the population not being evaluated. In cases where a larger group of individuals have their lifetime equal or almost equal to the best seen lifetime value this can result in allocating long lifetime values for the chromossomes inducing a increasing in size of the population.
+                    ![](https://hackmd.io/_uploads/ryVl5Dj22.png)
+                - Bi-linear allocation
+                    - Makes a compromise between the proportional and linear allocation methods by evaluating current and best seen fitness values.
+                    ![](https://hackmd.io/_uploads/Hk1W5Pi33.png)
+            - A total of 20 execution runs were executed with different estabilished parameters and in summary the linear strategy proved to be the best performing one but with higher computational cost, the bi-linear strategy was the cheapest method but didn't have a performance as good as the linear method and finally the proportional technique had medium performance and medium cost when considering all three different applications.
+    
+        - Population Resizing on Fitness Improvement GA (PRoFIGA)
+            - A population size mechanism introduced by Eiben, Marchiori and Valkó [39] (PRoFIGA) which consists in controlling the population size during the generation process using three different methods according to the best fitness value improvement. 
+            - The mechanism becomes more biased towards exploration when the best fitness of the population improves [39]. When the best fitness is not improved, the population size will gradually decrease however in stagnation periods (where best fitness has not been improved over $x$ fitness evaluations) the population grows in size.
+            - Their genetic algorithm uses a 2-tournament selection technique with a 2-point crossover and a bit-flip mutation with replacement of parents after offspring generation.
+            - Growing or decreasing the population size happens according two three different conditions:
+                1. **Improvement of the best fitness**: the population size increases in proportion to the fitness improvement and the remaining number of evaluations until the maximum evaluations. The formula that enables the population size increase by a $X$ factor is presented:
+                ![](https://hackmd.io/_uploads/H1Bbbaga3.png) [39]
+        
+                $increaseFactor$ - external parameter within the interval $(0,1)$
+        
+                $maxEvalNum$ - maximum number of fitness evaluations
+        
+                $currEvalNum$ - current fitness evaluation number
+        
+                $maxFitness_{new}$ - best fitness value in the current population
+        
+                $maxFitness_{old}$ - best fitness value in the preceding generation
+        
+                $initMaxFitness$ - best fitness value in the current generation
+        
+                2. **Stagnation periods**: in situations where the best fitness score of the population does not increase during $x$ fitness evaluations, the population size is increased by a $Y$ factor. The technique to increase the population size is the same as mentioned in the **improvement of the best finess** condition using the same growth rate $X$ as previously showed [39];
+                3. **Lack of best fitness improvement**: lack of improvement (steps 1. and 2. are not executed) makes the population size decrease by a factor $Z$ where a little percentage of the current population size is used $(1-5\%)$ [39]. Regarding the decreasing of population, this method does not decrease the size further if a minimal population size is reached.
+                - PRoFIGA was evaluated in comparison with the GAVaPS, Adaptive population size (APGA) [38] and three variants of Random Variation of Population Size (RVPS) genetic algorithms. The results suggest that PRoFIGA was the second best genetic algorithm with 20% lower fitness evaluations across 100 runs on a multi-modal problem being the APGA the best one in terms of efficiency and speed being followed by PRoFIGA.
+
+        - A lot of works took the age-based process from the work done by Arabas, Michalewicz and Mulawka [37] to perform a control of the population size during the evolution process. Each of the following works use this aging process but with different applied methodologies and purposes. In the following points, two major works, that use the notion of lifetime for the chromossomes, are analysed:
+            - A different approach by Bäck, Eiben and Vaart [38], addresses the same issue about managing population size through an adaptive solution. In their work, they nominated the aging process as "Remaining Lifetime" (**RLT**) where in each chromossome a lifetime value is allocated decreasing by one every iteration. The RLT value is maintained for the fittest member and a individual is removed from the population when RLT reaches zero.
+                - As for lifetime calculation, they also use the bi-linear allocation from the work [37] but adapted to their test functions.
+                ![](https://hackmd.io/_uploads/ry46Ojihn.png)
+            
+            - An Adaptive Population Pool Size Based Genetic Algorithm (**APOGA**) was proposed by Rajakumar and George [40], where they delve upon the problem of population size control using a algorithm, created by them, that enables the population increase ou decrease regarding their algorithm performance.
+                - The work tries to tackle the major problems associated with works on the field like the RLT aging process [38] and the PRoFIGA technique [39]. The former only discusses a decreasing method to control population size disregarding any type of increase method. This can be detrimental in some situations where the search for better solutions can be possible the more individuals the population possesses. The latter does indeed discuss an increasing and decreasing method, however the method employed by the authors to decrease the population size has low significance when compared to the increasing portion (decreasing $(1 - 5\%)$ of the population size does not make a huge impact).
+                - Their problem uses a fitness function focused in a minimization problem which means the lowest fitness score obtained, the better are the results.
+                - They also use the RLT aging process proposed by Bäck, Eiben and Vaart [38] to estabilish a lifetime to the individuals in the population. There is no major differences despite some nomenclature in the used formula.
+                ![](https://hackmd.io/_uploads/r1HnTkbah.png) [38]
+                
+                ![](https://hackmd.io/_uploads/BJGCT1-63.png) [38]
+
+                - As for genetic operators, they select half of the population based on best fitness values where each pair of parents will generate a offspring by applying single crossover and Gaussian random mutation operations.
+                - The major part of their work relies on their population resizing method. They use two different strategies to control the population size being one targeted to increase the population and the other to decrease the population.
+                    - **Population increase - best fitness improvement**: similar to the strategy shown in [38], the authors grow the population when the best fitness score is improved in each iteration or if the best fitness is not improved for a $x$ amount of iterations. The formula used to increase the population size is shown:
+                        ![](https://hackmd.io/_uploads/HJcFXl-63.png)
+
+                    $a$ - random value from the interval $(0,1)$
+                    $G$ - growth size
+                    $F^{newbest}$ - best fitness value of the current iteration
+                    $F^{oldbest}$ - best fitness value of previous iteration
+                    $F^{initialbest}$ - initial best fitness value
+                    $I^{max}$ - maximum number of iterations
+                    $I$ - current iteration number
+                    
+                    - **Population decrease - RLT**: to decrease population size the aging process RLT is applied to this work. The aging method is essentially the same as described in [38] where initially each chromossome is assigned a lifetime whose values is decreased by 1 for each iteration during the generation process. Those chromossomes who have a RLT value of 0 are removed from the population. Additionally if neither of the above conditions are met (no improvement of the best fitness in each iteration and for some $x$ amount of iterations), then a $D\%$ of chromossomes are removed from the population, being this a parameter from the interval $(0,1$). There is only one major difference to their application. The authors do not decrease the lifetime of the best chromossome, i.e, the chromossome who has the best fitness score of the population. The RLT verification happens each iteration of the generation process.
+
+                  ![](https://hackmd.io/_uploads/S1seBbMp3.png) [40]
+
+                - This algorithm was tested against a standard genetic algorithm form a unimodal test function during 500 iterations of both approaches for 5 runs with different solution spaces (in this case for 5 different populations). The APOGA approach demonstrated a huge minimization (lower fitness values) in the end of the interations compared to the standard GA revealing that the population pool size is starting to turn adaptive to the fitness function [40].
+                    
+- Selection
+    - 
+- Crossover 
+    - 
+- Mutation
+    - 
+- Parameter Tuning (definition)
+    - 
+- Parameter Control (definition)
+    - 
+
+###### Genetic Algorithm Quality
+
+...
 
 :::info
 
