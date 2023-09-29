@@ -49,6 +49,10 @@
 - https://www.researchgate.net/publication/281532313_Adaptive_Operator_Selection_for_Optimization (Adaptive Operator Selection for Optimization) [45]
 - https://ieeexplore.ieee.org/document/771166 (Parameter Control in Evolutionary Algorithms) [46]
 - https://ieeexplore.ieee.org/document/4075583 (Optimization of Control Parameters for Genetic Algorithms) [47]
+- https://www.researchgate.net/publication/267027822_Fuzzy_adaptation_of_crossover_and_mutation_rates_in_genetic_algorithms_based_on_population_performance (Fuzzy adaptation of crossover and mutation rates in genetic algorithms based on population performance) [48]
+- https://link.springer.com/chapter/10.1007/3-540-61286-6_141 (Intelligent mutation rate control in canonical genetic algorithms) [49]
+- https://link.springer.com/chapter/10.1007/3-540-61286-6_141 (Intelligent Mutation Rate Control in Canonical Genetic Algorithms ) [50]
+- https://www.researchgate.net/publication/220742566_Self-adaptive_mutation_rates_in_genetic_algorithm_for_inverse_design_of_cellular_automata (Self-Adaptive Mutation Rates in Genetic Algorithm for Inverse Design of Cellular Automata) [51]
 
 ## Automated and Manual Testing
 
@@ -66,8 +70,6 @@ Two different methods to create unit tests are known. They can be generated usin
 - Fault detection:
     - While automated generation proves to be superior in terms of code coverage and mutation scores, there is less consistency in favor of automated methods when it comes to fault detection [2],[5]. Manual generation seems to perform comparatively better in this regard.
 
-(verificar se é possivel colocar algo mais aqui)
-
 ## Dynamic vs Static Languages
 
 One important point to address is to determine if the programming language used in the generation is statically or dynamically typed. This is vital as each one possess different characteristics that can either be an advantage or disadvantage for the automated generation of unit tests. 
@@ -77,8 +79,6 @@ In order to further contextualize this topic, a definition about type checking i
 Automated test generation is affected if the used language is statically or dynamically typed. The process is negatively affected it the chosen language is dynamic as the latter requires the types to be specified previously in order provide enough type context for generation of tests. When the generation process is under execution, the functions to be created do not know the required types for their parameters [7].
 
 This work delves this important characteristic by applying automated generation of unit tests in a statically typed language (Java) and a dynamically typed language (Python) in order to show how impactful can type information be for the generation of tests.
-
-### Type inference (verificar mais tarde se relevante)
 
 ## Search-Based Test Generation
 
@@ -162,7 +162,7 @@ In natural evolution terms, an individual or chromossome components are called g
 
 Before applying a genetic algorithm to a domain problem is necessary to decide how the components of the domain (more accurately the solutions) will be represented as. In this case, the chromossomes (solutions) must be stored and manipulated in way that a computer can understand it. The objects that encompass possible solutions within the problem context are called as **phenotypes** and their respective enconding form is called **genotypes**. This first step is called **representation** where mapping from phenotypes onto a set of genotypes is necessary for proper representation of the solutions as the search is conducted in the genotype space [21].
 
-The solutions must be encoded in a fixed-length bit string [22]. Next, a type of enconding is necessary, where for problems involving genetic algorithms, a binary enconding is often recommended [17]. However, it's worth noting that there are other encoding schemes that can be used in genetic algorithms, including octal, hexadecimal, permutation, value-based, and tree encodings [23]. These are the standard encoding schemes used for genetic algorithms, however encoding schemes are dependent on the problem domain and not all the mentioned encoding schemes may work for more specific problems.
+The solutions can be encoded in a fixed-length bit string [22]. Next, a type of enconding is necessary, where for problems involving genetic algorithms, a binary enconding is often recommended [17]. However, it's worth noting that there are other encoding schemes that can be used in genetic algorithms, including octal, hexadecimal, permutation, value-based, and tree encodings [23]. These are the standard encoding schemes used for genetic algorithms, however encoding schemes are dependent on the problem domain and not all the mentioned encoding schemes may work for more specific problems.
 
 In binary encoding scheme, a chromossome is represented as a string of values 1 or 0 (binary string) and in this enconding each bit represents the characteristics of the solution. Using a binary enconding provides a faster implementation of crossover and mutation operators [17] as each allele is one of two values providing simpler operations. 
 
@@ -320,7 +320,7 @@ The following sections will introduce each parameter importance, its drawbacks w
             - The algorithm employed by his work is denominated as Genetic Algorithm with Varying Population Size (GAVaPS). The authors applied this method to find optimal values for test functions. This algorithm does not considerate any type of selection mechanism during the generation as this is replaced with the concept of an aging process for the chromossomes.
             - The algorithm processes a population $P$ and performs a selection of chromossomes, with a selection ratio $p$, without regard to their fitness scores (this step is not considered as a selection step because a fitness evaluation is not made) and an auxiliary population $P'$ is created to insert the future offsprings [37] during the recombination step. The chromossomes are selected with equal probability during the selection process. After selection, genetic operators such as crossover and mutation are applied to the chromossomes.
             - The age-based method of this algorithm consists in assigning a lifetime parameter to the chromossomes applying a aging process to them, i.e., each chromossome will have a fixed lifetime expectancy. In each iteration of the generation, the age of each chromossome is increased by 1 (their age is initially set to 0). After a chromossome exceeds its lifetime, the chromossome will be eliminated from the population. This strategy proposes to reduce computational costs provided by standard selection methods by providing easier calculations [37].
-            - Lifetime calculation must obey a set of strategies. For one, the individuals with above-average fitness should prevail in the population and to ensure this they must be able to liver longer, i.e., having higher lifetime values. In contrast, the individuals with below-average fitness scores should obtain a short lifetime. A set of measures needed for the lifetime calculations are as follows:
+            - Lifetime calculation must obey a set of strategies. For one, the individuals with above-average fitness should prevail in the population and to ensure this they must be able to live longer, i.e., having higher lifetime values. In contrast, the individuals with below-average fitness scores should obtain a short lifetime. A set of measures needed for the lifetime calculations are as follows:
                 - Average fitness in the current population ($AvgFit$)
                 - Maximum fitness in the current population ($MaxFit$)
                 - Minimum fitness in the current population ($MinFit$)
@@ -372,6 +372,8 @@ The following sections will introduce each parameter importance, its drawbacks w
             - A different approach by Bäck, Eiben and Vaart [38], addresses the same issue about managing population size through an adaptive solution. In their work, they nominated the aging process as "Remaining Lifetime" (**RLT**) where in each chromossome a lifetime value is allocated decreasing by one every iteration. The RLT value is maintained for the fittest member and a individual is removed from the population when RLT reaches zero.
                 - As for lifetime calculation, they also use the bi-linear allocation from the work [37] but adapted to their test functions.
                 ![](https://hackmd.io/_uploads/ry46Ojihn.png)
+                
+                - The authors tested this adaptive population size control in a algorithm called APGA. They employed other algorithms with variants for different parameters (crossover and mutation specifically).
             
             - An Adaptive Population Pool Size Based Genetic Algorithm (**APOGA**) was proposed by Rajakumar and George [40], where they delve upon the problem of population size control using a algorithm, created by them, that enables the population increase ou decrease regarding their algorithm performance.
                 - The work tries to tackle the major problems associated with works on the field like the RLT aging process [38] and the PRoFIGA technique [39]. The former only discusses a decreasing method to control population size disregarding any type of increase method. This can be detrimental in some situations where the search for better solutions can be possible the more individuals the population possesses. The latter does indeed discuss an increasing and decreasing method, however the method employed by the authors to decrease the population size has low significance when compared to the increasing portion (decreasing $(1 - 5\%)$ of the population size does not make a huge impact).
@@ -433,49 +435,124 @@ The following sections will introduce each parameter importance, its drawbacks w
         - **Mutation rate**: higher mutation rate introduces new information into the individuals however if it is too high it induces a random search [47] potentially creating worse individuals and affecting existing individuals with high fitness. Lower mutation rates mantain the genetic information within the individual. In situations where the individual, after the crossover operation, did not present any major improvement in fitness, lower mutation rate will mantain that genetic information and consecutively not add any type of variety into the population. 
     - Several works delve upon the dynamic variance of crossover rates for genetic algorithms such as:
         - The work proposed by Hassanat, Almohammadi, Alkafaween, Abunawas, Hammouri and Prasath [44] presents two deterministic parameter control techniques that focus on the variance of crossover and mutation rates during the execution of a standard genetic algorithm. The authors created these two methods and compare them to other two standard parameter tuning techniques being fifty-fifty crossover/mutation ratios and the 0.9 crossover and 0.03 mutation ratios.
-        - The authors applied this under the Travelling Salesman Problem (TSP) that consists in finding the closest path through a number of node that have the same star and endpoints where each node is connected and used only once [44]. 
-        - The authors proposed two different determinic parameter tuning techniques:
-            - The first technique is called Dynamic Increasing of Low Mutation/Decreasing of High Crossover (ILM/DHC). This is a deterministic method where a increase/decrease rule is applied to the crossover and mutation rates. The objective behind this technique is to gradually increase mutation rate (starts at 0% and increases linearly to 100%) and gradually decrease the crossover rate (starts at 100% and decreases linearly to 0%) during the execution of the genetic algorithm. The equations behind the increase of mutation rate and decrease of crossover rate are presented respectively:
+            - The authors applied this under the Travelling Salesman Problem (TSP) that consists in finding the closest path through a number of node that have the same star and endpoints where each node is connected and used only once [44]. 
+            - The authors proposed two different deterministic parameter tuning techniques:
+                - The first technique is called Dynamic Increasing of Low Mutation/Decreasing of High Crossover (ILM/DHC). This is a deterministic method where a increase/decrease rule is applied to the crossover and mutation rates. The objective behind this technique is to gradually increase mutation rate (starts at 0% and increases linearly to 100%) and gradually decrease the crossover rate (starts at 100% and decreases linearly to 0%) during the execution of the genetic algorithm. The equations behind the increase of mutation rate and decrease of crossover rate are presented respectively:
 
-                ![](https://hackmd.io/_uploads/HkufxGIC3.png) [44]
+                    ![](https://hackmd.io/_uploads/HkufxGIC3.png) [44]
 
-                ![](https://hackmd.io/_uploads/Skx0gfIAh.png) [44]
+                    ![](https://hackmd.io/_uploads/Skx0gfIAh.png) [44]
                 
-                - $MR$ - mutation rate
-                - $CR$ - crossover rate
-                - $G_n$ - maximum number of generations (fixed parameter)
-                - $LG$ - number of generation level (current generation)
-                - $popsize$ - population size
-                - $M$ - number of chromossomes that need to be mutated
-                - $C$ - number of chromossomes that need to be used for crossover
+                    - $MR$ - mutation rate
+                    - $CR$ - crossover rate
+                    - $G_n$ - maximum number of generations (fixed parameter)
+                    - $LG$ - number of generation level (current generation)
+                    - $popsize$ - population size
+                    - $M$ - number of chromossomes that need to be mutated
+                    - $C$ - number of chromossomes that need to be used for crossover
 
-                - In each generation level, both mutation and crossover rates will linearly increase and decrease, respectively, with the use of the equations above.
+                    - In each generation level, both mutation and crossover rates will linearly increase and decrease, respectively, with the use of the equations above.
         
-            - The second technique is called Dynamic Decreasing of High Mutation Rate/Increasing of Low Crossover Rate (DHM/ILC) and is the opposite of the first technique. In this case, crossover rate gradually increases (starts at 0% and increases linearly to 100%) and mutation rate gradually decreases (starts at 100% and decreases linearly to 0%). The equations are exchanged between both operators:
+                - The second technique is called Dynamic Decreasing of High Mutation Rate/Increasing of Low Crossover Rate (DHM/ILC) and is the opposite of the first technique. In this case, crossover rate gradually increases (starts at 0% and increases linearly to 100%) and mutation rate gradually decreases (starts at 100% and decreases linearly to 0%). The equations are exchanged between both operators:
             
-                ![](https://hackmd.io/_uploads/ByrlzGIR2.png) [44]
+                    ![](https://hackmd.io/_uploads/ByrlzGIR2.png) [44]
                 
-                ![](https://hackmd.io/_uploads/ByvWff8R2.png) [44]
+                    ![](https://hackmd.io/_uploads/ByvWff8R2.png) [44]
 
-        - As for the standard methods, these are deterministic tuning parameters with fixed parameter values during the run of the genetic algorithm. The authors compared their dynamic approach to the following standard parameter tuning methods:
-            - **Fifty-fifty crossover/mutation ratios**: during all generations of the genetic algorithm, all chromossomes have a 50% chance to undergo a crossover process and a 50% chance to undergo a mutation process. These parameter values are chosen before the run of the algorithm.
-            - **0.9 crossover and 0.03 mutation ratios**: during all generations of the genetic algorithm, all chromossomes have a 90% chance to undergo a crossover process and a 3% chance to undergo a mutation process. These ratios were based upon other works on the area of research regarding parameter optimization. These parameters are also chosen before the run of the algorithm.
+            - As for the standard methods, these are deterministic tuning parameters with fixed parameter values during the run of the genetic algorithm. The authors compared their dynamic approach to the following standard parameter tuning methods:
+                - **Fifty-fifty crossover/mutation ratios**: during all generations of the genetic algorithm, all chromossomes have a 50% chance to undergo a crossover process and a 50% chance to undergo a mutation process. These parameter values are chosen before the run of the algorithm.
+                - **0.9 crossover and 0.03 mutation ratios**: during all generations of the genetic algorithm, all chromossomes have a 90% chance to undergo a crossover process and a 3% chance to undergo a mutation process. These ratios were based upon other works on the area of research regarding parameter optimization. These parameters are also chosen before the run of the algorithm.
             
-        - Six different set of experiments were executed with varying population sizes (small with 25 and 50, moderate with 100 and 200 and large with 300 and 400) on the two proposed dynamic approaches and the two standard deterministic parameter tuning techniques. 
-        - The authors used roulette wheel selection, one-point crossover, exchange mutation and the termination criteria was set on a fixed number of generations reached (maximum number of generations).
-        - In each set the genetic algorithm was executed 10 times. The results obtained concluded that: 
-            - For the small population sizes, ILM/DHC proved to be the best technique as it showed the lowest number of convergences for the solution in relation to the other three techniques. This means that the technique was quicker that the others in finding a optimal solution. This is often explained that in smaller population sizes, a higher mutation rate is often more beneficial than a higher crossover rate as it introduces more variety to a small population [44] (which may not have good individuals as the population is smaller).
-            - For the moderate population sizes, ILM/DHC proved to be the best technique for population size 150 and DHC/ILM proved to be best for population size 200. The second result can be explained according to the growing size of the populations. A higher population size can include individuals with high fitness and a higher mutation rate in the beginning is not needed for this situation, on the contrary a higher crossover rate is needed to generate better offspring from large population sizes [44]. As the generations go on, then the focus can go into mutation as the majority of individuals should have high fitness in the population and crossover is way less impactul than applying a mutation on the later generation levels.
-            - For the large population sizes, DHC/ILC proved to be the best in relation to the other techniques because of the large population sizes.
-        - The standard methods in all experiments did not have better results than the dynamic approaches, proving that even the deterministic approaches present better results than the conventional values in standard parameter tuning techniques.
+            - Six different set of experiments were executed with varying population sizes (small with 25 and 50, moderate with 100 and 200 and large with 300 and 400) on the two proposed dynamic approaches and the two standard deterministic parameter tuning techniques. 
+            - The authors used roulette wheel selection, one-point crossover, exchange mutation and the termination criteria was set on a fixed number of generations reached (maximum number of generations).
+            - In each set the genetic algorithm was executed 10 times. The results obtained concluded that: 
+            - For the **small population sizes**, ILM/DHC proved to be the best technique as it showed the lowest number of convergences for the solution in relation to the other three techniques. This means that the technique was quicker that the others in finding a optimal solution. This is often explained that in smaller population sizes, a higher mutation rate is often more beneficial than a higher crossover rate as it introduces more variety to a small population [44] (which may not have good individuals as the population is smaller).
+            - For the **moderate population sizes**, ILM/DHC proved to be the best technique for population size 150 and DHM/ILC proved to be best for population size 200. The second result can be explained according to the growing size of the populations. A higher population size can include individuals with high fitness and a higher mutation rate in the beginning is not needed for this situation, on the contrary a higher crossover rate is needed to generate better offspring from large population sizes [44]. As the generations go on, then the focus can go into mutation as the majority of individuals should have high fitness in the population and crossover is way less impactul than applying a mutation on the later generation levels.
+            - For the **large population sizes**, DHM/ILC proved to be the best in relation to the other techniques because of the evidence showed in the last sections as the increase of the population size indicates a better performance for increasing crossover and decreasing mutation rates.
+            - The standard methods in all experiments did not have better results than the dynamic approaches, proving that even the deterministic approaches present better results than the conventional values in standard parameter tuning techniques.
+        
+        - Another work, developed by Vannuci and Colla [48], introduces an adaptive approach to adjust the crossover and mutation rates of a standard genetic algorithm according to feedback obtained from the search process. This is applied with the use of a Fuzzy Inference System (FIS), the strategy to apply this according another factors is named as Fuzzy Adaptive Recombination Strategy (FARS). The authors propose the control of a set of indicators that assess the search performance through the FIS and according to these a tuning process happens in the recombination and mutation levels (crossover and mutation rates) [48].
+            - The objective of FARS is to iteratively adjust crossover and mutation rates of the genetic algorithms according to two main factors:
+                - **Trend of fitness**: the candidate solutions in a population are evaluated, in each generation, in order to perceive if the algorithm tends to obtain better or worse levels of fitness throughout the generations. The current generation is evaluated using the slope of the average fitness of the 25% fittest individuals. A weighted average of slope in $M_t$ previous generations is considered to prevent fluctuations  [48]. The trend is evaluated in each generation to verify if the levels of fitness are increasing or decreasing. The value is within the range $[-90,90]$.
+                - **Search temporal phase**: crossover and mutation rates are adjusted according to the current temporal phase of the algorithm (if it is in an initial or an advanced state of execution). Low mutation rates and high crossover rates are recommended for earlier stages of the algorithm as the exploration phase is more emphasized. As the genetic algorithm reaches its final stages a exploitation phase is recommended, with higher mutation rates and lower crossover rates in order to create better individuals within a pool that already has a great amount of high fitness individuals. The value is within the range $[0,1]$ representing the progress obtained according to max number of generations.
+            - Stability is another factor introduced by the authors, it is determined by the number of sign changes of the derivative of the average fitness of the 25% fitness individuals in $M_s$ previous generations [48]. The value is within the range $[0,1]$ where 0 refers to a stable behavior and 1 to a unstable behavior.
+            - The authors use two different FIS systems to optimize the crossover and mutation rates. They used one of them to only optimize the mutation rate and the other one to only optimize crossover rate. The inputs used for the FIS that optimizes mutation rate are phase and trend. The inputs used for FIS that optimizes the crossover rate also takes the phase and trend with an additional stability variable. These inputs are then converted into fuzzy sets (fuzzifier process) being this divided into the following sets:
+                - **Phase**: initial and advanced 
+                - **Trend**: negative, neutral and positive
+                - **Stability**: stable and unstable
+                - **Rates variation**: negative, constant and positive
+            :::warning
+            The fuzzy sets refer to the possible values that each variable can have for example the fuzzy set for phase variable is initial and advanced.
+            :::
+            - Each of the fuzzy sets have a specified membership function to define the degree of membership of an input value to a certain fuzzy set within the range $[0,1]$. 
+            
+            :::warning
+            The membership function used by the authors is not presented however by the looks of the graphs it seems like they used a triangular membership function for the phase and rate variation variables. The trend variable seems to be converted with a trapezoidal membership function. The stability variable seems to be converted into a fuzzy set with a s-function. 
+            :::
+            - A set of rules, defined by the authors, have been applied for minimization problems, which means the factor trend is desired to have the lowest value possible. With the use of inference engine of a FIS, the matching degree of a input variable with correspondence to a rule is determined and a decision is made for which rule to be executed. In this case a fuzzy output set is created after deciding the rules to apply to the inputs.
+                ![](https://hackmd.io/_uploads/HJtW_moJ6.png)
+
+            - A defuzzifier process occurs in the fuzzy output sets to be converted into a output value that can be used externaly to the FIS. The authors then obtain two output values $\delta_c$ (crossover) and $\delta_m$ (mutation) that are going to be added into the existing crossover and mutation rates as $\hat{r}_c = r_c + \delta_c$ and $\hat{r}_m = r_m + \delta_m$, where $\hat{r}_c$ represents the new crossover rate and $\hat{r}_m$ represents the new mutation rate to apply in the current generation.
+
+            :::warning
+            ![](https://hackmd.io/_uploads/HJhbWkyla.png)
+            :::
+            
+            - The strategy applied by the authors was compared to other crossover and mutation optimization techniques such as:
+                - **Constant rates**: fixed rates for crossover and mutation across all generations. These rates were $r_c = 0.6$ for crossover and $r_m = 0.2$ for mutation.
+                - **Alternate rates**: two different configuration rates for crossover and mutation that alternate between a specified number of generations. These rates were $r_c = 0.8$ and $r_c = 0.4$ for crossover and $r_m = 0.1$ and $r_m = 0.3$ for mutation.
+                - **Mutation rate optimization**: a mutation rate control proposed by Back and Schutz [49], where the mutation rate is adjusted across the generations. For this method, the crossover rate remains fixed during the execution of the genetic algorithm.
+
+            - The experiments were applied for 100 runs of the genetic algorithm with the FARS, constant, alternate and mutation rate optimization methods for minimization problems which include a set of minimization functions. The authors verified that for simpler minimization problems, all the methods converged for a solution but FARS revelead itself to be the fastest to converge and ultimately reducing the computational time. For more moderate problems, FARS and mutation rate optimization methods were similar in terms of convergences however the former obtained a quicker convergence. For more complex problems, FARS proved to be the best method to achieve convergence as its crossover and mutation rate adjustment avoids local minima, which was the main reason explained by the authors about the lack of convergence of the other methods as these were affected by the presence of local minima.
+        
+        - Self-adaptive methods have also been applied and some examples can be found in the works of Bäck, Eiben and Vaart [33], Bäck and Schütz [50], Breukelaar and Bäck [51]. 
+            - A new self-adaptive method for crossover rates was proposed and a self-adaptive method for mutation rates was implemented by the authors [33]. The methods implemented are explained according different objectives:
+                - **Crossover evolution**: a self-adaptive crossover method where a initial crossover rate was randomly chosen in the interval $[0,1]$ and encoded into the individuals representation scheme. After an individual is selected in the selection process, a random number $r$ below 1 is compared with the encoded crossover rate $p_c$ of the individual. 
+                    - If $r$ is lower than the $p_c$ then the individual is ready for the crossover operation. If both parents have their $p_c$ higher than $r$ then a new child is created by crossover being it followed by the next in order set of genetic operators (mutation and addition to population) [33].
+                    - If $r$ is higher than the $p_c$ then the individual will not undergo crossover and will suffer a mutation to create one child. This child will undergo a mutation process and survivor selection immediately [33].
+                    - If both parents do not have their $p_c$ value higher than $r$ then two children are created with mutation only. If one parent has its $p_c$ value higher than $r$ and the other parent does not, then the latter suffers mutation to create a child which is inserted into the population immediately [33]. The other parent is kept and in the next selection process only one parent is picked.
+                        :::warning
+                        In this case, for implementation each condition must be verified and the crossover method (exchange between methods of test cases) can occur as a normal crossover operation despite the authors have chosen to apply the uniform crossover operator. 
+                        :::
+                        
+                - **Mutation evolution**: the mutation method applied by the Bäck, Eiben and Vaart [33] is an already existing method proposed by Breukelaar and Bäck [50]. This method consists in adapting mutation rates that are encoded in the individuals. A initial mutation rate is encoded in the individuals representation being its value chosen randomly in the interval $[0.001, 0.25]$, this mutation rate will undergo mutation operations during the generations. The rate is mutated in the following way:
+                    - The encoded mutation rate is mutated using the formula 
+                    
+                        ![](https://hackmd.io/_uploads/BJDnM7mgp.png) [51]
+                        
+                        - $p$ - encoded mutation rate
+                        - $\gamma$ - constant
+                        - $N(0,1)$ - random value from a normal distribution with mean 0 and standard deviation 1 
+                        - $p´$ - adjusted mutation rate
+
+                    - The $\gamma$ is a constant to control the convergence speed of the algorithm being usually set to $0.22$ [51]. This formula adjusts the mutation rate present in the representation scheme of each chromossome that was selected during the parent selection process. For the next set of generations, the probability of mutation for a certain individual is obtained through their representation and updated accordingly.
+                    
+                        :::warning
+                        The same can be said for the mutation process regarding its application, the way to apply the mutation can occur as a normal mutation operation despite the authors particulary chose to apply a bit flip mutation operator.
+                        :::
+                        
+            - As all the above mentioned works use the same mutation method and the work of Bäck, Eiben and Vaart [33], only the results for this work are considered. The authors made the comparison of a traditional genetic algorithm (TGA) with a genetic algorithm with self-adaptive mutation only (SAMGA), a genetic algorithm with self-adaptive crossover only (SAXGA) and a genetic algorithm that uses both self-adaptive methods (SAMXPGA). They also considered a genetic algorithm with adaptive population size but for this analysis of the authors results, only the self-adaptive and traditional genetic algorithms are considered. The results observed reveal that:
+                - SAMGA and SAXGA revealed to be worse in terms of execution time than TGA when trying to find the optimum for test functions. One reason the authors gave for this situation is that the methods focused too much in optimizing their respective parameters instead of finding the overall objective of the search this being the optimum.
+                - SAMXPGA is the best genetic algorithm when compared to TGA, SAMGA and SAXGA where obtained the fastest execution times and achieved the optimum faster. One reason the authors present to explain this behavior is the adaptive population size greatly helps with the search process, reducing the time when evaluating individuals while only mantaing the fittest individuals for a longer time during the generations.
+
+:::warning
+Michael Marcozzi - FIS
+:::
 
 :::info
-According the work of dynamic crossover and mutation rates, $n$ that stands for chromossome size in time complexity calculation can be the number of test cases in a test suite which represents a solution.
+According the work of dynamic crossover and mutation rates for the deterministic parameter control methods, $n$ that stands for chromossome size in time complexity calculation can be the number of test cases in a test suite which represents a solution.
 :::
+
 
 ###### Genetic Algorithm Quality (IMPORTANTE - POSSUI METRICAS)
 
 ...
+
+:::warning
+For minimization problems, majority of times the conditions need to be only reversed to convert to maximization problems according to the logic of genetic algorithms adjustment during generations. One example of this is reversing conditions for fitness evaluation with average fitness to apply a different equation.
+
+If results are not to be expected see equations again when applying the generation process. Reversing conditions might not be enough when converting minimization to maximization.
+:::
 
 :::info
 
