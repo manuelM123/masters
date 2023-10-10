@@ -1,0 +1,100 @@
+{
+    "constructor": {
+        "parameters": [
+            {
+                "type": "float", "min": 40.0, "max": 200.0
+            },
+            {
+                "type": "float", "min": 140.0, "max": 220.0
+            },
+            {
+                "type": "int", "min": 10, "max": 80
+            },
+            {
+                "type": "string", "gender": ["M", "F"]
+            },
+            {
+                "type": "float", "min": 0.0, "max": 0.3
+            },
+            {
+                "type": "string", "intensity": ["S","L","M","V","E"]
+            }
+        ]
+    },
+
+    "other_functions": [
+            {
+                "name": "weight", "type": "setter", "parameters": [
+                    {
+                        "min": 40.0, "max": 200.0
+                    }
+                ]
+            },
+
+            {
+                "name": "height", "type": "setter", "parameters": [
+                    {
+                        "min": 140.0, "max": 220.0
+                    }
+                ]
+            },
+
+            {
+                "name": "age", "type": "setter", "parameters": [
+                    {
+                        "min": 10, "max": 80
+                    }
+                ]
+            },
+
+            {
+                "name": "gender", "type": "setter", "parameters": [
+                    {
+                        "gender": ["M", "F"]
+                    }
+                ]
+            },
+
+            {
+                "name": "bodyfat", "type": "setter", "parameters": [
+                    {
+                        "min": 0.0, "max": 0.3
+                    }
+                ]
+            },
+
+            {
+                "name": "amount_exercise", "type": "setter", "parameters": [
+                    {
+                        "intensity": ["S","L","M","V","E"]
+                    }
+                ]
+            },
+
+            {
+                "name": "mifflin_stjeor_equation", "type": "method"
+            },
+
+            {
+                "name": "katch_mcardle_equation", "type": "method"
+            },
+
+            {
+                "name": "tdee_calculation", "type": "method"
+            },
+
+            {
+                "name": "determine_calorie_intake", "type": "method"
+            }
+    ],
+
+    "genetic_operators": [
+        {
+            "name": "crossover", "type": "float"
+        },
+
+        {
+            "name": "mutation", "type": "float"
+        }
+    ]
+}
