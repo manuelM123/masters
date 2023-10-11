@@ -1,5 +1,6 @@
 {
     "constructor": {
+        "name": "calorie_intake_calc",
         "parameters": [
             {
                 "type": "float", "min": 40.0, "max": 200.0
