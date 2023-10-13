@@ -1,6 +1,6 @@
 import os
-import sys
 import json
+import configparser 
 
 '''
 Function to read metadata in a genotype format from a file
@@ -26,11 +26,23 @@ def read_metadata(file):
     else:
         raise FileNotFoundError('File does not exist')
        
-# Function to write test suite to a file in a phenotype format
-# test suite has the following structure:
-# [ [test_case_1], [test_case_2], ... ] 
-# test_case_i has the following structure:
-# [ [identifier, [parameters], [genetic operators]] ]
+''' 
+Function to write the generated test suite to a file in a phenotype format
+test suite has the following structure:
+[ [test_case_1], [test_case_2], ... ] 
+test_case_i has the following structure:
+[ [identifier, [parameters], [genetic operators]] ]
+
+Parameters:
+----------
+path : str
+    The path to write the test suite to
+test_suite : list
+    The test suite to write to a file
+metadata : dict
+    The metadata of the class context
+
+'''
 
 def write_metadata(path, test_suite, metadata):
     # If the path does not exist, create it
@@ -70,3 +82,38 @@ def write_metadata(path, test_suite, metadata):
                 f.write("\tresult = cut"+ "." + metadata['other_functions'][test_case_type]['name'] + "()" + "\n")
         f.write("\n")
     f.close()
+
+
+'''
+Function to read the configuration file for the genetic algorithm
+
+Parameters:
+----------
+file : str
+    The file to read the configuration from
+
+Returns:
+-------
+config : list
+    A list containing the configuration in the following order:
+    [metadata_location, population_size, max_number_generations, fitness_max_stagnation_period, 
+    max_number_fitness_evaluations, fitness_function_type, selection_type, crossover_rate, 
+    crossover_type, mutation_rate]
+'''
+
+def read_configuration_file(file):
+    if os.path.exists(file):
+        config = configparser.ConfigParser()
+        config.read(file)
+        return [config.get("metadata","metadata_location"), 
+                config.get("genetic_algorithm_configurations","population_size"),
+                config.get("genetic_algorithm_configurations","max_number_generations"),
+                config.get("genetic_algorithm_configurations","fitness_max_stagnation_period"),
+                config.get("genetic_algorithm_configurations","max_number_fitness_evaluations"),
+                config.get("genetic_algorithm_configurations","fitness_function_type"),
+                config.get("genetic_operators","selection_type"),
+                config.get("genetic_operators","crossover_rate"),
+                config.get("genetic_operators","crossover_type"),
+                config.get("genetic_operators","mutation_rate")]
+    else:
+        raise FileNotFoundError('File does not exist')
