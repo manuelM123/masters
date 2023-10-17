@@ -49,7 +49,7 @@ class calorie_intake_calc:
 
     @height.setter
     def height(self, height):
-        if height < 140 or height > 210:
+        if height < 140 or height > 220:
             raise ValueError("Height cannot be below 140cm or above 210cm")
         self.__height = height
 

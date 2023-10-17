@@ -66,7 +66,7 @@ class Solution:
 
         # Generate a random number of test cases
         number_test_cases = random.randint(1, max_number_test_cases)
-
+    
         for test_case in range(number_test_cases):
             # Generate test case
             test_suite.append(self.generate_test_case(metadata, max_number_functions))

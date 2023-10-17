@@ -58,6 +58,7 @@ def write_metadata(path, test_suite, metadata):
     f.write("from cut import *" + "\n" + "\n")
     
     print("TEST SUITE " + str(test_suite) + "\n")
+
     # Write the test_suite to a file
     for position_test_suite in range(len(test_suite)):
         # Write def test_case to file
@@ -76,16 +77,19 @@ def write_metadata(path, test_suite, metadata):
                 f.write(")\n")
             # Write a setter method to file
             elif 'setter' in metadata['other_functions'][test_case_type]['type']:
-                f.write("\tcut"+ "." + metadata['other_functions'][test_case_type]['name'] + " = " + str(test_suite[position_test_suite][test_case][0]) + "\n")
+                if type(test_case_parameters[0]) is not str: 
+                    f.write("\tcut"+ "." + metadata['other_functions'][test_case_type]['name'] + " = " + str(test_case_parameters[0]) + "\n")
+                else:
+                    f.write("\tcut"+ "." + metadata['other_functions'][test_case_type]['name'] + " = " + "'" + str(test_case_parameters[0]) + "'" + "\n")
             # Write a method to file
             else:
-                f.write("\tresult = cut"+ "." + metadata['other_functions'][test_case_type]['name'] + "()" + "\n")
+                f.write("\tresult_" + metadata['other_functions'][test_case_type]['name'] + " = cut"+ "." + metadata['other_functions'][test_case_type]['name'] + "()" + "\n")
         f.write("\n")
     f.close()
 
 
 '''
-Function to read the configuration file for the genetic algorithm
+Function to read the configuration file for the genetic algorithm and select a particular configuration
 
 Parameters:
 ----------
@@ -95,25 +99,12 @@ file : str
 Returns:
 -------
 config : list
-    A list containing the configuration in the following order:
-    [metadata_location, population_size, max_number_generations, fitness_max_stagnation_period, 
-    max_number_fitness_evaluations, fitness_function_type, selection_type, crossover_rate, 
-    crossover_type, mutation_rate]
+    Configuration requested 
 '''
-
-def read_configuration_file(file):
+def obtain_configuration(file, type, configuration_name):
     if os.path.exists(file):
         config = configparser.ConfigParser()
         config.read(file)
-        return [config.get("metadata","metadata_location"), 
-                config.get("genetic_algorithm_configurations","population_size"),
-                config.get("genetic_algorithm_configurations","max_number_generations"),
-                config.get("genetic_algorithm_configurations","fitness_max_stagnation_period"),
-                config.get("genetic_algorithm_configurations","max_number_fitness_evaluations"),
-                config.get("genetic_algorithm_configurations","fitness_function_type"),
-                config.get("genetic_operators","selection_type"),
-                config.get("genetic_operators","crossover_rate"),
-                config.get("genetic_operators","crossover_type"),
-                config.get("genetic_operators","mutation_rate")]
+        return config.get(type, configuration_name)
     else:
         raise FileNotFoundError('File does not exist')
