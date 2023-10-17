@@ -166,6 +166,14 @@ The solutions can be encoded in a fixed-length bit string [22]. Next, a type of 
 
 In binary encoding scheme, a chromossome is represented as a string of values 1 or 0 (binary string) and in this enconding each bit represents the characteristics of the solution. Using a binary enconding provides a faster implementation of crossover and mutation operators [17] as each allele is one of two values providing simpler operations. 
 
+:::warning
+Representation scheme for implementation
+
+type of operation - constructor or method
+
+[type of operation, [input parameters], [crossover rate, mutation rate]]
+:::
+
 ###### Selection types
 
 After a proper representation of the individuals, a few of them must be selected to start reproduction which include crossover and mutation operations. This selection is made according to the fitness score value of the individuals - in a population - according to how well they resolve a defined problem. In this process, $n$ fittest chromossomes will be chosen to act as **parents** for the next stage of the algorithm (reproduction phase). This selection process is typically randomized, with the probability of selection depending on the fitness of the individuals [22]. The higher the fitness of the individual, higher the chance he will be picked as a parent for reproduction. 
@@ -287,7 +295,7 @@ Mutation operators:
     -  **Maximum number of generations**: the algorithm continues the generation process until it reaches a maximum number of generations/iterations where the best seen solution, until then, is taken as the optimal one [32].
     -  **Time budget**: after a certain time limit has elapsed, the process of generation stops and the best seen solution is taken as the best one. This time can be measured as absolute time or CPU-time.
     -  **Stagnation of fitness score**: if the overall fitness score of the generation process does not improve for a specified number of generations, the execution stops and the best seen individual until then is obtained.
-    -  **Maximum number of objective function evaluations**: the algorithm stops after reaching a maximum number of objective function evalutions. 
+    -  **Maximum number of objective function evaluations**: the algorithm stops after reaching a maximum number of objective function evaluations. 
     -  **Best and Worst individual**: the execution stops when the best and worst objective value are less or equal than a given threshold $s \ge 0$.
 
 ###### Parameter Optimization
@@ -545,6 +553,33 @@ According the work of dynamic crossover and mutation rates for the deterministic
 
 
 ###### Genetic Algorithm Quality (IMPORTANTE - POSSUI METRICAS)
+
+## Calorie Intake Calculation
+
+- Class under test chosen for the generation of automated unit tests
+- Links for formulas:
+    - https://www.calculator.net/calorie-calculator.html
+    - https://www.msdmanuals.com/medical-calculators/MifflinStJeor.htm
+    - https://books.google.pt/books/about/Exercise_Physiology.html?id=XOyjZX0Wxw4C&redir_esc=y Katch Mcardle equation source
+    - https://sci-hub.hkvisa.net/10.1093/ajcn/51.2.241 (A new predictive equation for resting energy expenditure in healthy individuals) Mifflin-St.Jeor equation
+    - https://www.sciencedirect.com/science/article/abs/pii/S0002916523162885?via%3Dihub (TDEE)
+    - Energy Balance Following Gastric Bypass Surgery: A Pilot Study of Daily Caloric Intake and Step Count (500 calories decrease when comparing to maitenance calories) https://ajcn.nutrition.org/article/S0002-9165(23)19521-9/fulltext
+    - https://www.nhs.uk/better-health/lose-weight/calorie-counting/ (National Health Service - UK recommends a 600 calorie deficit and surplus to lose and gain weight respectively)
+
+![](https://hackmd.io/_uploads/BJeu_m_Fxp.png)
+
+## Coverage Analysis
+
+- https://coverage.readthedocs.io/en/latest/install.html#install (Branch and Statement coverage)
+
+::: warning
+- Usar unittest testing framework para executar os testes gerados
+    1. Gerar population de forma aleatória
+    2. Com unittest executar o test suite gerado para avaliar branch and statement coverage
+        2.1. Utilizar dois ficheiros principais para escrita de test suites
+    4. Obter resultados de coverage e usar para fitness
+    5. Fitness para operações genéticas
+:::
 
 ...
 
