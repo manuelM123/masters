@@ -1,6 +1,6 @@
 import random
 
-# Population is a test suite which is a list of test cases where each individual is a test case
+# Population contain test suites which are lists of test cases where each individual within the test suite is a test case
 # structure of test suite: [ [test_case_1], [test_case_2], ... ]
 # structure of test_case_i: [ [identifier, [parameters], [genetic operators]] ]
 
@@ -92,10 +92,10 @@ class Selection:
 
         return parents_selection
             
-    def tournament_selection(self, population, fitness):
+    def rank_selection(self, population, population_fitness):
         pass
 
-    def rank_selection(self, population, fitness):
+    def tournament_selection(self, population, fitness):
         pass
 
     def adaptive_selection(self, population, fitness):

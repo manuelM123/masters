@@ -1,6 +1,7 @@
 from cut import *
 from solution import *
 from operations.selection import * 
+from operations.fitness_functions import *
 import utilities as util
 
 from enum import Enum
@@ -19,12 +20,30 @@ class configurations(Enum):
     mutation_type = util.obtain_configuration("config.ini", "genetic_operators_configurations", "mutation_type")
     mutation_rate = util.obtain_configuration("config.ini", "genetic_operators_configurations", "mutation_rate")
 
+# A population is a set of test suites where each of them is a list of test cases
+def create_population(metadata, max_number_functions, max_number_test_cases, population_size):
+    population = []
+    for individual in range(population_size):
+        solution = Solution()
+        # calculate fitness method using coverage module
+        # a specification of each type of coverage is needed 
+
+        solution.generate_test_suite(metadata, max_number_functions, max_number_test_cases)
+        util.write_metadata("results/intermediate_test_suite", solution.test_suite, metadata)
+        calculate_coverage_fitness(solution, str(configurations.fitness_function_type.value))
+
+        print(str(solution.test_suite) + "|" + str(solution.fitness))
+
+        population.append(solution)
+
+    return population
 
 class_test = calorie_intake_calc(83.9,189,22,'M',None,'S')
 metadata = util.read_metadata(util.obtain_configuration("config.ini", "metadata", "metadata_location"))
-solution = Solution()
-test_suite = solution.generate_test_suite(metadata, 5, 10)
-util.write_metadata("results/intermediate_test_suite", test_suite, metadata)
 
-# population_fitness = [10,20,40,30,25]
-# parents_selection = Selection("roulette_wheel").select(test_suite, population_fitness)
+population = create_population(metadata, 5, 10, 10)
+
+for i in range(len(population)):
+    print("Test Suite - " + str(population[i].test_suite))
+    print("Fitness - " + str(population[i].fitness))
+    print("-------------------------------------")

@@ -71,7 +71,7 @@ class Solution:
             # Generate test case
             test_suite.append(self.generate_test_case(metadata, max_number_functions))
         
-        return test_suite
+        self.test_suite = test_suite
 
     '''
     Function to generate a constructor using the metadata from the class context with random values specified in the metadata

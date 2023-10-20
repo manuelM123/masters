@@ -87,7 +87,6 @@ def write_metadata(path, test_suite, metadata):
         f.write("\n")
     f.close()
 
-
 '''
 Function to read the configuration file for the genetic algorithm and select a particular configuration
 
