@@ -27,3 +27,22 @@ def calculate_coverage_fitness(test_suite, type):
 
     else:
         raise ValueError('Fitness function type is not specified correctly')
+
+'''
+Function to obtain the fitness values of a population and insert them into a list for easier manipulation
+
+Parameters:
+----------
+population : list
+    The population to obtain the fitness values from
+
+Returns:
+-------
+individuals_fitness : list
+    A list containing the fitness values of each individual in the population
+'''
+def obtain_fitness_values(population):
+    individuals_fitness = []
+    for individual in population:
+        individuals_fitness.append(individual.fitness)
+    return individuals_fitness

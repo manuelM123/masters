@@ -75,7 +75,10 @@ class Selection:
 
         parents_selection = []
         selection_probabilities_sum = 0
-        random_number = random.randint(0, sum(population_fitness))
+        random_number = random.uniform(0, sum(selection_probabilities))
+
+        print("Random number: " + str(random_number))
+        print(selection_probabilities)
 
         while len(parents_selection) < 2:
             for i in range(len(population) - 1):
@@ -83,11 +86,14 @@ class Selection:
 
                 if selection_probabilities_sum >= random_number:
                     parents_selection.append(population[i])
-                    random_number = random.randint(0, sum(population_fitness))
+                    random_number = random.uniform(0, sum(selection_probabilities))
+                    print("Random number: " + str(random_number))
                     selection_probabilities_sum = 0
                     break 
             
             if len(parents_selection) > 1 and parents_selection[0] == parents_selection[1]:
+                print("Parents are the same")
+                print(parents_selection[0].test_suite + " " + parents_selection[1].test_suite)
                 parents_selection.pop(1)
 
         return parents_selection

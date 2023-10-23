@@ -32,8 +32,6 @@ def create_population(metadata, max_number_functions, max_number_test_cases, pop
         util.write_metadata("results/intermediate_test_suite", solution.test_suite, metadata)
         calculate_coverage_fitness(solution, str(configurations.fitness_function_type.value))
 
-        print(str(solution.test_suite) + "|" + str(solution.fitness))
-
         population.append(solution)
 
     return population
@@ -42,8 +40,22 @@ class_test = calorie_intake_calc(83.9,189,22,'M',None,'S')
 metadata = util.read_metadata(util.obtain_configuration("config.ini", "metadata", "metadata_location"))
 
 population = create_population(metadata, 5, 10, 10)
+population_fitness = obtain_fitness_values(population)
 
+print("Test Suites Population")
 for i in range(len(population)):
+    print("-------------------------------------")
     print("Test Suite - " + str(population[i].test_suite))
     print("Fitness - " + str(population[i].fitness))
-    print("-------------------------------------")
+print("-----------------------------------")
+
+print("Fitness Population")
+print(population_fitness)
+print("-----------------------------------")
+
+print(configurations.selection_type.value)
+parents_selection = Selection(str(configurations.selection_type.value)).select(population, population_fitness)
+
+for individual in parents_selection:
+    print("Parent - " + str(individual.test_suite))
+    print("Fitness - " + str(individual.fitness))
