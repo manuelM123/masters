@@ -42,6 +42,10 @@ metadata = util.read_metadata(util.obtain_configuration("config.ini", "metadata"
 population = create_population(metadata, 5, 10, 10)
 population_fitness = obtain_fitness_values(population)
 
+sorted_fitness = Selection(str(configurations.selection_type.value)).select(population, population_fitness)
+for i in range(len(sorted_fitness)):
+    print(sorted_fitness[i])
+
 print("Test Suites Population")
 for i in range(len(population)):
     print("-------------------------------------")
@@ -53,7 +57,7 @@ print("Fitness Population")
 print(population_fitness)
 print("-----------------------------------")
 
-print(configurations.selection_type.value)
+
 parents_selection = Selection(str(configurations.selection_type.value)).select(population, population_fitness)
 
 for individual in parents_selection:

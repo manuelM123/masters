@@ -11,6 +11,7 @@ class Solution:
     def __init__(self):
         self.test_suite = []
         self.fitness = -1
+        self.rank = -1
 
     '''
     Function that generates a test case with constructor and other functions using the metadata from the class context

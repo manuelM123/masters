@@ -1,4 +1,5 @@
 import random
+import utilities as util
 
 # Population contain test suites which are lists of test cases where each individual within the test suite is a test case
 # structure of test suite: [ [test_case_1], [test_case_2], ... ]
@@ -17,7 +18,7 @@ class Selection:
         elif self.type == 'tournament':
             pass
         elif self.type == 'rank':
-            pass
+            return self.rank_selection(population)
         else:
             raise ValueError('Selection type is not specified correctly')
     
@@ -81,7 +82,7 @@ class Selection:
         print(selection_probabilities)
 
         while len(parents_selection) < 2:
-            for i in range(len(population) - 1):
+            for i in range(len(population)):
                 selection_probabilities_sum += selection_probabilities[i]
 
                 if selection_probabilities_sum >= random_number:
@@ -97,9 +98,46 @@ class Selection:
                 parents_selection.pop(1)
 
         return parents_selection
+    
+    '''
+    Rank selection to select two parents from the population
+    The individuals are sorted in ascending order according to their fitness
+    The individuals are assigned a rank according to their position in the sorted list
+    The parents are selected by choosing two individuals at random and comparing their ranks 
+    The individual with the higher rank is selected as a parent and the process is repeated until two parents are selected
+
+    Parameters:
+    ----------
+    population : list
+        The population to select the parents from
+
+    Returns:
+    -------
+    parents_selection : list
+        A list containing the two parents selected from the population
+    '''
+    def rank_selection(self, population):
+        parents_selected = []
+        sorted_population_fitness = sorted(population, key=lambda x:x.fitness)
+
+        print("Sorted Fitness")
+        for i in range(len(sorted_population_fitness)):
+            sorted_population_fitness[i].rank = i + 1
+            print(sorted_population_fitness[i].fitness, end="|")
+
+        while len(parents_selected) < 2 :
+            individuals_selection = random.choices(sorted_population_fitness, k=2)
+            print("Individuals selection: " +  str(individuals_selection[0].rank) + "|" + str(individuals_selection[1].rank))
+            if individuals_selection[0] != individuals_selection[1]:
+                if individuals_selection[0].rank > individuals_selection[1].rank:
+                    parents_selected.append(individuals_selection[0])
+                else:
+                    parents_selected.append(individuals_selection[1])
+
+            if len(parents_selected) > 1 and parents_selected[0] == parents_selected[1]:
+                parents_selected.pop(1)
             
-    def rank_selection(self, population, population_fitness):
-        pass
+        return parents_selected
 
     def tournament_selection(self, population, fitness):
         pass
