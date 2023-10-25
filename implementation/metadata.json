@@ -3,22 +3,22 @@
         "name": "calorie_intake_calc",
         "parameters": [
             {
-                "type": "float", "min": 40.0, "max": 200.0
+                "type": "float", "min": 40.0, "max": 221.0
             },
             {
-                "type": "float", "min": 140.0, "max": 220.0
+                "type": "float", "min": 140.0, "max": 211.0
             },
             {
-                "type": "int", "min": 10, "max": 80
+                "type": "int", "min": 10, "max": 81
             },
             {
-                "type": "string", "gender": ["M", "F"]
+                "type": "string", "gender": ["M", "F", "N"]
             },
             {
                 "type": "float", "min": 0.0, "max": 0.3
             },
             {
-                "type": "string", "intensity": ["S","L","M","V","E"]
+                "type": "string", "intensity": ["S","L","M","V","E","N"]
             }
         ]
     },
@@ -27,7 +27,7 @@
             {
                 "name": "weight", "type": "setter", "parameters": [
                     {
-                        "min": 40.0, "max": 200.0
+                        "min": 40.0, "max": 221.0
                     }
                 ]
             },
@@ -35,7 +35,7 @@
             {
                 "name": "height", "type": "setter", "parameters": [
                     {
-                        "min": 140.0, "max": 220.0
+                        "min": 140.0, "max": 211.0
                     }
                 ]
             },
@@ -43,7 +43,7 @@
             {
                 "name": "age", "type": "setter", "parameters": [
                     {
-                        "min": 10, "max": 80
+                        "min": 10, "max": 81
                     }
                 ]
             },
@@ -51,7 +51,7 @@
             {
                 "name": "gender", "type": "setter", "parameters": [
                     {
-                        "gender": ["M", "F"]
+                        "gender": ["M", "F", "N"]
                     }
                 ]
             },
@@ -67,7 +67,7 @@
             {
                 "name": "amount_exercise", "type": "setter", "parameters": [
                     {
-                        "intensity": ["S","L","M","V","E"]
+                        "intensity": ["S","L","M","V","E","N"]
                     }
                 ]
             },

@@ -126,8 +126,10 @@ class calorie_intake_calc:
     def mifflin_stjeor_equation(self):
         if self.gender.upper() == 'F':
             return (10 * self.weight) + (6.25 * self.height) - (5 * self.age) - 161
-        else:
+        elif self.gender.upper() == 'M':
             return (10 * self.weight) + (6.25 * self.height) - (5 * self.age) + 5
+        else:
+            raise ValueError('Gender not specified correctly')
         
     '''
     A method used to calculate the calorie intake of a person using the Katch-McArdle equation using the bodyfat percentage and

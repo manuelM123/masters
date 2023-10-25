@@ -39,7 +39,7 @@ def create_population(metadata, max_number_functions, max_number_test_cases, pop
 class_test = calorie_intake_calc(83.9,189,22,'M',None,'S')
 metadata = util.read_metadata(util.obtain_configuration("config.ini", "metadata", "metadata_location"))
 
-population = create_population(metadata, 5, 10, 10)
+population = create_population(metadata, 5, 10, 100)
 population_fitness = obtain_fitness_values(population)
 
 sorted_fitness = Selection(str(configurations.selection_type.value)).select(population, population_fitness)
