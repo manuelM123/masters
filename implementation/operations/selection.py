@@ -10,13 +10,13 @@ class Selection:
     def __init__(self, type):
         self.type = type
 
-    def select(self, population, population_fitness):
+    def select(self, population, population_fitness, tournament_size):
         if self.type == 'random':
             pass
         if self.type == 'roulette_wheel':
             return self.roulette_wheel_selection(population, population_fitness)
         elif self.type == 'tournament':
-            pass
+            return self.tournament_selection(population, tournament_size)
         elif self.type == 'rank':
             return self.rank_selection(population)
         else:
@@ -139,8 +139,29 @@ class Selection:
             
         return parents_selected
 
-    def tournament_selection(self, population, fitness):
-        pass
+    '''
+    Tournament selection to select two parents from the population 
+    A random number of individuals are selected from the population
+    The individuals are compared according to their fitness
 
+    '''
+    def tournament_selection(self, population, tournament_size):
+        parents_selected = []
+        while len(parents_selected) != 2:
+            selected_individuals = random.choices(population, k=tournament_size)
+            for individuals in selected_individuals:
+                print("Individuals: " + str(individuals.test_suite) + "| Fitness: " + str(individuals.fitness), end="\n")
+            individuals_set = set(selected_individuals)
+            print("--------------------------------------------------")
+            if len(selected_individuals) == len(individuals_set):
+                parents_selected.append(max(selected_individuals, key=lambda x:x.fitness))
+                for individual in parents_selected:
+                    print("Parents: " + str(individual.test_suite), end="\n")
+            
+            if len(parents_selected) == 2 and len(parents_selected) != len(set(parents_selected)):
+                parents_selected.pop(1)
+
+        return parents_selected
+            
     def adaptive_selection(self, population, fitness):
         pass

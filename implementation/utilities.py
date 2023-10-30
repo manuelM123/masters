@@ -15,7 +15,6 @@ Returns:
 metadata : dict
     The metadata in a dictionary format
 '''
-
 def read_metadata(file):
     if os.path.exists(file):
         with open(file, 'r') as f:
@@ -43,7 +42,6 @@ metadata : dict
     The metadata of the class context
 
 '''
-
 def write_metadata(path, test_suite, metadata):
     # If the path does not exist, create it
     if not os.path.exists(path):

@@ -18,13 +18,18 @@ def calculate_coverage_fitness(test_suite, type):
     if(type == 'statement_coverage'):
         subprocess.run(['coverage', 'run', '-m', 'pytest', 'results/intermediate_test_suite'])
         process = subprocess.run(['coverage', 'report'], capture_output=True, text=True)
-        test_suite.fitness = round(int(process.stdout.split("\n")[2].split()[3].replace("%",""))/100,2)
+        lines = process.stdout.split("\n")
+        for line_number, line in enumerate(lines):
+            if 'cut.py' in line:
+                test_suite.fitness = round(int(process.stdout.split("\n")[line_number].split()[3].replace("%",""))/100,2)
 
     elif(type == 'branch_coverage'):
         subprocess.run(['coverage', 'run', '--branch', '-m', 'pytest', 'results/intermediate_test_suite'])
         process = subprocess.run(['coverage', 'report'], capture_output=True, text=True)
-        test_suite.fitness = round(int(process.stdout.split("\n")[2].split()[5].replace("%",""))/100,2)
-
+        lines = process.stdout.split("\n")
+        for line_number, line in enumerate(lines):
+            if 'cut.py' in line:
+                test_suite.fitness = round(int(process.stdout.split("\n")[line_number].split()[5].replace("%",""))/100,2)
     else:
         raise ValueError('Fitness function type is not specified correctly')
 

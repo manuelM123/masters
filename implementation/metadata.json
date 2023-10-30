@@ -3,10 +3,10 @@
         "name": "calorie_intake_calc",
         "parameters": [
             {
-                "type": "float", "min": 40.0, "max": 221.0
+                "type": "float", "min": 40.0, "max": 211.0
             },
             {
-                "type": "float", "min": 140.0, "max": 211.0
+                "type": "float", "min": 140.0, "max": 221.0
             },
             {
                 "type": "int", "min": 10, "max": 81
