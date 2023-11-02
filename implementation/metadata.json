@@ -27,7 +27,7 @@
             {
                 "name": "weight", "type": "setter", "parameters": [
                     {
-                        "min": 40.0, "max": 221.0
+                        "min": 40.0, "max": 211.0
                     }
                 ]
             },
@@ -35,7 +35,7 @@
             {
                 "name": "height", "type": "setter", "parameters": [
                     {
-                        "min": 140.0, "max": 211.0
+                        "min": 140.0, "max": 221.0
                     }
                 ]
             },

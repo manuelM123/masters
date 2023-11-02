@@ -51,3 +51,24 @@ def obtain_fitness_values(population):
     for individual in population:
         individuals_fitness.append(individual.fitness)
     return individuals_fitness
+
+
+'''
+Function to calculate the average fitness of a population
+
+Parameters:
+----------
+population : list
+    The population to calculate the average fitness of
+
+Returns:
+-------
+average_fitness : int
+    The average fitness of the population
+'''
+def calculate_average_fitness(population):
+    average_fitness = 0
+    for individual in population:
+        average_fitness += individual.fitness
+
+    return average_fitness/len(population)

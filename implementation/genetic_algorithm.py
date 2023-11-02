@@ -48,21 +48,21 @@ def create_population(metadata, max_number_functions, max_number_test_cases, pop
     return population
 
 metadata = util.read_metadata(util.obtain_configuration("config.ini", "metadata", "metadata_location"))
-population = create_population(metadata, 5, 10, 10)
+population = create_population(metadata, 4, 11, 10)
 population_fitness = obtain_fitness_values(population)
 
 print("Fitness Population")
 print(population_fitness)
 print("-----------------------------------")
 
-tournament_selection = Selection(str(configurations.selection_type.value)).select(population, population_fitness, int(configurations.tournament_size.value))
+first_list, second_list = Selection(str(configurations.selection_type.value)).select(population, population_fitness, int(configurations.tournament_size.value))
 
-print("Tournament selection")
-for i in range(len(tournament_selection)):
-    print("-------------------------------------")
-    print("Test Suite - " + str(tournament_selection[i].test_suite))
-    print("Fitness - " + str(tournament_selection[i].fitness))
-print("-----------------------------------")
+#print("Adaptive selection")
+#for i in range(len(adaptive_selection)):
+#    print("-------------------------------------")
+#    print("Test Suite - " + str(adaptive_selection[i].test_suite))
+#    print("Fitness - " + str(adaptive_selection[i].fitness))
+#print("-----------------------------------")
 
 #print("Test Suites Population")
 #for i in range(len(population)):

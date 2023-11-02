@@ -1,5 +1,6 @@
 import random
 import utilities as util
+from operations.fitness_functions import *
 
 # Population contain test suites which are lists of test cases where each individual within the test suite is a test case
 # structure of test suite: [ [test_case_1], [test_case_2], ... ]
@@ -19,6 +20,8 @@ class Selection:
             return self.tournament_selection(population, tournament_size)
         elif self.type == 'rank':
             return self.rank_selection(population)
+        elif self.type == 'adaptive':
+            return self.adaptive_selection(population, population_fitness)
         else:
             raise ValueError('Selection type is not specified correctly')
     
@@ -163,5 +166,54 @@ class Selection:
 
         return parents_selected
             
-    def adaptive_selection(self, population, fitness):
-        pass
+    '''
+    Function that implements the selection process for a adaptive selection scheme proposed by Pham and Castellani from "Adaptive Selection Routine for Evolutionary Algorithms"
+
+    Parameters:
+    ----------
+    population : list
+        The population to select the parents from
+    population_fitness : list
+        The fitness of each individual in the population
+
+    Returns:
+    -------
+    first_list : list
+        A list containing the first half of the selected individuals
+
+    second_list : list
+        A list containing the second half of the selected individuals
+    '''
+    def adaptive_selection(self, population, population_fitness):
+        first_list = []
+        second_list = []
+        u_f = calculate_average_fitness(population)
+        f_max = max(population_fitness)
+
+        while len(first_list) == 0 or len(second_list) == 0:
+            rand = random.uniform(0, 1)
+            valid_individuals = []
+            for individual in population:
+                individual.mating_chance = individual.fitness + (f_max - u_f) * rand
+                if individual.adaptive_max_selections < 2:
+                    valid_individuals.append(individual)
+
+            if len(valid_individuals) == 1:
+                print("No valid individuals")
+                break
+            
+            else:
+                sorted_population_mating_chance = sorted(valid_individuals, key=lambda x:x.mating_chance, reverse=True)
+
+                for i in range(int(len(sorted_population_mating_chance) / 2)):
+                    if len(first_list) != int(len(sorted_population_mating_chance) / 2):
+                        first_list.append(sorted_population_mating_chance[i])
+
+                    else:
+                        second_list.append(sorted_population_mating_chance[i])
+
+                    sorted_population_mating_chance[i].adaptive_max_selections += 1
+
+        return first_list, second_list
+    
+
