@@ -14,6 +14,7 @@ class Solution:
         self.rank = -1
         self.mating_chance = -1
         self.adaptive_max_selections = 0
+        self.remaining_lifetime = -1
 
     '''
     Function that generates a test case with constructor and other functions using the metadata from the class context
