@@ -26,6 +26,8 @@ class configurations(Enum):
     mutation_type = util.obtain_configuration("config.ini", "genetic_operators_configurations", "mutation_type")
     mutation_rate = util.obtain_configuration("config.ini", "genetic_operators_configurations", "mutation_rate")
     fitness_iteration_limit = util.obtain_configuration("config.ini", "genetic_operators_configurations", "fitness_iteration_limit")
+    lt_max = util.obtain_configuration("config.ini", "genetic_operators_configurations", "lt_max")
+    lt_min = util.obtain_configuration("config.ini", "genetic_operators_configurations", "lt_min")
 
 
 metadata = util.read_metadata(util.obtain_configuration("config.ini", "metadata", "metadata_location"))
@@ -36,11 +38,29 @@ print("Fitness Population")
 print(population_fitness)
 print("-----------------------------------")
 
-first_list, second_list = Selection(str(configurations.selection_type.value)).select(population, population_fitness, int(configurations.tournament_size.value))
+#first_list, second_list = Selection(str(configurations.selection_type.value)).select(population, population_fitness, int(configurations.tournament_size.value))
 
-print("Test Suites Population")
+population = rlt_setting(population, population_fitness, int(configurations.lt_max.value), int(configurations.lt_min.value))
+
+print("Individuals Remaining Lifetime")
 for i in range(len(population)):
     print("-------------------------------------")
-    print("Test Suite - " + str(population[i].test_suite))
     print("Fitness - " + str(population[i].fitness))
-print("-----------------------------------")
+    print("Remaining Lifetime - " + str(population[i].remaining_lifetime))
+
+population = rlt_adjustment(population, max(population_fitness))
+
+print("|--------------------------------|")
+
+print("Individuals Remaining Lifetime Adjustment")
+for i in range(len(population)):
+    print("-------------------------------------")
+    print("Fitness - " + str(population[i].fitness))
+    print("Remaining Lifetime - " + str(population[i].remaining_lifetime))
+
+#print("Test Suites Population")
+#for i in range(len(population)):
+#    print("-------------------------------------")
+#    print("Test Suite - " + str(population[i].test_suite))
+#    print("Fitness - " + str(population[i].fitness))
+#print("-----------------------------------")

@@ -13,7 +13,7 @@ class Selection:
 
     def select(self, population, population_fitness, tournament_size):
         if self.type == 'random':
-            pass
+            return self.random_selection(population)
         if self.type == 'roulette_wheel':
             return self.roulette_wheel_selection(population, population_fitness)
         elif self.type == 'tournament':
