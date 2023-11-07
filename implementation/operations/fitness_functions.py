@@ -52,7 +52,6 @@ def obtain_fitness_values(population):
         individuals_fitness.append(individual.fitness)
     return individuals_fitness
 
-
 '''
 Function to calculate the average fitness of a population
 

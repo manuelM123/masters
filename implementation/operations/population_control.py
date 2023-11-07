@@ -32,6 +32,29 @@ def create_population(metadata, population_size, configurations):
     return population
 
 '''
+Function to create a offspring from the crossover or mutation genetic operators
+
+Parameters:
+----------
+test_suite : list
+    The test suite to create the offspring from
+
+configurations : dict
+    The configurations of the algorithm
+
+Returns:
+-------
+individual : Solution
+    The offspring created with specific test suite
+'''
+def create_offspring(test_suite, configurations):
+    individual = Solution()
+    individual.test_suite = test_suite
+    calculate_coverage_fitness(individual, str(configurations.fitness_function_type.value))
+    
+    return individual
+
+'''
 Function to calculate the remaining lifetime of each individual in the population
 
 Parameters:
@@ -90,7 +113,7 @@ def rlt_adjustment(population, best_individual_fitness):
         if individual.fitness != best_individual_fitness:
             individual.remaining_lifetime = individual.remaining_lifetime - 1
 
-        if individual.remaining_lifetime == 0:
+        if individual.remaining_lifetime <= 0:
             population.pop(population.index(individual))
 
     return population

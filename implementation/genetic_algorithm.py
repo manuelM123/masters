@@ -3,6 +3,7 @@ from solution import *
 from operations.selection import * 
 from operations.fitness_functions import *
 from operations.population_control import *
+from operations.crossover import *
 import utilities as util
 import sys
 sys.dont_write_bytecode = True
@@ -28,6 +29,7 @@ class configurations(Enum):
     fitness_iteration_limit = util.obtain_configuration("config.ini", "genetic_operators_configurations", "fitness_iteration_limit")
     lt_max = util.obtain_configuration("config.ini", "genetic_operators_configurations", "lt_max")
     lt_min = util.obtain_configuration("config.ini", "genetic_operators_configurations", "lt_min")
+    uniform_number = util.obtain_configuration("config.ini", "genetic_operators_configurations", "uniform_number")
 
 
 metadata = util.read_metadata(util.obtain_configuration("config.ini", "metadata", "metadata_location"))
@@ -38,25 +40,45 @@ print("Fitness Population")
 print(population_fitness)
 print("-----------------------------------")
 
-#first_list, second_list = Selection(str(configurations.selection_type.value)).select(population, population_fitness, int(configurations.tournament_size.value))
+parent1 = random.randint(0, len(population) - 1)
+parent2 = random.randint(0, len(population) - 1)
 
-population = rlt_setting(population, population_fitness, int(configurations.lt_max.value), int(configurations.lt_min.value))
+parents = [parent1, parent2]
+parents_set = set([parent1, parent2])
 
-print("Individuals Remaining Lifetime")
-for i in range(len(population)):
-    print("-------------------------------------")
-    print("Fitness - " + str(population[i].fitness))
-    print("Remaining Lifetime - " + str(population[i].remaining_lifetime))
+while len(parents) != len(parents_set):
+    parent2 = random.randint(0, len(population) - 1)
 
-population = rlt_adjustment(population, max(population_fitness))
+print("Parent 1")
+print(population[parent1].test_suite)
+print("Length : " + str(len(population[parent1].test_suite)))
+print("--------------------------------------------------")
 
-print("|--------------------------------|")
+print("Parent 2")
+print(population[parent2].test_suite)
+print("Length : " + str(len(population[parent2].test_suite)))
+print("--------------------------------------------------")
 
-print("Individuals Remaining Lifetime Adjustment")
-for i in range(len(population)):
-    print("-------------------------------------")
-    print("Fitness - " + str(population[i].fitness))
-    print("Remaining Lifetime - " + str(population[i].remaining_lifetime))
+offsprings1 = one_point_crossover([population[parent1], population[parent2]], configurations)
+offsprings2 = uniform_crossover([population[parent1], population[parent2]], configurations)
+
+print("First Offspring")
+for i in offsprings1:
+    print("Offspring")
+    print(i.test_suite)
+    print("-------")
+print("--------------------------------------------------")
+
+print("Second Offspring")
+for i in offsprings2:
+    print(i.test_suite)
+print("--------------------------------------------------")
+
+print("------------------------")
+
+
+#first_list, second_list = select(population, population_fitness, int(configurations.tournament_size.value), configurations.selection_type.value)
+#population = rlt_adjustment(population, max(population_fitness))
 
 #print("Test Suites Population")
 #for i in range(len(population)):
