@@ -1,11 +1,26 @@
 import random
 from operations.population_control import *
 
-def crossover(parents, configurations, type):
+'''
+Function that selects the crossover operator to generate offsprings from two parents
+Parameters:
+----------
+parents : list
+    The parents to generate the offspring
+
+configurations : dict
+    The configurations of the algorithm
+
+'''
+def crossover(parents, current_iteration_number, configurations, type):
     if type == 'one_point':
         return one_point_crossover(parents, configurations)
     elif type == 'uniform':
         return uniform_crossover(parents, configurations)
+    elif type == 'deterministic':
+        return deterministic_crossover_adjustment(current_iteration_number, configurations.max_generations, configurations.crossover_rate_adjustment_type)
+    # Add adaptive crossover adjustment using a fuzzy system
+    
 '''
 Crossover operator to generate offsprings from two parents using the one point crossover
 Parameters:
@@ -55,7 +70,6 @@ Returns:
 offsprings : list
     A list containing the two offsprings generated from the parents
 '''
-
 def uniform_crossover(parents, configurations):
     random_values = []
     offsprings = []
@@ -88,4 +102,36 @@ def uniform_crossover(parents, configurations):
         offsprings.append(create_offspring(test_suite, configurations))
 
     return offsprings
+
+
+'''
+Crossover rate adjustment using a deterministic rule by increasing or decreasing the crossover rate linearly with the number of generations based on the work of Hassanat, 
+Almohammadi, Alkafaween, Abunawas, Hammouri and Prasath in "Choosing Mutation and Crossover Ratios for Genetic Algorithms — A Review with a New Dynamic Approach"
+
+Parameters:
+----------
+current_iteration_number : int
+    The current iteration number of the algorithm
+
+max_generations : int
+    The maximum number of generations of the algorithm
+
+type : string
+    Type of crossover rate adjustment, either to increase or decrease the crossover rate linearly with the number of generations
+
+Returns:
+-------
+crossover_rate : float
+    The crossover rate adjusted using the deterministic rule
+'''
+def deterministic_crossover_adjustment(current_iteration_number, max_generations, type):
+    if type == 'ihc':
+        return current_iteration_number / max_generations
+    elif type == 'dhc':
+        return 1 - (current_iteration_number / max_generations)
     
+    raise Exception("Invalid crossover rate adjustment type")
+
+def adaptive_crossover_adjustment():
+    crossover_rate = 0.5
+    return crossover_rate

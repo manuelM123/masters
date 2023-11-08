@@ -24,6 +24,7 @@ class configurations(Enum):
     selection_type = util.obtain_configuration("config.ini", "genetic_operators_configurations", "selection_type")
     crossover_type = util.obtain_configuration("config.ini", "genetic_operators_configurations", "crossover_type")
     crossover_rate = util.obtain_configuration("config.ini", "genetic_operators_configurations", "crossover_rate")
+    crossover_rate_adjustment_type = util.obtain_configuration("config.ini", "genetic_operators_configurations", "crossover_rate_adjustment_type")
     mutation_type = util.obtain_configuration("config.ini", "genetic_operators_configurations", "mutation_type")
     mutation_rate = util.obtain_configuration("config.ini", "genetic_operators_configurations", "mutation_rate")
     fitness_iteration_limit = util.obtain_configuration("config.ini", "genetic_operators_configurations", "fitness_iteration_limit")
@@ -48,6 +49,8 @@ parents_set = set([parent1, parent2])
 
 while len(parents) != len(parents_set):
     parent2 = random.randint(0, len(population) - 1)
+    parents = [parent1, parent2]
+    parents_set = set([parent1, parent2])
 
 print("Parent 1")
 print(population[parent1].test_suite)
@@ -71,6 +74,7 @@ print("--------------------------------------------------")
 
 print("Second Offspring")
 for i in offsprings2:
+    print("Offspring")
     print(i.test_suite)
 print("--------------------------------------------------")
 

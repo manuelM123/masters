@@ -98,7 +98,7 @@ class Solution:
             parameters = metadata['constructor']['parameters']
 
             for attribute in range(len(parameters)):
-                print(parameters[attribute])
+                #print(parameters[attribute])
                 if 'min' in parameters[attribute] or 'max' in parameters[attribute]:
                     min = parameters[attribute]['min']
                     max = parameters[attribute]['max']
@@ -138,7 +138,7 @@ class Solution:
             parameters = metadata['other_functions']
             attribute  = random.randint(0, len(parameters)-1)
 
-            print(parameters[attribute]['name'])
+            #print(parameters[attribute]['name'])
 
             if 'setter' in parameters[attribute]['type']:
                 if 'min' in parameters[attribute]['parameters'][0] or 'max' in parameters[attribute]['parameters'][0]:

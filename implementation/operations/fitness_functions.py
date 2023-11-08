@@ -16,7 +16,7 @@ fitness : int
 # Using coverage module within a subprocess to calculate the fitness of a test suite 
 def calculate_coverage_fitness(test_suite, type):
     if(type == 'statement_coverage'):
-        subprocess.run(['coverage', 'run', '-m', 'pytest', 'results/intermediate_test_suite'])
+        subprocess.run(['coverage', 'run', '-m', 'pytest', '-q', 'results/intermediate_test_suite'])
         process = subprocess.run(['coverage', 'report'], capture_output=True, text=True)
         lines = process.stdout.split("\n")
         for line_number, line in enumerate(lines):
@@ -24,7 +24,7 @@ def calculate_coverage_fitness(test_suite, type):
                 test_suite.fitness = round(int(process.stdout.split("\n")[line_number].split()[3].replace("%",""))/100,2)
 
     elif(type == 'branch_coverage'):
-        subprocess.run(['coverage', 'run', '--branch', '-m', 'pytest', 'results/intermediate_test_suite'])
+        subprocess.run(['coverage', 'run', '--branch', '-m', 'pytest', '-q', 'results/intermediate_test_suite'])
         process = subprocess.run(['coverage', 'report'], capture_output=True, text=True)
         lines = process.stdout.split("\n")
         for line_number, line in enumerate(lines):
