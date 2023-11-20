@@ -185,4 +185,3 @@ def adaptive_selection(population, population_fitness):
                 sorted_population_mating_chance[i].adaptive_max_selections += 1
     return first_list, second_list
     
-

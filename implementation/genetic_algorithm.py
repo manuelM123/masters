@@ -4,10 +4,11 @@ from operations.selection import *
 from operations.fitness_functions import *
 from operations.population_control import *
 from operations.crossover import *
+from operations.fuzzy_system import *
 import utilities as util
 import sys
+import statistics as stats
 sys.dont_write_bytecode = True
-
 from enum import Enum
 
 # Enum class to store the configurations
@@ -32,6 +33,8 @@ class configurations(Enum):
     lt_min = util.obtain_configuration("config.ini", "genetic_operators_configurations", "lt_min")
     uniform_number = util.obtain_configuration("config.ini", "genetic_operators_configurations", "uniform_number")
 
+    fuzzy_membership_path = util.obtain_configuration("config.ini", "file_paths", "fuzzy_membership_functions")
+
 
 metadata = util.read_metadata(util.obtain_configuration("config.ini", "metadata", "metadata_location"))
 population = create_population(metadata, int(configurations.population_size.value), configurations)
@@ -41,44 +44,52 @@ print("Fitness Population")
 print(population_fitness)
 print("-----------------------------------")
 
-parent1 = random.randint(0, len(population) - 1)
-parent2 = random.randint(0, len(population) - 1)
+print("Variance of fitness population : " + str(stats.variance(population_fitness)))
 
-parents = [parent1, parent2]
-parents_set = set([parent1, parent2])
+antecedents = define_antecedents()
+consequents = define_consequents()
+define_fuzzy_sets(antecedents, consequents)
+plot_fuzzy_sets(antecedents, consequents, util.obtain_configuration("config.ini", "file_paths", "fuzzy_membership_functions"))
 
-while len(parents) != len(parents_set):
-    parent2 = random.randint(0, len(population) - 1)
-    parents = [parent1, parent2]
-    parents_set = set([parent1, parent2])
 
-print("Parent 1")
-print(population[parent1].test_suite)
-print("Length : " + str(len(population[parent1].test_suite)))
-print("--------------------------------------------------")
+#parent1 = random.randint(0, len(population) - 1)
+#parent2 = random.randint(0, len(population) - 1)
+#
+#parents = [parent1, parent2]
+#parents_set = set([parent1, parent2])
+#
+#while len(parents) != len(parents_set):
+#    parent2 = random.randint(0, len(population) - 1)
+#    parents = [parent1, parent2]
+#    parents_set = set([parent1, parent2])
 
-print("Parent 2")
-print(population[parent2].test_suite)
-print("Length : " + str(len(population[parent2].test_suite)))
-print("--------------------------------------------------")
+#print("Parent 1")
+#print(population[parent1].test_suite)
+#print("Length : " + str(len(population[parent1].test_suite)))
+#print("--------------------------------------------------")
 
-offsprings1 = one_point_crossover([population[parent1], population[parent2]], configurations)
-offsprings2 = uniform_crossover([population[parent1], population[parent2]], configurations)
+#print("Parent 2")
+#print(population[parent2].test_suite)
+#print("Length : " + str(len(population[parent2].test_suite)))
+#print("--------------------------------------------------")
 
-print("First Offspring")
-for i in offsprings1:
-    print("Offspring")
-    print(i.test_suite)
-    print("-------")
-print("--------------------------------------------------")
-
-print("Second Offspring")
-for i in offsprings2:
-    print("Offspring")
-    print(i.test_suite)
-print("--------------------------------------------------")
-
-print("------------------------")
+#offsprings1 = one_point_crossover([population[parent1], population[parent2]], configurations)
+#offsprings2 = uniform_crossover([population[parent1], population[parent2]], configurations)
+#
+#print("First Offspring")
+#for i in offsprings1:
+#    print("Offspring")
+#    print(i.test_suite)
+#    print("-------")
+#print("--------------------------------------------------")
+#
+#print("Second Offspring")
+#for i in offsprings2:
+#    print("Offspring")
+#    print(i.test_suite)
+#print("--------------------------------------------------")
+#
+#print("------------------------")
 
 
 #first_list, second_list = select(population, population_fitness, int(configurations.tournament_size.value), configurations.selection_type.value)
