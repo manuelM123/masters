@@ -50,7 +50,20 @@ antecedents = define_antecedents()
 consequents = define_consequents()
 define_fuzzy_sets(antecedents, consequents)
 plot_fuzzy_sets(antecedents, consequents, util.obtain_configuration("config.ini", "file_paths", "fuzzy_membership_functions"))
+rules = define_fuzzy_rules(antecedents, consequents)
 
+for i in range(5):
+    print("Fuzzy System Calculation")
+    print("--------------------------------")
+    inputs = [random.uniform(0.0, 1.0), random.randint(0, 20), random.uniform(0.0, 0.2)]
+
+    print("Inputs")
+    print(inputs)
+
+    crossover_rate, mutation_rate = fuzzy_control_system(rules, inputs)
+    print("Crossover Rate : " + str(crossover_rate))
+    print("Mutation Rate : " + str(mutation_rate))
+    print("|-------------------------|")
 
 #parent1 = random.randint(0, len(population) - 1)
 #parent2 = random.randint(0, len(population) - 1)

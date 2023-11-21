@@ -12,7 +12,7 @@ Returns:
 '''
 def define_antecedents():
     best_fitness = ctrl.Antecedent(np.arange(0.0, 1.1, 0.1), 'best_fitness')
-    number_generations_unchanged_best_fitness = ctrl.Antecedent(np.arange(0, 21, 1), 'number_generations_unchanged_best_fitness')
+    number_generations_unchanged_best_fitness = ctrl.Antecedent(np.arange(0, 13, 1), 'number_generations_unchanged_best_fitness')
     variance_fitness = ctrl.Antecedent(np.arange(0.0, 0.21, 0.01), 'variance_fitness')
     antecedents = [best_fitness, number_generations_unchanged_best_fitness, variance_fitness]
 
@@ -25,7 +25,7 @@ Returns:
     consequents: list of consequents
 '''
 def define_consequents():
-    crossover_rate = ctrl.Consequent(np.arange(0.40, 0.91, 0.01), 'crossover_rate')
+    crossover_rate = ctrl.Consequent(np.arange(0.48, 0.83, 0.01), 'crossover_rate')
     mutation_rate = ctrl.Consequent(np.arange(0.005, 0.105, 0.005), 'mutation_rate')
     consequents = [crossover_rate, mutation_rate]
 
@@ -79,17 +79,60 @@ Returns:
 rules: list of rules
 '''
 def define_fuzzy_rules(antecedents, consequents):
-    rule1 = ctrl.Rule(antecedents[0]['low'], consequents[1]['low'] & consequents[0]['high'])
-    rule2 = ctrl.Rule(antecedents[0]['medium'] & antecedents[1]['low'], consequents[1]['low'] & consequents[0]['high'])
-    rule3 = ctrl.Rule(antecedents[0]['medium'] & antecedents[1]['medium'], consequents[1]['medium'] & consequents[0]['medium'])
-    rule4 = ctrl.Rule(antecedents[1]['high'] & antecedents[2]['medium'], consequents[1]['high'] & consequents[0]['low'])
-    rule5 = ctrl.Rule(antecedents[0]['high'] & antecedents[1]['low'], consequents[1]['low'] & consequents[0]['high'])
-    rule6 = ctrl.Rule(antecedents[0]['high'] & antecedents[1]['medium'], consequents[1]['medium'] & consequents[0]['medium'])
-    rule7 = ctrl.Rule(antecedents[1]['high'] & antecedents[2]['low'], consequents[1]['high'] & consequents[0]['low'])
-    rule8 = ctrl.Rule(antecedents[1]['high'] & antecedents[2]['high'], consequents[1]['low'] & consequents[0]['low']) 
+    rule1 = ctrl.Rule(antecedents[0]['low'], consequents[1]['low'])
+    rule1_2 = ctrl.Rule(antecedents[0]['low'], consequents[0]['high'])
 
-    return [rule1, rule2, rule3, rule4, rule5, rule6, rule7, rule8]
+    rule2 = ctrl.Rule(antecedents[0]['medium'] & antecedents[1]['low'], consequents[1]['low'])
+    rule2_1 = ctrl.Rule(antecedents[0]['medium'] & antecedents[1]['low'], consequents[0]['high'])
 
+    rule3 = ctrl.Rule(antecedents[0]['medium'] & antecedents[1]['medium'], consequents[1]['medium'])
+    rule3_1 = ctrl.Rule(antecedents[0]['medium'] & antecedents[1]['medium'], consequents[0]['medium'])
+
+    rule4 = ctrl.Rule(antecedents[1]['high'] & antecedents[2]['medium'], consequents[1]['high'])
+    rule4_1 = ctrl.Rule(antecedents[1]['high'] & antecedents[2]['medium'], consequents[0]['low'])
+
+    rule5 = ctrl.Rule(antecedents[0]['high'] & antecedents[1]['low'], consequents[1]['low'])
+    rule5_1 = ctrl.Rule(antecedents[0]['high'] & antecedents[1]['low'], consequents[0]['high'])
+
+    rule6 = ctrl.Rule(antecedents[0]['high'] & antecedents[1]['medium'], consequents[1]['medium'])
+    rule6_1 = ctrl.Rule(antecedents[0]['high'] & antecedents[1]['medium'], consequents[0]['medium'])
+
+    rule7 = ctrl.Rule(antecedents[1]['high'] & antecedents[2]['low'], consequents[1]['high'])
+    rule7_1 = ctrl.Rule(antecedents[1]['high'] & antecedents[2]['low'], consequents[0]['low'])
+
+    rule8 = ctrl.Rule(antecedents[1]['high'] & antecedents[2]['high'], consequents[1]['low'])
+    rule8_1 = ctrl.Rule(antecedents[1]['high'] & antecedents[2]['high'], consequents[0]['low'])
+
+    return [rule1, rule1_2, rule2, rule2_1, rule3, rule3_1, rule4, rule4_1, rule5, rule5_1, rule6, rule6_1, rule7, rule7_1, rule8, rule8_1]
+
+'''
+Function to define the fuzzy control system to compute the crossover and mutation rates according to the antecedents of the fuzzy system
+
+Parameters:
+----------
+rules: list of rules
+    The rules of the fuzzy system
+
+antecedents: list of antecedents
+    The antecedents of the fuzzy system
+
+Returns:
+-------
+crossover_rate: float
+    The crossover rate computed by the fuzzy system
+
+mutation_rate: float
+    The mutation rate computed by the fuzzy system
+'''
+def fuzzy_control_system(rules, inputs):
+    fuzzy_control_system = ctrl.ControlSystem(rules)
+    fuzzy_control = ctrl.ControlSystemSimulation(fuzzy_control_system)
+    fuzzy_control.input['best_fitness'] = inputs[0]
+    fuzzy_control.input['number_generations_unchanged_best_fitness'] = inputs[1]
+    fuzzy_control.input['variance_fitness'] = inputs[2]
+
+    fuzzy_control.compute()
+    return fuzzy_control.output['crossover_rate'], fuzzy_control.output['mutation_rate']
 
 '''
 Function to plot the membership functions 
