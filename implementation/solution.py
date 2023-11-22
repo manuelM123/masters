@@ -6,7 +6,7 @@ import random
 
 class Solution:
     '''
-    Solution class used to represent the solution of the unit test generation using the genetic algorithm
+    Solution constructor to define the attributes of the solution
     '''
     def __init__(self):
         self.test_suite = []

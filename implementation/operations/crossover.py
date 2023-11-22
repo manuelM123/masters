@@ -1,5 +1,6 @@
 import random
 from operations.population_control import *
+from operations.fuzzy_system import *
 
 '''
 Function that selects the crossover operator to generate offsprings from two parents
@@ -12,7 +13,7 @@ configurations : dict
     The configurations of the algorithm
 
 '''
-def crossover(parents, current_iteration_number, configurations, type):
+def crossover(parents, current_iteration_number, inputs, configurations, type):
     if type == 'one_point':
         return one_point_crossover(parents, configurations)
     elif type == 'uniform':
@@ -20,6 +21,10 @@ def crossover(parents, current_iteration_number, configurations, type):
     elif type == 'deterministic':
         return deterministic_crossover_adjustment(current_iteration_number, configurations.max_generations, configurations.crossover_rate_adjustment_type)
     # Add adaptive crossover adjustment using a fuzzy system
+    elif type == 'adaptive':
+        return adaptive_crossover_adjustment(inputs, 'crossover')
+    else:
+        raise ValueError('Crossover type is not specified correctly')
     
 '''
 Crossover operator to generate offsprings from two parents using the one point crossover
@@ -132,6 +137,24 @@ def deterministic_crossover_adjustment(current_iteration_number, max_generations
     
     raise Exception("Invalid crossover rate adjustment type")
 
-def adaptive_crossover_adjustment():
-    crossover_rate = 0.5
+'''
+Crossover rate adaptive adjustment using a fuzzy expert system based upon the work of Shi, Eberhart and 
+Chen in "Implementation of Evolutionary Fuzzy Systems"
+
+Parameters:
+----------
+inputs : list
+    The inputs of the fuzzy system
+
+genetic_operator : string
+    The type of genetic operator to adjust
+
+Returns:
+-------
+crossover_rate : float
+    The crossover rate adjusted using the fuzzy system
+'''
+def adaptive_crossover_adjustment(inputs, genetic_operator):
+    fuzzy_system = Fuzzy_system()
+    crossover_rate = fuzzy_system.fuzzy_control_system(fuzzy_system.rules, inputs, genetic_operator)
     return crossover_rate

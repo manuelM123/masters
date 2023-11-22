@@ -4,6 +4,7 @@ from operations.selection import *
 from operations.fitness_functions import *
 from operations.population_control import *
 from operations.crossover import *
+from operations.mutation import *
 from operations.fuzzy_system import *
 import utilities as util
 import sys
@@ -46,67 +47,30 @@ print("-----------------------------------")
 
 print("Variance of fitness population : " + str(stats.variance(population_fitness)))
 
-antecedents = define_antecedents()
-consequents = define_consequents()
-define_fuzzy_sets(antecedents, consequents)
-plot_fuzzy_sets(antecedents, consequents, util.obtain_configuration("config.ini", "file_paths", "fuzzy_membership_functions"))
-rules = define_fuzzy_rules(antecedents, consequents)
 
-for i in range(5):
+#for i in range(5):
+#    inputs = [random.uniform(0.0, 1.0), random.randint(0, 20), random.uniform(0.0, 0.2)]
+#    print("Mutation operation")
+#    print("-----------------------------------")
+#    print("Before mutation : " + str(population[0].test_suite))
+#    population[0].test_suite = mutation(population[0].test_suite, metadata, inputs, configurations, configurations.mutation_type.value)
+#    print("After mutation : " + str(population[0].test_suite))
+#    print("|--------------------------------------------|")
+
+for i in range(2):
     print("Fuzzy System Calculation")
     print("--------------------------------")
+    
     inputs = [random.uniform(0.0, 1.0), random.randint(0, 20), random.uniform(0.0, 0.2)]
 
     print("Inputs")
     print(inputs)
 
-    crossover_rate, mutation_rate = fuzzy_control_system(rules, inputs)
-    print("Crossover Rate : " + str(crossover_rate))
-    print("Mutation Rate : " + str(mutation_rate))
+    genetic_operator_rate = crossover(population, 0, inputs, configurations, configurations.crossover_type.value)
+    print("The genetic operator is crossover with the adjusted rate of " + str(genetic_operator_rate))
+    genetic_operator_rate = mutation(population, 0, inputs, configurations, configurations.mutation_type.value)
+    print("The genetic operator is mutation with the adjusted rate of " + str(genetic_operator_rate))
     print("|-------------------------|")
-
-#parent1 = random.randint(0, len(population) - 1)
-#parent2 = random.randint(0, len(population) - 1)
-#
-#parents = [parent1, parent2]
-#parents_set = set([parent1, parent2])
-#
-#while len(parents) != len(parents_set):
-#    parent2 = random.randint(0, len(population) - 1)
-#    parents = [parent1, parent2]
-#    parents_set = set([parent1, parent2])
-
-#print("Parent 1")
-#print(population[parent1].test_suite)
-#print("Length : " + str(len(population[parent1].test_suite)))
-#print("--------------------------------------------------")
-
-#print("Parent 2")
-#print(population[parent2].test_suite)
-#print("Length : " + str(len(population[parent2].test_suite)))
-#print("--------------------------------------------------")
-
-#offsprings1 = one_point_crossover([population[parent1], population[parent2]], configurations)
-#offsprings2 = uniform_crossover([population[parent1], population[parent2]], configurations)
-#
-#print("First Offspring")
-#for i in offsprings1:
-#    print("Offspring")
-#    print(i.test_suite)
-#    print("-------")
-#print("--------------------------------------------------")
-#
-#print("Second Offspring")
-#for i in offsprings2:
-#    print("Offspring")
-#    print(i.test_suite)
-#print("--------------------------------------------------")
-#
-#print("------------------------")
-
-
-#first_list, second_list = select(population, population_fitness, int(configurations.tournament_size.value), configurations.selection_type.value)
-#population = rlt_adjustment(population, max(population_fitness))
 
 #print("Test Suites Population")
 #for i in range(len(population)):
