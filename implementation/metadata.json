@@ -87,15 +87,5 @@
             {
                 "name": "determine_calorie_intake", "type": "method"
             }
-    ],
-
-    "genetic_operators": [
-        {
-            "name": "crossover", "type": "float"
-        },
-
-        {
-            "name": "mutation", "type": "float"
-        }
     ]
 }

@@ -25,6 +25,8 @@ def create_population(metadata, population_size, configurations):
     for individual in range(population_size):
         solution = Solution()
         solution.generate_test_suite(metadata, int(configurations.max_number_functions.value), int(configurations.max_number_test_cases.value))
+        solution.adaptive_crossover_rate = random.uniform(0, 1.0)
+        solution.adaptive_mutation_rate = random.uniform(0, 0.25)
         util.write_metadata("results/intermediate_test_suite", solution.test_suite, metadata)
         calculate_coverage_fitness(solution, str(configurations.fitness_function_type.value))
         population.append(solution)

@@ -20,9 +20,10 @@ def crossover(parents, current_iteration_number, inputs, configurations, type):
         return uniform_crossover(parents, configurations)
     elif type == 'deterministic':
         return deterministic_crossover_adjustment(current_iteration_number, configurations.max_generations, configurations.crossover_rate_adjustment_type)
-    # Add adaptive crossover adjustment using a fuzzy system
     elif type == 'adaptive':
         return adaptive_crossover_adjustment(inputs, 'crossover')
+    elif type == 'self-adaptive':
+        return self_adaptive_crossover_adjustment()
     else:
         raise ValueError('Crossover type is not specified correctly')
     
@@ -158,3 +159,7 @@ def adaptive_crossover_adjustment(inputs, genetic_operator):
     fuzzy_system = Fuzzy_system()
     crossover_rate = fuzzy_system.fuzzy_control_system(fuzzy_system.rules, inputs, genetic_operator)
     return crossover_rate
+
+
+def self_adaptive_crossover_adjustment():
+    pass

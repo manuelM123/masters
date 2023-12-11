@@ -24,11 +24,15 @@ class configurations(Enum):
     fitness_function_type = util.obtain_configuration("config.ini", "genetic_algorithm_configurations", "fitness_function_type")
 
     selection_type = util.obtain_configuration("config.ini", "genetic_operators_configurations", "selection_type")
+
     crossover_type = util.obtain_configuration("config.ini", "genetic_operators_configurations", "crossover_type")
     crossover_rate = util.obtain_configuration("config.ini", "genetic_operators_configurations", "crossover_rate")
     crossover_rate_adjustment_type = util.obtain_configuration("config.ini", "genetic_operators_configurations", "crossover_rate_adjustment_type")
+
     mutation_type = util.obtain_configuration("config.ini", "genetic_operators_configurations", "mutation_type")
     mutation_rate = util.obtain_configuration("config.ini", "genetic_operators_configurations", "mutation_rate")
+    mutation_rate_adjustment_type = util.obtain_configuration("config.ini", "genetic_operators_configurations", "mutation_rate_adjustment_type")
+    
     fitness_iteration_limit = util.obtain_configuration("config.ini", "genetic_operators_configurations", "fitness_iteration_limit")
     lt_max = util.obtain_configuration("config.ini", "genetic_operators_configurations", "lt_max")
     lt_min = util.obtain_configuration("config.ini", "genetic_operators_configurations", "lt_min")
@@ -46,7 +50,6 @@ print(population_fitness)
 print("-----------------------------------")
 
 print("Variance of fitness population : " + str(stats.variance(population_fitness)))
-
 
 #for i in range(5):
 #    inputs = [random.uniform(0.0, 1.0), random.randint(0, 20), random.uniform(0.0, 0.2)]
@@ -72,9 +75,11 @@ for i in range(2):
     print("The genetic operator is mutation with the adjusted rate of " + str(genetic_operator_rate))
     print("|-------------------------|")
 
-#print("Test Suites Population")
-#for i in range(len(population)):
-#    print("-------------------------------------")
-#    print("Test Suite - " + str(population[i].test_suite))
-#    print("Fitness - " + str(population[i].fitness))
-#print("-----------------------------------")
+print("Test Suites Population")
+for i in range(len(population)):
+    print("-------------------------------------")
+    print("Test Suite - " + str(population[i].test_suite))
+    print("Fitness - " + str(population[i].fitness))
+    print("Crossover Rate - " + str(population[i].adaptive_crossover_rate))
+    print("Mutation Rate - " + str(population[i].adaptive_mutation_rate))
+print("-----------------------------------")

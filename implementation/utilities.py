@@ -54,8 +54,6 @@ def write_metadata(path, test_suite, metadata):
     f = open(path + "/test_cases.py", "a+")
     f.truncate(0)
     f.write("from cut import *" + "\n" + "\n")
-    
-    #print("TEST SUITE " + str(test_suite) + "\n")
 
     # Write the test_suite to a file
     for position_test_suite in range(len(test_suite)):

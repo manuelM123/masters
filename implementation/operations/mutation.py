@@ -31,9 +31,12 @@ def mutation(individual, metadata, inputs, configurations, type):
         return delete_test_case(individual)
     elif type == 'change_parameters':
         return change_parameters(individual, metadata, solution)
-    # Add adaptive mutation adjustment using a fuzzy system
+    elif type == 'deterministic':
+        return deterministic_mutation_adjustment(configurations.current_iteration_number, configurations.max_generations, configurations.mutation_rate_adjustment_type)
     elif type == 'adaptive':
         return adaptive_mutation_adjustment(inputs, 'mutation')
+    elif type == 'self-adaptive':
+        return self_adaptive_mutation_adjustment()
     else:
         raise ValueError('Mutation type is not specified correctly')
 
@@ -128,6 +131,34 @@ def change_parameters(individual, metadata, solution):
     return individual   
 
 '''
+Mutation rate adjustment using a deterministic rule by increasing or decreasing the mutation rate linearly with the number of generations based on the work of Hassanat, 
+Almohammadi, Alkafaween, Abunawas, Hammouri and Prasath in "Choosing Mutation and Crossover Ratios for Genetic Algorithms — A Review with a New Dynamic Approach"
+
+Parameters:
+----------
+current_iteration_number : int
+    The current iteration number of the algorithm
+
+max_generations : int
+    The maximum number of generations of the algorithm
+
+type : string
+    Type of mutation rate adjustment, either to increase or decrease the mutation rate linearly with the number of generations
+
+Returns:
+-------
+mutation_rate : float
+    The mutation rate adjusted using the deterministic rule
+'''
+def deterministic_mutation_adjustment(current_iteration_number, max_generations, type):
+    if type == 'ilm':
+        return current_iteration_number / max_generations
+    elif type == 'dhm':
+        return 1 - (current_iteration_number / max_generations)
+    
+    raise Exception("Invalid mutation rate adjustment type")
+
+'''
 Mutation rate adaptive adjustment using a fuzzy expert system based upon the work of Shi, Eberhart and 
 Chen in "Implementation of Evolutionary Fuzzy Systems"
 
@@ -148,3 +179,7 @@ def adaptive_mutation_adjustment(inputs, genetic_operator):
     fuzzy_system = Fuzzy_system()
     mutation_rate = fuzzy_system.fuzzy_control_system(fuzzy_system.rules, inputs, genetic_operator)
     return mutation_rate
+
+
+def self_adaptive_mutation_adjustment():
+    pass

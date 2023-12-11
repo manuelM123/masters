@@ -10,6 +10,8 @@ class Solution:
     '''
     def __init__(self):
         self.test_suite = []
+        self.adaptive_crossover_rate = -1
+        self.adaptive_mutation_rate = -1
         self.fitness = -1
         self.rank = -1
         self.mating_chance = -1
@@ -66,16 +68,12 @@ class Solution:
         A list containing the test suite in the structure [[[identifier, [parameters], [genetic operators]]]]
     '''
     def generate_test_suite(self, metadata, max_number_functions, max_number_test_cases):
-        test_suite = []
-
         # Generate a random number of test cases
         number_test_cases = random.randint(2, max_number_test_cases)
     
         for test_case in range(number_test_cases):
             # Generate test case
-            test_suite.append(self.generate_test_case(metadata, max_number_functions))
-        
-        self.test_suite = test_suite
+            self.test_suite.append(self.generate_test_case(metadata, max_number_functions))
 
     '''
     Function to generate a constructor using the metadata from the class context with random values specified in the metadata
@@ -114,7 +112,7 @@ class Solution:
         else:
             raise ValueError('Metadata does not contain a constructor')
         
-        return [-1, constructor_parameters, []]
+        return [-1, constructor_parameters]
 
     '''
     Function to generate other functions using the metadata from the class context with random values specified in the metadata
@@ -155,4 +153,4 @@ class Solution:
         else:
             raise ValueError('Metadata does not contain other functions')
         
-        return [attribute, other_functions_parameters, []]
+        return [attribute, other_functions_parameters]
