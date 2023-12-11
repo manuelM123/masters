@@ -125,6 +125,20 @@ def rank_selection(population):
 Tournament selection to select two parents from the population 
 A random number of individuals are selected from the population
 The individuals are compared according to their fitness
+
+Parameters:
+----------
+population : list
+    The population to select the parents from
+
+tournament_size : int
+    The size of the tournament
+
+Returns:
+-------
+parents_selected : list
+    A list containing the two parents selected from the population
+
 '''
 def tournament_selection(population, tournament_size):
     parents_selected = []
@@ -151,6 +165,7 @@ population : list
     The population to select the parents from
 population_fitness : list
     The fitness of each individual in the population
+    
 Returns:
 -------
 first_list : list

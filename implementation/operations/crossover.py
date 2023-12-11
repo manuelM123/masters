@@ -1,6 +1,7 @@
 import random
 from operations.population_control import *
 from operations.fuzzy_system import *
+from operations.mutation import *
 
 '''
 Function that selects the crossover operator to generate offsprings from two parents
@@ -13,7 +14,7 @@ configurations : dict
     The configurations of the algorithm
 
 '''
-def crossover(parents, current_iteration_number, inputs, configurations, type):
+def crossover(parents, metadata, current_iteration_number, inputs, configurations, type):
     if type == 'one_point':
         return one_point_crossover(parents, configurations)
     elif type == 'uniform':
@@ -23,7 +24,7 @@ def crossover(parents, current_iteration_number, inputs, configurations, type):
     elif type == 'adaptive':
         return adaptive_crossover_adjustment(inputs, 'crossover')
     elif type == 'self-adaptive':
-        return self_adaptive_crossover_adjustment()
+        return self_adaptive_crossover_adjustment(parents, metadata, inputs, configurations, type)
     else:
         raise ValueError('Crossover type is not specified correctly')
     
@@ -160,6 +161,90 @@ def adaptive_crossover_adjustment(inputs, genetic_operator):
     crossover_rate = fuzzy_system.fuzzy_control_system(fuzzy_system.rules, inputs, genetic_operator)
     return crossover_rate
 
+'''
+Function that implements the self-adaptive crossover operator to generate offsprings from two parents according to
+the mechanism proposed by Back, Eiben and Vaart in the work An empirical study on GAs "without parameters".
 
-def self_adaptive_crossover_adjustment():
-    pass
+The individual that is suspended from the crossover operation will be set on hold and will be used in the next iteration where only one parent will be selected and this
+will be used to generate the offspring with the other individual chosen in the selection process.
+
+Parameters:
+----------
+individuals : list
+    The parents to generate the offspring
+
+metadata : dict
+    The metadata of the class context
+
+inputs : dict
+    The inputs for the fuzzy system
+
+configurations : dict
+    The configurations of the algorithm
+
+mutation_type : str
+    The type of mutation to be performed
+
+Returns:
+-------
+individuals : list
+    A list containing the two offsprings generated from the parents
+
+individual_suspended : Solution
+    The individual that was suspended from the crossover operation
+'''
+def self_adaptive_crossover_adjustment(individuals, metadata, inputs, configurations, type):
+    individual_suspended = None
+    individuals[0], first_decision = self_adaptive_crossover_decision(individuals[0], metadata, inputs, configurations, type) 
+    individuals[1], second_decision = self_adaptive_crossover_decision(individuals[1], metadata, inputs, configurations, type)
+
+    if first_decision and second_decision:
+        individuals = uniform_crossover(individuals, configurations)
+    elif first_decision and not second_decision:
+        individual_suspended = individuals[0]
+    elif not first_decision and second_decision:
+        individual_suspended = individuals[1]
+
+    return individuals, individual_suspended
+
+'''
+Function that decides whether the crossover operator will be performed or not according to the mechanism proposed by Back, Eiben and Vaart 
+in the work An empirical study on GAs "without parameters".
+
+Parameters:
+----------
+individual : Solution
+    The individual to decide whether the crossover operator will be performed or not
+
+metadata : dict
+    The metadata of the class context
+
+inputs : dict
+    The inputs for the fuzzy system
+
+configurations : dict
+    The configurations of the algorithm
+
+mutation_type : str
+    The type of mutation to be performed
+
+Returns:
+-------
+individual : Solution
+    The individual that was used to decide whether the crossover operator will be performed or not
+
+decision : bool
+    A boolean value indicating whether the crossover operator will be performed or not which means the individual will be mutated if the crossover operator is not performed in
+    the current iteration of the algorithm
+'''
+def self_adaptive_crossover_decision(individual, metadata, inputs, configurations, type):
+    random_number = random.uniform(0, 0.99)
+    print("Random number: " + str(random_number))
+    print("Crossover rate: " + str(individual.adaptive_crossover_rate))
+
+    if random_number < individual.adaptive_crossover_rate:
+        return individual, True
+    else:
+        individual = mutation(individual, metadata, inputs, configurations, type)
+        return individual, False
+    

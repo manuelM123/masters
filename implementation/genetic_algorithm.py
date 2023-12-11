@@ -51,15 +51,6 @@ print("-----------------------------------")
 
 print("Variance of fitness population : " + str(stats.variance(population_fitness)))
 
-#for i in range(5):
-#    inputs = [random.uniform(0.0, 1.0), random.randint(0, 20), random.uniform(0.0, 0.2)]
-#    print("Mutation operation")
-#    print("-----------------------------------")
-#    print("Before mutation : " + str(population[0].test_suite))
-#    population[0].test_suite = mutation(population[0].test_suite, metadata, inputs, configurations, configurations.mutation_type.value)
-#    print("After mutation : " + str(population[0].test_suite))
-#    print("|--------------------------------------------|")
-
 for i in range(2):
     print("Fuzzy System Calculation")
     print("--------------------------------")
@@ -69,10 +60,14 @@ for i in range(2):
     print("Inputs")
     print(inputs)
 
-    genetic_operator_rate = crossover(population, 0, inputs, configurations, configurations.crossover_type.value)
-    print("The genetic operator is crossover with the adjusted rate of " + str(genetic_operator_rate))
-    genetic_operator_rate = mutation(population, 0, inputs, configurations, configurations.mutation_type.value)
-    print("The genetic operator is mutation with the adjusted rate of " + str(genetic_operator_rate))
+    individuals, individual_suspended = crossover([population[0], population[1]], metadata, 0, inputs, configurations, configurations.crossover_type.value)
+    print(individuals)
+    print("-------------")
+    if individual_suspended != None:
+        print("Individual suspended " + str(individual_suspended.test_suite))
+
+    offspring = mutation(population[0], metadata, inputs, configurations, configurations.mutation_type.value)
+    print(offspring)
     print("|-------------------------|")
 
 print("Test Suites Population")

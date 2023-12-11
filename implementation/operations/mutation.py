@@ -36,7 +36,7 @@ def mutation(individual, metadata, inputs, configurations, type):
     elif type == 'adaptive':
         return adaptive_mutation_adjustment(inputs, 'mutation')
     elif type == 'self-adaptive':
-        return self_adaptive_mutation_adjustment()
+        return self_adaptive_mutation_adjustment(individual)
     else:
         raise ValueError('Mutation type is not specified correctly')
 
@@ -180,6 +180,19 @@ def adaptive_mutation_adjustment(inputs, genetic_operator):
     mutation_rate = fuzzy_system.fuzzy_control_system(fuzzy_system.rules, inputs, genetic_operator)
     return mutation_rate
 
+'''
+Mutation rate self-adaptive adjustment using the mechanism proposed by Back, Eiben and Vaart in the work An empirical study on GAs "without parameters".
 
-def self_adaptive_mutation_adjustment():
-    pass
+Parameters:
+----------
+offspring : solution
+    The offspring of the algorithm
+
+Returns:
+-------
+offspring with mutation rate adjusted : solution
+    The offspring with the mutation rate adjusted
+'''
+def self_adaptive_mutation_adjustment(offspring):
+    offspring.adaptive_mutation_rate = (1 + ((1 - offspring.adaptive_mutation_rate) / offspring.adaptive_mutation_rate) * ((-0.22) * np.random.normal(0, 1))) ** (-1)
+    return offspring
