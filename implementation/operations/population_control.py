@@ -86,9 +86,9 @@ def rlt_setting(population, population_fitness, lt_max, lt_min):
 
     for individual in population:
         if f_average >= individual.fitness:
-            individual.remaining_lifetime = lt_min + n * ((individual.fitness - f_worst) / (f_average - f_worst))
+            individual.remaining_lifetime = int(lt_min + n * ((individual.fitness - f_worst) / (f_average - f_worst)))
         else:
-            individual.remaining_lifetime = 1/2 * (lt_min + lt_max) + n * ((individual.fitness - f_average) / (f_best - f_average))
+            individual.remaining_lifetime = int(1/2 * (lt_min + lt_max) + n * ((individual.fitness - f_average) / (f_best - f_average)))
 
     return population
 
@@ -150,7 +150,7 @@ def calculate_growth_size(current_best_fitness, old_best_fitness, initial_best_f
     return value * (max_generations - current_iteration_number) * ((current_best_fitness - old_best_fitness) / initial_best_fitness)
 
 ''' 
-Function that implements the population resizing process adapted by Rajakumar and George from "APOGA: An Adaptive Population Pool Size Based Genetic Algorithm"
+Function that implements the population resizing process adapted by Rajakumar and George from "APOGA: An Adaptive Population Pool Size Based Genetic Algorithm", DOI: https://doi.org/10.1016/j.aasri.2013.10.043
 
 Parameters:
 ----------
@@ -205,7 +205,7 @@ def population_resizing(population, current_best_fitness, old_best_fitness, init
     return population, number_iterations
 
 '''
-Function that implements the population growth process adapted by Rajakumar and George from "APOGA: An Adaptive Population Pool Size Based Genetic Algorithm"
+Function that implements the population growth process adapted by Rajakumar and George from "APOGA: An Adaptive Population Pool Size Based Genetic Algorithm", DOI: https://doi.org/10.1016/j.aasri.2013.10.043
 
 Parameters:
 ----------
@@ -249,7 +249,7 @@ def grow_population(population, current_best_fitness, old_best_fitness, initial_
     return population
     
 '''
-Function that implements the population shrink process adapted by Rajakumar and George from "APOGA: An Adaptive Population Pool Size Based Genetic Algorithm"
+Function that implements the population shrink process adapted by Rajakumar and George from "APOGA: An Adaptive Population Pool Size Based Genetic Algorithm", DOI: https://doi.org/10.1016/j.aasri.2013.10.043
 
 Parameters:
 ----------

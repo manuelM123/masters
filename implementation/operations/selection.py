@@ -6,6 +6,28 @@ from operations.fitness_functions import *
 # structure of test suite: [ [test_case_1], [test_case_2], ... ]
 # structure of test_case_i: [ [identifier, [parameters], [genetic operators]] ]
 
+'''
+Selection function to select the crossover type to apply to the population
+
+Parameters:
+----------
+population : list
+    The population to select the crossover type from
+
+population_fitness : list
+    The fitness of each individual in the population
+
+tournament_size : int
+    The size of the tournament
+
+type : str
+    The type of selection to apply to the population
+
+Returns:
+-------
+parents_selection : list
+    A list containing the parents selected from the population
+'''
 def select(population, population_fitness, tournament_size, type):
     if type == 'random':
         return random_selection(population)
@@ -22,6 +44,7 @@ def select(population, population_fitness, tournament_size, type):
 
 '''
 Random selection to select two parents from the population 
+
 Parameters:
 ----------
 population : list
@@ -44,6 +67,7 @@ Selection probability of an individual is calculated by dividing the individual'
 A sum of each selection probability is calculated and a random number is generated in the interval [0, sum(population_fitness)]
 The individual whose selection probability sum is greater than the random number is selected as a parent
 The process is repeated until two parents are selected
+
 Parameters:
 ----------
 population : list
@@ -93,6 +117,7 @@ The individuals are sorted in ascending order according to their fitness
 The individuals are assigned a rank according to their position in the sorted list
 The parents are selected by choosing two individuals at random and comparing their ranks 
 The individual with the higher rank is selected as a parent and the process is repeated until two parents are selected
+
 Parameters:
 ----------
 population : list
@@ -158,7 +183,8 @@ def tournament_selection(population, tournament_size):
     return parents_selected
         
 '''
-Function that implements the selection process for a adaptive selection scheme proposed by Pham and Castellani from "Adaptive Selection Routine for Evolutionary Algorithms"
+Function that implements the selection process for a adaptive selection scheme proposed by Pham and Castellani from "Adaptive Selection Routine for Evolutionary Algorithms", DOI: https://doi.org/10.1243/09596518JSCE942
+
 Parameters:
 ----------
 population : list
@@ -178,25 +204,25 @@ def adaptive_selection(population, population_fitness):
     second_list = []
     u_f = calculate_average_fitness(population)
     f_max = max(population_fitness)
-    while len(first_list) == 0 or len(second_list) == 0:
-        rand = random.uniform(0, 1)
-        valid_individuals = []
-        for individual in population:
-            individual.mating_chance = individual.fitness + (f_max - u_f) * rand
-            if individual.adaptive_max_selections < 2:
-                valid_individuals.append(individual)
+    
+    rand = random.uniform(0, 1)
+    valid_individuals = []
+    for individual in population:
+        individual.mating_chance = individual.fitness + (f_max - u_f) * rand
+        if individual.adaptive_max_selections < 2:
+            valid_individuals.append(individual)
                 
-        if len(valid_individuals) == 1:
-            print("No valid individuals")
-            break
-        
-        else:
-            sorted_population_mating_chance = sorted(valid_individuals, key=lambda x:x.mating_chance, reverse=True)
+    if len(valid_individuals) == 1:
+        print("No valid individuals")
+
+    else:
+        sorted_population_mating_chance = sorted(valid_individuals, key=lambda x:x.mating_chance, reverse=True)
+        while len(first_list) == 0 or len(second_list) == 0:
             for i in range(int(len(sorted_population_mating_chance) / 2)):
                 if len(first_list) != int(len(sorted_population_mating_chance) / 2):
                     first_list.append(sorted_population_mating_chance[i])
                 else:
                     second_list.append(sorted_population_mating_chance[i])
                 sorted_population_mating_chance[i].adaptive_max_selections += 1
+
     return first_list, second_list
-    

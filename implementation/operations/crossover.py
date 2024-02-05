@@ -5,6 +5,7 @@ from operations.mutation import *
 
 '''
 Function that selects the crossover operator to generate offsprings from two parents
+
 Parameters:
 ----------
 parents : list
@@ -22,7 +23,7 @@ def crossover(parents, metadata, current_iteration_number, inputs, configuration
     elif type == 'deterministic':
         return deterministic_crossover_adjustment(current_iteration_number, configurations.max_generations, configurations.crossover_rate_adjustment_type)
     elif type == 'adaptive':
-        return adaptive_crossover_adjustment(inputs, 'crossover')
+        return adaptive_crossover_adjustment(inputs, configurations, 'crossover')
     elif type == 'self-adaptive':
         return self_adaptive_crossover_adjustment(parents, metadata, inputs, configurations, type)
     else:
@@ -63,7 +64,8 @@ def one_point_crossover(parents, configurations):
     return offsprings
 
 '''
-Crossver operator to generate offsprings from two parents using the uniform crossover
+Crossover operator to generate offsprings from two parents using the uniform crossover
+
 Parameters:
 ----------
 parents : list
@@ -80,7 +82,7 @@ offsprings : list
 def uniform_crossover(parents, configurations):
     random_values = []
     offsprings = []
-    uniform_number = float(configurations.uniform_number.value)
+    uniform_number_crossover = float(configurations.uniform_number_crossover.value)
 
     if len(parents[0].test_suite) > len(parents[1].test_suite):
         for i in range(len(parents[1].test_suite)):
@@ -96,7 +98,7 @@ def uniform_crossover(parents, configurations):
     for position in range(2):
         test_suite = []
         for i in range(len(random_values)):
-            if random_values[i] < uniform_number:
+            if random_values[i] < uniform_number_crossover:
                 if(position == 0):
                     test_suite.append(parents[0].test_suite[i])
                 else:
@@ -156,8 +158,8 @@ Returns:
 crossover_rate : float
     The crossover rate adjusted using the fuzzy system
 '''
-def adaptive_crossover_adjustment(inputs, genetic_operator):
-    fuzzy_system = Fuzzy_system()
+def adaptive_crossover_adjustment(inputs, configurations, genetic_operator):
+    fuzzy_system = Fuzzy_system(configurations.fuzzy_membership_path.value)
     crossover_rate = fuzzy_system.fuzzy_control_system(fuzzy_system.rules, inputs, genetic_operator)
     return crossover_rate
 

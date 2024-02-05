@@ -34,7 +34,7 @@ def mutation(individual, metadata, inputs, configurations, type):
     elif type == 'deterministic':
         return deterministic_mutation_adjustment(configurations.current_iteration_number, configurations.max_generations, configurations.mutation_rate_adjustment_type)
     elif type == 'adaptive':
-        return adaptive_mutation_adjustment(inputs, 'mutation')
+        return adaptive_mutation_adjustment(inputs, configurations, 'mutation')
     elif type == 'self-adaptive':
         return self_adaptive_mutation_adjustment(individual)
     else:
@@ -175,8 +175,8 @@ Returns:
 mutation_rate : float
     The mutation rate adjusted using the fuzzy system
 '''
-def adaptive_mutation_adjustment(inputs, genetic_operator):
-    fuzzy_system = Fuzzy_system()
+def adaptive_mutation_adjustment(inputs,configurations, genetic_operator):
+    fuzzy_system = Fuzzy_system(configurations.fuzzy_membership_path.value)
     mutation_rate = fuzzy_system.fuzzy_control_system(fuzzy_system.rules, inputs, genetic_operator)
     return mutation_rate
 

@@ -9,11 +9,11 @@ class Fuzzy_system:
     '''
     Fuzzy system constructor to define the antecedents, consequents, fuzzy sets and rules of the fuzzy system
     '''
-    def __init__(self):
+    def __init__(self, fuzzy_membership_path):
         self.antecedents = self.define_antecedents()
         self.consequents = self.define_consequents()
         self.define_fuzzy_sets(self.antecedents, self.consequents)
-        self.plot_fuzzy_sets(self.antecedents, self.consequents, util.obtain_configuration("config.ini", "file_paths", "fuzzy_membership_functions"))
+        self.plot_fuzzy_sets(self.antecedents, self.consequents, fuzzy_membership_path)
         self.rules = self.define_fuzzy_rules(self.antecedents, self.consequents)
 
     '''
