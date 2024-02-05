@@ -205,19 +205,20 @@ def adaptive_selection(population, population_fitness):
     u_f = calculate_average_fitness(population)
     f_max = max(population_fitness)
     
-    rand = random.uniform(0, 1)
-    valid_individuals = []
-    for individual in population:
-        individual.mating_chance = individual.fitness + (f_max - u_f) * rand
-        if individual.adaptive_max_selections < 2:
-            valid_individuals.append(individual)
-                
-    if len(valid_individuals) == 1:
-        print("No valid individuals")
+    while len(first_list) == 0 or len(second_list) == 0:
+        rand = random.uniform(0, 1)
+        valid_individuals = []
+        for individual in population:
+            individual.mating_chance = individual.fitness + (f_max - u_f) * rand
+            if individual.adaptive_max_selections < 2:
+                valid_individuals.append(individual)
 
-    else:
-        sorted_population_mating_chance = sorted(valid_individuals, key=lambda x:x.mating_chance, reverse=True)
-        while len(first_list) == 0 or len(second_list) == 0:
+        if len(valid_individuals) == 1:
+            print("No valid individuals")
+            break
+
+        else:
+            sorted_population_mating_chance = sorted(valid_individuals, key=lambda x:x.mating_chance, reverse=True)
             for i in range(int(len(sorted_population_mating_chance) / 2)):
                 if len(first_list) != int(len(sorted_population_mating_chance) / 2):
                     first_list.append(sorted_population_mating_chance[i])

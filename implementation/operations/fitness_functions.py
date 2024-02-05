@@ -71,3 +71,19 @@ def calculate_average_fitness(population):
         average_fitness += individual.fitness
 
     return average_fitness/len(population)
+
+'''
+Function to obtain the best fitness value of a population
+
+Parameters:
+----------
+fitness_values : list
+    The fitness values of the population
+
+Returns:
+-------
+best_fitness : int
+    The best fitness value of the population
+'''
+def obtain_best_fitness(fitness_values):
+    return max(fitness_values)

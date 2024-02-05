@@ -52,8 +52,10 @@ individual : Solution
 def create_offspring(test_suite, configurations):
     individual = Solution()
     individual.test_suite = test_suite
+    print("Individual test suite: " + str(individual.test_suite))
+    print("Previous fitness: " + str(individual.fitness))
     calculate_coverage_fitness(individual, str(configurations.fitness_function_type.value))
-    
+    print("New fitness: " + str(individual.fitness))
     return individual
 
 '''
@@ -78,18 +80,26 @@ Returns:
 population : list
     The population with the remaining lifetime of each individual calculated
 '''
-def rlt_setting(population, population_fitness, lt_max, lt_min):
+def rlt_setting(population, population_fitness, lt_max, lt_min, offpsring):
     f_average = calculate_average_fitness(population)
     f_best = max(population_fitness)
     f_worst = min(population_fitness)
     n = 1/2 * (lt_max - lt_min) 
 
-    for individual in population:
-        if f_average >= individual.fitness:
-            individual.remaining_lifetime = int(lt_min + n * ((individual.fitness - f_worst) / (f_average - f_worst)))
+    if offpsring == None:
+        for individual in population:
+            if f_average >= individual.fitness:
+                individual.remaining_lifetime = int(lt_min + n * ((individual.fitness - f_worst) / (f_average - f_worst)))
+            else:
+                individual.remaining_lifetime = int(1/2 * (lt_min + lt_max) + n * ((individual.fitness - f_average) / (f_best - f_average)))
+    else:
+        if f_average >= offpsring.fitness:
+            offpsring.remaining_lifetime = int(lt_min + n * ((offpsring.fitness - f_worst) / (f_average - f_worst)))
         else:
-            individual.remaining_lifetime = int(1/2 * (lt_min + lt_max) + n * ((individual.fitness - f_average) / (f_best - f_average)))
+            offpsring.remaining_lifetime = int(1/2 * (lt_min + lt_max) + n * ((offpsring.fitness - f_average) / (f_best - f_average)))
 
+        return offpsring
+        
     return population
 
 ''' 

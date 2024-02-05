@@ -95,6 +95,14 @@ def uniform_crossover(parents, configurations):
     for i in range(len(random_values)):
         print(str(random_values[i]) + "|")
 
+    print("Parents test suites")
+
+    print("Parents 0")
+    print(parents[0].test_suite)
+
+    print("Parents 1")
+    print(parents[1].test_suite)
+
     for position in range(2):
         test_suite = []
         for i in range(len(random_values)):
@@ -190,10 +198,7 @@ mutation_type : str
 Returns:
 -------
 individuals : list
-    A list containing the two offsprings generated from the parents
-
-individual_suspended : Solution
-    The individual that was suspended from the crossover operation
+    A list containing the two offsprings generated from the parents and the individual that was suspended from the crossover operation
 '''
 def self_adaptive_crossover_adjustment(individuals, metadata, inputs, configurations, type):
     individual_suspended = None
@@ -202,12 +207,14 @@ def self_adaptive_crossover_adjustment(individuals, metadata, inputs, configurat
 
     if first_decision and second_decision:
         individuals = uniform_crossover(individuals, configurations)
-    elif first_decision and not second_decision:
-        individual_suspended = individuals[0]
     elif not first_decision and second_decision:
+        individual_suspended = individuals[0]
+    elif first_decision and not second_decision:
         individual_suspended = individuals[1]
 
-    return individuals, individual_suspended
+    individuals.append(individual_suspended)
+
+    return individuals
 
 '''
 Function that decides whether the crossover operator will be performed or not according to the mechanism proposed by Back, Eiben and Vaart 

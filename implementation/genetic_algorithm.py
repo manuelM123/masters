@@ -30,6 +30,7 @@ class configurations(Enum):
 
     # Genetic operators configurations
     population_size = util.obtain_configuration("config.ini", "genetic_operators_configurations", "population_size")
+    population_control = util.obtain_configuration("config.ini", "genetic_operators_configurations", "population_control")
     selection_type = util.obtain_configuration("config.ini", "genetic_operators_configurations", "selection_type")
     crossover_type = util.obtain_configuration("config.ini", "genetic_operators_configurations", "crossover_type")
     crossover_rate = util.obtain_configuration("config.ini", "genetic_operators_configurations", "crossover_rate")
@@ -55,30 +56,51 @@ current_number_generation = 0
 generations_without_fitness_improvement = 0
 
 # Genetic algorithm population remaining life time (RLT) calculation for individuals
-population = rlt_setting(population, population_fitness, int(configurations.lt_max.value), int(configurations.lt_min.value))
+population = rlt_setting(population, population_fitness, int(configurations.lt_max.value), int(configurations.lt_min.value), None)
 
-#while current_number_generation <= int(configurations.max_number_generations.value) and generations_without_fitness_improvement <= int(configurations.fitness_max_stagnation_period.value):
-#    new_population = []
-#
-#    while len(new_population) < len(population):
-#        # Selection operations
-#        if(configurations.selection_type.value == "adaptive"):
-#            first_parents_list, second_parents_list = select(population, population_fitness, int(configurations.tournament_size.value), configurations.selection_type.value)
-#        else:
-#            parents_selected = select(population, population_fitness, int(configurations.tournament_size.value), configurations.selection_type.value)
-#        pass
-#
-#    pass
+while current_number_generation <= int(configurations.max_number_generations.value) and generations_without_fitness_improvement <= int(configurations.fitness_max_stagnation_period.value):
+    new_population = []
+    first_parents_list = []
+    second_parents_list = []
 
-first_parents_list, second_parents_list = select(population, population_fitness, int(configurations.tournament_size.value), configurations.selection_type.value)
+    while len(new_population) < len(population):
+        # --- Selection operations ---
 
-print("First Parents List")
-for i in range(len(first_parents_list)):
-    print(first_parents_list[i].test_suite)
+        if configurations.selection_type.value == "adaptive":
+            first_parents_list, second_parents_list = select(population, population_fitness, int(configurations.tournament_size.value), configurations.selection_type.value)
+            # Adaptive selection method was applied (mention that this adaptive selection method was made for even number of population size)
+            # the authors do not mention which type of crossover to use, so we will use the uniform crossover and specified that each
+            # individual will reproduce with the other individual in the list so there is not crossover rate to apply
+            if len(first_parents_list) > 0 and len(second_parents_list) > 0: 
+                for individual in range(len(first_parents_list)):
+                    offsprings = uniform_crossover([first_parents_list[individual], second_parents_list[len(first_parents_list) - (individual + 1)]], configurations)
+                    for offspring in offsprings:
+                        offspring = rlt_setting(population, population_fitness, int(configurations.lt_max.value), int(configurations.lt_min.value), offspring)
+                        print("Offspring: " + str(offspring.test_suite) + " - " + str(offspring.fitness) + " - " + str(offspring.remaining_lifetime))
+                        new_population.append(offspring)
+            break
 
-print("Second Parents List")
-for i in range(len(second_parents_list)):
-    print(second_parents_list[i].test_suite)
+        else:
+            parents_selected = select(population, population_fitness, int(configurations.tournament_size.value), configurations.selection_type.value)
+
+        # ----------------------------
+            
+        # --- Crossover operations ---
+
+        pass
+
+        # ----------------------------
+
+        # Mutation operations
+        pass
+
+        # ----------------------------
+
+    # Population control operations
+        if bool(configurations.population_control.value):
+            pass
+
+    pass
 
 print("Test Suites Population")
 for i in range(len(population)):
