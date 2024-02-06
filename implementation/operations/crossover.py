@@ -17,9 +17,9 @@ configurations : dict
 '''
 def crossover(parents, metadata, current_iteration_number, inputs, configurations, type):
     if type == 'one_point':
-        return one_point_crossover(parents, configurations)
+        return one_point_crossover(parents, configurations, metadata)
     elif type == 'uniform':
-        return uniform_crossover(parents, configurations)
+        return uniform_crossover(parents, configurations, metadata)
     elif type == 'deterministic':
         return deterministic_crossover_adjustment(current_iteration_number, configurations.max_generations, configurations.crossover_rate_adjustment_type)
     elif type == 'adaptive':
@@ -49,7 +49,7 @@ offsprings : list
 # split position = 2
 # new test suite = [0, 1, 2, 3] if split position is 2 then former positions 0 and 1 are kept and the rest are replaced with the latter positions 2 and 3 of the other parent
 
-def one_point_crossover(parents, configurations):
+def one_point_crossover(parents, configurations, metadata):
     if len(parents[0].test_suite) > len(parents[1].test_suite):
         split_position = random.randint(1, len(parents[1].test_suite) - 1)
     else:
@@ -57,8 +57,8 @@ def one_point_crossover(parents, configurations):
 
     print("Split position " + str(split_position))
 
-    offspring1 = create_offspring(parents[0].test_suite[:split_position] + parents[1].test_suite[split_position:], configurations)
-    offspring2 = create_offspring(parents[1].test_suite[:split_position] + parents[0].test_suite[split_position:], configurations)
+    offspring1 = create_offspring(parents[0].test_suite[:split_position] + parents[1].test_suite[split_position:], configurations, metadata)
+    offspring2 = create_offspring(parents[1].test_suite[:split_position] + parents[0].test_suite[split_position:], configurations, metadata)
     offsprings = [offspring1, offspring2]
 
     return offsprings
@@ -79,9 +79,10 @@ Returns:
 offsprings : list
     A list containing the two offsprings generated from the parents
 '''
-def uniform_crossover(parents, configurations):
+def uniform_crossover(parents, configurations, metadata):
     random_values = []
     offsprings = []
+    print("Uniform crossover " + str(configurations.uniform_number_crossover.value))
     uniform_number_crossover = float(configurations.uniform_number_crossover.value)
 
     if len(parents[0].test_suite) > len(parents[1].test_suite):
@@ -116,7 +117,7 @@ def uniform_crossover(parents, configurations):
                     test_suite.append(parents[1].test_suite[i])
                 else:
                     test_suite.append(parents[0].test_suite[i])
-        offsprings.append(create_offspring(test_suite, configurations))
+        offsprings.append(create_offspring(test_suite, configurations, metadata))
 
     return offsprings
 

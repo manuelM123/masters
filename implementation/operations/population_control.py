@@ -49,11 +49,12 @@ Returns:
 individual : Solution
     The offspring created with specific test suite
 '''
-def create_offspring(test_suite, configurations):
+def create_offspring(test_suite, configurations, metadata):
     individual = Solution()
     individual.test_suite = test_suite
     print("Individual test suite: " + str(individual.test_suite))
     print("Previous fitness: " + str(individual.fitness))
+    util.write_metadata("results/intermediate_test_suite", individual.test_suite, metadata)
     calculate_coverage_fitness(individual, str(configurations.fitness_function_type.value))
     print("New fitness: " + str(individual.fitness))
     return individual
@@ -209,7 +210,8 @@ def population_resizing(population, current_best_fitness, old_best_fitness, init
         population = grow_population(population, current_best_fitness, old_best_fitness, initial_best_fitness, current_iteration_number, best_individual_fitness, configurations, metadata)
         number_iterations = 0
     else:
-        population = shrink_population(population, configurations)
+        best_individual_fitness = old_best_fitness
+        population = shrink_population(population, best_individual_fitness, configurations)
         number_iterations += 1
     
     return population, number_iterations
@@ -274,9 +276,10 @@ Returns:
 population : list
     The population with the individuals with remaining lifetime adjusted and the individuals with remaining lifetime equal to 0 removed
 '''
-def shrink_population(population, configurations):
+def shrink_population(population, best_individual_fitness, configurations):
     individuals_least_rlt = sorted(population, key=lambda x:x.remaining_lifetime)
     for individual in range(individuals_least_rlt * int(configurations.population_decrease_rate.value)):
         population.pop(population.index(individual))
+    population = rlt_adjustment(population, best_individual_fitness)
 
     return population

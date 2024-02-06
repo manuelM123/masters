@@ -48,37 +48,115 @@ class configurations(Enum):
     # File paths
     fuzzy_membership_path = util.obtain_configuration("config.ini", "file_paths", "fuzzy_membership_functions")
 
+
+# ------------ Genetic algorithm auxiliary functions ------------
+    
+'''
+Function to initialize each generation during the genetic algorithm execution
+
+Returns:
+-------
+new_population : list
+    A list containing the new population of the genetic algorithm
+
+first_parents_list : list
+    A list containing the first parents selected for the crossover operation
+
+second_parents_list : list
+    A list containing the second parents selected for the crossover operation
+
+population_fitness : list	
+    A list containing the fitness values of the population
+'''
+def initialize_generation():
+    new_population = []
+    first_parents_list = []
+    second_parents_list = []
+    population_fitness = obtain_fitness_values(population)
+    
+    return new_population, first_parents_list, second_parents_list, population_fitness    
+
+'''
+Function to update the genetic algorithm attributes after each generation
+
+Parameters:
+----------
+new_population : list
+    The new population of the genetic algorithm
+
+current_number_generation : int
+    The current number of the generation
+
+old_best_fitness : int
+    The best fitness value of the previous generation
+
+generations_without_fitness_improvement : int
+    The number of generations without fitness improvement
+
+configurations : dict
+    The configurations of the genetic algorithm
+
+Returns:
+-------
+population : list
+    The population of the genetic algorithm
+
+population_fitness : list
+    A list containing the fitness values of the population
+
+current_number_generation : int
+    The current number of the generation
+
+old_best_fitness : int
+    The best fitness value of updated for the next generation
+
+generations_without_fitness_improvement : int
+    The number of generations without fitness improvement
+'''
+def update_genetic_algorithm_attributes(new_population, current_number_generation, old_best_fitness, generations_without_fitness_improvement, configurations):
+    population = new_population
+    population_fitness = obtain_fitness_values(population)
+    current_number_generation += 1
+    current_best_fitness = obtain_best_fitness(population_fitness)
+    if current_best_fitness > old_best_fitness:
+        generations_without_fitness_improvement = 0
+    else:
+        generations_without_fitness_improvement += 1
+
+    population = rlt_setting(population, population_fitness, int(configurations.lt_max.value), int(configurations.lt_min.value), None)
+    old_best_fitness = current_best_fitness
+
+    return population, population_fitness, current_number_generation, old_best_fitness, generations_without_fitness_improvement
+
+# --------------------------------------------------------------
+
 # Initializing parameters and variables for the genetic algorithm
 metadata = util.read_metadata(util.obtain_configuration("config.ini", "metadata", "metadata_location"))
 population = create_population(metadata, int(configurations.population_size.value), configurations)
 population_fitness = obtain_fitness_values(population)
-current_number_generation = 0
+initial_best_fitness = obtain_best_fitness(population_fitness)
+old_best_fitness = 0
+current_number_generation = 1
+iteration_number_population_control = 1
 generations_without_fitness_improvement = 0
 
 # Genetic algorithm population remaining life time (RLT) calculation for individuals
 population = rlt_setting(population, population_fitness, int(configurations.lt_max.value), int(configurations.lt_min.value), None)
 
 while current_number_generation <= int(configurations.max_number_generations.value) and generations_without_fitness_improvement <= int(configurations.fitness_max_stagnation_period.value):
-    new_population = []
-    first_parents_list = []
-    second_parents_list = []
+    
+    new_population, first_parents_list, second_parents_list, population_fitness = initialize_generation()
 
     while len(new_population) < len(population):
         # --- Selection operations ---
 
         if configurations.selection_type.value == "adaptive":
+            # ------------ ADAPTIVE SELECTION METHOD ------------
             first_parents_list, second_parents_list = select(population, population_fitness, int(configurations.tournament_size.value), configurations.selection_type.value)
             # Adaptive selection method was applied (mention that this adaptive selection method was made for even number of population size)
-            # the authors do not mention which type of crossover to use, so we will use the uniform crossover and specified that each
-            # individual will reproduce with the other individual in the list so there is not crossover rate to apply
             if len(first_parents_list) > 0 and len(second_parents_list) > 0: 
-                for individual in range(len(first_parents_list)):
-                    offsprings = uniform_crossover([first_parents_list[individual], second_parents_list[len(first_parents_list) - (individual + 1)]], configurations)
-                    for offspring in offsprings:
-                        offspring = rlt_setting(population, population_fitness, int(configurations.lt_max.value), int(configurations.lt_min.value), offspring)
-                        print("Offspring: " + str(offspring.test_suite) + " - " + str(offspring.fitness) + " - " + str(offspring.remaining_lifetime))
-                        new_population.append(offspring)
-            break
+                new_population = adaptive_selection_method_lists(first_parents_list, second_parents_list, population, population_fitness, configurations, new_population, metadata)
+            # ---------------------------------------------
 
         else:
             parents_selected = select(population, population_fitness, int(configurations.tournament_size.value), configurations.selection_type.value)
@@ -96,13 +174,21 @@ while current_number_generation <= int(configurations.max_number_generations.val
 
         # ----------------------------
 
-    # Population control operations
+        # ------------ POPULATION CONTROL METHOD ------------
         if bool(configurations.population_control.value):
-            pass
+            current_best_fitness = obtain_best_fitness(population_fitness)
+            new_population, iteration_number_population_control = population_resizing(new_population, current_best_fitness, old_best_fitness, 
+                                                                                      initial_best_fitness, current_number_generation, iteration_number_population_control,
+                                                                                      metadata, configurations)
+        # ---------------------------------------------
 
-    pass
+    # Reset population and iterations
+    population, population_fitness, current_number_generation, old_best_fitness, generations_without_fitness_improvement = update_genetic_algorithm_attributes(new_population, current_number_generation, old_best_fitness, generations_without_fitness_improvement, configurations)
+    
+    print("Generation: " + str(current_number_generation) + " - Best fitness: " + str(current_best_fitness) + " - Average fitness: " + str(calculate_average_fitness(population)) 
+          + " - Generations without fitness improvement: " + str(generations_without_fitness_improvement) + " - Old best fitness: " + str(old_best_fitness))
 
-print("Test Suites Population")
+print("Old Population")
 for i in range(len(population)):
     print("-------------------------------------")
     print("Test Suite - " + str(population[i].test_suite))
@@ -112,3 +198,15 @@ for i in range(len(population)):
     print("Adaptive Max Selections - " + str(population[i].adaptive_max_selections))
     print("Remaining Life Time - " + str(population[i].remaining_lifetime))
 print("-----------------------------------")
+
+# Print the population
+print("-----------------------------------")
+print("New Population")
+for i in range(len(new_population)):
+    print("-------------------------------------")
+    print("Test Suite - " + str(new_population[i].test_suite))
+    print("Fitness - " + str(new_population[i].fitness))
+    print("Crossover Rate - " + str(new_population[i].adaptive_crossover_rate))
+    print("Mutation Rate - " + str(new_population[i].adaptive_mutation_rate))
+    print("Adaptive Max Selections - " + str(new_population[i].adaptive_max_selections))
+    print("Remaining Life Time - " + str(new_population[i].remaining_lifetime))

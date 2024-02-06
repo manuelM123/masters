@@ -1,6 +1,7 @@
 import random
 import utilities as util
 from operations.fitness_functions import *
+from operations.crossover import *
 
 # Population contain test suites which are lists of test cases where each individual within the test suite is a test case
 # structure of test suite: [ [test_case_1], [test_case_2], ... ]
@@ -163,7 +164,6 @@ Returns:
 -------
 parents_selected : list
     A list containing the two parents selected from the population
-
 '''
 def tournament_selection(population, tournament_size):
     parents_selected = []
@@ -213,7 +213,7 @@ def adaptive_selection(population, population_fitness):
             if individual.adaptive_max_selections < 2:
                 valid_individuals.append(individual)
 
-        if len(valid_individuals) == 1:
+        if len(valid_individuals) % 2 != 0:
             print("No valid individuals")
             break
 
@@ -227,3 +227,47 @@ def adaptive_selection(population, population_fitness):
                 sorted_population_mating_chance[i].adaptive_max_selections += 1
 
     return first_list, second_list
+
+
+'''
+Function that implements the selection process for a adaptive selection scheme proposed by Pham and Castellani from "Adaptive Selection Routine for Evolutionary Algorithms", DOI: https://doi.org/10.1243/09596518JSCE942
+
+It uses the two structures of selected individuals to apply the adaptive selection method by mutating individuals from the first list with individuals from the second list in the following way:
+    - The first individual from the first list is mated with the last individual from the second list
+    - The second individual from the first list is mated with the second last individual from the second list 
+    - This goes on until the last individual from the first list is mated with the first individual from the second list
+
+Parameters:
+----------
+first_parents_list : list
+    The first half of the selected individuals
+
+second_parents_list : list
+    The second half of the selected individuals
+
+population : list
+    The population to update the individuals RLT values
+
+population_fitness : list
+    The fitness of each individual in the population
+
+configurations : dict
+    The configurations of the algorithm
+
+new_population : list
+    The new population to insert the offsprings
+
+Returns:
+-------
+new_population : list
+    A list containing the offsprings generated from the adaptive selection method
+'''
+def adaptive_selection_method_lists(first_parents_list, second_parents_list, population, population_fitness, configurations, new_population, metadata):
+    for individual in range(len(first_parents_list)):
+        offsprings = uniform_crossover([first_parents_list[individual], second_parents_list[len(first_parents_list) - (individual + 1)]], configurations, metadata)
+        for offspring in offsprings:
+            offspring = rlt_setting(population, population_fitness, int(configurations.lt_max.value), int(configurations.lt_min.value), offspring)
+            #print("Offspring: " + str(offspring.test_suite) + " - " + str(offspring.fitness) + " - " + str(offspring.remaining_lifetime))
+            new_population.append(offspring)
+
+    return new_population
