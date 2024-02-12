@@ -68,7 +68,7 @@ second_parents_list : list
 population_fitness : list	
     A list containing the fitness values of the population
 '''
-def initialize_generation():
+def initialize_generation(population):
     new_population = []
     first_parents_list = []
     second_parents_list = []
@@ -113,17 +113,20 @@ old_best_fitness : int
 generations_without_fitness_improvement : int
     The number of generations without fitness improvement
 '''
-def update_genetic_algorithm_attributes(new_population, current_number_generation, old_best_fitness, generations_without_fitness_improvement, configurations):
-    population = new_population
+def update_genetic_algorithm_attributes(population, new_population, current_number_generation, old_best_fitness, generations_without_fitness_improvement, configurations):
+    # If the new population is not empty, the population is updated
+    if len(new_population) > 1:
+        population = new_population
     population_fitness = obtain_fitness_values(population)
-    current_number_generation += 1
     current_best_fitness = obtain_best_fitness(population_fitness)
+    current_number_generation += 1
     if current_best_fitness > old_best_fitness:
         generations_without_fitness_improvement = 0
     else:
         generations_without_fitness_improvement += 1
 
     population = rlt_setting(population, population_fitness, int(configurations.lt_max.value), int(configurations.lt_min.value), None)
+    print("Old best fitness: " + str(old_best_fitness))
     old_best_fitness = current_best_fitness
 
     return population, population_fitness, current_number_generation, old_best_fitness, generations_without_fitness_improvement
@@ -135,17 +138,20 @@ metadata = util.read_metadata(util.obtain_configuration("config.ini", "metadata"
 population = create_population(metadata, int(configurations.population_size.value), configurations)
 population_fitness = obtain_fitness_values(population)
 initial_best_fitness = obtain_best_fitness(population_fitness)
+current_best_fitness = 0
 old_best_fitness = 0
 current_number_generation = 1
 iteration_number_population_control = 1
 generations_without_fitness_improvement = 0
+# ----------------------------------------------
 
 # Genetic algorithm population remaining life time (RLT) calculation for individuals
 population = rlt_setting(population, population_fitness, int(configurations.lt_max.value), int(configurations.lt_min.value), None)
 
+# ---- Genetic algorithm execution ----
 while current_number_generation <= int(configurations.max_number_generations.value) and generations_without_fitness_improvement <= int(configurations.fitness_max_stagnation_period.value):
     
-    new_population, first_parents_list, second_parents_list, population_fitness = initialize_generation()
+    new_population, first_parents_list, second_parents_list, population_fitness = initialize_generation(population)
 
     while len(new_population) < len(population):
         # --- Selection operations ---
@@ -156,6 +162,9 @@ while current_number_generation <= int(configurations.max_number_generations.val
             # Adaptive selection method was applied (mention that this adaptive selection method was made for even number of population size)
             if len(first_parents_list) > 0 and len(second_parents_list) > 0: 
                 new_population = adaptive_selection_method_lists(first_parents_list, second_parents_list, population, population_fitness, configurations, new_population, metadata)
+                print("New population size: " + str(len(new_population)))
+            else:
+                break
             # ---------------------------------------------
 
         else:
@@ -173,21 +182,49 @@ while current_number_generation <= int(configurations.max_number_generations.val
         pass
 
         # ----------------------------
+    
+        print("Current Population")
+        for i in range(len(population)):
+            print("-------------------------------------")
+            print("Test Suite - " + str(population[i].test_suite))
+            print("Fitness - " + str(population[i].fitness))
+            print("Adaptive Max Selections - " + str(population[i].adaptive_max_selections))
+            print("Remaining Life Time - " + str(population[i].remaining_lifetime))
+            print("-----------------------------------")
 
-        # ------------ POPULATION CONTROL METHOD ------------
-        if bool(configurations.population_control.value):
-            current_best_fitness = obtain_best_fitness(population_fitness)
+    # ------------ POPULATION CONTROL METHOD ------------
+    if bool(configurations.population_control.value):
+        print("Old population size: " + str(len(population)))
+        print("New population size: " + str(len(new_population)))
+        if len(new_population) > 1:
+            new_population_fitness = obtain_fitness_values(new_population)
+            current_best_fitness = obtain_best_fitness(new_population_fitness)
             new_population, iteration_number_population_control = population_resizing(new_population, current_best_fitness, old_best_fitness, 
-                                                                                      initial_best_fitness, current_number_generation, iteration_number_population_control,
-                                                                                      metadata, configurations)
-        # ---------------------------------------------
+                                                                                  initial_best_fitness, current_number_generation, iteration_number_population_control,
+                                                                                  metadata, configurations)
+    # ---------------------------------------------
 
     # Reset population and iterations
-    population, population_fitness, current_number_generation, old_best_fitness, generations_without_fitness_improvement = update_genetic_algorithm_attributes(new_population, current_number_generation, old_best_fitness, generations_without_fitness_improvement, configurations)
-    
-    print("Generation: " + str(current_number_generation) + " - Best fitness: " + str(current_best_fitness) + " - Average fitness: " + str(calculate_average_fitness(population)) 
-          + " - Generations without fitness improvement: " + str(generations_without_fitness_improvement) + " - Old best fitness: " + str(old_best_fitness))
+    print("New population size: " + str(len(new_population)))
+    print("New population individuals")
+    for i in new_population:
+        print("New individual:" + str(i.test_suite))
 
+    print("------------------------------------------------------------------")
+
+    population, population_fitness, current_number_generation, old_best_fitness, generations_without_fitness_improvement = update_genetic_algorithm_attributes(population, new_population, 
+                                                                                                                                                               current_number_generation, old_best_fitness, 
+                                                                                                                                                               generations_without_fitness_improvement, configurations)
+    
+    print("Generation: " + str(current_number_generation) + " - Best fitness: " + str(current_best_fitness) + " - Average fitness: " + str(round(calculate_average_fitness(population),2)) 
+          + " - Generations without fitness improvement: " + str(generations_without_fitness_improvement))
+    
+    print(" ------- Current population ------- ")
+    for i in population:
+        print("Individual: " + str(i.test_suite) + " - Fitness: " + str(i.fitness) + " - Remaining life time: " + str(i.remaining_lifetime) + " - Adaptive max selections: " + str(i.adaptive_max_selections))
+          
+# ---------------------------------------------------------------
+    
 print("Old Population")
 for i in range(len(population)):
     print("-------------------------------------")

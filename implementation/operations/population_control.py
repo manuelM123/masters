@@ -90,14 +90,14 @@ def rlt_setting(population, population_fitness, lt_max, lt_min, offpsring):
     if offpsring == None:
         for individual in population:
             if f_average >= individual.fitness:
-                individual.remaining_lifetime = int(lt_min + n * ((individual.fitness - f_worst) / (f_average - f_worst)))
+                individual.remaining_lifetime = int(lt_min + n * ((individual.fitness - f_worst) / ((f_average - f_worst) if f_average != f_worst else 1)))
             else:
-                individual.remaining_lifetime = int(1/2 * (lt_min + lt_max) + n * ((individual.fitness - f_average) / (f_best - f_average)))
+                individual.remaining_lifetime = int(1/2 * (lt_min + lt_max) + n * ((individual.fitness - f_average) / ((f_best - f_average) if f_best != f_average else 1)))
     else:
         if f_average >= offpsring.fitness:
-            offpsring.remaining_lifetime = int(lt_min + n * ((offpsring.fitness - f_worst) / (f_average - f_worst)))
+            offpsring.remaining_lifetime = int(lt_min + n * ((offpsring.fitness - f_worst) / ((f_average - f_worst) if f_average != f_worst else 1)))
         else:
-            offpsring.remaining_lifetime = int(1/2 * (lt_min + lt_max) + n * ((offpsring.fitness - f_average) / (f_best - f_average)))
+            offpsring.remaining_lifetime = int(1/2 * (lt_min + lt_max) + n * ((offpsring.fitness - f_average) / ((f_best - f_average) if f_best != f_average else 1)))
 
         return offpsring
         
@@ -127,7 +127,18 @@ def rlt_adjustment(population, best_individual_fitness):
             individual.remaining_lifetime = individual.remaining_lifetime - 1
 
         if individual.remaining_lifetime <= 0:
+            print("Selected individual: " + str(individual.test_suite) + " - Fitness: " + str(individual.fitness) + " - Remaining lifetime: " + str(individual.remaining_lifetime))
+            print("--------- Before removal ---------")
+            for i in population:
+                print("Individual: " + str(i.test_suite)) 
+
             population.pop(population.index(individual))
+            print("---------------------------------------------")
+
+            print("--------- After removal ---------")
+            for i in population:
+                print("Individual: " + str(i.test_suite)) 
+            print("---------------------------------------------")
 
     return population
 
@@ -145,7 +156,7 @@ old_best_fitness : int
 initial_best_fitness : int
     The best fitness value of initial iteration
 
-current_iteration_number : int
+current_number_generation : int
     The current number of generation of the algorithm
 
 max_generations : int
@@ -156,9 +167,9 @@ Returns:
 growth_size : int
     The number of new chromossomes to be added to the population
 '''
-def calculate_growth_size(current_best_fitness, old_best_fitness, initial_best_fitness, current_iteration_number, max_generations):
+def calculate_growth_size(current_best_fitness, old_best_fitness, initial_best_fitness, current_number_generation, max_generations):
     value = random.uniform(0,1)
-    return value * (max_generations - current_iteration_number) * ((current_best_fitness - old_best_fitness) / initial_best_fitness)
+    return int(value * (max_generations - current_number_generation) * ((current_best_fitness - old_best_fitness) / initial_best_fitness))
 
 ''' 
 Function that implements the population resizing process adapted by Rajakumar and George from "APOGA: An Adaptive Population Pool Size Based Genetic Algorithm", DOI: https://doi.org/10.1016/j.aasri.2013.10.043
@@ -200,14 +211,14 @@ number_iterations : int
 Notes: old_best_fitness must be replaced by the current_best_fitness if the current population fitness is better than the previous population fitness
        current_best_fitness is a parameter so in the main loop of the algorithm a simple verification if the number_iterations is reseted to 0 is needed to update the old_best_fitness
 '''
-def population_resizing(population, current_best_fitness, old_best_fitness, initial_best_fitness, current_iteration_number, number_iterations, metadata, configurations):
+def population_resizing(population, current_best_fitness, old_best_fitness, initial_best_fitness, current_number_generation, number_iterations, metadata, configurations):
     if current_best_fitness > old_best_fitness:
         best_individual_fitness = current_best_fitness
-        population = grow_population(population, current_best_fitness, old_best_fitness, initial_best_fitness, current_iteration_number, best_individual_fitness, configurations, metadata)
+        population = grow_population(population, current_best_fitness, old_best_fitness, initial_best_fitness, current_number_generation, best_individual_fitness, configurations, metadata)
         number_iterations = 0
     elif number_iterations >= int(configurations.fitness_iteration_limit.value):
         best_individual_fitness = old_best_fitness
-        population = grow_population(population, current_best_fitness, old_best_fitness, initial_best_fitness, current_iteration_number, best_individual_fitness, configurations, metadata)
+        population = grow_population(population, current_best_fitness, old_best_fitness, initial_best_fitness, current_number_generation, best_individual_fitness, configurations, metadata)
         number_iterations = 0
     else:
         best_individual_fitness = old_best_fitness
@@ -233,7 +244,7 @@ old_best_fitness : int
 initial_best_fitness : int
     The best fitness value of initial population
 
-current_iteration_number : int  
+current_number_generation : int  
     The current number of generation of the algorithm
 
 best_individual_fitness : int
@@ -250,12 +261,27 @@ Returns:
 population : list
     The population with the new chromossomes added and the individuals with remaining lifetime adjusted and the individuals with remaining lifetime equal to 0 removed
 '''
-def grow_population(population, current_best_fitness, old_best_fitness, initial_best_fitness, current_iteration_number, best_individual_fitness, configurations, metadata):
-    growth_size = calculate_growth_size(current_best_fitness, old_best_fitness, initial_best_fitness, current_iteration_number, int(configurations.max_number_generations.value))
-    new_individuals = create_population(metadata, growth_size, configurations)
-    new_individuals_fitness = obtain_fitness_values(new_individuals)
-    new_individuals = rlt_setting(new_individuals, new_individuals_fitness, int(configurations.lt_max.value), int(configurations.lt_min.value))
-    population.extend(new_individuals)
+def grow_population(population, current_best_fitness, old_best_fitness, initial_best_fitness, current_number_generation, best_individual_fitness, configurations, metadata):
+    growth_size = calculate_growth_size(current_best_fitness, old_best_fitness, initial_best_fitness, current_number_generation, int(configurations.max_number_generations.value))
+    if growth_size != 0:
+        new_individuals = create_population(metadata, growth_size, configurations)
+        new_individuals_fitness = obtain_fitness_values(new_individuals)
+        print("Growth size:" + str(growth_size) + "New individuals size: " + str(len(new_individuals)))
+        new_individuals = rlt_setting(new_individuals, new_individuals_fitness, int(configurations.lt_max.value), int(configurations.lt_min.value), None)
+
+        print("Old population size grow: " + str(len(population)))
+        for i in population:
+            print("Individual: " + str(i.test_suite) + " - Fitness: " + str(i.fitness) + " - Remaining lifetime: " + str(i.remaining_lifetime))
+
+        population.extend(new_individuals)
+
+        print("-----------------------------")
+
+        print("New population size grow: " + str(len(population)))
+        for i in population:
+            print("Individual: " + str(i.test_suite) + " - Fitness: " + str(i.fitness) + " - Remaining lifetime: " + str(i.remaining_lifetime))
+        print("-----------------------------")
+
     population = rlt_adjustment(population, best_individual_fitness)
 
     return population
@@ -278,8 +304,25 @@ population : list
 '''
 def shrink_population(population, best_individual_fitness, configurations):
     individuals_least_rlt = sorted(population, key=lambda x:x.remaining_lifetime)
-    for individual in range(individuals_least_rlt * int(configurations.population_decrease_rate.value)):
-        population.pop(population.index(individual))
+
+    print("Old population size shrink: " + str(len(population)))
+    for i in individuals_least_rlt:
+        print("Individual least fitness: " + str(i.fitness) + " - Individual test suite:" + str(i.test_suite))
+    print("-----------------------------")
+
+    print("Population")
+    for i in population:
+        print("Individual : " + str(i.test_suite))
+
+    for individual in range(int(len(individuals_least_rlt) * float(configurations.population_decrease_rate.value))):
+        print("Position of the selected individual: " + str(individual))
+        population.pop(population.index(individuals_least_rlt[individual]))
+
     population = rlt_adjustment(population, best_individual_fitness)
+
+    print("New population size shrink: " + str(len(population)))
+    for i in population:
+        print("Individual : " + str(i.test_suite))
+    print("-----------------------------")
 
     return population

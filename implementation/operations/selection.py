@@ -213,7 +213,7 @@ def adaptive_selection(population, population_fitness):
             if individual.adaptive_max_selections < 2:
                 valid_individuals.append(individual)
 
-        if len(valid_individuals) % 2 != 0:
+        if len(valid_individuals) >= 0 and len(valid_individuals) < 2:
             print("No valid individuals")
             break
 
@@ -227,7 +227,6 @@ def adaptive_selection(population, population_fitness):
                 sorted_population_mating_chance[i].adaptive_max_selections += 1
 
     return first_list, second_list
-
 
 '''
 Function that implements the selection process for a adaptive selection scheme proposed by Pham and Castellani from "Adaptive Selection Routine for Evolutionary Algorithms", DOI: https://doi.org/10.1243/09596518JSCE942
