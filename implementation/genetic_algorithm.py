@@ -170,18 +170,28 @@ while current_number_generation <= int(configurations.max_number_generations.val
         else:
             parents_selected = select(population, population_fitness, int(configurations.tournament_size.value), configurations.selection_type.value)
 
-        # ----------------------------
-            
-        # --- Crossover operations ---
+            print("Parents selected: ")
+            for i in parents_selected:
+                print("Parent: " + str(i.test_suite) + " - Fitness: " + str(i.fitness) + " - Remaining life time: " + str(i.remaining_lifetime) + " - Adaptive max selections: " + str(i.adaptive_max_selections))
 
-        pass
+            print("-------------------------------------------")
 
-        # ----------------------------
+            # Remove this after testing selection methods
+            new_population.append(parents_selected[0])
+            new_population.append(parents_selected[1])
 
-        # Mutation operations
-        pass
+            # ----------------------------
 
-        # ----------------------------
+            # --- Crossover operations ---
+
+            pass
+
+            # ----------------------------
+
+            # Mutation operations
+            pass
+
+            # ----------------------------
     
         print("Current Population")
         for i in range(len(population)):
@@ -207,8 +217,8 @@ while current_number_generation <= int(configurations.max_number_generations.val
     # Reset population and iterations
     print("New population size: " + str(len(new_population)))
     print("New population individuals")
-    for i in new_population:
-        print("New individual:" + str(i.test_suite))
+    #for i in new_population:
+        #print("New individual:" + str(i.test_suite))
 
     print("------------------------------------------------------------------")
 
@@ -219,9 +229,11 @@ while current_number_generation <= int(configurations.max_number_generations.val
     print("Generation: " + str(current_number_generation) + " - Best fitness: " + str(current_best_fitness) + " - Average fitness: " + str(round(calculate_average_fitness(population),2)) 
           + " - Generations without fitness improvement: " + str(generations_without_fitness_improvement))
     
+    '''
     print(" ------- Current population ------- ")
     for i in population:
         print("Individual: " + str(i.test_suite) + " - Fitness: " + str(i.fitness) + " - Remaining life time: " + str(i.remaining_lifetime) + " - Adaptive max selections: " + str(i.adaptive_max_selections))
+    '''
           
 # ---------------------------------------------------------------
     

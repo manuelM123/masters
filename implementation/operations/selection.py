@@ -57,9 +57,9 @@ parents_selection : list
     A list containing the two parents selected from the population
 '''
 def random_selection(population):
-    parents_selection = [random.randint(0, len(population) - 1), random.randint(0, len(population) - 1)]
+    parents_selection = [population[random.randint(0, len(population) - 1)], population[random.randint(0, len(population) - 1)]]
     while parents_selection[0] == parents_selection[1]:
-        parents_selection[1] = random.randint(0, len(population) - 1)
+        parents_selection[1] = population[random.randint(0, len(population) - 1)]
     
     return parents_selection
 '''
@@ -108,7 +108,7 @@ def roulette_wheel_selection(population, population_fitness):
         
         if len(parents_selection) > 1 and parents_selection[0] == parents_selection[1]:
             print("Parents are the same")
-            print(parents_selection[0].test_suite + " " + parents_selection[1].test_suite)
+            print(str(parents_selection[0].test_suite) + " " + str(parents_selection[1].test_suite))
             parents_selection.pop(1)
     return parents_selection
 
