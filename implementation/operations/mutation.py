@@ -120,7 +120,7 @@ def change_parameters(individual, metadata, configurations, solution):
     position_method = random.randint(0, len(individual.test_suite[position_test_case]) - 1)
     
     # constructor
-    if position_method[0] == -1:
+    if individual.test_suite[position_test_case][position_method][0] == -1:
         print("Constructor")
         individual.test_suite[position_test_case][position_method] = solution.generate_constructor(metadata)
     # other function
