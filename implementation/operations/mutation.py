@@ -1,5 +1,6 @@
 from solution import *
 from operations.fuzzy_system import *
+from operations.population_control import *
 
 '''
 Function that selects the mutation operator to generate offsprings from one parent
@@ -28,9 +29,9 @@ def mutation(individual, metadata, inputs, configurations, type):
     if type == 'add_test_case':
         return add_test_case(individual, metadata, configurations, solution)
     elif type == 'delete_test_case':
-        return delete_test_case(individual)
+        return delete_test_case(individual, metadata, configurations)
     elif type == 'change_parameters':
-        return change_parameters(individual, metadata, solution)
+        return change_parameters(individual, metadata, configurations, solution)
     elif type == 'deterministic':
         return deterministic_mutation_adjustment(configurations.current_iteration_number, configurations.max_generations, configurations.mutation_rate_adjustment_type)
     elif type == 'adaptive':
@@ -69,8 +70,8 @@ def add_test_case(individual, metadata, configurations, solution):
         new_test_case = solution.generate_test_case(metadata, int(configurations.max_number_functions.value))
 
     print("New test case " + str(new_test_case))
-
-    individual.append(new_test_case[1:])
+    individual.test_suite.append(new_test_case[1:])
+    individual = create_offspring(individual.test_suite, configurations, metadata)
     return individual
 
 '''
@@ -86,10 +87,11 @@ Returns:
 individual : Solution
     The individual with the test case deleted
 '''
-def delete_test_case(individual):
-    if len(individual) > 1:
-        position = random.randint(1, len(individual) - 1)
-        individual.pop(position)
+def delete_test_case(individual, metadata, configurations):
+    if len(individual.test_suite) > 1:
+        position = random.randint(1, len(individual.test.suite) - 1)
+        individual.test_suite.pop(position)
+        individual = create_offspring(individual.test_suite, configurations, metadata)
         return individual
     else:
         return individual
@@ -113,20 +115,20 @@ Returns:
 individual : Solution
     The individual with the new parameters
 '''
-def change_parameters(individual, metadata, solution):
-    position_test_case = random.randint(0, len(individual) - 1)   
-    test_case = individual[position_test_case] 
-    position_method = random.randint(0, len(test_case) - 1)
-    method = test_case[position_method]
+def change_parameters(individual, metadata, configurations, solution):
+    position_test_case = random.randint(0, len(individual.test_suite) - 1)   
+    position_method = random.randint(0, len(individual.test_suite[position_test_case]) - 1)
     
     # constructor
-    if method[0] == -1:
+    if position_method[0] == -1:
         print("Constructor")
-        individual[position_test_case][position_method] = solution.generate_constructor(metadata)
+        individual.test_suite[position_test_case][position_method] = solution.generate_constructor(metadata)
     # other function
     else:
-        print("Function " + str(method[0]))
-        individual[position_test_case][position_method] = solution.generate_other_functions(metadata)
+        print("Function " + str(position_method[0]))
+        individual.test_suite[position_test_case][position_method] = solution.generate_other_functions(metadata)
+
+    individual = create_offspring(individual.test_suite, configurations, metadata)
 
     return individual   
 

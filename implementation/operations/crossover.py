@@ -199,21 +199,32 @@ mutation_type : str
 Returns:
 -------
 individuals : list
-    A list containing the two offsprings generated from the parents and the individual that was suspended from the crossover operation
+    A list containing the two offsprings generated from the parents, the individual that was suspended from the crossover operation and the index of the individual that was mutated
 '''
 def self_adaptive_crossover_adjustment(individuals, metadata, inputs, configurations, type):
     individual_suspended = None
+    mutated_individual_index = None
     individuals[0], first_decision = self_adaptive_crossover_decision(individuals[0], metadata, inputs, configurations, type) 
     individuals[1], second_decision = self_adaptive_crossover_decision(individuals[1], metadata, inputs, configurations, type)
 
     if first_decision and second_decision:
         individuals = uniform_crossover(individuals, configurations)
+        for individual in individuals:
+            individual = mutation(individual, metadata, inputs, configurations, type)
+
     elif not first_decision and second_decision:
-        individual_suspended = individuals[0]
-    elif first_decision and not second_decision:
         individual_suspended = individuals[1]
+        mutated_individual_index = 0
+        
+    elif first_decision and not second_decision:
+        individual_suspended = individuals[0]
+        mutated_individual_index = 1
+
+    else:
+        mutated_individual_index = -1
 
     individuals.append(individual_suspended)
+    individuals.append(mutated_individual_index)
 
     return individuals
 

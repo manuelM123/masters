@@ -143,6 +143,10 @@ old_best_fitness = 0
 current_number_generation = 1
 iteration_number_population_control = 1
 generations_without_fitness_improvement = 0
+crossover_rate = float(configurations.crossover_rate.value)
+mutation_rate = float(configurations.mutation_rate.value)
+individual_suspended = None
+mutated_individual_index = None
 # ----------------------------------------------
 
 # Genetic algorithm population remaining life time (RLT) calculation for individuals
@@ -154,12 +158,12 @@ while current_number_generation <= int(configurations.max_number_generations.val
     new_population, first_parents_list, second_parents_list, population_fitness = initialize_generation(population)
 
     while len(new_population) < len(population):
-        # --- Selection operations ---
+        # ------------------------ Selection operations -------------------
 
         if configurations.selection_type.value == "adaptive":
             # ------------ ADAPTIVE SELECTION METHOD ------------
             first_parents_list, second_parents_list = select(population, population_fitness, int(configurations.tournament_size.value), configurations.selection_type.value)
-            # Adaptive selection method was applied (mention that this adaptive selection method was made for even number of population size)
+            # Adaptive selection method does not implement mutation operations
             if len(first_parents_list) > 0 and len(second_parents_list) > 0: 
                 new_population = adaptive_selection_method_lists(first_parents_list, second_parents_list, population, population_fitness, configurations, new_population, metadata)
                 print("New population size: " + str(len(new_population)))
@@ -170,29 +174,55 @@ while current_number_generation <= int(configurations.max_number_generations.val
         else:
             parents_selected = select(population, population_fitness, int(configurations.tournament_size.value), configurations.selection_type.value)
 
+            # Consider self_adaptive crossover suspended individual
+            if individual_suspended != None:
+                parents_selected.pop(random.randint(0, len(parents_selected) - 1))
+                parents_selected.append(individual_suspended)
+
             print("Parents selected: ")
             for i in parents_selected:
                 print("Parent: " + str(i.test_suite) + " - Fitness: " + str(i.fitness) + " - Remaining life time: " + str(i.remaining_lifetime) + " - Adaptive max selections: " + str(i.adaptive_max_selections))
-
             print("-------------------------------------------")
 
-            # Remove this after testing selection methods
-            new_population.append(parents_selected[0])
-            new_population.append(parents_selected[1])
-
-            # ----------------------------
+        # ----------------------------------------------------------------
 
             # --- Crossover operations ---
+            inputs = [current_best_fitness, iteration_number_population_control, stats.variance(population_fitness)]
+            offsprings = crossover(parents_selected, metadata, current_number_generation, inputs, configurations, configurations.crossover_type.value)
+            if configurations.crossover_type.value == 'self_adaptive':
+                individual_suspended = offsprings[2]
+                mutated_individual_index = offsprings[3]
+                offspring = rlt_setting(population, population_fitness, int(configurations.lt_max.value), int(configurations.lt_min.value), offsprings[mutated_individual_index])
+                if mutated_individual_index != -1:
+                    new_population.append(offsprings[mutated_individual_index])
+                else:
+                    new_population.append(offsprings[0])
+                    new_population.append(offsprings[1])
+            else:
+                if configurations.crossover_type.value == 'deterministic' or configurations.crossover_type.value == 'adaptive':
+                    crossover_rate = crossover(parents_selected, metadata, current_number_generation, inputs, configurations, configurations.crossover_type.value)
 
-            pass
+                    if crossover_rate > random.random():
+                        offsprings = uniform_crossover(parents_selected, configurations, metadata)
+                    else:
+                        offsprings = parents_selected
+                else:
+                    if crossover_rate > random.random():
+                        offsprings = crossover(parents_selected, metadata, current_number_generation, inputs, configurations, configurations.crossover_type.value)
+                    else:
+                        offsprings = parents_selected 
+                    
+                # ----------------------------
 
-            # ----------------------------
+                # Mutation operations
 
-            # Mutation operations
-            pass
+                # NOTE: IN SELF_ADAPTIVE CROSSOVER OPERATION, THE MUTATION OPERATION CAN CALL THE ADAPTIVE MUTATION METHOD THAT DOES NOT RETURN A INDIVIDUAL, FIX THIS BY PERFORMING A MUTATION METHOD AFTER THE MUTATION RATE ADJUSTMENT
+                pass
 
-            # ----------------------------
-    
+                # ----------------------------
+                new_population.append(offsprings[0])
+                new_population.append(offsprings[1])
+
         print("Current Population")
         for i in range(len(population)):
             print("-------------------------------------")
@@ -236,19 +266,8 @@ while current_number_generation <= int(configurations.max_number_generations.val
     '''
           
 # ---------------------------------------------------------------
-    
-print("Old Population")
-for i in range(len(population)):
-    print("-------------------------------------")
-    print("Test Suite - " + str(population[i].test_suite))
-    print("Fitness - " + str(population[i].fitness))
-    print("Crossover Rate - " + str(population[i].adaptive_crossover_rate))
-    print("Mutation Rate - " + str(population[i].adaptive_mutation_rate))
-    print("Adaptive Max Selections - " + str(population[i].adaptive_max_selections))
-    print("Remaining Life Time - " + str(population[i].remaining_lifetime))
-print("-----------------------------------")
 
-# Print the population
+# Print the new population
 print("-----------------------------------")
 print("New Population")
 for i in range(len(new_population)):
