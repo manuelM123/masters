@@ -28,7 +28,7 @@ def create_population(metadata, population_size, configurations):
         solution.adaptive_crossover_rate = random.uniform(0, 1.0)
         solution.adaptive_mutation_rate = random.uniform(0, 0.25)
         util.write_metadata("results/intermediate_test_suite", solution.test_suite, metadata)
-        calculate_coverage_fitness(solution, str(configurations.fitness_function_type.value))
+        calculate_coverage_fitness(solution, configurations.fitness_function_type.value)
         population.append(solution)
 
     return population
@@ -54,8 +54,10 @@ def create_offspring(test_suite, configurations, metadata):
     individual.test_suite = test_suite
     print("Individual test suite: " + str(individual.test_suite))
     print("Previous fitness: " + str(individual.fitness))
+    individual.adaptive_crossover_rate = random.uniform(0, 1.0)
+    individual.adaptive_mutation_rate = random.uniform(0, 0.25)
     util.write_metadata("results/intermediate_test_suite", individual.test_suite, metadata)
-    calculate_coverage_fitness(individual, str(configurations.fitness_function_type.value))
+    calculate_coverage_fitness(individual, configurations.fitness_function_type.value)
     print("New fitness: " + str(individual.fitness))
     return individual
 
@@ -310,13 +312,10 @@ def shrink_population(population, best_individual_fitness, configurations):
         print("Individual least fitness: " + str(i.fitness) + " - Individual test suite:" + str(i.test_suite))
     print("-----------------------------")
 
-    print("Population")
-    for i in population:
-        print("Individual : " + str(i.test_suite))
-
     for individual in range(int(len(individuals_least_rlt) * float(configurations.population_decrease_rate.value))):
         print("Position of the selected individual: " + str(individual))
         population.pop(population.index(individuals_least_rlt[individual]))
+    print("-----------------------------")
 
     population = rlt_adjustment(population, best_individual_fitness)
 

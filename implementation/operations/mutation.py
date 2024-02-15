@@ -116,17 +116,22 @@ individual : Solution
     The individual with the new parameters
 '''
 def change_parameters(individual, metadata, configurations, solution):
-    position_test_case = random.randint(0, len(individual.test_suite) - 1)   
+    position_test_case = random.randint(0, len(individual.test_suite) - 1) 
+    print("Position test case " + str(position_test_case))
     position_method = random.randint(0, len(individual.test_suite[position_test_case]) - 1)
+    print("Position method " + str(position_method))
     
+    # [population [test_suite [test_case [method, method, method 
     # constructor
     if individual.test_suite[position_test_case][position_method][0] == -1:
         print("Constructor")
         individual.test_suite[position_test_case][position_method] = solution.generate_constructor(metadata)
     # other function
     else:
-        print("Function " + str(position_method[0]))
+        print("Function:" + str(individual.test_suite[position_test_case][position_method][0]))
         individual.test_suite[position_test_case][position_method] = solution.generate_other_functions(metadata)
+
+    print("New test suite " + str(individual.test_suite))
 
     individual = create_offspring(individual.test_suite, configurations, metadata)
 

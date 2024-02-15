@@ -134,7 +134,7 @@ class Solution:
         if 'other_functions' in metadata:
             # Obtain parameters from other_functions in metadata
             parameters = metadata['other_functions']
-            attribute  = random.randint(0, len(parameters)-1)
+            attribute = random.randint(0, len(parameters)-1)
 
             #print(parameters[attribute]['name'])
 

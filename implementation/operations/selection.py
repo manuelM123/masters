@@ -169,14 +169,14 @@ def tournament_selection(population, tournament_size):
     parents_selected = []
     while len(parents_selected) != 2:
         selected_individuals = random.choices(population, k=tournament_size)
-        for individuals in selected_individuals:
-            print("Individuals: " + str(individuals.test_suite) + "| Fitness: " + str(individuals.fitness), end="\n")
+        #for individuals in selected_individuals:
+            #print("Individuals: " + str(individuals.test_suite) + "| Fitness: " + str(individuals.fitness), end="\n")
         individuals_set = set(selected_individuals)
         print("--------------------------------------------------")
         if len(selected_individuals) == len(individuals_set):
             parents_selected.append(max(selected_individuals, key=lambda x:x.fitness))
-            for individual in parents_selected:
-                print("Parents: " + str(individual.test_suite), end="\n")
+            #for individual in parents_selected:
+                #print("Parents: " + str(individual.test_suite), end="\n")
         
         if len(parents_selected) == 2 and len(parents_selected) != len(set(parents_selected)):
             parents_selected.pop(1)

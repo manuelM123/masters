@@ -15,17 +15,17 @@ configurations : dict
     The configurations of the algorithm
 
 '''
-def crossover(parents, metadata, current_iteration_number, inputs, configurations, type):
+def crossover(parents, metadata, current_iteration_number, inputs, configurations, type, mutation_type):
     if type == 'one_point':
         return one_point_crossover(parents, configurations, metadata)
     elif type == 'uniform':
         return uniform_crossover(parents, configurations, metadata)
     elif type == 'deterministic':
-        return deterministic_crossover_adjustment(current_iteration_number, configurations.max_generations, configurations.crossover_rate_adjustment_type)
+        return deterministic_crossover_adjustment(current_iteration_number, int(configurations.max_number_generations.value), configurations.crossover_rate_adjustment_type.value)
     elif type == 'adaptive':
         return adaptive_crossover_adjustment(inputs, configurations, 'crossover')
     elif type == 'self-adaptive':
-        return self_adaptive_crossover_adjustment(parents, metadata, inputs, configurations, type)
+        return self_adaptive_crossover_adjustment(parents, metadata, inputs, configurations, mutation_type)
     else:
         raise ValueError('Crossover type is not specified correctly')
     
@@ -129,7 +129,7 @@ Almohammadi, Alkafaween, Abunawas, Hammouri and Prasath in "Choosing Mutation an
 Parameters:
 ----------
 current_iteration_number : int
-    The current iteration number of the algorithm
+    The current generation number of the algorithm
 
 max_generations : int
     The maximum number of generations of the algorithm
@@ -143,10 +143,10 @@ crossover_rate : float
     The crossover rate adjusted using the deterministic rule
 '''
 def deterministic_crossover_adjustment(current_iteration_number, max_generations, type):
-    if type == 'ihc':
-        return current_iteration_number / max_generations
+    if type == 'ilc':
+        return float(current_iteration_number/max_generations)
     elif type == 'dhc':
-        return 1 - (current_iteration_number / max_generations)
+        return float(1 - (current_iteration_number / max_generations))
     
     raise Exception("Invalid crossover rate adjustment type")
 
@@ -208,7 +208,7 @@ def self_adaptive_crossover_adjustment(individuals, metadata, inputs, configurat
     individuals[1], second_decision = self_adaptive_crossover_decision(individuals[1], metadata, inputs, configurations, type)
 
     if first_decision and second_decision:
-        individuals = uniform_crossover(individuals, configurations)
+        individuals = uniform_crossover(individuals, configurations, metadata)
         for individual in individuals:
             individual = mutation(individual, metadata, inputs, configurations, type)
 
@@ -223,6 +223,7 @@ def self_adaptive_crossover_adjustment(individuals, metadata, inputs, configurat
     else:
         mutated_individual_index = -1
 
+    print("Individuals" + str(individuals[0].test_suite) + "|" + str(individuals[1].test_suite) + "|" + "Individual suspended " + str(individual_suspended) + "|" + "Mutated individual index " + str(mutated_individual_index))
     individuals.append(individual_suspended)
     individuals.append(mutated_individual_index)
 

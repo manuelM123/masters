@@ -170,6 +170,9 @@ class Fuzzy_system:
         The consequents of the fuzzy system
     '''
     def plot_fuzzy_sets(self, antecedents, consequents, path):
+        if plt.get_fignums():
+            plt.close('all')
+
         if not os.path.exists(path):
             os.makedirs(path)  # Create the directory if it doesn't exist
 

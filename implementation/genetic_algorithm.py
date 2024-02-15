@@ -176,10 +176,11 @@ while current_number_generation <= int(configurations.max_number_generations.val
 
             # Consider self_adaptive crossover suspended individual
             if individual_suspended != None:
+                print("Suspended individual in selection operation: " + str(individual_suspended.test_suite) + " - Fitness: " + str(individual_suspended.fitness) + " - Remaining life time: " + str(individual_suspended.remaining_lifetime))
                 parents_selected.pop(random.randint(0, len(parents_selected) - 1))
                 parents_selected.append(individual_suspended)
 
-            print("Parents selected: ")
+            print("# ----------- Parents selected ----------- #")
             for i in parents_selected:
                 print("Parent: " + str(i.test_suite) + " - Fitness: " + str(i.fitness) + " - Remaining life time: " + str(i.remaining_lifetime) + " - Adaptive max selections: " + str(i.adaptive_max_selections))
             print("-------------------------------------------")
@@ -187,29 +188,81 @@ while current_number_generation <= int(configurations.max_number_generations.val
         # ----------------------------------------------------------------
 
             # --- Crossover operations ---
-            inputs = [current_best_fitness, iteration_number_population_control, stats.variance(population_fitness)]
-            offsprings = crossover(parents_selected, metadata, current_number_generation, inputs, configurations, configurations.crossover_type.value)
-            if configurations.crossover_type.value == 'self_adaptive':
+            inputs = [obtain_best_fitness(population_fitness), iteration_number_population_control, stats.variance(population_fitness)]
+            if configurations.crossover_type.value == 'self-adaptive':
+                offsprings = crossover(parents_selected, metadata, current_number_generation, inputs, configurations, configurations.crossover_type.value, configurations.mutation_type.value)
                 individual_suspended = offsprings[2]
                 mutated_individual_index = offsprings[3]
-                offspring = rlt_setting(population, population_fitness, int(configurations.lt_max.value), int(configurations.lt_min.value), offsprings[mutated_individual_index])
-                if mutated_individual_index != -1:
-                    new_population.append(offsprings[mutated_individual_index])
-                else:
+                if mutated_individual_index != -1 and mutated_individual_index != None:
+                    print("Offsprings before rlt setting self_adaptive: ")
+                    print("Offspring 1: " + str(offsprings[0].remaining_lifetime))
+                    print("Offspring 2: " + str(offsprings[1].remaining_lifetime))
+                    print("#----------------------------------------------------------------#")
+
+                    offspring = rlt_setting(population, population_fitness, int(configurations.lt_max.value), int(configurations.lt_min.value), offsprings[mutated_individual_index])
+
+                    print("Offsprings after rlt setting self_adaptive: ")
+                    print("Offspring 1: " + str(offsprings[0].remaining_lifetime))
+                    print("Offspring 2: " + str(offsprings[1].remaining_lifetime))
+                    print("#----------------------------------------------------------------#")
+                    new_population.append(offspring)
+
+                elif mutated_individual_index == -1 or mutated_individual_index == None:
+                    print("Offsprings before rlt setting self_adaptive: ")
+                    print("Offspring 1: " + str(offsprings[0].remaining_lifetime))
+                    print("Offspring 2: " + str(offsprings[1].remaining_lifetime))
+                    print("#----------------------------------------------------------------#")
+
+                    for position in range(0, len(offsprings) - 2):
+                        offsprings[position] = rlt_setting(population, population_fitness, int(configurations.lt_max.value), int(configurations.lt_min.value), offsprings[position])
+
+                    print("Offsprings after rlt setting self_adaptive: ")
+                    print("Offspring 1: " + str(offsprings[0].remaining_lifetime))
+                    print("Offspring 2: " + str(offsprings[1].remaining_lifetime))
+                    print("#----------------------------------------------------------------#")
                     new_population.append(offsprings[0])
                     new_population.append(offsprings[1])
             else:
                 if configurations.crossover_type.value == 'deterministic' or configurations.crossover_type.value == 'adaptive':
-                    crossover_rate = crossover(parents_selected, metadata, current_number_generation, inputs, configurations, configurations.crossover_type.value)
+                    crossover_rate = crossover(parents_selected, metadata, current_number_generation, inputs, configurations, configurations.crossover_type.value, configurations.mutation_type.value)
+                    print("Crossover rate before applying crossover: " + str(crossover_rate))
 
                     if crossover_rate > random.random():
                         offsprings = uniform_crossover(parents_selected, configurations, metadata)
+
+                        print("Offsprings before rlt setting: ")
+                        print("Offspring 1: " + str(offsprings[0].remaining_lifetime))
+                        print("Offspring 2: " + str(offsprings[1].remaining_lifetime))
+                        print("#----------------------------------------------------------------#")
+
+                        for offspring in offsprings:
+                            offspring = rlt_setting(population, population_fitness, int(configurations.lt_max.value), int(configurations.lt_min.value), offspring)
+
+                        print("Offsprings after rlt setting: ")
+                        print("Offspring 1: " + str(offsprings[0].remaining_lifetime))
+                        print("Offspring 2: " + str(offsprings[1].remaining_lifetime))
+                        print("#----------------------------------------------------------------#")
                     else:
+                        print("Crossover operation was not performed")
                         offsprings = parents_selected
                 else:
                     if crossover_rate > random.random():
-                        offsprings = crossover(parents_selected, metadata, current_number_generation, inputs, configurations, configurations.crossover_type.value)
+                        offsprings = crossover(parents_selected, metadata, current_number_generation, inputs, configurations, configurations.crossover_type.value, configurations.mutation_type.value)
+
+                        print("Offsprings before rlt setting normal: ")
+                        print("Offspring 1: " + str(offsprings[0].remaining_lifetime))
+                        print("Offspring 2: " + str(offsprings[1].remaining_lifetime))
+                        print("#----------------------------------------------------------------#")
+
+                        for offspring in offsprings:
+                            offspring = rlt_setting(population, population_fitness, int(configurations.lt_max.value), int(configurations.lt_min.value), offspring)
+
+                        print("Offsprings after rlt setting normal: ")
+                        print("Offspring 1: " + str(offsprings[0].remaining_lifetime))
+                        print("Offspring 2: " + str(offsprings[1].remaining_lifetime))
+                        print("#----------------------------------------------------------------#")
                     else:
+                        print("Crossover operation was not performed")
                         offsprings = parents_selected 
                     
                 # ----------------------------
@@ -223,6 +276,7 @@ while current_number_generation <= int(configurations.max_number_generations.val
                 new_population.append(offsprings[0])
                 new_population.append(offsprings[1])
 
+        '''
         print("Current Population")
         for i in range(len(population)):
             print("-------------------------------------")
@@ -231,9 +285,10 @@ while current_number_generation <= int(configurations.max_number_generations.val
             print("Adaptive Max Selections - " + str(population[i].adaptive_max_selections))
             print("Remaining Life Time - " + str(population[i].remaining_lifetime))
             print("-----------------------------------")
+        '''
 
     # ------------ POPULATION CONTROL METHOD ------------
-    if bool(configurations.population_control.value):
+    if eval(configurations.population_control.value):
         print("Old population size: " + str(len(population)))
         print("New population size: " + str(len(new_population)))
         if len(new_population) > 1:
@@ -242,13 +297,15 @@ while current_number_generation <= int(configurations.max_number_generations.val
             new_population, iteration_number_population_control = population_resizing(new_population, current_best_fitness, old_best_fitness, 
                                                                                   initial_best_fitness, current_number_generation, iteration_number_population_control,
                                                                                   metadata, configurations)
+    else:
+        if current_best_fitness > old_best_fitness:
+            iteration_number_population_control = 0
+        else:
+            iteration_number_population_control += 1
     # ---------------------------------------------
 
     # Reset population and iterations
     print("New population size: " + str(len(new_population)))
-    print("New population individuals")
-    #for i in new_population:
-        #print("New individual:" + str(i.test_suite))
 
     print("------------------------------------------------------------------")
 
