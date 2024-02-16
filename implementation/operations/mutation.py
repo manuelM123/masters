@@ -24,7 +24,7 @@ Returns:
 individual : Solution
     The offspring generated from the parent
 '''
-def mutation(individual, metadata, inputs, configurations, type):
+def mutation(individual, metadata, current_iteration_number, inputs, configurations, type):
     solution = Solution()
     if type == 'add_test_case':
         return add_test_case(individual, metadata, configurations, solution)
@@ -33,7 +33,7 @@ def mutation(individual, metadata, inputs, configurations, type):
     elif type == 'change_parameters':
         return change_parameters(individual, metadata, configurations, solution)
     elif type == 'deterministic':
-        return deterministic_mutation_adjustment(configurations.current_iteration_number, configurations.max_generations, configurations.mutation_rate_adjustment_type)
+        return deterministic_mutation_adjustment(current_iteration_number, configurations.max_generations, configurations.mutation_rate_adjustment_type)
     elif type == 'adaptive':
         return adaptive_mutation_adjustment(inputs, configurations, 'mutation')
     elif type == 'self-adaptive':

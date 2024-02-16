@@ -47,6 +47,7 @@ class configurations(Enum):
 
     # File paths
     fuzzy_membership_path = util.obtain_configuration("config.ini", "file_paths", "fuzzy_membership_functions")
+    intermediate_test_suite_path = util.obtain_configuration("config.ini", "file_paths", "intermediate_test_suite")
 
 
 # ------------ Genetic algorithm auxiliary functions ------------
@@ -129,7 +130,7 @@ def update_genetic_algorithm_attributes(population, new_population, current_numb
     print("Old best fitness: " + str(old_best_fitness))
     old_best_fitness = current_best_fitness
 
-    return population, population_fitness, current_number_generation, old_best_fitness, generations_without_fitness_improvement
+    return population, current_number_generation, old_best_fitness, generations_without_fitness_improvement
 
 # --------------------------------------------------------------
 
@@ -157,20 +158,25 @@ while current_number_generation <= int(configurations.max_number_generations.val
     
     new_population, first_parents_list, second_parents_list, population_fitness = initialize_generation(population)
 
+    print("----------------------")
+    print("Population best fitness: " + str(population_fitness))
+    print("----------------------")
+
     while len(new_population) < len(population):
-        # ------------------------ Selection operations -------------------
+        # ------------------------ Selection Operations -------------------
 
         if configurations.selection_type.value == "adaptive":
             # ------------ ADAPTIVE SELECTION METHOD ------------
-            first_parents_list, second_parents_list = select(population, population_fitness, int(configurations.tournament_size.value), configurations.selection_type.value)
+
+            first_parents_list, second_parents_list = select(population, population_fitness, None, configurations.selection_type.value)
             # Adaptive selection method does not implement mutation operations
             if len(first_parents_list) > 0 and len(second_parents_list) > 0: 
                 new_population = adaptive_selection_method_lists(first_parents_list, second_parents_list, population, population_fitness, configurations, new_population, metadata)
                 print("New population size: " + str(len(new_population)))
             else:
                 break
-            # ---------------------------------------------
 
+            # ------------ END ADAPTIVE SELECTION METHOD ------------
         else:
             parents_selected = select(population, population_fitness, int(configurations.tournament_size.value), configurations.selection_type.value)
 
@@ -185,11 +191,13 @@ while current_number_generation <= int(configurations.max_number_generations.val
                 print("Parent: " + str(i.test_suite) + " - Fitness: " + str(i.fitness) + " - Remaining life time: " + str(i.remaining_lifetime) + " - Adaptive max selections: " + str(i.adaptive_max_selections))
             print("-------------------------------------------")
 
-        # ----------------------------------------------------------------
+        # ------------------------ End Selection Operations -------------------
 
-            # --- Crossover operations ---
+            # ------------------------ Crossover Operations ------------------------
             inputs = [obtain_best_fitness(population_fitness), iteration_number_population_control, stats.variance(population_fitness)]
             if configurations.crossover_type.value == 'self-adaptive':
+                # ------------ SELF-ADAPTIVE CROSSOVER METHOD ------------
+
                 offsprings = crossover(parents_selected, metadata, current_number_generation, inputs, configurations, configurations.crossover_type.value, configurations.mutation_type.value)
                 individual_suspended = offsprings[2]
                 mutated_individual_index = offsprings[3]
@@ -222,7 +230,12 @@ while current_number_generation <= int(configurations.max_number_generations.val
                     print("#----------------------------------------------------------------#")
                     new_population.append(offsprings[0])
                     new_population.append(offsprings[1])
+                
+                # ------------ END SELF-ADAPTIVE CROSSOVER METHOD ------------
+                    
             else:
+                # ------------ DETERMINISTIC AND ADAPTIVE CROSSOVER METHOD ------------ 
+
                 if configurations.crossover_type.value == 'deterministic' or configurations.crossover_type.value == 'adaptive':
                     crossover_rate = crossover(parents_selected, metadata, current_number_generation, inputs, configurations, configurations.crossover_type.value, configurations.mutation_type.value)
                     print("Crossover rate before applying crossover: " + str(crossover_rate))
@@ -264,33 +277,70 @@ while current_number_generation <= int(configurations.max_number_generations.val
                     else:
                         print("Crossover operation was not performed")
                         offsprings = parents_selected 
+
+                # ------------ END DETERMINISTIC AND ADAPTIVE CROSSOVER METHOD ------------
                     
-                # ----------------------------
+                # ------------------------ End Crossover Operations ------------------------       
 
-                # Mutation operations
+                # ------------------------ Mutation Operations ------------------------
+                random_mutation_rate = random.random()
 
-                # NOTE: IN SELF_ADAPTIVE CROSSOVER OPERATION, THE MUTATION OPERATION CAN CALL THE ADAPTIVE MUTATION METHOD THAT DOES NOT RETURN A INDIVIDUAL, FIX THIS BY PERFORMING A MUTATION METHOD AFTER THE MUTATION RATE ADJUSTMENT
-                pass
+                if configurations.mutation_type.value == 'deterministic' or configurations.mutation_type.value == 'adaptive':
+                    mutation_rate = mutation(None, None, current_number_generation, inputs, configurations, configurations.mutation_type.value)
+                    print("Mutation rate before applying mutation: " + str(mutation_rate))	
+                    random_mutation_choice = random.choice(['add_test_case', 'delete_test_case', 'change_parameters'])
 
-                # ----------------------------
+                    # ------------ DETERMINISTIC MUTATION METHOD ------------
+
+                    if configurations.mutation_type.value == 'deterministic':
+                        if mutation_rate > random.random():
+                            print("Mutation applied to offspring 1 using deterministic method")
+                            offsprings[0] = mutation(offsprings[0], metadata, current_number_generation, inputs, configurations, random_mutation_choice)
+                        if mutation_rate > random.random():
+                            print("Mutation applied to offspring 2 using deterministic method")
+                            offsprings[1] = mutation(offsprings[1], metadata, current_number_generation, inputs, configurations, random_mutation_choice)
+
+                    # ------------ END DETERMINISTIC MUTATION METHOD ------------
+                    
+                    # ------------ ADAPTIVE MUTATION METHOD ------------~
+                            
+                    elif configurations.mutation_type.value == 'adaptive':
+                        if mutation_rate > random.uniform(0, 0.1):
+                            print("Mutation applied to offspring 1 using adaptive method")
+                            offsprings[0] = mutation(offsprings[0], metadata, current_number_generation, inputs, configurations, random_mutation_choice)
+                        if mutation_rate > random.uniform(0, 0.1):
+                            print("Mutation applied to offspring 2 using adaptive method")
+                            offsprings[1] = mutation(offsprings[1], metadata, current_number_generation, inputs, configurations, random_mutation_choice)
+
+                    # ------------ END ADAPTIVE MUTATION METHOD ------------
+
+                else:
+                    # ------------ SELF-ADAPTIVE MUTATION METHOD ------------
+
+                    if configurations.mutation_type.value == 'self-adaptive':
+                        offsprings[0] = mutation(offsprings[0], metadata, current_number_generation, inputs, configurations, configurations.mutation_type.value)
+                        offsprings[1] = mutation(offsprings[1], metadata, current_number_generation, inputs, configurations, configurations.mutation_type.value)
+
+                        if offspring[0].adaptive_mutation_rate > random.uniform(0, 0.25):
+                            print("Mutation applied to offspring 1 using self-adaptive method")
+                            offsprings[0] = mutation(offsprings[0], metadata, current_number_generation, inputs, configurations, configurations.mutation_type.value)
+                        if offspring[1].adaptive_mutation_rate > random.uniform(0, 0.25):
+                            print("Mutation applied to offspring 2 using self-adaptive method")
+                            offsprings[1] = mutation(offsprings[1], metadata, current_number_generation, inputs, configurations, configurations.mutation_type.value)
+
+                    # ------------ END SELF-ADAPTIVE MUTATION METHOD ------------
+
+                # ------------------------ End Mutation Operations ------------------------
+                            
+                # Adding offsprings to the new population
                 new_population.append(offsprings[0])
                 new_population.append(offsprings[1])
-
-        '''
-        print("Current Population")
-        for i in range(len(population)):
-            print("-------------------------------------")
-            print("Test Suite - " + str(population[i].test_suite))
-            print("Fitness - " + str(population[i].fitness))
-            print("Adaptive Max Selections - " + str(population[i].adaptive_max_selections))
-            print("Remaining Life Time - " + str(population[i].remaining_lifetime))
-            print("-----------------------------------")
-        '''
 
     # ------------ POPULATION CONTROL METHOD ------------
     if eval(configurations.population_control.value):
         print("Old population size: " + str(len(population)))
         print("New population size: " + str(len(new_population)))
+        print("------------------------------------------------------------------")
         if len(new_population) > 1:
             new_population_fitness = obtain_fitness_values(new_population)
             current_best_fitness = obtain_best_fitness(new_population_fitness)
@@ -302,31 +352,26 @@ while current_number_generation <= int(configurations.max_number_generations.val
             iteration_number_population_control = 0
         else:
             iteration_number_population_control += 1
-    # ---------------------------------------------
+    # ------------ END POPULATION CONTROL METHOD ------------
 
     # Reset population and iterations
     print("New population size: " + str(len(new_population)))
-
     print("------------------------------------------------------------------")
 
-    population, population_fitness, current_number_generation, old_best_fitness, generations_without_fitness_improvement = update_genetic_algorithm_attributes(population, new_population, 
-                                                                                                                                                               current_number_generation, old_best_fitness, 
-                                                                                                                                                               generations_without_fitness_improvement, configurations)
+    population, current_number_generation, old_best_fitness, generations_without_fitness_improvement = update_genetic_algorithm_attributes(population, new_population, 
+                                                                                                                                            current_number_generation, old_best_fitness, 
+                                                                                                                                            generations_without_fitness_improvement, configurations)
     
+    print("------------------------ GENERATION STATS ------------------------")
     print("Generation: " + str(current_number_generation) + " - Best fitness: " + str(current_best_fitness) + " - Average fitness: " + str(round(calculate_average_fitness(population),2)) 
           + " - Generations without fitness improvement: " + str(generations_without_fitness_improvement))
-    
-    '''
-    print(" ------- Current population ------- ")
-    for i in population:
-        print("Individual: " + str(i.test_suite) + " - Fitness: " + str(i.fitness) + " - Remaining life time: " + str(i.remaining_lifetime) + " - Adaptive max selections: " + str(i.adaptive_max_selections))
-    '''
+    print("------------------------------------------------------------------")
           
 # ---------------------------------------------------------------
 
 # Print the new population
-print("-----------------------------------")
-print("New Population")
+print("-----------------------------------------------")
+print("New Population After Genetic Algorithm Execution")
 for i in range(len(new_population)):
     print("-------------------------------------")
     print("Test Suite - " + str(new_population[i].test_suite))

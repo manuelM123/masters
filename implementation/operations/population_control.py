@@ -27,7 +27,7 @@ def create_population(metadata, population_size, configurations):
         solution.generate_test_suite(metadata, int(configurations.max_number_functions.value), int(configurations.max_number_test_cases.value))
         solution.adaptive_crossover_rate = random.uniform(0, 1.0)
         solution.adaptive_mutation_rate = random.uniform(0, 0.25)
-        util.write_metadata("results/intermediate_test_suite", solution.test_suite, metadata)
+        util.write_metadata(configurations.intermediate_test_suite_path.value, solution.test_suite, metadata)
         calculate_coverage_fitness(solution, configurations.fitness_function_type.value)
         population.append(solution)
 
@@ -56,7 +56,7 @@ def create_offspring(test_suite, configurations, metadata):
     print("Previous fitness: " + str(individual.fitness))
     individual.adaptive_crossover_rate = random.uniform(0, 1.0)
     individual.adaptive_mutation_rate = random.uniform(0, 0.25)
-    util.write_metadata("results/intermediate_test_suite", individual.test_suite, metadata)
+    util.write_metadata(configurations.intermediate_test_suite_path.value, individual.test_suite, metadata)
     calculate_coverage_fitness(individual, configurations.fitness_function_type.value)
     print("New fitness: " + str(individual.fitness))
     return individual
