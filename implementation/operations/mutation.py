@@ -1,3 +1,4 @@
+import math
 from solution import *
 from operations.fuzzy_system import *
 from operations.population_control import *
@@ -33,7 +34,7 @@ def mutation(individual, metadata, current_iteration_number, inputs, configurati
     elif type == 'change_parameters':
         return change_parameters(individual, metadata, configurations, solution)
     elif type == 'deterministic':
-        return deterministic_mutation_adjustment(current_iteration_number, configurations.max_generations, configurations.mutation_rate_adjustment_type)
+        return deterministic_mutation_adjustment(current_iteration_number, int(configurations.max_number_generations.value), configurations.mutation_rate_adjustment_type.value)
     elif type == 'adaptive':
         return adaptive_mutation_adjustment(inputs, configurations, 'mutation')
     elif type == 'self-adaptive':
@@ -64,13 +65,12 @@ individual : Solution
     The individual with the new test case added
 '''
 def add_test_case(individual, metadata, configurations, solution):
+    print("Add test case")
     new_test_case = []
 
-    while len(new_test_case) < 2:
-        new_test_case = solution.generate_test_case(metadata, int(configurations.max_number_functions.value))
+    new_test_case = solution.generate_test_case(metadata, int(configurations.max_number_functions.value))
 
-    print("New test case " + str(new_test_case))
-    individual.test_suite.append(new_test_case[1:])
+    individual.test_suite.append(new_test_case)
     individual = create_offspring(individual.test_suite, configurations, metadata)
     return individual
 
@@ -88,8 +88,9 @@ individual : Solution
     The individual with the test case deleted
 '''
 def delete_test_case(individual, metadata, configurations):
+    print("Delete test case")
     if len(individual.test_suite) > 1:
-        position = random.randint(1, len(individual.test.suite) - 1)
+        position = random.randint(1, len(individual.test_suite) - 1)
         individual.test_suite.pop(position)
         individual = create_offspring(individual.test_suite, configurations, metadata)
         return individual
@@ -116,12 +117,12 @@ individual : Solution
     The individual with the new parameters
 '''
 def change_parameters(individual, metadata, configurations, solution):
+    print("Change parameters")
     position_test_case = random.randint(0, len(individual.test_suite) - 1) 
     print("Position test case " + str(position_test_case))
     position_method = random.randint(0, len(individual.test_suite[position_test_case]) - 1)
     print("Position method " + str(position_method))
     
-    # [population [test_suite [test_case [method, method, method 
     # constructor
     if individual.test_suite[position_test_case][position_method][0] == -1:
         print("Constructor")
@@ -130,8 +131,6 @@ def change_parameters(individual, metadata, configurations, solution):
     else:
         print("Function:" + str(individual.test_suite[position_test_case][position_method][0]))
         individual.test_suite[position_test_case][position_method] = solution.generate_other_functions(metadata)
-
-    print("New test suite " + str(individual.test_suite))
 
     individual = create_offspring(individual.test_suite, configurations, metadata)
 
@@ -197,9 +196,10 @@ offspring : solution
 
 Returns:
 -------
-offspring with mutation rate adjusted : solution
-    The offspring with the mutation rate adjusted
+mutation_rate : float
+    The mutation rate adjusted using the self-adaptive mechanism
 '''
 def self_adaptive_mutation_adjustment(offspring):
-    offspring.adaptive_mutation_rate = (1 + ((1 - offspring.adaptive_mutation_rate) / offspring.adaptive_mutation_rate) * ((-0.22) * np.random.normal(0, 1))) ** (-1)
-    return offspring
+    random_value = np.random.normal(0, 1)
+    print("Random value: " + str(random_value))
+    return float((1 + ((1 - offspring.adaptive_mutation_rate) / offspring.adaptive_mutation_rate) * (math.exp((-0.22) * random_value))) ** (-1))

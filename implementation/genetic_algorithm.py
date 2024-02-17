@@ -194,6 +194,7 @@ while current_number_generation <= int(configurations.max_number_generations.val
         # ------------------------ End Selection Operations -------------------
 
             # ------------------------ Crossover Operations ------------------------
+
             inputs = [obtain_best_fitness(population_fitness), iteration_number_population_control, stats.variance(population_fitness)]
             if configurations.crossover_type.value == 'self-adaptive':
                 # ------------ SELF-ADAPTIVE CROSSOVER METHOD ------------
@@ -259,7 +260,7 @@ while current_number_generation <= int(configurations.max_number_generations.val
                         print("Crossover operation was not performed")
                         offsprings = parents_selected
                 else:
-                    if crossover_rate > random.random():
+                    if float(configurations.crossover_rate.value) > random.random():
                         offsprings = crossover(parents_selected, metadata, current_number_generation, inputs, configurations, configurations.crossover_type.value, configurations.mutation_type.value)
 
                         print("Offsprings before rlt setting normal: ")
@@ -282,23 +283,24 @@ while current_number_generation <= int(configurations.max_number_generations.val
                     
                 # ------------------------ End Crossover Operations ------------------------       
 
-                # ------------------------ Mutation Operations ------------------------
-                random_mutation_rate = random.random()
+                # ------------------------ Mutation Operations ------------------------        
 
                 if configurations.mutation_type.value == 'deterministic' or configurations.mutation_type.value == 'adaptive':
                     mutation_rate = mutation(None, None, current_number_generation, inputs, configurations, configurations.mutation_type.value)
                     print("Mutation rate before applying mutation: " + str(mutation_rate))	
-                    random_mutation_choice = random.choice(['add_test_case', 'delete_test_case', 'change_parameters'])
 
                     # ------------ DETERMINISTIC MUTATION METHOD ------------
 
                     if configurations.mutation_type.value == 'deterministic':
                         if mutation_rate > random.random():
-                            print("Mutation applied to offspring 1 using deterministic method")
-                            offsprings[0] = mutation(offsprings[0], metadata, current_number_generation, inputs, configurations, random_mutation_choice)
+                            print("Mutation applied to offspring 1 using deterministic method | Offspring 1: " + str(offsprings[0].test_suite))
+                            offsprings[0] = mutation(offsprings[0], metadata, current_number_generation, inputs, configurations, random.choice(['add_test_case', 'delete_test_case', 'change_parameters']))
+                            print("Offspring 1 after mutation: " + str(offsprings[0].test_suite))
                         if mutation_rate > random.random():
-                            print("Mutation applied to offspring 2 using deterministic method")
-                            offsprings[1] = mutation(offsprings[1], metadata, current_number_generation, inputs, configurations, random_mutation_choice)
+                            print("Mutation applied to offspring 2 using deterministic method | Offspring 2: " + str(offsprings[1].test_suite))
+                            offsprings[1] = mutation(offsprings[1], metadata, current_number_generation, inputs, configurations, random.choice(['add_test_case', 'delete_test_case', 'change_parameters']))
+                            print("Offspring 2 after mutation: " + str(offsprings[1].test_suite))
+
 
                     # ------------ END DETERMINISTIC MUTATION METHOD ------------
                     
@@ -306,29 +308,46 @@ while current_number_generation <= int(configurations.max_number_generations.val
                             
                     elif configurations.mutation_type.value == 'adaptive':
                         if mutation_rate > random.uniform(0, 0.1):
-                            print("Mutation applied to offspring 1 using adaptive method")
-                            offsprings[0] = mutation(offsprings[0], metadata, current_number_generation, inputs, configurations, random_mutation_choice)
+                            print("Mutation applied to offspring 1 using adaptive method | Offspring 1: " + str(offsprings[0].test_suite))
+                            offsprings[0] = mutation(offsprings[0], metadata, current_number_generation, inputs, configurations, random.choice(['add_test_case', 'delete_test_case', 'change_parameters']))
+                            print("Offspring 1 after mutation: " + str(offsprings[0].test_suite))
                         if mutation_rate > random.uniform(0, 0.1):
-                            print("Mutation applied to offspring 2 using adaptive method")
-                            offsprings[1] = mutation(offsprings[1], metadata, current_number_generation, inputs, configurations, random_mutation_choice)
+                            print("Mutation applied to offspring 2 using adaptive method | Offspring 2: " + str(offsprings[1].test_suite))
+                            offsprings[1] = mutation(offsprings[1], metadata, current_number_generation, inputs, configurations, random.choice(['add_test_case', 'delete_test_case', 'change_parameters']))
+                            print("Offspring 2 after mutation: " + str(offsprings[1].test_suite))
 
                     # ------------ END ADAPTIVE MUTATION METHOD ------------
 
-                else:
                     # ------------ SELF-ADAPTIVE MUTATION METHOD ------------
 
-                    if configurations.mutation_type.value == 'self-adaptive':
-                        offsprings[0] = mutation(offsprings[0], metadata, current_number_generation, inputs, configurations, configurations.mutation_type.value)
-                        offsprings[1] = mutation(offsprings[1], metadata, current_number_generation, inputs, configurations, configurations.mutation_type.value)
-
-                        if offspring[0].adaptive_mutation_rate > random.uniform(0, 0.25):
-                            print("Mutation applied to offspring 1 using self-adaptive method")
-                            offsprings[0] = mutation(offsprings[0], metadata, current_number_generation, inputs, configurations, configurations.mutation_type.value)
-                        if offspring[1].adaptive_mutation_rate > random.uniform(0, 0.25):
-                            print("Mutation applied to offspring 2 using self-adaptive method")
-                            offsprings[1] = mutation(offsprings[1], metadata, current_number_generation, inputs, configurations, configurations.mutation_type.value)
+                elif configurations.mutation_type.value == 'self-adaptive':
+                    print("Offspring 1 adaptive mutation rate before adaptive method: " + str(offsprings[0].adaptive_mutation_rate))
+                    print("Offspring 2 adaptive mutation rate before adaptive method: " + str(offsprings[1].adaptive_mutation_rate))
+                    
+                    offsprings[0].adaptive_mutation_rate = mutation(offsprings[0], metadata, current_number_generation, inputs, configurations, configurations.mutation_type.value)
+                    offsprings[1].adaptive_mutation_rate = mutation(offsprings[1], metadata, current_number_generation, inputs, configurations, configurations.mutation_type.value)
+                    print("Offspring 1 adaptive mutation rate: " + str(offsprings[0].adaptive_mutation_rate))
+                    print("Offspring 2 adaptive mutation rate: " + str(offsprings[1].adaptive_mutation_rate))
+                    if offsprings[0].adaptive_mutation_rate > random.random():
+                        print("Mutation applied to offspring 1 using self-adaptive method | Offspring 1: " + str(offsprings[0].test_suite))
+                        offsprings[0] = mutation(offsprings[0], metadata, current_number_generation, inputs, configurations, random.choice(['add_test_case', 'delete_test_case', 'change_parameters']))
+                        print("Offspring 1 after mutation: " + str(offsprings[0].test_suite))
+                    if offsprings[1].adaptive_mutation_rate > random.random():
+                        print("Mutation applied to offspring 2 using self-adaptive method | Offspring 2: " + str(offsprings[1].test_suite))
+                        offsprings[1] = mutation(offsprings[1], metadata, current_number_generation, inputs, configurations, random.choice(['add_test_case', 'delete_test_case', 'change_parameters']))
+                        print("Offspring 2 after mutation: " + str(offsprings[1].test_suite))
 
                     # ------------ END SELF-ADAPTIVE MUTATION METHOD ------------
+                        
+                else:
+                    if float(configurations.mutation_rate.value) > random.random():
+                        print("Mutation applied to offspring 1 using other method | Offspring 1: " + str(offsprings[0].test_suite))
+                        offsprings[0] = mutation(offsprings[0], metadata, current_number_generation, inputs, configurations, configurations.mutation_type.value)
+                        print("Offspring 1 after mutation: " + str(offsprings[0].test_suite))
+                    if float(configurations.mutation_rate.value) > random.random():
+                        print("Mutation applied to offspring 2 using other method | Offspring 2: " + str(offsprings[1].test_suite))
+                        offsprings[1] = mutation(offsprings[1], metadata, current_number_generation, inputs, configurations, configurations.mutation_type.value)
+                        print("Offspring 2 after mutation: " + str(offsprings[1].test_suite))
 
                 # ------------------------ End Mutation Operations ------------------------
                             
@@ -366,6 +385,12 @@ while current_number_generation <= int(configurations.max_number_generations.val
     print("Generation: " + str(current_number_generation) + " - Best fitness: " + str(current_best_fitness) + " - Average fitness: " + str(round(calculate_average_fitness(population),2)) 
           + " - Generations without fitness improvement: " + str(generations_without_fitness_improvement))
     print("------------------------------------------------------------------")
+
+# ---- End genetic algorithm execution ----
+    
+# Obtain the best individual of the population
+best_solution = obtain_best_individual(population)
+print("Best solution: " + str(best_solution.test_suite) + " - Fitness: " + str(best_solution.fitness))
           
 # ---------------------------------------------------------------
 

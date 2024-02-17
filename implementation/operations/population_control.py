@@ -26,7 +26,7 @@ def create_population(metadata, population_size, configurations):
         solution = Solution()
         solution.generate_test_suite(metadata, int(configurations.max_number_functions.value), int(configurations.max_number_test_cases.value))
         solution.adaptive_crossover_rate = random.uniform(0, 1.0)
-        solution.adaptive_mutation_rate = random.uniform(0, 0.25)
+        solution.adaptive_mutation_rate = random.uniform(0, 1.0)
         util.write_metadata(configurations.intermediate_test_suite_path.value, solution.test_suite, metadata)
         calculate_coverage_fitness(solution, configurations.fitness_function_type.value)
         population.append(solution)
@@ -55,7 +55,7 @@ def create_offspring(test_suite, configurations, metadata):
     print("Individual test suite: " + str(individual.test_suite))
     print("Previous fitness: " + str(individual.fitness))
     individual.adaptive_crossover_rate = random.uniform(0, 1.0)
-    individual.adaptive_mutation_rate = random.uniform(0, 0.25)
+    individual.adaptive_mutation_rate = random.uniform(0, 1.0)
     util.write_metadata(configurations.intermediate_test_suite_path.value, individual.test_suite, metadata)
     calculate_coverage_fitness(individual, configurations.fitness_function_type.value)
     print("New fitness: " + str(individual.fitness))
@@ -309,7 +309,7 @@ def shrink_population(population, best_individual_fitness, configurations):
 
     print("Old population size shrink: " + str(len(population)))
     for i in individuals_least_rlt:
-        print("Individual least fitness: " + str(i.fitness) + " - Individual test suite:" + str(i.test_suite))
+        print("Individual fitness: " + str(i.fitness) + " - Individual test suite:" + str(i.test_suite) + " - Remaining lifetime: " + str(i.remaining_lifetime))
     print("-----------------------------")
 
     for individual in range(int(len(individuals_least_rlt) * float(configurations.population_decrease_rate.value))):
@@ -325,3 +325,21 @@ def shrink_population(population, best_individual_fitness, configurations):
     print("-----------------------------")
 
     return population
+
+
+'''
+Function to obtain the best individual of a population
+
+Parameters:
+----------
+population : list
+    The population to obtain the best individual from
+
+Returns:
+-------
+best_individuals_sorted[0] : Solution
+    The best individual of the population
+'''
+def obtain_best_individual(population):
+    best_individuals_sorted = sorted(population, key=lambda x:x.fitness, reverse=True)
+    return best_individuals_sorted[0]

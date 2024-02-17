@@ -260,7 +260,7 @@ decision : bool
     the current iteration of the algorithm
 '''
 def self_adaptive_crossover_decision(individual, metadata, inputs, configurations, type):
-    random_number = random.uniform(0, 0.99)
+    random_number = random.uniform(0, 1)
     print("Random number: " + str(random_number))
     print("Crossover rate: " + str(individual.adaptive_crossover_rate))
 
