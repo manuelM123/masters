@@ -1,6 +1,10 @@
 import os
 import json
 import configparser 
+import numpy as np
+import matplotlib.pyplot as plt
+from scipy.interpolate import make_interp_spline 
+import matplotlib.ticker as ticker
 
 '''
 Function to read metadata in a genotype format from a file
@@ -103,3 +107,34 @@ def obtain_configuration(file, type, configuration_name):
         return config.get(type, configuration_name)
     else:
         raise FileNotFoundError('File does not exist')
+    
+
+'''
+Function to plot the population size variation per generation
+
+Parameters:
+----------
+population_size_values: list
+    The population size values per generation
+
+generation_number_values: list
+    The generation number values
+
+path: str
+    The path to save the graph
+'''
+def population_size_graph(population_size_values, generation_number_values, path):
+    if plt.get_fignums():
+            plt.close('all')
+
+    x = np.linspace(min(generation_number_values), max(generation_number_values), 500)
+    k = min(3, len(generation_number_values) - 1)
+    x_y_spline = make_interp_spline(generation_number_values, population_size_values, k=k)
+    y = x_y_spline(x)
+
+    plt.plot(generation_number_values, population_size_values)
+    plt.xlabel('Generation')
+    plt.ylabel('Population size')
+    plt.title('Population size per generation')
+
+    plt.savefig(path + '/population_size_graph.png')

@@ -48,6 +48,7 @@ class configurations(Enum):
     # File paths
     fuzzy_membership_path = util.obtain_configuration("config.ini", "file_paths", "fuzzy_membership_functions")
     intermediate_test_suite_path = util.obtain_configuration("config.ini", "file_paths", "intermediate_test_suite")
+    generation_stats_path = util.obtain_configuration("config.ini", "file_paths", "generation_stats")
 
 
 # ------------ Genetic algorithm auxiliary functions ------------
@@ -132,6 +133,30 @@ def update_genetic_algorithm_attributes(population, new_population, current_numb
 
     return population, current_number_generation, old_best_fitness, generations_without_fitness_improvement
 
+
+'''
+Function to print the generation stats
+
+Parameters:
+----------
+current_number_generation : int
+    The current number of the generation
+
+current_best_fitness : int
+    The best fitness value of the current generation
+
+population : list
+    The population of the genetic algorithm
+'''
+def generation_stats(current_number_generation, current_best_fitness, population):
+    print("------------------------ GENERATION STATS ------------------------")
+    print("Generation: " + str(current_number_generation) + " - Best fitness: " + str(current_best_fitness) + " - Average fitness: " + str(round(calculate_average_fitness(population),2)) 
+          + " - Generations without fitness improvement: " + str(generations_without_fitness_improvement) + " - Population size: " + str(len(population)))
+    print("------------------------------------------------------------------")
+
+    generation_number_values.append(current_number_generation)
+    population_size_values.append(len(population))
+
 # --------------------------------------------------------------
 
 # Initializing parameters and variables for the genetic algorithm
@@ -148,6 +173,8 @@ crossover_rate = float(configurations.crossover_rate.value)
 mutation_rate = float(configurations.mutation_rate.value)
 individual_suspended = None
 mutated_individual_index = None
+generation_number_values = []
+population_size_values = []
 # ----------------------------------------------
 
 # Genetic algorithm population remaining life time (RLT) calculation for individuals
@@ -158,9 +185,10 @@ while current_number_generation <= int(configurations.max_number_generations.val
     
     new_population, first_parents_list, second_parents_list, population_fitness = initialize_generation(population)
 
-    print("----------------------")
-    print("Population best fitness: " + str(population_fitness))
-    print("----------------------")
+    print("Population size: " + str(len(population)))
+    print("New population size: " + str(len(new_population)))
+    print("Generation number: " + str(current_number_generation))
+    print("---------------------------------------------------------------")
 
     while len(new_population) < len(population):
         # ------------------------ Selection Operations -------------------
@@ -374,19 +402,17 @@ while current_number_generation <= int(configurations.max_number_generations.val
     # ------------ END POPULATION CONTROL METHOD ------------
 
     # Reset population and iterations
-    print("New population size: " + str(len(new_population)))
-    print("------------------------------------------------------------------")
-
     population, current_number_generation, old_best_fitness, generations_without_fitness_improvement = update_genetic_algorithm_attributes(population, new_population, 
                                                                                                                                             current_number_generation, old_best_fitness, 
                                                                                                                                             generations_without_fitness_improvement, configurations)
     
-    print("------------------------ GENERATION STATS ------------------------")
-    print("Generation: " + str(current_number_generation) + " - Best fitness: " + str(current_best_fitness) + " - Average fitness: " + str(round(calculate_average_fitness(population),2)) 
-          + " - Generations without fitness improvement: " + str(generations_without_fitness_improvement))
-    print("------------------------------------------------------------------")
+    # Print generation stats
+    generation_stats(current_number_generation - 1, current_best_fitness, population)
+    print("Population size values: " + str(population_size_values) + " - Generation number values: " + str(generation_number_values))
 
 # ---- End genetic algorithm execution ----
+    
+util.population_size_graph(population_size_values, generation_number_values, configurations.generation_stats_path.value)
     
 # Obtain the best individual of the population
 best_solution = obtain_best_individual(population)

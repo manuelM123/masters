@@ -94,15 +94,12 @@ def roulette_wheel_selection(population, population_fitness):
     parents_selection = []
     selection_probabilities_sum = 0
     random_number = random.uniform(0, sum(selection_probabilities))
-    print("Random number: " + str(random_number))
-    print(selection_probabilities)
     while len(parents_selection) < 2:
         for i in range(len(population)):
             selection_probabilities_sum += selection_probabilities[i]
             if selection_probabilities_sum >= random_number:
                 parents_selection.append(population[i])
                 random_number = random.uniform(0, sum(selection_probabilities))
-                print("Random number: " + str(random_number))
                 selection_probabilities_sum = 0
                 break 
         
@@ -131,10 +128,8 @@ parents_selection : list
 def rank_selection(population):
     parents_selected = []
     sorted_population_fitness = sorted(population, key=lambda x:x.fitness)
-    print("Sorted Fitness")
     for i in range(len(sorted_population_fitness)):
         sorted_population_fitness[i].rank = i + 1
-        print(sorted_population_fitness[i].fitness, end="|")
     while len(parents_selected) < 2 :
         individuals_selection = random.choices(sorted_population_fitness, k=2)
         print("Individuals selection: " +  str(individuals_selection[0].rank) + "|" + str(individuals_selection[1].rank))
@@ -169,14 +164,9 @@ def tournament_selection(population, tournament_size):
     parents_selected = []
     while len(parents_selected) != 2:
         selected_individuals = random.choices(population, k=tournament_size)
-        #for individuals in selected_individuals:
-            #print("Individuals: " + str(individuals.test_suite) + "| Fitness: " + str(individuals.fitness), end="\n")
         individuals_set = set(selected_individuals)
-        print("--------------------------------------------------")
         if len(selected_individuals) == len(individuals_set):
             parents_selected.append(max(selected_individuals, key=lambda x:x.fitness))
-            #for individual in parents_selected:
-                #print("Parents: " + str(individual.test_suite), end="\n")
         
         if len(parents_selected) == 2 and len(parents_selected) != len(set(parents_selected)):
             parents_selected.pop(1)
@@ -266,7 +256,6 @@ def adaptive_selection_method_lists(first_parents_list, second_parents_list, pop
         offsprings = uniform_crossover([first_parents_list[individual], second_parents_list[len(first_parents_list) - (individual + 1)]], configurations, metadata)
         for offspring in offsprings:
             offspring = rlt_setting(population, population_fitness, int(configurations.lt_max.value), int(configurations.lt_min.value), offspring)
-            #print("Offspring: " + str(offspring.test_suite) + " - " + str(offspring.fitness) + " - " + str(offspring.remaining_lifetime))
             new_population.append(offspring)
 
     return new_population

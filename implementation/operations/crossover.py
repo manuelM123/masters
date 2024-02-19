@@ -82,7 +82,6 @@ offsprings : list
 def uniform_crossover(parents, configurations, metadata):
     random_values = []
     offsprings = []
-    print("Uniform crossover " + str(configurations.uniform_number_crossover.value))
     uniform_number_crossover = float(configurations.uniform_number_crossover.value)
 
     if len(parents[0].test_suite) > len(parents[1].test_suite):
@@ -95,14 +94,6 @@ def uniform_crossover(parents, configurations, metadata):
     print("Random values")
     for i in range(len(random_values)):
         print(str(random_values[i]) + "|")
-
-    print("Parents test suites")
-
-    print("Parents 0")
-    print(parents[0].test_suite)
-
-    print("Parents 1")
-    print(parents[1].test_suite)
 
     for position in range(2):
         test_suite = []
