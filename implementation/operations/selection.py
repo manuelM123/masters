@@ -162,14 +162,15 @@ parents_selected : list
 '''
 def tournament_selection(population, tournament_size):
     parents_selected = []
-    while len(parents_selected) != 2:
-        selected_individuals = random.choices(population, k=tournament_size)
-        individuals_set = set(selected_individuals)
-        if len(selected_individuals) == len(individuals_set):
-            parents_selected.append(max(selected_individuals, key=lambda x:x.fitness))
-        
-        if len(parents_selected) == 2 and len(parents_selected) != len(set(parents_selected)):
-            parents_selected.pop(1)
+    if tournament_size <= len(population):
+        while len(parents_selected) != 2:
+            selected_individuals = random.choices(population, k=tournament_size)
+            individuals_set = set(selected_individuals)
+            if len(selected_individuals) == len(individuals_set):
+                parents_selected.append(max(selected_individuals, key=lambda x:x.fitness))
+            
+            if len(parents_selected) == 2 and len(parents_selected) != len(set(parents_selected)):
+                parents_selected.pop(1)
     return parents_selected
         
 '''

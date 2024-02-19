@@ -134,7 +134,45 @@ def population_size_graph(population_size_values, generation_number_values, path
 
     plt.plot(generation_number_values, population_size_values)
     plt.xlabel('Generation')
-    plt.ylabel('Population size')
-    plt.title('Population size per generation')
+    plt.ylabel('Population Size')
+    plt.title('Population Size per Generation')
+
+    plt.gca().xaxis.set_major_locator(ticker.MaxNLocator(integer=True))
+    plt.gca().yaxis.set_major_locator(ticker.MaxNLocator(integer=True))
 
     plt.savefig(path + '/population_size_graph.png')
+
+
+'''
+Function to plot the best fitness value variation per generation
+
+Parameters:
+----------
+generation_fitness_values: list
+    The best fitness value per generation
+
+generation_number_values: list
+    The generation number values
+
+path: str
+    The path to save the graph
+'''
+def fitness_values_graph(generation_fitness_values, generation_number_values, path):
+    if plt.get_fignums():
+            plt.close('all')
+    
+    x = np.linspace(min(generation_number_values), max(generation_number_values), 500)
+    k = min(3, len(generation_number_values) - 1)
+    x_y_spline = make_interp_spline(generation_number_values, generation_fitness_values, k=k)
+    y = x_y_spline(x)
+
+    plt.plot(generation_number_values, generation_fitness_values)
+    plt.xlabel('Generation')
+    plt.ylabel('Best Fitness Value')
+    plt.title('Best Fitness Value per Generation')
+
+    plt.gca().xaxis.set_major_locator(ticker.MaxNLocator(integer=True))
+    plt.gca().yaxis.set_major_locator(ticker.MaxNLocator(integer=True))
+
+    plt.savefig(path + '/fitness_values_graph.png')
+    

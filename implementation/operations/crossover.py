@@ -25,7 +25,7 @@ def crossover(parents, metadata, current_iteration_number, inputs, configuration
     elif type == 'adaptive':
         return adaptive_crossover_adjustment(inputs, configurations, 'crossover')
     elif type == 'self-adaptive':
-        return self_adaptive_crossover_adjustment(parents, metadata, inputs, configurations, mutation_type)
+        return self_adaptive_crossover_adjustment(parents, metadata, current_iteration_number, inputs, configurations, mutation_type)
     else:
         raise ValueError('Crossover type is not specified correctly')
     
@@ -192,16 +192,16 @@ Returns:
 individuals : list
     A list containing the two offsprings generated from the parents, the individual that was suspended from the crossover operation and the index of the individual that was mutated
 '''
-def self_adaptive_crossover_adjustment(individuals, metadata, inputs, configurations, type):
+def self_adaptive_crossover_adjustment(individuals, metadata, current_iteration_number, inputs, configurations, type):
     individual_suspended = None
     mutated_individual_index = None
-    individuals[0], first_decision = self_adaptive_crossover_decision(individuals[0], metadata, inputs, configurations, type) 
-    individuals[1], second_decision = self_adaptive_crossover_decision(individuals[1], metadata, inputs, configurations, type)
+    individuals[0], first_decision = self_adaptive_crossover_decision(individuals[0], metadata, current_iteration_number, inputs, configurations, type) 
+    individuals[1], second_decision = self_adaptive_crossover_decision(individuals[1], metadata, current_iteration_number, inputs, configurations, type)
 
     if first_decision and second_decision:
         individuals = uniform_crossover(individuals, configurations, metadata)
         for individual in individuals:
-            individual = mutation(individual, metadata, inputs, configurations, type)
+            individual = mutation(individual, metadata, current_iteration_number, inputs, configurations, random.choice(['add_test_case', 'delete_test_case', 'change_parameters']))
 
     elif not first_decision and second_decision:
         individual_suspended = individuals[1]
@@ -232,6 +232,9 @@ individual : Solution
 metadata : dict
     The metadata of the class context
 
+current_iteration_number : int
+    The current generation number of the algorithm
+
 inputs : dict
     The inputs for the fuzzy system
 
@@ -250,14 +253,15 @@ decision : bool
     A boolean value indicating whether the crossover operator will be performed or not which means the individual will be mutated if the crossover operator is not performed in
     the current iteration of the algorithm
 '''
-def self_adaptive_crossover_decision(individual, metadata, inputs, configurations, type):
+def self_adaptive_crossover_decision(individual, metadata, current_iteration_number, inputs, configurations, type):
     random_number = random.uniform(0, 1)
     print("Random number: " + str(random_number))
     print("Crossover rate: " + str(individual.adaptive_crossover_rate))
 
     if random_number < individual.adaptive_crossover_rate:
         return individual, True
+    
     else:
-        individual = mutation(individual, metadata, inputs, configurations, type)
+        individual = mutation(individual, metadata, current_iteration_number, inputs, configurations, random.choice(['add_test_case', 'delete_test_case', 'change_parameters']))
         return individual, False
     

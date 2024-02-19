@@ -131,7 +131,7 @@ def update_genetic_algorithm_attributes(population, new_population, current_numb
     print("Old best fitness: " + str(old_best_fitness))
     old_best_fitness = current_best_fitness
 
-    return population, current_number_generation, old_best_fitness, generations_without_fitness_improvement
+    return population, current_number_generation, current_best_fitness, old_best_fitness, generations_without_fitness_improvement
 
 
 '''
@@ -148,14 +148,15 @@ current_best_fitness : int
 population : list
     The population of the genetic algorithm
 '''
-def generation_stats(current_number_generation, current_best_fitness, population):
+def generation_stats(current_number_generation, old_best_fitness, current_best_fitness, population):
     print("------------------------ GENERATION STATS ------------------------")
-    print("Generation: " + str(current_number_generation) + " - Best fitness: " + str(current_best_fitness) + " - Average fitness: " + str(round(calculate_average_fitness(population),2)) 
+    print("Generation: " + str(current_number_generation) + " - Old best fitness: " + str(old_best_fitness) + " - Best fitness: " + str(current_best_fitness) + " - Average fitness: " + str(round(calculate_average_fitness(population),2)) 
           + " - Generations without fitness improvement: " + str(generations_without_fitness_improvement) + " - Population size: " + str(len(population)))
     print("------------------------------------------------------------------")
 
     generation_number_values.append(current_number_generation)
     population_size_values.append(len(population))
+    generation_fitness_values.append(current_best_fitness)
 
 # --------------------------------------------------------------
 
@@ -166,7 +167,7 @@ population_fitness = obtain_fitness_values(population)
 initial_best_fitness = obtain_best_fitness(population_fitness)
 current_best_fitness = 0
 old_best_fitness = 0
-current_number_generation = 1
+current_number_generation = 0
 iteration_number_population_control = 1
 generations_without_fitness_improvement = 0
 crossover_rate = float(configurations.crossover_rate.value)
@@ -175,13 +176,14 @@ individual_suspended = None
 mutated_individual_index = None
 generation_number_values = []
 population_size_values = []
+generation_fitness_values = []
 # ----------------------------------------------
 
 # Genetic algorithm population remaining life time (RLT) calculation for individuals
 population = rlt_setting(population, population_fitness, int(configurations.lt_max.value), int(configurations.lt_min.value), None)
 
 # ---- Genetic algorithm execution ----
-while current_number_generation <= int(configurations.max_number_generations.value) and generations_without_fitness_improvement <= int(configurations.fitness_max_stagnation_period.value):
+while current_number_generation < int(configurations.max_number_generations.value) and generations_without_fitness_improvement < int(configurations.fitness_max_stagnation_period.value):
     
     new_population, first_parents_list, second_parents_list, population_fitness = initialize_generation(population)
 
@@ -190,7 +192,7 @@ while current_number_generation <= int(configurations.max_number_generations.val
     print("Generation number: " + str(current_number_generation))
     print("---------------------------------------------------------------")
 
-    while len(new_population) < len(population):
+    while len(new_population) < len(population) and len(population) > 1:
         # ------------------------ Selection Operations -------------------
 
         if configurations.selection_type.value == "adaptive":
@@ -272,18 +274,6 @@ while current_number_generation <= int(configurations.max_number_generations.val
                     if crossover_rate > random.random():
                         offsprings = uniform_crossover(parents_selected, configurations, metadata)
 
-                        print("Offsprings before rlt setting: ")
-                        print("Offspring 1: " + str(offsprings[0].remaining_lifetime))
-                        print("Offspring 2: " + str(offsprings[1].remaining_lifetime))
-                        print("#----------------------------------------------------------------#")
-
-                        for offspring in offsprings:
-                            offspring = rlt_setting(population, population_fitness, int(configurations.lt_max.value), int(configurations.lt_min.value), offspring)
-
-                        print("Offsprings after rlt setting: ")
-                        print("Offspring 1: " + str(offsprings[0].remaining_lifetime))
-                        print("Offspring 2: " + str(offsprings[1].remaining_lifetime))
-                        print("#----------------------------------------------------------------#")
                     else:
                         print("Crossover operation was not performed")
                         offsprings = parents_selected
@@ -291,18 +281,6 @@ while current_number_generation <= int(configurations.max_number_generations.val
                     if float(configurations.crossover_rate.value) > random.random():
                         offsprings = crossover(parents_selected, metadata, current_number_generation, inputs, configurations, configurations.crossover_type.value, configurations.mutation_type.value)
 
-                        print("Offsprings before rlt setting normal: ")
-                        print("Offspring 1: " + str(offsprings[0].remaining_lifetime))
-                        print("Offspring 2: " + str(offsprings[1].remaining_lifetime))
-                        print("#----------------------------------------------------------------#")
-
-                        for offspring in offsprings:
-                            offspring = rlt_setting(population, population_fitness, int(configurations.lt_max.value), int(configurations.lt_min.value), offspring)
-
-                        print("Offsprings after rlt setting normal: ")
-                        print("Offspring 1: " + str(offsprings[0].remaining_lifetime))
-                        print("Offspring 2: " + str(offsprings[1].remaining_lifetime))
-                        print("#----------------------------------------------------------------#")
                     else:
                         print("Crossover operation was not performed")
                         offsprings = parents_selected 
@@ -346,7 +324,7 @@ while current_number_generation <= int(configurations.max_number_generations.val
 
                     # ------------ END ADAPTIVE MUTATION METHOD ------------
 
-                    # ------------ SELF-ADAPTIVE MUTATION METHOD ------------
+                # ------------ SELF-ADAPTIVE MUTATION METHOD ------------
 
                 elif configurations.mutation_type.value == 'self-adaptive':
                     print("Offspring 1 adaptive mutation rate before adaptive method: " + str(offsprings[0].adaptive_mutation_rate))
@@ -365,7 +343,7 @@ while current_number_generation <= int(configurations.max_number_generations.val
                         offsprings[1] = mutation(offsprings[1], metadata, current_number_generation, inputs, configurations, random.choice(['add_test_case', 'delete_test_case', 'change_parameters']))
                         print("Offspring 2 after mutation: " + str(offsprings[1].test_suite))
 
-                    # ------------ END SELF-ADAPTIVE MUTATION METHOD ------------
+                # ------------ END SELF-ADAPTIVE MUTATION METHOD ------------
                         
                 else:
                     if float(configurations.mutation_rate.value) > random.random():
@@ -378,12 +356,35 @@ while current_number_generation <= int(configurations.max_number_generations.val
                         print("Offspring 2 after mutation: " + str(offsprings[1].test_suite))
 
                 # ------------------------ End Mutation Operations ------------------------
+
+
+                # Updating RLT for offsprings after crossover and mutation operations
+                print("Offsprings before rlt setting: ")
+                print("Offspring 1: " + str(offsprings[0].remaining_lifetime))
+                print("Offspring 2: " + str(offsprings[1].remaining_lifetime))
+                print("#----------------------------------------------------------------#")
+
+                for offspring in offsprings:
+                    offspring = rlt_setting(population, population_fitness, int(configurations.lt_max.value), int(configurations.lt_min.value), offspring)
+
+                print("Offsprings after rlt setting: ")
+                print("Offspring 1: " + str(offsprings[0].remaining_lifetime))
+                print("Offspring 2: " + str(offsprings[1].remaining_lifetime))
+                print("#----------------------------------------------------------------#")
+
                             
                 # Adding offsprings to the new population
                 new_population.append(offsprings[0])
                 new_population.append(offsprings[1])
 
+
+    # Reset population and iterations
+    population, current_number_generation, current_best_fitness, old_best_fitness, generations_without_fitness_improvement = update_genetic_algorithm_attributes(population, new_population, 
+                                                                                                                                            current_number_generation, old_best_fitness, 
+                                                                                                                                            generations_without_fitness_improvement, configurations)
+    
     # ------------ POPULATION CONTROL METHOD ------------
+
     if eval(configurations.population_control.value):
         print("Old population size: " + str(len(population)))
         print("New population size: " + str(len(new_population)))
@@ -399,20 +400,20 @@ while current_number_generation <= int(configurations.max_number_generations.val
             iteration_number_population_control = 0
         else:
             iteration_number_population_control += 1
+
     # ------------ END POPULATION CONTROL METHOD ------------
-
-    # Reset population and iterations
-    population, current_number_generation, old_best_fitness, generations_without_fitness_improvement = update_genetic_algorithm_attributes(population, new_population, 
-                                                                                                                                            current_number_generation, old_best_fitness, 
-                                                                                                                                            generations_without_fitness_improvement, configurations)
-    
+            
     # Print generation stats
-    generation_stats(current_number_generation - 1, current_best_fitness, population)
-    print("Population size values: " + str(population_size_values) + " - Generation number values: " + str(generation_number_values))
-
+    generation_stats(current_number_generation, old_best_fitness, current_best_fitness, population)
+    print("Population size values: " + str(population_size_values) + " - Generation number values: " + str(generation_number_values) + " - Generation fitness values: " + str(generation_fitness_values))
+            
 # ---- End genetic algorithm execution ----
     
+
+# ---- Genetic algorithm results ----
 util.population_size_graph(population_size_values, generation_number_values, configurations.generation_stats_path.value)
+util.fitness_values_graph(generation_fitness_values, generation_number_values, configurations.generation_stats_path.value)
+# ---- End genetic algorithm results ----
     
 # Obtain the best individual of the population
 best_solution = obtain_best_individual(population)
