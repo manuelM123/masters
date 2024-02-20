@@ -203,3 +203,34 @@ def self_adaptive_mutation_adjustment(offspring):
     random_value = np.random.normal(0, 1)
     print("Random value: " + str(random_value))
     return float((1 + ((1 - offspring.adaptive_mutation_rate) / offspring.adaptive_mutation_rate) * (math.exp((-0.22) * random_value))) ** (-1))
+
+
+'''
+Function to determine the average mutation rate of the population
+
+Parameters:
+----------
+population : list
+    The population to determine the average mutation rate
+
+mutation_type : str
+    The type of mutation applied
+
+Returns:
+-------
+average_mutation_rate : float
+    The average mutation rate of the population
+
+message : str
+    A message indicating the type of mutation rate used
+'''
+def average_mutation_rate(population, mutation_rates, mutation_type):
+    sum_mutation_rate = 0
+    if mutation_type == 'self-adaptive':
+        for individual in population:
+            sum_mutation_rate += individual.adaptive_mutation_rate
+        return sum_mutation_rate/len(population), "Average Individual Encoded Mutation Rate"
+    elif mutation_type == 'adaptive' or mutation_type == 'deterministic': 
+        return sum(mutation_rates)/len(population), "Average Mutation Rate"
+    
+    return 0, None

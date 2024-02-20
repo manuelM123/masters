@@ -265,3 +265,27 @@ def self_adaptive_crossover_decision(individual, metadata, current_iteration_num
         individual = mutation(individual, metadata, current_iteration_number, inputs, configurations, random.choice(['add_test_case', 'delete_test_case', 'change_parameters']))
         return individual, False
     
+'''
+Function to determine the average crossover rate of the population
+
+Parameters:
+----------
+population : list
+    The population to determine the average crossover rate
+
+crossover_type : str
+    The type of crossover applied
+
+Returns:
+-------
+average_crossover_rate : float
+    The average crossover rate of the population
+
+'''
+def average_crossover_rate(population, crossover_rates, crossover_type):
+    if crossover_type == 'deterministic':
+        return sum(crossover_rates)/len(population), "Average Crossover Rate - Deterministic Method"
+    elif crossover_type == 'adaptive':
+        return sum(crossover_rates)/len(population), "Average Crossover Rate - Adaptive Method"
+
+    return 0, None

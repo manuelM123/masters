@@ -168,11 +168,82 @@ def fitness_values_graph(generation_fitness_values, generation_number_values, pa
 
     plt.plot(generation_number_values, generation_fitness_values)
     plt.xlabel('Generation')
-    plt.ylabel('Best Fitness Value')
+    plt.ylabel('Fitness Value')
     plt.title('Best Fitness Value per Generation')
 
     plt.gca().xaxis.set_major_locator(ticker.MaxNLocator(integer=True))
     plt.gca().yaxis.set_major_locator(ticker.MaxNLocator(integer=True))
 
     plt.savefig(path + '/fitness_values_graph.png')
+
+'''
+Function to plot the crossover rate variation per generation
+
+Parameters:
+----------
+crossover_rate_values: list
+    The crossover rate values per generation
+
+generation_number_values: list
+    The generation number values
+
+title: str
+    The title of the graph
+
+path: str
+    The path to save the graph 
+'''
+def crossover_rate_values_graph(crossover_rate_values, generation_number_values, title, path):
+    if plt.get_fignums():
+            plt.close('all')
     
+    x = np.linspace(min(generation_number_values), max(generation_number_values), 500)
+    k = min(3, len(generation_number_values) - 1)
+    x_y_spline = make_interp_spline(generation_number_values, crossover_rate_values, k=k)
+    y = x_y_spline(x)
+
+    plt.plot(generation_number_values, crossover_rate_values)
+    plt.xlabel('Generation')
+    plt.ylabel('Crossover rate')
+    plt.title(title)
+
+    plt.gca().xaxis.set_major_locator(ticker.MaxNLocator(integer=True))
+    plt.gca().yaxis.set_major_locator(ticker.MaxNLocator(integer=True))
+
+    plt.savefig(path + '/crossover_rate_values_graph.png')
+
+'''
+Function to plot the mutation rate variation per generation
+
+Parameters:
+----------
+mutation_rate_values: list
+    The mutation rate values per generation
+
+generation_number_values: list
+    The generation number values
+
+title: str
+    The title of the graph
+
+path: str
+    The path to save the graph 
+'''
+def mutation_rate_values_graph(mutation_rate_values, generation_number_values, title, path):
+    if plt.get_fignums():
+            plt.close('all')
+    
+    x = np.linspace(min(generation_number_values), max(generation_number_values), 500)
+    k = min(3, len(generation_number_values) - 1)
+    x_y_spline = make_interp_spline(generation_number_values, mutation_rate_values, k=k)
+    y = x_y_spline(x)
+
+    plt.plot(generation_number_values, mutation_rate_values)
+    plt.xlabel('Generation')
+    plt.ylabel('Mutation rate')
+    plt.title(title)
+
+    plt.gca().xaxis.set_major_locator(ticker.MaxNLocator(integer=True))
+    plt.gca().yaxis.set_major_locator(ticker.MaxNLocator(integer=True))
+
+    plt.savefig(path + '/mutation_rate_values_graph.png')
