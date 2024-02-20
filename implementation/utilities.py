@@ -245,5 +245,5 @@ def mutation_rate_values_graph(mutation_rate_values, generation_number_values, t
 
     plt.gca().xaxis.set_major_locator(ticker.MaxNLocator(integer=True))
     plt.gca().yaxis.set_major_locator(ticker.MaxNLocator(integer=True))
-
+    
     plt.savefig(path + '/mutation_rate_values_graph.png')

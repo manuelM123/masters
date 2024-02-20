@@ -136,7 +136,6 @@ def update_genetic_algorithm_attributes(population, new_population, current_numb
 
     return population, current_number_generation, current_best_fitness, old_best_fitness, generations_without_fitness_improvement
 
-
 '''
 Function to print the generation stats
 
@@ -429,6 +428,11 @@ while current_number_generation < int(configurations.max_number_generations.valu
 # ---- End genetic algorithm execution ----
     
 # ---- Genetic algorithm results ----
+    
+# If the path does not exist, create it
+if not os.path.exists(configurations.generation_stats_path.value):
+    os.makedirs(configurations.generation_stats_path.value)
+
 util.population_size_graph(population_size_values, generation_number_values, configurations.generation_stats_path.value)
 util.fitness_values_graph(generation_fitness_values, generation_number_values, configurations.generation_stats_path.value)
 if average_crossover_rate_value != 0:   
