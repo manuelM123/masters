@@ -138,7 +138,6 @@ class calorie_intake_calc:
     def katch_mcardle_equation(self):
         return round(370 + (21.6 * ((1 - self.bodyfat) * self.weight)),2)
     
-
     '''
     A method used to calculate the Total Daily Energy Expenditure (TDEE) of a person which is the amount of energy expended per day
     This is used to calculate the calorie intake of a person needed to maintain their current weight. It evaluates the amount of exercise a person does and multiplies the BMR by a factor

@@ -102,11 +102,7 @@ def roulette_wheel_selection(population, population_fitness):
                 random_number = random.uniform(0, sum(selection_probabilities))
                 selection_probabilities_sum = 0
                 break 
-        
-        if len(parents_selection) > 1 and parents_selection[0] == parents_selection[1]:
-            print("Parents are the same")
-            print(str(parents_selection[0].test_suite) + " " + str(parents_selection[1].test_suite))
-            parents_selection.pop(1)
+            
     return parents_selection
 
 '''
@@ -133,13 +129,10 @@ def rank_selection(population):
     while len(parents_selected) < 2 :
         individuals_selection = random.choices(sorted_population_fitness, k=2)
         print("Individuals selection: " +  str(individuals_selection[0].rank) + "|" + str(individuals_selection[1].rank))
-        if individuals_selection[0] != individuals_selection[1]:
-            if individuals_selection[0].rank > individuals_selection[1].rank:
-                parents_selected.append(individuals_selection[0])
-            else:
-                parents_selected.append(individuals_selection[1])
-        if len(parents_selected) > 1 and parents_selected[0] == parents_selected[1]:
-            parents_selected.pop(1)
+        if individuals_selection[0].rank > individuals_selection[1].rank:
+            parents_selected.append(individuals_selection[0])
+        else:
+            parents_selected.append(individuals_selection[1])
         
     return parents_selected
 '''
@@ -163,14 +156,15 @@ parents_selected : list
 def tournament_selection(population, tournament_size):
     parents_selected = []
     if tournament_size <= len(population):
+        print("Tournament selection")
         while len(parents_selected) != 2:
             selected_individuals = random.choices(population, k=tournament_size)
-            individuals_set = set(selected_individuals)
-            if len(selected_individuals) == len(individuals_set):
-                parents_selected.append(max(selected_individuals, key=lambda x:x.fitness))
+            sorted_selected_individuals = sorted(selected_individuals, key=lambda x:x.fitness)
             
-            if len(parents_selected) == 2 and len(parents_selected) != len(set(parents_selected)):
-                parents_selected.pop(1)
+            parents_selected.append(sorted_selected_individuals[0])
+            
+        print("Parents selected fitness: " + str(parents_selected[0].fitness) + "|" + str(parents_selected[1].fitness))
+
     return parents_selected
         
 '''

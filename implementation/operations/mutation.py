@@ -231,6 +231,6 @@ def average_mutation_rate(population, mutation_rates, mutation_type):
             sum_mutation_rate += individual.adaptive_mutation_rate
         return sum_mutation_rate/len(population), "Average Individual Encoded Mutation Rate"
     elif mutation_type == 'adaptive' or mutation_type == 'deterministic': 
-        return sum(mutation_rates)/len(population), "Average Mutation Rate"
+        return sum(mutation_rates)/len(mutation_rates), "Average Mutation Rate"
     
     return 0, None

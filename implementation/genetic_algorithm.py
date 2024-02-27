@@ -195,8 +195,6 @@ while current_number_generation < int(configurations.max_number_generations.valu
     
     new_population, first_parents_list, second_parents_list, population_fitness, crossover_rate_values, mutation_rate_values = initialize_generation(population)
 
-    print("Population size: " + str(len(population)))
-    print("New population size: " + str(len(new_population)))
     print("Generation number: " + str(current_number_generation))
     print("---------------------------------------------------------------")
 
@@ -228,6 +226,10 @@ while current_number_generation < int(configurations.max_number_generations.valu
             for i in parents_selected:
                 print("Parent: " + str(i.test_suite) + " - Fitness: " + str(i.fitness) + " - Remaining life time: " + str(i.remaining_lifetime) + " - Adaptive max selections: " + str(i.adaptive_max_selections))
             print("-------------------------------------------")
+
+            # Stop the genetic algorithm if there are no parents selected
+            if len(parents_selected) < 1:
+                break
 
         # ------------------------ End Selection Operations -------------------
 
@@ -286,6 +288,10 @@ while current_number_generation < int(configurations.max_number_generations.valu
                     else:
                         print("Crossover operation was not performed")
                         offsprings = parents_selected
+
+                # ------------ END DETERMINISTIC AND ADAPTIVE CROSSOVER METHOD ------------
+                        
+                # ------------ OTHER CROSSOVER METHODS ------------
                 else:
                     if float(configurations.crossover_rate.value) > random.random():
                         offsprings = crossover(parents_selected, metadata, current_number_generation, inputs, configurations, configurations.crossover_type.value, configurations.mutation_type.value)
@@ -294,7 +300,7 @@ while current_number_generation < int(configurations.max_number_generations.valu
                         print("Crossover operation was not performed")
                         offsprings = parents_selected 
 
-                # ------------ END DETERMINISTIC AND ADAPTIVE CROSSOVER METHOD ------------
+                # ------------ END OTHER CROSSOVER METHODS ------------
                     
                 # ------------------------ End Crossover Operations ------------------------       
 
@@ -391,12 +397,6 @@ while current_number_generation < int(configurations.max_number_generations.valu
                 new_population.append(offsprings[0])
                 new_population.append(offsprings[1])
 
-
-    # Reset population and iterations
-    population, current_number_generation, current_best_fitness, old_best_fitness, generations_without_fitness_improvement = update_genetic_algorithm_attributes(population, new_population, 
-                                                                                                                                            current_number_generation, old_best_fitness, 
-                                                                                                                                            generations_without_fitness_improvement, configurations)
-    
     # ------------ POPULATION CONTROL METHOD ------------
 
     if eval(configurations.population_control.value):
@@ -416,7 +416,12 @@ while current_number_generation < int(configurations.max_number_generations.valu
             iteration_number_population_control += 1
 
     # ------------ END POPULATION CONTROL METHOD ------------
-            
+
+    # Reset population and iterations
+    population, current_number_generation, current_best_fitness, old_best_fitness, generations_without_fitness_improvement = update_genetic_algorithm_attributes(population, new_population, 
+                                                                                                                                            current_number_generation, old_best_fitness, 
+                                                                                                                                            generations_without_fitness_improvement, configurations)
+    
     # Print generation stats
     average_crossover_rate_value, title_crossover_rate = average_crossover_rate(population, crossover_rate_values, configurations.crossover_type.value)
     average_mutation_rate_value, title_mutation_rate = average_mutation_rate(population, mutation_rate_values, configurations.mutation_type.value)
@@ -435,9 +440,9 @@ if not os.path.exists(configurations.generation_stats_path.value):
 
 util.population_size_graph(population_size_values, generation_number_values, configurations.generation_stats_path.value)
 util.fitness_values_graph(generation_fitness_values, generation_number_values, configurations.generation_stats_path.value)
-if average_crossover_rate_value != 0:   
+if configurations.crossover_type.value == 'deterministic' or configurations.crossover_type.value == 'adaptive': 
     util.crossover_rate_values_graph(crossover_rate_generations, generation_number_values, title_crossover_rate, configurations.generation_stats_path.value)
-if average_mutation_rate_value != 0:
+if configurations.mutation_type.value == 'deterministic' or configurations.mutation_type.value == 'adaptive' or configurations.mutation_type.value == 'self-adaptive':
     util.mutation_rate_values_graph(mutation_rate_generations, generation_number_values, title_mutation_rate, configurations.generation_stats_path.value)
 # ---- End genetic algorithm results ----
     

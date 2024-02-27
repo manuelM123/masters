@@ -1,3 +1,5 @@
+import os
+import shutil
 import subprocess
 import configparser
 
@@ -22,7 +24,7 @@ metadata = {
 # Configuration of the genetic algorithm
 genetic_algorithm_configurations = {
     'max_number_functions': 3,
-    'max_number_test_cases': 8,
+    'max_number_test_cases': 5,
     'tournament_size': 2,
     'max_number_generations': 5,
     'fitness_max_stagnation_period': 3,
@@ -100,43 +102,52 @@ def general_execution():
         # Population methods
         if execution_activities.index(activity) == 0:
             for method in activity:
-                change_configurations(None, [['population_control', method]], None, [['generation_stats', 'results/generation_stats_' + 'population_' + method]])
+                change_configurations(None, [['population_control', method]], None, [['generation_stats', 'results/generation_stats/' + 'population_' + method]])
                 genetic_algorithm_execution(path_configuration_file, genetic_algorithm_configurations, genetic_operators_configurations, genetic_algorithm_optimizations_configurations, file_paths)
                 subprocess.run(['python3', 'genetic_algorithm.py'])
 
         # Selection methods
-        elif execution_activities.index(activity) == 1:
-            for method in activity:
-                change_configurations(None, [['selection_type', method]], None, [['generation_stats', 'results/generation_stats_' + 'selection_' + method]])
-                genetic_algorithm_execution(path_configuration_file, genetic_algorithm_configurations, genetic_operators_configurations, genetic_algorithm_optimizations_configurations, file_paths)
-                subprocess.run(['python3', 'genetic_algorithm.py'])
-
-        # Crossover methods
-        elif execution_activities.index(activity) == 2:
-            for method in activity: 
-                if method == 'deterministic':
-                    for deterministic_type in deterministic_crossover_adjustment_types:
-                        change_configurations(None, [['crossover_type', method], ['crossover_rate_adjustment_type', deterministic_type]], None, [['generation_stats', 'results/generation_stats_' + 'crossover_' + method + "_" + deterministic_type]])
-                        genetic_algorithm_execution(path_configuration_file, genetic_algorithm_configurations, genetic_operators_configurations, genetic_algorithm_optimizations_configurations, file_paths)
-                        subprocess.run(['python3', 'genetic_algorithm.py'])
-                else:
-                    change_configurations(None, [['crossover_type', method]], None, [['generation_stats', 'results/generation_stats_' + 'crossover_' + method]])
-                    genetic_algorithm_execution(path_configuration_file, genetic_algorithm_configurations, genetic_operators_configurations, genetic_algorithm_optimizations_configurations, file_paths)
-                    subprocess.run(['python3', 'genetic_algorithm.py'])
-
-        # Mutation methods
-        elif execution_activities.index(activity) == 3:
-            for method in activity:
-                if method == 'deterministic':
-                    for deterministic_type in deterministic_mutation_adjustment_types:
-                        change_configurations(None, [['mutation_type', method], ['mutation_rate_adjustment_type', deterministic_type]], None, [['generation_stats', 'results/generation_stats_' + 'mutation_' + method + "_" + deterministic_type]])
-                        genetic_algorithm_execution(path_configuration_file, genetic_algorithm_configurations, genetic_operators_configurations, genetic_algorithm_optimizations_configurations, file_paths)
-                        subprocess.run(['python3', 'genetic_algorithm.py'])
-                else:
-                    change_configurations(None, [['mutation_type', method]], None, [['generation_stats', 'results/generation_stats_' + 'mutation_' + method]])
-                    genetic_algorithm_execution(path_configuration_file, genetic_algorithm_configurations, genetic_operators_configurations, genetic_algorithm_optimizations_configurations, file_paths)
-                    subprocess.run(['python3', 'genetic_algorithm.py'])
+        #elif execution_activities.index(activity) == 1:
+        #    for method in activity:
+        #        change_configurations(None, [['selection_type', method]], None, [['generation_stats', 'results/generation_stats/' + 'selection_' + method]])
+        #        genetic_algorithm_execution(path_configuration_file, genetic_algorithm_configurations, genetic_operators_configurations, genetic_algorithm_optimizations_configurations, file_paths)
+        #        subprocess.run(['python3', 'genetic_algorithm.py'])
+#
+        ## Crossover methods
+        #elif execution_activities.index(activity) == 2:
+        #    for method in activity: 
+        #        if method == 'deterministic':
+        #            for deterministic_type in deterministic_crossover_adjustment_types:
+        #                change_configurations(None, [['crossover_type', method], ['crossover_rate_adjustment_type', deterministic_type]], None, [['generation_stats', 'results/generation_stats/' + 'crossover_' + method + "_" + deterministic_type]])
+        #                genetic_algorithm_execution(path_configuration_file, genetic_algorithm_configurations, genetic_operators_configurations, genetic_algorithm_optimizations_configurations, file_paths)
+        #                subprocess.run(['python3', 'genetic_algorithm.py'])
+        #        else:
+        #            change_configurations(None, [['crossover_type', method]], None, [['generation_stats', 'results/generation_stats/' + 'crossover_' + method]])
+        #            genetic_algorithm_execution(path_configuration_file, genetic_algorithm_configurations, genetic_operators_configurations, genetic_algorithm_optimizations_configurations, file_paths)
+        #            subprocess.run(['python3', 'genetic_algorithm.py'])
+#
+        ## Mutation methods
+        #elif execution_activities.index(activity) == 3:
+        #    for method in activity:
+        #        if method == 'deterministic':
+        #            for deterministic_type in deterministic_mutation_adjustment_types:
+        #                change_configurations(None, [['mutation_type', method], ['mutation_rate_adjustment_type', deterministic_type]], None, [['generation_stats', 'results/generation_stats/' + 'mutation_' + method + "_" + deterministic_type]])
+        #                genetic_algorithm_execution(path_configuration_file, genetic_algorithm_configurations, genetic_operators_configurations, genetic_algorithm_optimizations_configurations, file_paths)
+        #                subprocess.run(['python3', 'genetic_algorithm.py'])
+        #        else:
+        #            change_configurations(None, [['mutation_type', method]], None, [['generation_stats', 'results/generation_stats/' + 'mutation_' + method]])
+        #            genetic_algorithm_execution(path_configuration_file, genetic_algorithm_configurations, genetic_operators_configurations, genetic_algorithm_optimizations_configurations, file_paths)
+        #            subprocess.run(['python3', 'genetic_algorithm.py'])
        
+# Verify if folder exists
+if not os.path.exists('results/generation_stats'):
+    os.makedirs('results/generation_stats')  # Create the directory if it doesn't exist
+else:
+    try:
+        shutil.rmtree('results/generation_stats')
+        os.makedirs('results/generation_stats')
+    except OSError as e:
+        print("Error: %s : %s" % ('results/generation_stats', e.strerror))
 
 # Execute the genetic algorithm              
 general_execution()

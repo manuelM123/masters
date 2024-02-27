@@ -284,8 +284,8 @@ average_crossover_rate : float
 '''
 def average_crossover_rate(population, crossover_rates, crossover_type):
     if crossover_type == 'deterministic':
-        return sum(crossover_rates)/len(population), "Average Crossover Rate - Deterministic Method"
+        return sum(crossover_rates)/len(crossover_rates), "Average Crossover Rate - Deterministic Method"
     elif crossover_type == 'adaptive':
-        return sum(crossover_rates)/len(population), "Average Crossover Rate - Adaptive Method"
-
+        return sum(crossover_rates)/len(crossover_rates), "Average Crossover Rate - Adaptive Method"
+    
     return 0, None

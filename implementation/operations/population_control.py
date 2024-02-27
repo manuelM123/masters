@@ -124,8 +124,10 @@ population : list
 
 '''
 def rlt_adjustment(population, best_individual_fitness):
+    print("Best individual fitness: " + str(best_individual_fitness))
     for individual in population:
         if individual.fitness != best_individual_fitness:
+            print("Selected individual for fitness adjustment: " + str(individual.test_suite) + " - Fitness: " + str(individual.fitness) + " - Remaining lifetime: " + str(individual.remaining_lifetime))
             individual.remaining_lifetime = individual.remaining_lifetime - 1
 
         if individual.remaining_lifetime <= 0:
@@ -264,6 +266,7 @@ population : list
     The population with the new chromossomes added and the individuals with remaining lifetime adjusted and the individuals with remaining lifetime equal to 0 removed
 '''
 def grow_population(population, current_best_fitness, old_best_fitness, initial_best_fitness, current_number_generation, best_individual_fitness, configurations, metadata):
+    print("Growth population")
     growth_size = calculate_growth_size(current_best_fitness, old_best_fitness, initial_best_fitness, current_number_generation, int(configurations.max_number_generations.value))
     if growth_size != 0:
         new_individuals = create_population(metadata, growth_size, configurations)
@@ -305,6 +308,7 @@ population : list
     The population with the individuals with remaining lifetime adjusted and the individuals with remaining lifetime equal to 0 removed
 '''
 def shrink_population(population, best_individual_fitness, configurations):
+    print("Shrink population")
     individuals_least_rlt = sorted(population, key=lambda x:x.remaining_lifetime)
 
     print("Old population size shrink: " + str(len(population)))
