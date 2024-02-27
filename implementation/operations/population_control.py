@@ -125,11 +125,6 @@ population : list
 '''
 def rlt_adjustment(population, best_individual_fitness):
     print("Best individual fitness: " + str(best_individual_fitness))
-<<<<<<< Updated upstream
-    for individual in population:
-        if individual.fitness != best_individual_fitness:
-            print("Selected individual for fitness adjustment: " + str(individual.test_suite) + " - Fitness: " + str(individual.fitness) + " - Remaining lifetime: " + str(individual.remaining_lifetime))
-=======
     print("Population before adjustment: ")
     for individual in population:
         print("Individual: " + str(individual.test_suite) + " - Fitness: " + str(individual.fitness) + " - Remaining lifetime: " + str(individual.remaining_lifetime))
@@ -137,7 +132,6 @@ def rlt_adjustment(population, best_individual_fitness):
     print("------------------------------------")
     for individual in population:
         if individual.fitness < best_individual_fitness:
->>>>>>> Stashed changes
             individual.remaining_lifetime = individual.remaining_lifetime - 1
     
     population = [individual for individual in population if individual.remaining_lifetime > 0]
