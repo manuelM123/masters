@@ -120,7 +120,7 @@ generations_without_fitness_improvement : int
 '''
 def update_genetic_algorithm_attributes(population, new_population, current_number_generation, old_best_fitness, generations_without_fitness_improvement, configurations):
     # If the new population is not empty, the population is updated
-    if len(new_population) > 1:
+    if len(new_population) > 0:
         population = new_population
     population_fitness = obtain_fitness_values(population)
     current_best_fitness = obtain_best_fitness(population_fitness)
@@ -427,7 +427,7 @@ while current_number_generation < int(configurations.max_number_generations.valu
     average_mutation_rate_value, title_mutation_rate = average_mutation_rate(population, mutation_rate_values, configurations.mutation_type.value)
     generation_stats(current_number_generation, old_best_fitness, current_best_fitness, population, average_crossover_rate_value, average_mutation_rate_value)
     print("Population size values: " + str(population_size_values) + " - Generation number values: " + str(generation_number_values) + " - Generation fitness values: " + str(generation_fitness_values) 
-          + " - Crossover rate values: " + str(crossover_rate_generations) + " - Mutation rate values: " + str(mutation_rate_generations))
+          + " - Crossover rate values: " + str(crossover_rate_generations) + " - Mutation rate values: " + str(mutation_rate_generations) + " - Iteration number population control: " + str(iteration_number_population_control))
     print("------------------------------------------------------------------")
             
 # ---- End genetic algorithm execution ----

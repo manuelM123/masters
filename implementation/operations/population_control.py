@@ -125,24 +125,26 @@ population : list
 '''
 def rlt_adjustment(population, best_individual_fitness):
     print("Best individual fitness: " + str(best_individual_fitness))
+<<<<<<< Updated upstream
     for individual in population:
         if individual.fitness != best_individual_fitness:
             print("Selected individual for fitness adjustment: " + str(individual.test_suite) + " - Fitness: " + str(individual.fitness) + " - Remaining lifetime: " + str(individual.remaining_lifetime))
+=======
+    print("Population before adjustment: ")
+    for individual in population:
+        print("Individual: " + str(individual.test_suite) + " - Fitness: " + str(individual.fitness) + " - Remaining lifetime: " + str(individual.remaining_lifetime))
+
+    print("------------------------------------")
+    for individual in population:
+        if individual.fitness < best_individual_fitness:
+>>>>>>> Stashed changes
             individual.remaining_lifetime = individual.remaining_lifetime - 1
+    
+    population = [individual for individual in population if individual.remaining_lifetime > 0]
 
-        if individual.remaining_lifetime <= 0:
-            print("Selected individual: " + str(individual.test_suite) + " - Fitness: " + str(individual.fitness) + " - Remaining lifetime: " + str(individual.remaining_lifetime))
-            print("--------- Before removal ---------")
-            for i in population:
-                print("Individual: " + str(i.test_suite)) 
-
-            population.pop(population.index(individual))
-            print("---------------------------------------------")
-
-            print("--------- After removal ---------")
-            for i in population:
-                print("Individual: " + str(i.test_suite)) 
-            print("---------------------------------------------")
+    print("Population after adjustment: ")
+    for individual in population:
+        print("Individual: " + str(individual.test_suite) + " - Fitness: " + str(individual.fitness) + " - Remaining lifetime: " + str(individual.remaining_lifetime))
 
     return population
 
@@ -173,6 +175,7 @@ growth_size : int
 '''
 def calculate_growth_size(current_best_fitness, old_best_fitness, initial_best_fitness, current_number_generation, max_generations):
     value = random.uniform(0,1)
+    print("Value growth size: " + str(value))
     return int(value * (max_generations - current_number_generation) * ((current_best_fitness - old_best_fitness) / initial_best_fitness))
 
 ''' 
@@ -217,10 +220,12 @@ Notes: old_best_fitness must be replaced by the current_best_fitness if the curr
 '''
 def population_resizing(population, current_best_fitness, old_best_fitness, initial_best_fitness, current_number_generation, number_iterations, metadata, configurations):
     if current_best_fitness > old_best_fitness:
+        print("Best fitness improved")
         best_individual_fitness = current_best_fitness
         population = grow_population(population, current_best_fitness, old_best_fitness, initial_best_fitness, current_number_generation, best_individual_fitness, configurations, metadata)
         number_iterations = 0
     elif number_iterations >= int(configurations.fitness_iteration_limit.value):
+        print("Fitness iteration limit reached")
         best_individual_fitness = old_best_fitness
         population = grow_population(population, current_best_fitness, old_best_fitness, initial_best_fitness, current_number_generation, best_individual_fitness, configurations, metadata)
         number_iterations = 0
@@ -312,21 +317,15 @@ def shrink_population(population, best_individual_fitness, configurations):
     individuals_least_rlt = sorted(population, key=lambda x:x.remaining_lifetime)
 
     print("Old population size shrink: " + str(len(population)))
-    for i in individuals_least_rlt:
-        print("Individual fitness: " + str(i.fitness) + " - Individual test suite:" + str(i.test_suite) + " - Remaining lifetime: " + str(i.remaining_lifetime))
-    print("-----------------------------")
 
     for individual in range(int(len(individuals_least_rlt) * float(configurations.population_decrease_rate.value))):
-        print("Position of the selected individual: " + str(individual))
-        population.pop(population.index(individuals_least_rlt[individual]))
+        print("Selected individual to remove: " + str(individual))
+        population.remove(individuals_least_rlt[individual])
     print("-----------------------------")
 
     population = rlt_adjustment(population, best_individual_fitness)
 
     print("New population size shrink: " + str(len(population)))
-    for i in population:
-        print("Individual : " + str(i.test_suite))
-    print("-----------------------------")
 
     return population
 
