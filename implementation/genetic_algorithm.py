@@ -50,7 +50,7 @@ class configurations(Enum):
     intermediate_test_suite_path = util.obtain_configuration("config.ini", "file_paths", "intermediate_test_suite")
     generation_stats_path = util.obtain_configuration("config.ini", "file_paths", "generation_stats")
     best_generated_test_suite = util.obtain_configuration("config.ini", "file_paths", "best_generated_test_suite")
-
+    generation_data_path = util.obtain_configuration("config.ini", "file_paths", "generation_data")
 
 # ------------ Genetic algorithm auxiliary functions ------------
     
@@ -185,6 +185,8 @@ crossover_rate_values = []
 mutation_rate_values = []
 crossover_rate_generations = []
 mutation_rate_generations = []
+title_crossover_rate = None
+title_mutation_rate = None
 # ----------------------------------------------
 
 # Genetic algorithm population remaining life time (RLT) calculation for individuals
@@ -423,8 +425,8 @@ while current_number_generation < int(configurations.max_number_generations.valu
                                                                                                                                             generations_without_fitness_improvement, configurations)
     
     # Print generation stats
-    average_crossover_rate_value, title_crossover_rate = average_crossover_rate(population, crossover_rate_values, configurations.crossover_type.value)
-    average_mutation_rate_value, title_mutation_rate = average_mutation_rate(population, mutation_rate_values, configurations.mutation_type.value)
+    average_crossover_rate_value, title_crossover_rate = average_crossover_rate(crossover_rate_values, configurations.crossover_type.value, title_crossover_rate)
+    average_mutation_rate_value, title_mutation_rate = average_mutation_rate(population, mutation_rate_values, configurations.mutation_type.value, title_mutation_rate)
     generation_stats(current_number_generation, old_best_fitness, current_best_fitness, population, average_crossover_rate_value, average_mutation_rate_value)
     print("Population size values: " + str(population_size_values) + " - Generation number values: " + str(generation_number_values) + " - Generation fitness values: " + str(generation_fitness_values) 
           + " - Crossover rate values: " + str(crossover_rate_generations) + " - Mutation rate values: " + str(mutation_rate_generations) + " - Iteration number population control: " + str(iteration_number_population_control))
@@ -446,6 +448,16 @@ if configurations.mutation_type.value == 'deterministic' or configurations.mutat
     util.mutation_rate_values_graph(mutation_rate_generations, generation_number_values, title_mutation_rate, configurations.generation_stats_path.value)
 # ---- End genetic algorithm results ----
     
+# ---- Genetic algorithm data writing ----
+
+# If the path does not exist, create it
+if not os.path.exists(configurations.generation_data_path.value):
+    os.makedirs(configurations.generation_data_path.value)   
+
+util.write_generation_stats_file([generation_number_values, population_size_values, generation_fitness_values, crossover_rate_generations, mutation_rate_generations], configurations.generation_data_path.value)
+    
+# ---- End genetic algorithm data writing ----
+
 # Obtain the best individual of the population and write it to a file
 best_solution = obtain_best_individual(population)
 print("Best solution: " + str(best_solution.test_suite) + " - Fitness: " + str(best_solution.fitness))

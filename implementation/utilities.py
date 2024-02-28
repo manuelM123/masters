@@ -247,3 +247,17 @@ def mutation_rate_values_graph(mutation_rate_values, generation_number_values, t
     plt.gca().yaxis.set_major_locator(ticker.MaxNLocator(integer=True))
     
     plt.savefig(path + '/mutation_rate_values_graph.png')
+
+
+# generation_stats = [generation_number_values, population_size_values, generation_fitness_values, crossover_rate_generations, mutation_rate_generations]
+def write_generation_stats_file(generation_stats, path):
+    print("Started writing list data into a json file")
+
+    generation_stats_name = ['generation_number_values', 'population_size_values', 'generation_fitness_values', 'crossover_rate_values', 'mutation_rate_values']
+
+    for stat in range(len(generation_stats_name)):
+        generation_data_path_stat = path + '/' + generation_stats_name[stat]
+
+        with open(generation_data_path_stat + ".json", "w") as fp:
+            json.dump(generation_stats[stat], fp)
+            print("Done writing JSON data into .json file")

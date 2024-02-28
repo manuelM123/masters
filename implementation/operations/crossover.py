@@ -270,11 +270,14 @@ Function to determine the average crossover rate of the population
 
 Parameters:
 ----------
-population : list
-    The population to determine the average crossover rate
+crossover_rates : list
+    The crossover rates of the population
 
 crossover_type : str
     The type of crossover applied
+
+title_crossover_rate : str
+    The title of the crossover rate
 
 Returns:
 -------
@@ -282,10 +285,12 @@ average_crossover_rate : float
     The average crossover rate of the population
 
 '''
-def average_crossover_rate(population, crossover_rates, crossover_type):
-    if crossover_type == 'deterministic':
-        return sum(crossover_rates)/len(crossover_rates), "Average Crossover Rate - Deterministic Method"
-    elif crossover_type == 'adaptive':
-        return sum(crossover_rates)/len(crossover_rates), "Average Crossover Rate - Adaptive Method"
+def average_crossover_rate(crossover_rates, crossover_type, title_crossover_rate):
+    if crossover_type == 'deterministic' and len(crossover_rates) > 0:
+        title_crossover_rate = "Average Crossover Rate - Deterministic Method"
+        return sum(crossover_rates)/len(crossover_rates), title_crossover_rate
+    elif crossover_type == 'adaptive' and len(crossover_rates) > 0:
+        title_crossover_rate = "Average Crossover Rate - Adaptive Method"
+        return sum(crossover_rates)/len(crossover_rates), title_crossover_rate
     
-    return 0, None
+    return 0, title_crossover_rate

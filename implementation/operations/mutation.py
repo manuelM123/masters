@@ -213,8 +213,14 @@ Parameters:
 population : list
     The population to determine the average mutation rate
 
+mutation_rates : list 
+    The mutation rates of the population        
+
 mutation_type : str
     The type of mutation applied
+
+title_mutation_rate : str
+    The title of the mutation rate
 
 Returns:
 -------
@@ -224,13 +230,17 @@ average_mutation_rate : float
 message : str
     A message indicating the type of mutation rate used
 '''
-def average_mutation_rate(population, mutation_rates, mutation_type):
+def average_mutation_rate(population, mutation_rates, mutation_type, title_mutation_rate):
     sum_mutation_rate = 0
-    if mutation_type == 'self-adaptive':
+    if mutation_type == 'self-adaptive' and len(population) > 0:
         for individual in population:
             sum_mutation_rate += individual.adaptive_mutation_rate
-        return sum_mutation_rate/len(population), "Average Individual Encoded Mutation Rate"
-    elif mutation_type == 'adaptive' or mutation_type == 'deterministic': 
-        return sum(mutation_rates)/len(mutation_rates), "Average Mutation Rate"
+
+        title_mutation_rate = "Average Individual Encoded Mutation Rate"
+        return sum_mutation_rate/len(population), title_mutation_rate
     
-    return 0, None
+    elif (mutation_type == 'adaptive' or mutation_type == 'deterministic') and len(mutation_rates) > 0: 
+        title_mutation_rate = "Average Population Mutation Rate"
+        return sum(mutation_rates)/len(mutation_rates), title_mutation_rate
+    
+    return 0, title_mutation_rate
