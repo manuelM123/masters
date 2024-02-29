@@ -440,12 +440,12 @@ while current_number_generation < int(configurations.max_number_generations.valu
 if not os.path.exists(configurations.generation_stats_path.value):
     os.makedirs(configurations.generation_stats_path.value)
 
-util.population_size_graph(population_size_values, generation_number_values, configurations.generation_stats_path.value)
-util.fitness_values_graph(generation_fitness_values, generation_number_values, configurations.generation_stats_path.value)
+util.population_size_graph(population_size_values, generation_number_values, configurations.generation_stats_path.value, None)
+util.fitness_values_graph(generation_fitness_values, generation_number_values, configurations.generation_stats_path.value, None)
 if configurations.crossover_type.value == 'deterministic' or configurations.crossover_type.value == 'adaptive': 
-    util.crossover_rate_values_graph(crossover_rate_generations, generation_number_values, title_crossover_rate, configurations.generation_stats_path.value)
+    util.crossover_rate_values_graph(crossover_rate_generations, generation_number_values, title_crossover_rate, configurations.generation_stats_path.value, None)
 if configurations.mutation_type.value == 'deterministic' or configurations.mutation_type.value == 'adaptive' or configurations.mutation_type.value == 'self-adaptive':
-    util.mutation_rate_values_graph(mutation_rate_generations, generation_number_values, title_mutation_rate, configurations.generation_stats_path.value)
+    util.mutation_rate_values_graph(mutation_rate_generations, generation_number_values, title_mutation_rate, configurations.generation_stats_path.value, None)
 # ---- End genetic algorithm results ----
     
 # ---- Genetic algorithm data writing ----

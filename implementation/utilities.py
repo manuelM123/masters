@@ -108,7 +108,6 @@ def obtain_configuration(file, type, configuration_name):
     else:
         raise FileNotFoundError('File does not exist')
     
-
 '''
 Function to plot the population size variation per generation
 
@@ -123,25 +122,24 @@ generation_number_values: list
 path: str
     The path to save the graph
 '''
-def population_size_graph(population_size_values, generation_number_values, path):
+def population_size_graph(population_size_values, generation_number_values, path, benchmarks):
     if plt.get_fignums():
             plt.close('all')
 
-    x = np.linspace(min(generation_number_values), max(generation_number_values), 500)
-    k = min(3, len(generation_number_values) - 1)
-    x_y_spline = make_interp_spline(generation_number_values, population_size_values, k=k)
-    y = x_y_spline(x)
-
-    plt.plot(generation_number_values, population_size_values)
-    plt.xlabel('Generation')
-    plt.ylabel('Population Size')
-    plt.title('Population Size per Generation')
-
-    plt.gca().xaxis.set_major_locator(ticker.MaxNLocator(integer=True))
-    plt.gca().yaxis.set_major_locator(ticker.MaxNLocator(integer=True))
+    if benchmarks == None:
+        plt.plot(generation_number_values, population_size_values)
+    else:
+        fig, ax = plt.subplots()
+        for benchmark in range(len(benchmarks)):
+            benchmark_label = benchmarks[benchmark].split('_')[0].capitalize() + ' ' + benchmarks[benchmark].split('_')[1]
+            ax.plot(generation_number_values[benchmark], population_size_values[benchmark], label=benchmark_label)
+        
+        ax.set_xlabel('Generation')
+        ax.set_ylabel('Population Size')
+        ax.set_title('Population Size per Generation')
+        ax.legend()
 
     plt.savefig(path + '/population_size_graph.png')
-
 
 '''
 Function to plot the best fitness value variation per generation
@@ -157,24 +155,25 @@ generation_number_values: list
 path: str
     The path to save the graph
 '''
-def fitness_values_graph(generation_fitness_values, generation_number_values, path):
+def fitness_values_graph(generation_fitness_values, generation_number_values, path, benchmarks):
     if plt.get_fignums():
             plt.close('all')
-    
-    x = np.linspace(min(generation_number_values), max(generation_number_values), 500)
-    k = min(3, len(generation_number_values) - 1)
-    x_y_spline = make_interp_spline(generation_number_values, generation_fitness_values, k=k)
-    y = x_y_spline(x)
+        
+    if benchmarks == None:
+        plt.plot(generation_number_values, generation_fitness_values)
+    else:
+        fig, ax = plt.subplots()
+        for benchmark in range(len(benchmarks)):
+            benchmark_label = benchmarks[benchmark].split('_')[0].capitalize() + ' ' + benchmarks[benchmark].split('_')[1]
+            ax.plot(generation_number_values[benchmark], generation_fitness_values[benchmark], label=benchmark_label)
 
-    plt.plot(generation_number_values, generation_fitness_values)
-    plt.xlabel('Generation')
-    plt.ylabel('Fitness Value')
-    plt.title('Best Fitness Value per Generation')
-
-    plt.gca().xaxis.set_major_locator(ticker.MaxNLocator(integer=True))
-    plt.gca().yaxis.set_major_locator(ticker.MaxNLocator(integer=True))
+        ax.set_xlabel('Generation')
+        ax.set_ylabel('Fitness Value')
+        ax.set_title('Best Fitness Value per Generation')
+        ax.legend()
 
     plt.savefig(path + '/fitness_values_graph.png')
+
 
 '''
 Function to plot the crossover rate variation per generation
@@ -193,7 +192,7 @@ title: str
 path: str
     The path to save the graph 
 '''
-def crossover_rate_values_graph(crossover_rate_values, generation_number_values, title, path):
+def crossover_rate_values_graph(crossover_rate_values, generation_number_values, title, path, benchmarks):
     if plt.get_fignums():
             plt.close('all')
     
@@ -229,7 +228,7 @@ title: str
 path: str
     The path to save the graph 
 '''
-def mutation_rate_values_graph(mutation_rate_values, generation_number_values, title, path):
+def mutation_rate_values_graph(mutation_rate_values, generation_number_values, title, path, benchmarks):
     if plt.get_fignums():
             plt.close('all')
     
@@ -248,8 +247,18 @@ def mutation_rate_values_graph(mutation_rate_values, generation_number_values, t
     
     plt.savefig(path + '/mutation_rate_values_graph.png')
 
-
 # generation_stats = [generation_number_values, population_size_values, generation_fitness_values, crossover_rate_generations, mutation_rate_generations]
+'''
+Function to write the generation stats into a json file
+
+Parameters:
+----------
+generation_stats: list
+    The generation stats to write into a json file
+
+path: str
+    The path to save the json file
+'''
 def write_generation_stats_file(generation_stats, path):
     print("Started writing list data into a json file")
 
@@ -261,3 +270,24 @@ def write_generation_stats_file(generation_stats, path):
         with open(generation_data_path_stat + ".json", "w") as fp:
             json.dump(generation_stats[stat], fp)
             print("Done writing JSON data into .json file")
+
+def read_generation_stats_file(generation_methods):
+    print("Started reading list data from a json file")
+    
+    generation_stats_name = ['generation_number_values', 'population_size_values', 'generation_fitness_values', 'crossover_rate_values', 'mutation_rate_values']
+    generations_data = []
+    
+    for generation_method in range(len(generation_methods)):
+        generation_data_read = []
+        path = 'results/generation_data/' + generation_methods[generation_method]
+        for stat in range(len(generation_stats_name)):
+            # Verify if file exists
+            if os.path.exists(path + '/' + generation_stats_name[stat] + '.json'):
+                generation_read_path = path + '/' + generation_stats_name[stat]
+                with open(generation_read_path + '.json', 'rb') as fp:
+                    data = json.load(fp)
+                    generation_data_read.append([generation_stats_name[stat], data])
+        
+        generations_data.append(generation_data_read)
+
+    return generations_data
