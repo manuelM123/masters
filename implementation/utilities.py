@@ -128,6 +128,9 @@ def population_size_graph(population_size_values, generation_number_values, path
 
     if benchmarks == None:
         plt.plot(generation_number_values, population_size_values)
+        plt.xlabel('Generation')
+        plt.ylabel('Population Size')
+        plt.title('Population Size per Generation')
     else:
         fig, ax = plt.subplots()
         for benchmark in range(len(benchmarks)):
@@ -161,6 +164,9 @@ def fitness_values_graph(generation_fitness_values, generation_number_values, pa
         
     if benchmarks == None:
         plt.plot(generation_number_values, generation_fitness_values)
+        plt.xlabel('Generation')
+        plt.ylabel('Fitness Value')
+        plt.title('Best Fitness Value per Generation')
     else:
         fig, ax = plt.subplots()
         for benchmark in range(len(benchmarks)):
@@ -196,18 +202,26 @@ def crossover_rate_values_graph(crossover_rate_values, generation_number_values,
     if plt.get_fignums():
             plt.close('all')
     
-    x = np.linspace(min(generation_number_values), max(generation_number_values), 500)
-    k = min(3, len(generation_number_values) - 1)
-    x_y_spline = make_interp_spline(generation_number_values, crossover_rate_values, k=k)
-    y = x_y_spline(x)
+    if benchmarks == None:
+        plt.plot(generation_number_values, crossover_rate_values)
+        plt.xlabel('Generation')
+        plt.ylabel('Crossover rate')
+        plt.title(title)
 
-    plt.plot(generation_number_values, crossover_rate_values)
-    plt.xlabel('Generation')
-    plt.ylabel('Crossover rate')
-    plt.title(title)
+    else:
+        fig, ax = plt.subplots()
+        for benchmark in range(len(benchmarks)):
+            if 'deterministic' in benchmarks[benchmark]:
+                benchmark_label = benchmarks[benchmark].split('_')[0].capitalize() + ' ' + benchmarks[benchmark].split('_')[1] + ' ' + benchmarks[benchmark].split('_')[2]
+            else:
+                benchmark_label = benchmarks[benchmark].split('_')[0].capitalize() + ' ' + benchmarks[benchmark].split('_')[1]
 
-    plt.gca().xaxis.set_major_locator(ticker.MaxNLocator(integer=True))
-    plt.gca().yaxis.set_major_locator(ticker.MaxNLocator(integer=True))
+            ax.plot(generation_number_values[benchmark], crossover_rate_values[benchmark], label=benchmark_label)
+
+        ax.set_xlabel('Generation')
+        ax.set_ylabel('Crossover rate')
+        ax.set_title(title)
+        ax.legend()
 
     plt.savefig(path + '/crossover_rate_values_graph.png')
 
@@ -232,18 +246,25 @@ def mutation_rate_values_graph(mutation_rate_values, generation_number_values, t
     if plt.get_fignums():
             plt.close('all')
     
-    x = np.linspace(min(generation_number_values), max(generation_number_values), 500)
-    k = min(3, len(generation_number_values) - 1)
-    x_y_spline = make_interp_spline(generation_number_values, mutation_rate_values, k=k)
-    y = x_y_spline(x)
+    if benchmarks == None:
+        plt.plot(generation_number_values, mutation_rate_values)
+        plt.xlabel('Generation')
+        plt.ylabel('Mutation rate')
+        plt.title(title)
+    else:
+        fig, ax = plt.subplots()
+        for benchmark in range(len(benchmarks)):
+            if 'deterministic' or 'test_case' or 'parameters' in benchmarks[benchmark]:
+                benchmark_label = benchmarks[benchmark].split('_')[0].capitalize() + ' ' + benchmarks[benchmark].split('_')[1] + ' ' + benchmarks[benchmark].split('_')[2]
+            else:
+                benchmark_label = benchmarks[benchmark].split('_')[0].capitalize() + ' ' + benchmarks[benchmark].split('_')[1]
 
-    plt.plot(generation_number_values, mutation_rate_values)
-    plt.xlabel('Generation')
-    plt.ylabel('Mutation rate')
-    plt.title(title)
+            ax.plot(generation_number_values[benchmark], mutation_rate_values[benchmark], label=benchmark_label)
 
-    plt.gca().xaxis.set_major_locator(ticker.MaxNLocator(integer=True))
-    plt.gca().yaxis.set_major_locator(ticker.MaxNLocator(integer=True))
+        ax.set_xlabel('Generation')
+        ax.set_ylabel('Mutation rate')
+        ax.set_title(title)
+        ax.legend()
     
     plt.savefig(path + '/mutation_rate_values_graph.png')
 

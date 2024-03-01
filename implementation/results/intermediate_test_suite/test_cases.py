@@ -1,23 +1,23 @@
 from cut import *
 
 def test_case_0():
-	cut = calorie_intake_calc(40.01,166.62,14,'F',0.2,'M')
-	result_mifflin_stjeor_equation = cut.mifflin_stjeor_equation()
-	cut.height = 144.05
-	cut.amount_exercise = 'N'
+	cut = calorie_intake_calc(51.24,160.89,58,'N',0.05,'E')
+	cut.gender = 'F'
+	cut.height = 142.26
+	result_tdee_calculation = cut.tdee_calculation()
 
 def test_case_1():
-	cut = calorie_intake_calc(75.86,165.11,77,'F',0.24,'V')
-	cut.age = 11
-	cut.amount_exercise = 'M'
+	cut = calorie_intake_calc(154.56,174.04,39,'N',0.25,'L')
+	result_determine_calorie_intake = cut.determine_calorie_intake()
 
 def test_case_2():
-	cut = calorie_intake_calc(104.16,179.91,56,'M',0.23,'V')
-	cut.gender = 'M'
+	cut = calorie_intake_calc(69.02,141.77,74,'M',0.15,'E')
+	cut.amount_exercise = 'S'
+	cut.bodyfat = 0.25
+	cut.bodyfat = 0.14
 
 def test_case_3():
-	cut = calorie_intake_calc(180.3,180.95,62,'N',0.11,'M')
-
-def test_case_4():
-	cut = calorie_intake_calc(115.61,145.15,14,'N',0.15,'M')
+	cut = calorie_intake_calc(98.88,175.59,39,'N',0.26,'V')
+	result_tdee_calculation = cut.tdee_calculation()
+	cut.height = 194.84
 
