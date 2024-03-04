@@ -3,8 +3,6 @@ import json
 import configparser 
 import numpy as np
 import matplotlib.pyplot as plt
-from scipy.interpolate import make_interp_spline 
-import matplotlib.ticker as ticker
 
 '''
 Function to read metadata in a genotype format from a file
@@ -254,7 +252,9 @@ def mutation_rate_values_graph(mutation_rate_values, generation_number_values, t
     else:
         fig, ax = plt.subplots()
         for benchmark in range(len(benchmarks)):
-            if 'deterministic' or 'test_case' or 'parameters' in benchmarks[benchmark]:
+            if 'test' in benchmarks[benchmark]:
+                benchmark_label = benchmarks[benchmark].split('_')[0].capitalize() + ' ' + benchmarks[benchmark].split('_')[1] + ' ' + benchmarks[benchmark].split('_')[2] + ' ' + benchmarks[benchmark].split('_')[3]
+            elif 'deterministic' in benchmarks[benchmark] or 'change' in benchmarks[benchmark]:
                 benchmark_label = benchmarks[benchmark].split('_')[0].capitalize() + ' ' + benchmarks[benchmark].split('_')[1] + ' ' + benchmarks[benchmark].split('_')[2]
             else:
                 benchmark_label = benchmarks[benchmark].split('_')[0].capitalize() + ' ' + benchmarks[benchmark].split('_')[1]
