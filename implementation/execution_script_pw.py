@@ -289,29 +289,29 @@ def generate_benchmarks(benchmark_type, generations_methods, generations_data, p
 folder_setup()
 
 # Execute the population methods
-#population_methods = population_execution()
-#population_generations_data = util.read_generation_stats_file(population_methods)
-#print("Population Generations Data")
-#print(population_generations_data)
-#print("------------------------------------------")
-#generate_benchmarks('population', population_methods, population_generations_data, 'results/benchmarks/')
+population_methods = population_execution()
+population_generations_data = util.read_generation_stats_file(population_methods)
+print("Population Generations Data")
+print(population_generations_data)
+print("------------------------------------------")
+generate_benchmarks('population', population_methods, population_generations_data, 'results/benchmarks/')
 
 # Execute the selection methods
-#selection_methods = selection_execution()
-#selection_generations_data = util.read_generation_stats_file(selection_methods)
-#print("Selection Generations Data")
-#print(selection_generations_data)
-#print("------------------------------------------")
-#generate_benchmarks('selection', selection_methods, selection_generations_data, 'results/benchmarks/')
+selection_methods = selection_execution()
+selection_generations_data = util.read_generation_stats_file(selection_methods)
+print("Selection Generations Data")
+print(selection_generations_data)
+print("------------------------------------------")
+generate_benchmarks('selection', selection_methods, selection_generations_data, 'results/benchmarks/')
 
 # Execute the crossover methods
-#crossover_methods = crossover_execution()
-#print(crossover_methods)
-#crossover_generations_data = util.read_generation_stats_file(crossover_methods)
-#print("Crossover Generations Data")
-#print(crossover_generations_data)
-#print("------------------------------------------")
-#generate_benchmarks('crossover', crossover_methods, crossover_generations_data, 'results/benchmarks/')
+crossover_methods = crossover_execution()
+print(crossover_methods)
+crossover_generations_data = util.read_generation_stats_file(crossover_methods)
+print("Crossover Generations Data")
+print(crossover_generations_data)
+print("------------------------------------------")
+generate_benchmarks('crossover', crossover_methods, crossover_generations_data, 'results/benchmarks/')
 
 # Execute the mutation methods
 mutation_methods = mutation_execution()
