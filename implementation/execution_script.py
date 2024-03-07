@@ -1,6 +1,7 @@
 import os
 import shutil
 import subprocess
+import resource
 import configparser
 import utilities as util
 
@@ -17,6 +18,8 @@ execution_activities = [
     mutation_types 
 ]
 
+time_execution_values = []
+
 # Metadata path 
 metadata = {
     'metadata_location': 'metadata.json'
@@ -27,7 +30,7 @@ genetic_algorithm_configurations = {
     'max_number_functions': 3,
     'max_number_test_cases': 5,
     'tournament_size': 2,
-    'max_number_generations': 10,
+    'max_number_generations': 2,
     'fitness_max_stagnation_period': 3,
     'max_number_fitness_evaluations': 1000,
     'fitness_function_type': 'branch_coverage',
@@ -36,7 +39,7 @@ genetic_algorithm_configurations = {
 
 # Configuration of the genetic operators
 genetic_operators_configurations = {
-    'population_size': 20,
+    'population_size': 5,
     'population_control': 'True',
     'selection_type': 'tournament',
     'crossover_type': 'uniform',
@@ -67,6 +70,13 @@ file_paths = {
 
 # Configuration file path
 path_configuration_file = 'config.ini'
+
+def run_subprocess(command):
+    start_time = resource.getrusage(resource.RUSAGE_CHILDREN).ru_utime
+    subprocess.run(command)
+    end_time = resource.getrusage(resource.RUSAGE_CHILDREN).ru_utime
+    elapsed_time = end_time - start_time
+    return elapsed_time
 
 # genetic_algoritm_values = [['max_number_functions', 3], ['max_number_test_cases', 8]]
 def change_configurations(genetic_algorithm_values, genetic_operators_values, genetic_algorithm_optimizations_values, file_paths_values):
@@ -148,9 +158,14 @@ def population_execution():
     for method in population_control:
         change_configurations(None, [['population_control', method]], None, [['generation_stats', 'results/generation_stats/' + 'population_' + method], ['generation_data', 'results/generation_data/' + 'population_' + method]])
         genetic_algorithm_execution(path_configuration_file, genetic_algorithm_configurations, genetic_operators_configurations, genetic_algorithm_optimizations_configurations, file_paths)
-        subprocess.run(['python3', 'genetic_algorithm.py']) 
+        time = run_subprocess(['python3', 'genetic_algorithm.py'])
+        time_execution_values.append([time, 'population_' + method])
 
         population_methods.append('population_' + method)
+
+    util.time_execution_histogram(time_execution_values, 'population', 'results/benchmarks/time_execution')
+
+    time_execution_values.clear()
 
     return population_methods
 
@@ -159,9 +174,14 @@ def selection_execution():
     for method in selection_types:
         change_configurations(None, [['selection_type', method]], None, [['generation_stats', 'results/generation_stats/' + 'selection_' + method], ['generation_data', 'results/generation_data/' + 'selection_' + method]])
         genetic_algorithm_execution(path_configuration_file, genetic_algorithm_configurations, genetic_operators_configurations, genetic_algorithm_optimizations_configurations, file_paths)
-        subprocess.run(['python3', 'genetic_algorithm.py'])
-
+        time = run_subprocess(['python3', 'genetic_algorithm.py'])
+        time_execution_values.append([time, 'selection_' + method])
+    
         selection_methods.append('selection_' + method)
+
+    util.time_execution_histogram(time_execution_values, 'selection', 'results/benchmarks/time_execution')
+
+    time_execution_values.clear()
 
     return selection_methods
 
@@ -174,15 +194,21 @@ def crossover_execution():
             for deterministic_type in deterministic_crossover_adjustment_types:
                 change_configurations(None, [['crossover_type', method], ['crossover_rate_adjustment_type', deterministic_type]], None, [['generation_stats', 'results/generation_stats/' + 'crossover_' + method + "_" + deterministic_type], ['generation_data', 'results/generation_data/' + 'crossover_' + method + "_" + deterministic_type]])
                 genetic_algorithm_execution(path_configuration_file, genetic_algorithm_configurations, genetic_operators_configurations, genetic_algorithm_optimizations_configurations, file_paths)
-                subprocess.run(['python3', 'genetic_algorithm.py'])
+                time = run_subprocess(['python3', 'genetic_algorithm.py'])
+                time_execution_values.append([time, 'crossover_' + method + "_" + deterministic_type])
             
                 crossover_methods.append('crossover_' + method + "_" + deterministic_type)
         else:
             change_configurations(None, [['crossover_type', method]], None, [['generation_stats', 'results/generation_stats/' + 'crossover_' + method], ['generation_data', 'results/generation_data/' + 'crossover_' + method]])
             genetic_algorithm_execution(path_configuration_file, genetic_algorithm_configurations, genetic_operators_configurations, genetic_algorithm_optimizations_configurations, file_paths)
-            subprocess.run(['python3', 'genetic_algorithm.py'])
+            time = run_subprocess(['python3', 'genetic_algorithm.py'])
+            time_execution_values.append([time, 'crossover_' + method])
 
             crossover_methods.append('crossover_' + method)
+
+    util.time_execution_histogram(time_execution_values, 'crossover', 'results/benchmarks/time_execution')
+
+    time_execution_values.clear()
 
     return crossover_methods
 
@@ -194,15 +220,21 @@ def mutation_execution():
             for deterministic_type in deterministic_mutation_adjustment_types:
                 change_configurations(None, [['mutation_type', method], ['mutation_rate_adjustment_type', deterministic_type]], None, [['generation_stats', 'results/generation_stats/' + 'mutation_' + method + "_" + deterministic_type], ['generation_data', 'results/generation_data/' + 'mutation_' + method + "_" + deterministic_type]])
                 genetic_algorithm_execution(path_configuration_file, genetic_algorithm_configurations, genetic_operators_configurations, genetic_algorithm_optimizations_configurations, file_paths)
-                subprocess.run(['python3', 'genetic_algorithm.py'])
+                time = run_subprocess(['python3', 'genetic_algorithm.py'])
+                time_execution_values.append([time, 'mutation_' + method + "_" + deterministic_type])
 
                 mutation_methods.append('mutation_' + method + "_" + deterministic_type)
         else:
             change_configurations(None, [['mutation_type', method]], None, [['generation_stats', 'results/generation_stats/' + 'mutation_' + method], ['generation_data', 'results/generation_data/' + 'mutation_' + method]])
             genetic_algorithm_execution(path_configuration_file, genetic_algorithm_configurations, genetic_operators_configurations, genetic_algorithm_optimizations_configurations, file_paths)
-            subprocess.run(['python3', 'genetic_algorithm.py'])
+            time = run_subprocess(['python3', 'genetic_algorithm.py'])
+            time_execution_values.append([time, 'mutation_' + method])
 
             mutation_methods.append('mutation_' + method)
+
+    util.time_execution_histogram(time_execution_values, 'mutation', 'results/benchmarks/time_execution')
+
+    time_execution_values.clear()
 
     return mutation_methods
 
@@ -236,6 +268,16 @@ def folder_setup():
             os.makedirs('results/benchmarks')
         except OSError as e:
             print("Error: %s : %s" % ('results/benchmarks', e.strerror))
+
+    # Verify if folder benchmarks/time_execution exists
+    if not os.path.exists('results/benchmarks/time_execution'):
+        os.makedirs('results/benchmarks/time_execution')
+    else:
+        try:
+            shutil.rmtree('results/benchmarks/time_execution')
+            os.makedirs('results/benchmarks/time_execution')
+        except OSError as e:
+            print("Error: %s : %s" % ('results/benchmarks/time_execution', e.strerror))
 
 def generate_benchmarks(benchmark_type, generations_methods, generations_data, path):
     generations = []

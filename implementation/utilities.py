@@ -268,6 +268,40 @@ def mutation_rate_values_graph(mutation_rate_values, generation_number_values, t
     
     plt.savefig(path + '/mutation_rate_values_graph.png')
 
+'''
+Function to plot the average time of execution per generation method
+
+Parameters:
+----------
+time_execution_values: list
+    The average time of execution per generation method
+
+type: str
+    The type of the generation method
+
+path: str
+    The path to save the graph
+'''
+def time_execution_histogram(time_execution_values, type, path):
+    if plt.get_fignums():
+            plt.close('all')
+
+    fig, ax = plt.subplots()
+    for time_execution in time_execution_values:
+        generation_method_name = time_execution[1].split('_')[0].capitalize()
+        for word in range(1, len(time_execution[1].split('_'))):
+            generation_method_name += ' ' + time_execution[1].split('_')[word]
+
+        # in each bar make a space to prevent overlapping
+        ax.bar(generation_method_name, time_execution[0])
+
+    ax.set_xlabel('Generation Method')
+    ax.set_ylabel('Average Time of Execution (s)')
+    ax.set_title('Average Time of Execution for ' + type.capitalize() + ' Methods')
+
+    plt.xticks(rotation=90, ha='right')
+    plt.savefig(path + '/' + type + '_time_execution_histogram.png', bbox_inches='tight')
+
 # generation_stats = [generation_number_values, population_size_values, generation_fitness_values, crossover_rate_generations, mutation_rate_generations]
 '''
 Function to write the generation stats into a json file
@@ -312,3 +346,4 @@ def read_generation_stats_file(generation_methods):
         generations_data.append(generation_data_read)
 
     return generations_data
+
