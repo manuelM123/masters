@@ -44,6 +44,7 @@ class configurations(Enum):
     uniform_number_crossover = util.obtain_configuration("config.ini", "genetic_algorithm_optimizations_configurations", "uniform_number_crossover")
     lt_max = util.obtain_configuration("config.ini", "genetic_algorithm_optimizations_configurations", "lt_max")
     lt_min = util.obtain_configuration("config.ini", "genetic_algorithm_optimizations_configurations", "lt_min")
+    alpha = util.obtain_configuration("config.ini", "genetic_algorithm_optimizations_configurations", "alpha")
 
     # File paths
     fuzzy_membership_path = util.obtain_configuration("config.ini", "file_paths", "fuzzy_membership_functions")
@@ -212,6 +213,7 @@ while current_number_generation < int(configurations.max_number_generations.valu
                 new_population = adaptive_selection_method_lists(first_parents_list, second_parents_list, population, population_fitness, configurations, new_population, metadata)
                 print("New population size: " + str(len(new_population)))
             else:
+                print("No parents selected for the adaptive selection method")
                 break
 
             # ------------ END ADAPTIVE SELECTION METHOD ------------
@@ -308,39 +310,27 @@ while current_number_generation < int(configurations.max_number_generations.valu
 
                 # ------------------------ Mutation Operations ------------------------        
 
+                # ------------ DETERMINISTIC AND ADAPTIVE MUTATION METHOD ------------
+                        
                 if configurations.mutation_type.value == 'deterministic' or configurations.mutation_type.value == 'adaptive':
                     mutation_rate = mutation(None, None, current_number_generation, inputs, configurations, configurations.mutation_type.value)
                     print("Mutation rate before applying mutation: " + str(mutation_rate))	
                     mutation_rate_values.append(mutation_rate)
+                    maximum_mutation_rate = 1.0
 
-                    # ------------ DETERMINISTIC MUTATION METHOD ------------
+                    if configurations.mutation_type.value == 'adaptive':
+                        maximum_mutation_rate = 0.1
 
-                    if configurations.mutation_type.value == 'deterministic':
-                        if mutation_rate > random.random():
-                            print("Mutation applied to offspring 1 using deterministic method | Offspring 1: " + str(offsprings[0].test_suite))
-                            offsprings[0] = mutation(offsprings[0], metadata, current_number_generation, inputs, configurations, random.choice(['add_test_case', 'delete_test_case', 'change_parameters']))
-                            print("Offspring 1 after mutation: " + str(offsprings[0].test_suite))
-                        if mutation_rate > random.random():
-                            print("Mutation applied to offspring 2 using deterministic method | Offspring 2: " + str(offsprings[1].test_suite))
-                            offsprings[1] = mutation(offsprings[1], metadata, current_number_generation, inputs, configurations, random.choice(['add_test_case', 'delete_test_case', 'change_parameters']))
-                            print("Offspring 2 after mutation: " + str(offsprings[1].test_suite))
-
-
-                    # ------------ END DETERMINISTIC MUTATION METHOD ------------
-                    
-                    # ------------ ADAPTIVE MUTATION METHOD ------------~
-                            
-                    elif configurations.mutation_type.value == 'adaptive':
-                        if mutation_rate > random.uniform(0, 0.1):
-                            print("Mutation applied to offspring 1 using adaptive method | Offspring 1: " + str(offsprings[0].test_suite))
-                            offsprings[0] = mutation(offsprings[0], metadata, current_number_generation, inputs, configurations, random.choice(['add_test_case', 'delete_test_case', 'change_parameters']))
-                            print("Offspring 1 after mutation: " + str(offsprings[0].test_suite))
-                        if mutation_rate > random.uniform(0, 0.1):
-                            print("Mutation applied to offspring 2 using adaptive method | Offspring 2: " + str(offsprings[1].test_suite))
-                            offsprings[1] = mutation(offsprings[1], metadata, current_number_generation, inputs, configurations, random.choice(['add_test_case', 'delete_test_case', 'change_parameters']))
-                            print("Offspring 2 after mutation: " + str(offsprings[1].test_suite))
-
-                    # ------------ END ADAPTIVE MUTATION METHOD ------------
+                    if mutation_rate > random.random(0, maximum_mutation_rate):
+                        print("Mutation applied to offspring 1 using " + configurations.mutation_type.value + " method | Offspring 1: " + str(offsprings[0].test_suite))
+                        offsprings[0] = mutation(offsprings[0], metadata, current_number_generation, inputs, configurations, random.choice(['add_test_case', 'delete_test_case', 'change_parameters']))
+                        print("Offspring 1 after mutation: " + str(offsprings[0].test_suite))
+                    if mutation_rate > random.random(0, maximum_mutation_rate):
+                        print("Mutation applied to offspring 2 using " + configurations.mutation_type.value + " method | Offspring 2: " + str(offsprings[1].test_suite))
+                        offsprings[1] = mutation(offsprings[1], metadata, current_number_generation, inputs, configurations, random.choice(['add_test_case', 'delete_test_case', 'change_parameters']))
+                        print("Offspring 2 after mutation: " + str(offsprings[1].test_suite))
+                
+                # ------------ END DETERMINISTIC AND ADAPTIVE MUTATION METHOD ------------
 
                 # ------------ SELF-ADAPTIVE MUTATION METHOD ------------
 
@@ -378,7 +368,6 @@ while current_number_generation < int(configurations.max_number_generations.valu
                         print("Offspring 2 after mutation: " + str(offsprings[1].test_suite))
 
                 # ------------------------ End Mutation Operations ------------------------
-
 
                 # Updating RLT for offsprings after crossover and mutation operations
                 print("Offsprings before rlt setting: ")

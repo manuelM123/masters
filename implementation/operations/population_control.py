@@ -87,7 +87,7 @@ def rlt_setting(population, population_fitness, lt_max, lt_min, offpsring):
     f_average = calculate_average_fitness(population)
     f_best = max(population_fitness)
     f_worst = min(population_fitness)
-    n = 1/2 * (lt_max - lt_min) 
+    n = (lt_max - lt_min) / 2 
 
     if offpsring == None:
         for individual in population:
@@ -167,10 +167,8 @@ Returns:
 growth_size : int
     The number of new chromossomes to be added to the population
 '''
-def calculate_growth_size(current_best_fitness, old_best_fitness, initial_best_fitness, current_number_generation, max_generations):
-    value = random.uniform(0,1)
-    print("Value growth size: " + str(value))
-    return int(value * (max_generations - current_number_generation) * ((current_best_fitness - old_best_fitness) / initial_best_fitness))
+def calculate_growth_size(current_best_fitness, old_best_fitness, initial_best_fitness, current_number_generation, max_generations, alpha):
+    return int(alpha * (max_generations - current_number_generation) * ((current_best_fitness - old_best_fitness) / initial_best_fitness))
 
 ''' 
 Function that implements the population resizing process adapted by Rajakumar and George from "APOGA: An Adaptive Population Pool Size Based Genetic Algorithm", DOI: https://doi.org/10.1016/j.aasri.2013.10.043
@@ -266,8 +264,10 @@ population : list
 '''
 def grow_population(population, current_best_fitness, old_best_fitness, initial_best_fitness, current_number_generation, best_individual_fitness, configurations, metadata):
     print("Growth population")
-    growth_size = calculate_growth_size(current_best_fitness, old_best_fitness, initial_best_fitness, current_number_generation, int(configurations.max_number_generations.value))
-    if growth_size != 0:
+    alpha = float(configurations.alpha.value)
+    print("Alpha: " + str(alpha))
+    growth_size = calculate_growth_size(current_best_fitness, old_best_fitness, initial_best_fitness, current_number_generation, int(configurations.max_number_generations.value), alpha)
+    if growth_size > 0:
         new_individuals = create_population(metadata, growth_size, configurations)
         new_individuals_fitness = obtain_fitness_values(new_individuals)
         print("Growth size:" + str(growth_size) + "New individuals size: " + str(len(new_individuals)))
