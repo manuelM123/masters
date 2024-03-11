@@ -30,7 +30,7 @@ genetic_algorithm_configurations = {
     'max_number_functions': 3,
     'max_number_test_cases': 5,
     'tournament_size': 2,
-    'max_number_generations': 2,
+    'max_number_generations': 10,
     'fitness_max_stagnation_period': 3,
     'max_number_fitness_evaluations': 1000,
     'fitness_function_type': 'branch_coverage',
@@ -39,14 +39,14 @@ genetic_algorithm_configurations = {
 
 # Configuration of the genetic operators
 genetic_operators_configurations = {
-    'population_size': 5,
+    'population_size': 20,
     'population_control': 'True',
     'selection_type': 'tournament',
     'crossover_type': 'uniform',
-    'crossover_rate': 0.6,
+    'crossover_rate': 0.5,
     'crossover_rate_adjustment_type': 'ilc',
     'mutation_type': 'add_test_case',
-    'mutation_rate': 0.25,
+    'mutation_rate': 0.15,
     'mutation_rate_adjustment_type': 'dhm'
 }
 
@@ -55,7 +55,8 @@ genetic_algorithm_optimizations_configurations = {
     'population_decrease_rate': 0.2,
     'uniform_number_crossover': 0.5,
     'lt_max': 10,
-    'lt_min': 1
+    'lt_min': 1,
+    'alpha': 0.5
 }
 
 # File paths
