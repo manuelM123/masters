@@ -119,14 +119,15 @@ old_best_fitness : int
 generations_without_fitness_improvement : int
     The number of generations without fitness improvement
 '''
-def update_genetic_algorithm_attributes(population, new_population, current_number_generation, old_best_fitness, generations_without_fitness_improvement, configurations):
+def update_genetic_algorithm_attributes(population, new_population, current_number_generation, old_best_fitness, generations_without_fitness_improvement, best_fitness_seen, configurations):
     # If the new population is not empty, the population is updated
     if len(new_population) > 0:
         population = new_population
     population_fitness = obtain_fitness_values(population)
     current_best_fitness = obtain_best_fitness(population_fitness)
     current_number_generation += 1
-    if current_best_fitness > old_best_fitness:
+    if current_best_fitness > best_fitness_seen:
+        best_fitness_seen = current_best_fitness
         generations_without_fitness_improvement = 0
     else:
         generations_without_fitness_improvement += 1
@@ -135,7 +136,7 @@ def update_genetic_algorithm_attributes(population, new_population, current_numb
     print("Old best fitness: " + str(old_best_fitness))
     old_best_fitness = current_best_fitness
 
-    return population, current_number_generation, current_best_fitness, old_best_fitness, generations_without_fitness_improvement
+    return population, current_number_generation, current_best_fitness, old_best_fitness, generations_without_fitness_improvement, best_fitness_seen
 
 '''
 Function to print the generation stats
@@ -151,9 +152,9 @@ current_best_fitness : int
 population : list
     The population of the genetic algorithm
 '''
-def generation_stats(current_number_generation, old_best_fitness, current_best_fitness, population, average_crossover_rate_value, average_mutation_rate_value):
+def generation_stats(current_number_generation, old_best_fitness, current_best_fitness, best_fitness_seen, population, average_crossover_rate_value, average_mutation_rate_value):
     print("------------------------ GENERATION STATS ------------------------")
-    print("Generation: " + str(current_number_generation) + " - Old best fitness: " + str(old_best_fitness) + " - Best fitness: " + str(current_best_fitness) + " - Average fitness: " + str(round(calculate_average_fitness(population),2)) 
+    print("Generation: " + str(current_number_generation) + " - Old best fitness: " + str(old_best_fitness) + " - Best fitness: " + str(current_best_fitness) + " - Best fitness seen: " + str(best_fitness_seen) + " - Average fitness: " + str(round(calculate_average_fitness(population),2)) 
           + " - Generations without fitness improvement: " + str(generations_without_fitness_improvement) + " - Population size: " + str(len(population)))
     print("------------------------------------------------------------------")
 
@@ -172,6 +173,7 @@ population_fitness = obtain_fitness_values(population)
 initial_best_fitness = obtain_best_fitness(population_fitness)
 current_best_fitness = 0
 old_best_fitness = 0
+best_fitness_seen = population[0].fitness
 current_number_generation = 0
 iteration_number_population_control = 1
 generations_without_fitness_improvement = 0
@@ -409,14 +411,14 @@ while current_number_generation < int(configurations.max_number_generations.valu
     # ------------ END POPULATION CONTROL METHOD ------------
 
     # Reset population and iterations
-    population, current_number_generation, current_best_fitness, old_best_fitness, generations_without_fitness_improvement = update_genetic_algorithm_attributes(population, new_population, 
+    population, current_number_generation, current_best_fitness, old_best_fitness, generations_without_fitness_improvement, best_fitness_seen = update_genetic_algorithm_attributes(population, new_population, 
                                                                                                                                             current_number_generation, old_best_fitness, 
-                                                                                                                                            generations_without_fitness_improvement, configurations)
+                                                                                                                                            generations_without_fitness_improvement, best_fitness_seen, configurations)
     
     # Print generation stats
     average_crossover_rate_value, title_crossover_rate = average_crossover_rate(crossover_rate_values, configurations.crossover_type.value, title_crossover_rate)
     average_mutation_rate_value, title_mutation_rate = average_mutation_rate(population, mutation_rate_values, configurations.mutation_type.value, title_mutation_rate)
-    generation_stats(current_number_generation, old_best_fitness, current_best_fitness, population, average_crossover_rate_value, average_mutation_rate_value)
+    generation_stats(current_number_generation, old_best_fitness, current_best_fitness, best_fitness_seen, population, average_crossover_rate_value, average_mutation_rate_value)
     print("Population size values: " + str(population_size_values) + " - Generation number values: " + str(generation_number_values) + " - Generation fitness values: " + str(generation_fitness_values) 
           + " - Crossover rate values: " + str(crossover_rate_generations) + " - Mutation rate values: " + str(mutation_rate_generations) + " - Iteration number population control: " + str(iteration_number_population_control))
     print("------------------------------------------------------------------")
