@@ -132,7 +132,13 @@ def population_size_graph(population_size_values, generation_number_values, path
     else:
         fig, ax = plt.subplots()
         for benchmark in range(len(benchmarks)):
-            benchmark_label = benchmarks[benchmark].split('_')[0].capitalize() + ' ' + benchmarks[benchmark].split('_')[1]
+            if 'test' in benchmarks[benchmark]:
+                benchmark_label = benchmarks[benchmark].split('_')[0].capitalize() + ' ' + benchmarks[benchmark].split('_')[1] + ' ' + benchmarks[benchmark].split('_')[2] + ' ' + benchmarks[benchmark].split('_')[3]
+            elif 'deterministic' in benchmarks[benchmark] or 'change' in benchmarks[benchmark]:
+                benchmark_label = benchmarks[benchmark].split('_')[0].capitalize() + ' ' + benchmarks[benchmark].split('_')[1] + ' ' + benchmarks[benchmark].split('_')[2]
+            else:
+                benchmark_label = benchmarks[benchmark].split('_')[0].capitalize() + ' ' + benchmarks[benchmark].split('_')[1]
+
             ax.plot(generation_number_values[benchmark], population_size_values[benchmark], label=benchmark_label)
         
         ax.set_xlabel('Generation')
@@ -168,7 +174,13 @@ def fitness_values_graph(generation_fitness_values, generation_number_values, pa
     else:
         fig, ax = plt.subplots()
         for benchmark in range(len(benchmarks)):
-            benchmark_label = benchmarks[benchmark].split('_')[0].capitalize() + ' ' + benchmarks[benchmark].split('_')[1]
+            if 'test' in benchmarks[benchmark]:
+                benchmark_label = benchmarks[benchmark].split('_')[0].capitalize() + ' ' + benchmarks[benchmark].split('_')[1] + ' ' + benchmarks[benchmark].split('_')[2] + ' ' + benchmarks[benchmark].split('_')[3]
+            elif 'deterministic' in benchmarks[benchmark] or 'change' in benchmarks[benchmark]:
+                benchmark_label = benchmarks[benchmark].split('_')[0].capitalize() + ' ' + benchmarks[benchmark].split('_')[1] + ' ' + benchmarks[benchmark].split('_')[2]
+            else:
+                benchmark_label = benchmarks[benchmark].split('_')[0].capitalize() + ' ' + benchmarks[benchmark].split('_')[1]
+
             ax.plot(generation_number_values[benchmark], generation_fitness_values[benchmark], label=benchmark_label)
 
         ax.set_xlabel('Generation')
@@ -302,6 +314,45 @@ def time_execution_histogram(time_execution_values, type, path):
     plt.xticks(rotation=90, ha='right')
     plt.savefig(path + '/' + type + '_time_execution_histogram.png', bbox_inches='tight')
 
+'''
+Function to plot the best fitness value during the execution of the genetic algorithm
+
+Parameters:
+----------
+best_fitness_values: list
+    The best fitness value per generation
+
+path: str
+    The path to save the graph
+'''
+def best_fitness_seen_graph(best_fitness_values, generation_number_values, path, benchmarks):
+    if plt.get_fignums():
+            plt.close('all')
+
+    if benchmarks == None:
+        plt.plot(best_fitness_values)
+        plt.xlabel('Generation')
+        plt.ylabel('Best Fitness')
+        plt.title('Best Fitness Seen')
+    else:
+        fig, ax = plt.subplots()
+        for benchmark in range(len(benchmarks)):
+            if 'test' in benchmarks[benchmark]:
+                benchmark_label = benchmarks[benchmark].split('_')[0].capitalize() + ' ' + benchmarks[benchmark].split('_')[1] + ' ' + benchmarks[benchmark].split('_')[2] + ' ' + benchmarks[benchmark].split('_')[3]
+            elif 'deterministic' in benchmarks[benchmark] or 'change' in benchmarks[benchmark]:
+                benchmark_label = benchmarks[benchmark].split('_')[0].capitalize() + ' ' + benchmarks[benchmark].split('_')[1] + ' ' + benchmarks[benchmark].split('_')[2]
+            else:
+                benchmark_label = benchmarks[benchmark].split('_')[0].capitalize() + ' ' + benchmarks[benchmark].split('_')[1]
+
+            ax.plot(generation_number_values[benchmark], best_fitness_values[benchmark], label=benchmark_label)
+        
+        ax.set_xlabel('Generation')
+        ax.set_ylabel('Best Fitness')
+        ax.set_title('Best Fitness Seen')
+        ax.legend()
+
+    plt.savefig(path + '/best_fitness_seen.png')
+
 # generation_stats = [generation_number_values, population_size_values, generation_fitness_values, crossover_rate_generations, mutation_rate_generations]
 '''
 Function to write the generation stats into a json file
@@ -317,7 +368,7 @@ path: str
 def write_generation_stats_file(generation_stats, path):
     print("Started writing list data into a json file")
 
-    generation_stats_name = ['generation_number_values', 'population_size_values', 'generation_fitness_values', 'crossover_rate_values', 'mutation_rate_values']
+    generation_stats_name = ['generation_number_values', 'population_size_values', 'generation_fitness_values', 'crossover_rate_values', 'mutation_rate_values', 'best_fitness_seen_values']
 
     for stat in range(len(generation_stats_name)):
         generation_data_path_stat = path + '/' + generation_stats_name[stat]
@@ -329,7 +380,7 @@ def write_generation_stats_file(generation_stats, path):
 def read_generation_stats_file(generation_methods):
     print("Started reading list data from a json file")
     
-    generation_stats_name = ['generation_number_values', 'population_size_values', 'generation_fitness_values', 'crossover_rate_values', 'mutation_rate_values']
+    generation_stats_name = ['generation_number_values', 'population_size_values', 'generation_fitness_values', 'crossover_rate_values', 'mutation_rate_values', 'best_fitness_seen_values']
     generations_data = []
     
     for generation_method in range(len(generation_methods)):

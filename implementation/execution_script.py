@@ -30,8 +30,8 @@ genetic_algorithm_configurations = {
     'max_number_functions': 4,
     'max_number_test_cases': 3,
     'tournament_size': 2,
-    'max_number_generations': 20,
-    'fitness_max_stagnation_period': 5,
+    'max_number_generations': 5,
+    'fitness_max_stagnation_period': 4,
     'max_number_fitness_evaluations': 1000,
     'fitness_function_type': 'branch_coverage',
     'fitness_iteration_limit': 2
@@ -286,6 +286,7 @@ def generate_benchmarks(benchmark_type, generations_methods, generations_data, p
     generations_fitness = []
     crossover_rates = []
     mutation_rates = []
+    best_fitness_seen = []
 
     for method in range(len(generations_methods)):
         for data in range(len(generations_data[0])):
@@ -302,6 +303,8 @@ def generate_benchmarks(benchmark_type, generations_methods, generations_data, p
                 crossover_rates.append(data_values)
             elif data_type == 'mutation_rate_values':
                 mutation_rates.append(data_values)
+            elif data_type == 'best_fitness_seen_values':
+                best_fitness_seen.append(data_values)
 
     # Verify if the folder exists
     benchmark_result = path + benchmark_type
@@ -317,16 +320,20 @@ def generate_benchmarks(benchmark_type, generations_methods, generations_data, p
     if benchmark_type == 'population':
         util.population_size_graph(populations_size, generations, benchmark_result, generations_methods)
         util.fitness_values_graph(generations_fitness, generations, benchmark_result, generations_methods)
+        util.best_fitness_seen_graph(best_fitness_seen, generations, benchmark_result, generations_methods)
     elif benchmark_type == 'selection':
         util.population_size_graph(populations_size, generations, benchmark_result, generations_methods)
         util.fitness_values_graph(generations_fitness, generations, benchmark_result, generations_methods)
+        util.best_fitness_seen_graph(best_fitness_seen, generations, benchmark_result, generations_methods)
     elif benchmark_type == 'crossover':
         util.population_size_graph(populations_size, generations, benchmark_result, generations_methods)
         util.fitness_values_graph(generations_fitness, generations, benchmark_result, generations_methods)
+        util.best_fitness_seen_graph(best_fitness_seen, generations, benchmark_result, generations_methods)
         util.crossover_rate_values_graph(crossover_rates, generations, 'Average Crossover Rate', benchmark_result, generations_methods)
     elif benchmark_type == 'mutation':
         util.population_size_graph(populations_size, generations, benchmark_result, generations_methods)
         util.fitness_values_graph(generations_fitness, generations, benchmark_result, generations_methods)
+        util.best_fitness_seen_graph(best_fitness_seen, generations, benchmark_result, generations_methods)
         util.mutation_rate_values_graph(mutation_rates, generations, 'Average Mutation Rate', benchmark_result, generations_methods)
 
 # Execute the folder setup
@@ -341,29 +348,29 @@ print("------------------------------------------")
 generate_benchmarks('population', population_methods, population_generations_data, 'results/benchmarks/')
 
 # Execute the selection methods
-#selection_methods = selection_execution()
-#selection_generations_data = util.read_generation_stats_file(selection_methods)
-#print("Selection Generations Data")
-#print(selection_generations_data)
-#print("------------------------------------------")
-#generate_benchmarks('selection', selection_methods, selection_generations_data, 'results/benchmarks/')
+selection_methods = selection_execution()
+selection_generations_data = util.read_generation_stats_file(selection_methods)
+print("Selection Generations Data")
+print(selection_generations_data)
+print("------------------------------------------")
+generate_benchmarks('selection', selection_methods, selection_generations_data, 'results/benchmarks/')
 
 # Execute the crossover methods
-#crossover_methods = crossover_execution()
-#print(crossover_methods)
-#crossover_generations_data = util.read_generation_stats_file(crossover_methods)
-#print("Crossover Generations Data")
-#print(crossover_generations_data)
-#print("------------------------------------------")
-#generate_benchmarks('crossover', crossover_methods, crossover_generations_data, 'results/benchmarks/')
+crossover_methods = crossover_execution()
+print(crossover_methods)
+crossover_generations_data = util.read_generation_stats_file(crossover_methods)
+print("Crossover Generations Data")
+print(crossover_generations_data)
+print("------------------------------------------")
+generate_benchmarks('crossover', crossover_methods, crossover_generations_data, 'results/benchmarks/')
 
 # Execute the mutation methods
-#mutation_methods = mutation_execution()
-#mutation_generations_data = util.read_generation_stats_file(mutation_methods)
-#print("Mutation Generations Data")
-#print(mutation_generations_data)
-#print("------------------------------------------")
-#generate_benchmarks('mutation', mutation_methods, mutation_generations_data, 'results/benchmarks/')
+mutation_methods = mutation_execution()
+mutation_generations_data = util.read_generation_stats_file(mutation_methods)
+print("Mutation Generations Data")
+print(mutation_generations_data)
+print("------------------------------------------")
+generate_benchmarks('mutation', mutation_methods, mutation_generations_data, 'results/benchmarks/')
 
 # Execute the genetic algorithm              
 #general_execution()

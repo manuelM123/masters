@@ -121,7 +121,7 @@ generations_without_fitness_improvement : int
 '''
 def update_genetic_algorithm_attributes(population, new_population, current_number_generation, old_best_fitness, generations_without_fitness_improvement, best_fitness_seen, configurations):
     # If the new population is not empty, the population is updated
-    if len(new_population) > 0:
+    if len(new_population) > 1:
         population = new_population
     population_fitness = obtain_fitness_values(population)
     current_best_fitness = obtain_best_fitness(population_fitness)
@@ -161,6 +161,7 @@ def generation_stats(current_number_generation, old_best_fitness, current_best_f
     generation_number_values.append(current_number_generation)
     population_size_values.append(len(population))
     generation_fitness_values.append(current_best_fitness)
+    best_fitness_seen_values.append(best_fitness_seen)
     crossover_rate_generations.append(average_crossover_rate_value)
     mutation_rate_generations.append(average_mutation_rate_value)
 
@@ -184,6 +185,7 @@ mutated_individual_index = None
 generation_number_values = []
 population_size_values = []
 generation_fitness_values = []
+best_fitness_seen_values = []
 crossover_rate_values = []
 mutation_rate_values = []
 crossover_rate_generations = []
@@ -203,7 +205,7 @@ while current_number_generation < int(configurations.max_number_generations.valu
     print("Generation number: " + str(current_number_generation))
     print("---------------------------------------------------------------")
 
-    while len(new_population) < len(population) and len(population) > 1:
+    while len(new_population) < len(population):
         # ------------------------ Selection Operations -------------------
 
         if configurations.selection_type.value == "adaptive":
@@ -323,11 +325,11 @@ while current_number_generation < int(configurations.max_number_generations.valu
                     if configurations.mutation_type.value == 'adaptive':
                         maximum_mutation_rate = 0.1
 
-                    if mutation_rate > random.random(0, maximum_mutation_rate):
+                    if mutation_rate > random.uniform(0, maximum_mutation_rate):
                         print("Mutation applied to offspring 1 using " + configurations.mutation_type.value + " method | Offspring 1: " + str(offsprings[0].test_suite))
                         offsprings[0] = mutation(offsprings[0], metadata, current_number_generation, inputs, configurations, random.choice(['add_test_case', 'delete_test_case', 'change_parameters']))
                         print("Offspring 1 after mutation: " + str(offsprings[0].test_suite))
-                    if mutation_rate > random.random(0, maximum_mutation_rate):
+                    if mutation_rate > random.uniform(0, maximum_mutation_rate):
                         print("Mutation applied to offspring 2 using " + configurations.mutation_type.value + " method | Offspring 2: " + str(offsprings[1].test_suite))
                         offsprings[1] = mutation(offsprings[1], metadata, current_number_generation, inputs, configurations, random.choice(['add_test_case', 'delete_test_case', 'change_parameters']))
                         print("Offspring 2 after mutation: " + str(offsprings[1].test_suite))
@@ -433,6 +435,7 @@ if not os.path.exists(configurations.generation_stats_path.value):
 
 util.population_size_graph(population_size_values, generation_number_values, configurations.generation_stats_path.value, None)
 util.fitness_values_graph(generation_fitness_values, generation_number_values, configurations.generation_stats_path.value, None)
+util.best_fitness_seen_graph(best_fitness_seen_values, generation_number_values, configurations.generation_stats_path.value, None)
 if configurations.crossover_type.value == 'deterministic' or configurations.crossover_type.value == 'adaptive': 
     util.crossover_rate_values_graph(crossover_rate_generations, generation_number_values, title_crossover_rate, configurations.generation_stats_path.value, None)
 if configurations.mutation_type.value == 'deterministic' or configurations.mutation_type.value == 'adaptive' or configurations.mutation_type.value == 'self-adaptive':
@@ -445,7 +448,7 @@ if configurations.mutation_type.value == 'deterministic' or configurations.mutat
 if not os.path.exists(configurations.generation_data_path.value):
     os.makedirs(configurations.generation_data_path.value)   
 
-util.write_generation_stats_file([generation_number_values, population_size_values, generation_fitness_values, crossover_rate_generations, mutation_rate_generations], configurations.generation_data_path.value)
+util.write_generation_stats_file([generation_number_values, population_size_values, generation_fitness_values, crossover_rate_generations, mutation_rate_generations, best_fitness_seen_values], configurations.generation_data_path.value)
     
 # ---- End genetic algorithm data writing ----
 
