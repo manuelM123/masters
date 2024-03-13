@@ -294,7 +294,7 @@ type: str
 path: str
     The path to save the graph
 '''
-def time_execution_histogram(time_execution_values, type, path):
+def time_execution_histogram(time_execution_values, type, path, iteration):
     if plt.get_fignums():
             plt.close('all')
 
@@ -312,7 +312,7 @@ def time_execution_histogram(time_execution_values, type, path):
     ax.set_title('Average Time of Execution for ' + type.capitalize() + ' Methods')
 
     plt.xticks(rotation=90, ha='right')
-    plt.savefig(path + '/' + type + '_time_execution_histogram.png', bbox_inches='tight')
+    plt.savefig(path + '/' + type + '_time_execution_histogram_' + str(iteration) + '.png', bbox_inches='tight')
 
 '''
 Function to plot the best fitness value during the execution of the genetic algorithm
@@ -377,7 +377,7 @@ def write_generation_stats_file(generation_stats, path):
             json.dump(generation_stats[stat], fp)
             print("Done writing JSON data into .json file")
 
-def read_generation_stats_file(generation_methods):
+def read_generation_stats_file(generation_methods, type):
     print("Started reading list data from a json file")
     
     generation_stats_name = ['generation_number_values', 'population_size_values', 'generation_fitness_values', 'crossover_rate_values', 'mutation_rate_values', 'best_fitness_seen_values']
@@ -385,7 +385,7 @@ def read_generation_stats_file(generation_methods):
     
     for generation_method in range(len(generation_methods)):
         generation_data_read = []
-        path = 'results/generation_data/' + generation_methods[generation_method]
+        path = 'results/generation_data/' + type + "/" + generation_methods[generation_method]
         for stat in range(len(generation_stats_name)):
             # Verify if file exists
             if os.path.exists(path + '/' + generation_stats_name[stat] + '.json'):

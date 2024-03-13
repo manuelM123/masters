@@ -30,8 +30,8 @@ genetic_algorithm_configurations = {
     'max_number_functions': 4,
     'max_number_test_cases': 3,
     'tournament_size': 2,
-    'max_number_generations': 5,
-    'fitness_max_stagnation_period': 4,
+    'max_number_generations': 4,
+    'fitness_max_stagnation_period': 3,
     'max_number_fitness_evaluations': 1000,
     'fitness_function_type': 'branch_coverage',
     'fitness_iteration_limit': 2
@@ -39,7 +39,7 @@ genetic_algorithm_configurations = {
 
 # Configuration of the genetic operators
 genetic_operators_configurations = {
-    'population_size': 20,
+    'population_size': 10,
     'population_control': 'True',
     'selection_type': 'tournament',
     'crossover_type': 'uniform',
@@ -153,34 +153,34 @@ def general_execution():
                     genetic_algorithm_execution(path_configuration_file, genetic_algorithm_configurations, genetic_operators_configurations, genetic_algorithm_optimizations_configurations, file_paths)
                     subprocess.run(['python3', 'genetic_algorithm.py'])
 
-def population_execution():
+def population_execution(iteration):
     population_methods = []
     population_control = ['True', 'False']
     for method in population_control:
-        change_configurations(None, [['population_control', method]], None, [['generation_stats', 'results/generation_stats/' + 'population_' + method], ['generation_data', 'results/generation_data/' + 'population_' + method]])
+        change_configurations(None, [['population_control', method]], None, [['generation_stats', 'results/generation_stats/population/' + 'population_' + method + "_" + str(iteration)], ['generation_data', 'results/generation_data/population/' + 'population_' + method + "_" + str(iteration)]])
         genetic_algorithm_execution(path_configuration_file, genetic_algorithm_configurations, genetic_operators_configurations, genetic_algorithm_optimizations_configurations, file_paths)
         time = run_subprocess(['python3', 'genetic_algorithm.py'])
         time_execution_values.append([time, 'population_' + method])
 
-        population_methods.append('population_' + method)
+        population_methods.append('population_' + method + "_" + str(iteration))
 
-    util.time_execution_histogram(time_execution_values, 'population', 'results/benchmarks/time_execution')
+    util.time_execution_histogram(time_execution_values, 'population', 'results/benchmarks/time_execution/population', iteration)
 
     time_execution_values.clear()
 
     return population_methods
 
-def selection_execution():
+def selection_execution(iteration):
     selection_methods = []
     for method in selection_types:
-        change_configurations(None, [['selection_type', method]], None, [['generation_stats', 'results/generation_stats/' + 'selection_' + method], ['generation_data', 'results/generation_data/' + 'selection_' + method]])
+        change_configurations(None, [['selection_type', method]], None, [['generation_stats', 'results/generation_stats/selection/' + 'selection_' + method + "_" + str(iteration)], ['generation_data', 'results/generation_data/selection/' + 'selection_' + method + "_" + str(iteration)]])
         genetic_algorithm_execution(path_configuration_file, genetic_algorithm_configurations, genetic_operators_configurations, genetic_algorithm_optimizations_configurations, file_paths)
         time = run_subprocess(['python3', 'genetic_algorithm.py'])
         time_execution_values.append([time, 'selection_' + method])
     
-        selection_methods.append('selection_' + method)
+        selection_methods.append('selection_' + method + "_" + str(iteration))
 
-    util.time_execution_histogram(time_execution_values, 'selection', 'results/benchmarks/time_execution')
+    util.time_execution_histogram(time_execution_values, 'selection', 'results/benchmarks/time_execution/selection', iteration)
 
     time_execution_values.clear()
 
@@ -193,21 +193,21 @@ def crossover_execution():
     for method in crossover_types:
         if method == 'deterministic':
             for deterministic_type in deterministic_crossover_adjustment_types:
-                change_configurations(None, [['crossover_type', method], ['crossover_rate_adjustment_type', deterministic_type]], None, [['generation_stats', 'results/generation_stats/' + 'crossover_' + method + "_" + deterministic_type], ['generation_data', 'results/generation_data/' + 'crossover_' + method + "_" + deterministic_type]])
+                change_configurations(None, [['crossover_type', method], ['crossover_rate_adjustment_type', deterministic_type]], None, [['generation_stats', 'results/generation_stats/crossover/' + 'crossover_' + method + "_" + deterministic_type + "_" + str(iteration)], ['generation_data', 'results/generation_data/crossover/' + 'crossover_' + method + "_" + deterministic_type + "_" + str(iteration)]])
                 genetic_algorithm_execution(path_configuration_file, genetic_algorithm_configurations, genetic_operators_configurations, genetic_algorithm_optimizations_configurations, file_paths)
                 time = run_subprocess(['python3', 'genetic_algorithm.py'])
                 time_execution_values.append([time, 'crossover_' + method + "_" + deterministic_type])
             
-                crossover_methods.append('crossover_' + method + "_" + deterministic_type)
+                crossover_methods.append('crossover_' + method + "_" + deterministic_type + "_" + str(iteration))
         else:
-            change_configurations(None, [['crossover_type', method]], None, [['generation_stats', 'results/generation_stats/' + 'crossover_' + method], ['generation_data', 'results/generation_data/' + 'crossover_' + method]])
+            change_configurations(None, [['crossover_type', method]], None, [['generation_stats', 'results/generation_stats/crossover/' + 'crossover_' + method + "_" + str(iteration)], ['generation_data', 'results/generation_data/crossover/' + 'crossover_' + method + "_" + str(iteration)]])
             genetic_algorithm_execution(path_configuration_file, genetic_algorithm_configurations, genetic_operators_configurations, genetic_algorithm_optimizations_configurations, file_paths)
             time = run_subprocess(['python3', 'genetic_algorithm.py'])
             time_execution_values.append([time, 'crossover_' + method])
 
-            crossover_methods.append('crossover_' + method)
+            crossover_methods.append('crossover_' + method + "_" + str(iteration))
 
-    util.time_execution_histogram(time_execution_values, 'crossover', 'results/benchmarks/time_execution')
+    util.time_execution_histogram(time_execution_values, 'crossover', 'results/benchmarks/time_execution/crossover', iteration)
 
     time_execution_values.clear()
 
@@ -219,47 +219,27 @@ def mutation_execution():
     for method in mutation_types:
         if method == 'deterministic':
             for deterministic_type in deterministic_mutation_adjustment_types:
-                change_configurations(None, [['mutation_type', method], ['mutation_rate_adjustment_type', deterministic_type]], None, [['generation_stats', 'results/generation_stats/' + 'mutation_' + method + "_" + deterministic_type], ['generation_data', 'results/generation_data/' + 'mutation_' + method + "_" + deterministic_type]])
+                change_configurations(None, [['mutation_type', method], ['mutation_rate_adjustment_type', deterministic_type]], None, [['generation_stats', 'results/generation_stats/mutation/' + 'mutation_' + method + "_" + deterministic_type + "_" + str(iteration)], ['generation_data', 'results/generation_data/mutation/' + 'mutation_' + method + "_" + deterministic_type + "_" + str(iteration)]])
                 genetic_algorithm_execution(path_configuration_file, genetic_algorithm_configurations, genetic_operators_configurations, genetic_algorithm_optimizations_configurations, file_paths)
                 time = run_subprocess(['python3', 'genetic_algorithm.py'])
                 time_execution_values.append([time, 'mutation_' + method + "_" + deterministic_type])
 
-                mutation_methods.append('mutation_' + method + "_" + deterministic_type)
+                mutation_methods.append('mutation_' + method + "_" + deterministic_type + "_" + str(iteration))
         else:
-            change_configurations(None, [['mutation_type', method]], None, [['generation_stats', 'results/generation_stats/' + 'mutation_' + method], ['generation_data', 'results/generation_data/' + 'mutation_' + method]])
+            change_configurations(None, [['mutation_type', method]], None, [['generation_stats', 'results/generation_stats/mutation/' + 'mutation_' + method + "_" + str(iteration)], ['generation_data', 'results/generation_data/mutation/' + 'mutation_' + method + "_" + str(iteration)]])
             genetic_algorithm_execution(path_configuration_file, genetic_algorithm_configurations, genetic_operators_configurations, genetic_algorithm_optimizations_configurations, file_paths)
             time = run_subprocess(['python3', 'genetic_algorithm.py'])
             time_execution_values.append([time, 'mutation_' + method])
 
-            mutation_methods.append('mutation_' + method)
+            mutation_methods.append('mutation_' + method + "_" + str(iteration))
 
-    util.time_execution_histogram(time_execution_values, 'mutation', 'results/benchmarks/time_execution')
+    util.time_execution_histogram(time_execution_values, 'mutation', 'results/benchmarks/time_execution/mutation', iteration)
 
     time_execution_values.clear()
 
     return mutation_methods
 
 def folder_setup():
-    # Verify if folder generation_stats exists
-    if not os.path.exists('results/generation_stats'):
-        os.makedirs('results/generation_stats')  # Create the directory if it doesn't exist
-    else:
-        try:
-            shutil.rmtree('results/generation_stats')
-            os.makedirs('results/generation_stats')
-        except OSError as e:
-            print("Error: %s : %s" % ('results/generation_stats', e.strerror))
-
-    # Verify if folder generations_data exists
-    if not os.path.exists('results/generation_data'):
-        os.makedirs('results/generation_data')  # Create the directory if it doesn't exist
-    else:
-        try:
-            shutil.rmtree('results/generation_data')
-            os.makedirs('results/generation_data')
-        except OSError as e:
-            print("Error: %s : %s" % ('results/generation_data', e.strerror))
-
     # Verify if folder benchmarks exists
     if not os.path.exists('results/benchmarks'):
         os.makedirs('results/benchmarks')  # Create the directory if it doesn't exist
@@ -280,6 +260,49 @@ def folder_setup():
         except OSError as e:
             print("Error: %s : %s" % ('results/benchmarks/time_execution', e.strerror))
 
+    method_folders = ['population', 'selection', 'crossover', 'mutation']
+
+    for folder in method_folders:
+        # Verify if folder generation_data exists for each method
+        if not os.path.exists('results/generation_data/' + folder):
+            os.makedirs('results/generation_data/' + folder)  # Create the directory if it doesn't exist
+        else:
+            try:
+                shutil.rmtree('results/generation_data/' + folder)
+                os.makedirs('results/generation_data/' + folder)
+            except OSError as e:
+                print("Error: %s : %s" % ('results/generation_data/' + folder, e.strerror))
+
+        # Verify if folder generations_stats exists for each method
+        if not os.path.exists('results/generation_stats/' + folder):
+            os.makedirs('results/generation_stats/' + folder)  # Create the directory if it doesn't exist
+        else:
+            try:
+                shutil.rmtree('results/generation_stats/' + folder)
+                os.makedirs('results/generation_stats/' + folder)
+            except OSError as e:
+                print("Error: %s : %s" % ('results/generation_stats/' + folder, e.strerror))
+
+        # Verify if the folder for each method exists
+        if not os.path.exists('results/benchmarks/' + folder):
+            os.makedirs('results/benchmarks/' + folder)
+        else:
+            try:
+                shutil.rmtree('results/benchmarks/' + folder)
+                os.makedirs('results/benchmarks/' + folder)
+            except OSError as e:
+                print("Error: %s : %s" % ('results/benchmarks/' + folder, e.strerror))
+        
+        # Verify if folder time_execution exists for each method
+        if not os.path.exists('results/benchmarks/time_execution/' + folder):
+            os.makedirs('results/benchmarks/time_execution/' + folder)
+        else:
+            try:
+                shutil.rmtree('results/benchmarks/time_execution/' + folder)
+                os.makedirs('results/benchmarks/time_execution/' + folder)
+            except OSError as e:
+                print("Error: %s : %s" % ('results/benchmarks/time_execution/' + folder, e.strerror))
+                
 def generate_benchmarks(benchmark_type, generations_methods, generations_data, path):
     generations = []
     populations_size = []
@@ -317,20 +340,20 @@ def generate_benchmarks(benchmark_type, generations_methods, generations_data, p
         except OSError as e:
             print("Error: %s : %s" % (benchmark_result, e.strerror))
 
-    if benchmark_type == 'population':
+    if 'population' in benchmark_type:
         util.population_size_graph(populations_size, generations, benchmark_result, generations_methods)
         util.fitness_values_graph(generations_fitness, generations, benchmark_result, generations_methods)
         util.best_fitness_seen_graph(best_fitness_seen, generations, benchmark_result, generations_methods)
-    elif benchmark_type == 'selection':
+    elif 'selection' in benchmark_type:
         util.population_size_graph(populations_size, generations, benchmark_result, generations_methods)
         util.fitness_values_graph(generations_fitness, generations, benchmark_result, generations_methods)
         util.best_fitness_seen_graph(best_fitness_seen, generations, benchmark_result, generations_methods)
-    elif benchmark_type == 'crossover':
+    elif 'crossover' in benchmark_type:
         util.population_size_graph(populations_size, generations, benchmark_result, generations_methods)
         util.fitness_values_graph(generations_fitness, generations, benchmark_result, generations_methods)
         util.best_fitness_seen_graph(best_fitness_seen, generations, benchmark_result, generations_methods)
         util.crossover_rate_values_graph(crossover_rates, generations, 'Average Crossover Rate', benchmark_result, generations_methods)
-    elif benchmark_type == 'mutation':
+    elif 'mutation' in benchmark_type:
         util.population_size_graph(populations_size, generations, benchmark_result, generations_methods)
         util.fitness_values_graph(generations_fitness, generations, benchmark_result, generations_methods)
         util.best_fitness_seen_graph(best_fitness_seen, generations, benchmark_result, generations_methods)
@@ -339,38 +362,39 @@ def generate_benchmarks(benchmark_type, generations_methods, generations_data, p
 # Execute the folder setup
 folder_setup()
 
-# Execute the population methods
-population_methods = population_execution()
-population_generations_data = util.read_generation_stats_file(population_methods)
-print("Population Generations Data")
-print(population_generations_data)
-print("------------------------------------------")
-generate_benchmarks('population', population_methods, population_generations_data, 'results/benchmarks/')
+for iteration in range(1,6):
+    # Execute the population methods
+    population_methods = population_execution(iteration)
+    population_generations_data = util.read_generation_stats_file(population_methods, 'population')
+    print("Population Generations Data")
+    print(population_generations_data)
+    print("------------------------------------------")
+    generate_benchmarks('population_' + str(iteration), population_methods, population_generations_data, 'results/benchmarks/population/')
 
-# Execute the selection methods
-selection_methods = selection_execution()
-selection_generations_data = util.read_generation_stats_file(selection_methods)
-print("Selection Generations Data")
-print(selection_generations_data)
-print("------------------------------------------")
-generate_benchmarks('selection', selection_methods, selection_generations_data, 'results/benchmarks/')
-
-# Execute the crossover methods
-crossover_methods = crossover_execution()
-print(crossover_methods)
-crossover_generations_data = util.read_generation_stats_file(crossover_methods)
-print("Crossover Generations Data")
-print(crossover_generations_data)
-print("------------------------------------------")
-generate_benchmarks('crossover', crossover_methods, crossover_generations_data, 'results/benchmarks/')
-
-# Execute the mutation methods
-mutation_methods = mutation_execution()
-mutation_generations_data = util.read_generation_stats_file(mutation_methods)
-print("Mutation Generations Data")
-print(mutation_generations_data)
-print("------------------------------------------")
-generate_benchmarks('mutation', mutation_methods, mutation_generations_data, 'results/benchmarks/')
+    # Execute the selection methods
+    selection_methods = selection_execution(iteration)
+    selection_generations_data = util.read_generation_stats_file(selection_methods, 'selection')
+    print("Selection Generations Data")
+    print(selection_generations_data)
+    print("------------------------------------------")
+    generate_benchmarks('selection_' + str(iteration), selection_methods, selection_generations_data, 'results/benchmarks/selection/')
+    
+    # Execute the crossover methods
+    crossover_methods = crossover_execution()
+    print(crossover_methods)
+    crossover_generations_data = util.read_generation_stats_file(crossover_methods, 'crossover')
+    print("Crossover Generations Data")
+    print(crossover_generations_data)
+    print("------------------------------------------")
+    generate_benchmarks('crossover_' + str(iteration), crossover_methods, crossover_generations_data, 'results/benchmarks/crossover/')
+    
+    # Execute the mutation methods
+    mutation_methods = mutation_execution()
+    mutation_generations_data = util.read_generation_stats_file(mutation_methods, 'mutation')
+    print("Mutation Generations Data")
+    print(mutation_generations_data)
+    print("------------------------------------------")
+    generate_benchmarks('mutation_' + str(iteration), mutation_methods, mutation_generations_data, 'results/benchmarks/mutation/')
 
 # Execute the genetic algorithm              
 #general_execution()
