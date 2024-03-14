@@ -192,6 +192,7 @@ crossover_rate_generations = []
 mutation_rate_generations = []
 title_crossover_rate = None
 title_mutation_rate = None
+best_solution = population[0]
 # ----------------------------------------------
 
 # Genetic algorithm population remaining life time (RLT) calculation for individuals
@@ -392,6 +393,13 @@ while current_number_generation < int(configurations.max_number_generations.valu
                 new_population.append(offsprings[0])
                 new_population.append(offsprings[1])
 
+    # Update the best solution
+    new_population_best_solution = obtain_best_individual(new_population)
+    if new_population_best_solution.fitness > best_solution.fitness:
+        best_solution = new_population_best_solution
+        print("Best solution: " + str(best_solution.test_suite) + " - Fitness: " + str(best_solution.fitness))  
+    # ---------------------------------------------------------------
+                
     # ------------ POPULATION CONTROL METHOD ------------
 
     if eval(configurations.population_control.value):
@@ -446,17 +454,17 @@ if configurations.mutation_type.value == 'deterministic' or configurations.mutat
 
 # If the path does not exist, create it
 if not os.path.exists(configurations.generation_data_path.value):
-    os.makedirs(configurations.generation_data_path.value)   
+    os.makedirs(configurations.generation_data_path.value)       
 
 util.write_generation_stats_file([generation_number_values, population_size_values, generation_fitness_values, crossover_rate_generations, mutation_rate_generations, best_fitness_seen_values], configurations.generation_data_path.value)
-    
+
 # ---- End genetic algorithm data writing ----
 
-# Obtain the best individual of the population and write it to a file
-best_solution = obtain_best_individual(population)
-print("Best solution: " + str(best_solution.test_suite) + " - Fitness: " + str(best_solution.fitness))
-util.write_metadata(configurations.best_generated_test_suite.value, best_solution.test_suite, metadata)  
-# ---------------------------------------------------------------
+# Write the best solution in a phenotype format to a file
+util.write_metadata(configurations.best_generated_test_suite.value, best_solution.test_suite, metadata, None)
+
+# Write the best solution in a genotype format to a file
+util.write_best_generated_test_suite_data(configurations.best_generated_test_suite.value, best_solution.test_suite)
 
 # Print the new population
 print("-----------------------------------------------")

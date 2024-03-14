@@ -1,29 +1,9 @@
 Traceback (most recent call last):
-  File "/mnt/c/Users/mferr/OneDrive - Universidade da Beira Interior/Mestrado/dissertacao/masters/implementation/genetic_algorithm.py", line 305, in <module>
-    offsprings = crossover(parents_selected, metadata, current_number_generation, inputs, configurations, configurations.crossover_type.value, configurations.mutation_type.value)
-  File "/mnt/c/Users/mferr/OneDrive - Universidade da Beira Interior/Mestrado/dissertacao/masters/implementation/operations/crossover.py", line 22, in crossover
-    return uniform_crossover(parents, configurations, metadata)
-  File "/mnt/c/Users/mferr/OneDrive - Universidade da Beira Interior/Mestrado/dissertacao/masters/implementation/operations/crossover.py", line 111, in uniform_crossover
-    offsprings.append(create_offspring(test_suite, configurations, metadata))
-  File "/mnt/c/Users/mferr/OneDrive - Universidade da Beira Interior/Mestrado/dissertacao/masters/implementation/operations/population_control.py", line 60, in create_offspring
-    calculate_coverage_fitness(individual, configurations.fitness_function_type.value)
-  File "/mnt/c/Users/mferr/OneDrive - Universidade da Beira Interior/Mestrado/dissertacao/masters/implementation/operations/fitness_functions.py", line 28, in calculate_coverage_fitness
-    subprocess.run(['coverage', 'run', '--timid', '--branch', '-m', 'pytest', '-q', 'results/intermediate_test_suite'], stdout=subprocess.DEVNULL, stderr=subprocess.DEVNULL)
-  File "/usr/lib/python3.10/subprocess.py", line 505, in run
-    stdout, stderr = process.communicate(input, timeout=timeout)
-  File "/usr/lib/python3.10/subprocess.py", line 1146, in communicate
-    self.wait()
-  File "/usr/lib/python3.10/subprocess.py", line 1209, in wait
-    return self._wait(timeout=timeout)
-  File "/usr/lib/python3.10/subprocess.py", line 1959, in _wait
-    (pid, sts) = self._try_wait(0)
-  File "/usr/lib/python3.10/subprocess.py", line 1917, in _try_wait
-    (pid, sts) = os.waitpid(self.pid, wait_flags)
-KeyboardInterrupt
+  File "/mnt/c/Users/mferr/OneDrive - Universidade da Beira Interior/Mestrado/dissertacao/masters/implementation/genetic_algorithm.py", line 172, in <module>
 Traceback (most recent call last):
-  File "/mnt/c/Users/mferr/OneDrive - Universidade da Beira Interior/Mestrado/dissertacao/masters/implementation/execution_script.py", line 375, in <module>
+  File "/mnt/c/Users/mferr/OneDrive - Universidade da Beira Interior/Mestrado/dissertacao/masters/implementation/execution_script.py", line 398, in <module>
     selection_methods = selection_execution(iteration)
-  File "/mnt/c/Users/mferr/OneDrive - Universidade da Beira Interior/Mestrado/dissertacao/masters/implementation/execution_script.py", line 178, in selection_execution
+  File "/mnt/c/Users/mferr/OneDrive - Universidade da Beira Interior/Mestrado/dissertacao/masters/implementation/execution_script.py", line 181, in selection_execution
     time = run_subprocess(['python3', 'genetic_algorithm.py'])
   File "/mnt/c/Users/mferr/OneDrive - Universidade da Beira Interior/Mestrado/dissertacao/masters/implementation/execution_script.py", line 77, in run_subprocess
     subprocess.run(command)

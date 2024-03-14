@@ -66,8 +66,6 @@ individual : Solution
 '''
 def add_test_case(individual, metadata, configurations, solution):
     print("Add test case")
-    new_test_case = []
-
     new_test_case = solution.generate_test_case(metadata, int(configurations.max_number_functions.value))
 
     individual.test_suite.append(new_test_case)

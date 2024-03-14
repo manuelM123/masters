@@ -44,17 +44,27 @@ metadata : dict
     The metadata of the class context
 
 '''
-def write_metadata(path, test_suite, metadata):
+def write_metadata(path, test_suite, metadata, method_iteration):
     # If the path does not exist, create it
     if not os.path.exists(path):
         os.makedirs(path)
 
-    # If the file in the path does not exist, create it
-    if not os.path.exists(path + "/test_cases.py"):
-        f = open(path + "/test_cases.py", "w+")
+    if method_iteration == None:
+        # If the file in the path does not exist, create it
+        if not os.path.exists(path + "/test_cases.py"):
+            f = open(path + "/test_cases.py", "w+")
+
+        f = open(path + "/test_cases.py", "a+")
+        f.truncate(0)
+
+    else:
+        # If the file in the path does not exist, create it
+        if not os.path.exists(path + "/test_cases_" + str(method_iteration) + ".py"):
+            f = open(path + "/test_cases_" + str(method_iteration) + ".py", "w+")
     
-    f = open(path + "/test_cases.py", "a+")
-    f.truncate(0)
+        f = open(path + "/test_cases_" + str(method_iteration) + ".py", "a+")
+        f.truncate(0)
+
     f.write("from cut import *" + "\n" + "\n")
 
     # Write the test_suite to a file
@@ -377,6 +387,23 @@ def write_generation_stats_file(generation_stats, path):
             json.dump(generation_stats[stat], fp)
             print("Done writing JSON data into .json file")
 
+
+'''
+Function to read the generation stats from a json file
+
+Parameters:
+----------
+generation_methods: list
+    The generation methods to read the generation stats from
+
+type: str
+    The type of the generation method
+
+Returns:
+-------
+generations_data: list
+    The generation stats read from the json file
+'''
 def read_generation_stats_file(generation_methods, type):
     print("Started reading list data from a json file")
     
@@ -398,3 +425,43 @@ def read_generation_stats_file(generation_methods, type):
 
     return generations_data
 
+'''
+Function to write the best generated test suite data into a json file
+
+Parameters:
+----------
+path: str
+    The path to save the json file
+
+test_suite: list
+    The best generated test suite to write into a json file
+
+'''
+def write_best_generated_test_suite_data(path, test_suite):
+    print("Started writing list data into a json file")
+
+    with open(path + "/best_generated_test_suite.json", "w") as fp:
+        json.dump(test_suite, fp)
+        print("Done writing JSON data into .json file")
+
+'''
+Function to read the best generated test suite data from a json file
+
+Parameters:
+----------
+path: str
+    The path to read the json file
+
+Returns:
+-------
+data: list
+    The best generated test suite read from the json file
+
+'''
+def read_best_generated_test_suite_data(path):
+    print("Started reading list data from a json file")
+    
+    with open(path + '/best_generated_test_suite.json', 'rb') as fp:
+        data = json.load(fp)
+    
+    return data
