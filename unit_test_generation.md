@@ -53,6 +53,9 @@
 - https://link.springer.com/chapter/10.1007/3-540-61286-6_141 (Intelligent mutation rate control in canonical genetic algorithms) [49]
 - https://link.springer.com/chapter/10.1007/3-540-61286-6_141 (Intelligent Mutation Rate Control in Canonical Genetic Algorithms ) [50]
 - https://www.researchgate.net/publication/220742566_Self-adaptive_mutation_rates_in_genetic_algorithm_for_inverse_design_of_cellular_automata (Self-Adaptive Mutation Rates in Genetic Algorithm for Inverse Design of Cellular Automata) [51]
+- https://ieeexplore.ieee.org/document/755393 (Implementation of Evolutionary Fuzzy Systems) [52]
+- https://link.springer.com/chapter/10.1007/978-3-319-59614-3_2 (Introduction to Fuzzy Systems) [53] 
+- https://www.sciencedirect.com/science/article/abs/pii/S0020737375800022 (An experiment in linguistic synthesis with a fuzzy logic controller) [54]
 
 ## Automated and Manual Testing
 
@@ -70,15 +73,9 @@ Two different methods to create unit tests are known. They can be generated usin
 - Fault detection:
     - While automated generation proves to be superior in terms of code coverage and mutation scores, there is less consistency in favor of automated methods when it comes to fault detection [2],[5]. Manual generation seems to perform comparatively better in this regard.
 
-## Dynamic vs Static Languages
-
-One important point to address is to determine if the programming language used in the generation is statically or dynamically typed. This is vital as each one possess different characteristics that can either be an advantage or disadvantage for the automated generation of unit tests. 
-
-In order to further contextualize this topic, a definition about type checking is presented. Type checking is a process that consists in verifying/checking the type of a construct (list, array, variable among others) and its usage [6]. This process can happen during compile-time (static checking) or during run-time (dynamic checking) of a program. A programming language can be defined as a **statically typed language if the type checks happen at compile time** and as a **dynamically typed language if the type checks happen at run-time**. Moreover, in statically typed languages the variable and data types are known before run time however in dynamically typed languages the variable and data types are only known in run time. This can cause a larger execution time for programs as the types are determined during the execution process.
-
-Automated test generation is affected if the used language is statically or dynamically typed. The process is negatively affected it the chosen language is dynamic as the latter requires the types to be specified previously in order provide enough type context for generation of tests. When the generation process is under execution, the functions to be created do not know the required types for their parameters [7].
-
-This work delves this important characteristic by applying automated generation of unit tests in a statically typed language (Java) and a dynamically typed language (Python) in order to show how impactful can type information be for the generation of tests.
+:::warning
+acrescentar time to market, software development cycles e comparacao entre manual and automated test generation efficency
+:::
 
 ## Search-Based Test Generation
 
@@ -114,18 +111,6 @@ The major distinction between a metaheuristic and a heuristic is that the latter
 Applying metaheuristic algorithms in conjunction with fitness functions can aid in the stable and efficient search for near-optimal solutions in the context of search-based test generation. The process of generating test cases can be seen as an optimization problem, where the objective is to search within a space of possible inputs and improve the quality of the solutions over time. The use of fitness functions in this optimization process is crucial. Fitness functions assign scores to individual test cases based on their adherence to specific adequacy criteria, such as coverage metrics or other relevant quality measures. These scores guide the metaheuristic algorithms to explore the search space and find better, more optimized solutions with each iteration.
 
 By leveraging the power of metaheuristic algorithms and fitness functions, search-based test generation aims to continuously improve the quality of generated test cases within the constraints of a given search budget. The process involves iteratively evaluating and refining the solutions based on their fitness scores, ultimately leading to test suites that better achieve a specific goal.
-
-#### Hill Climber
-
-Hill Climber is a metaheuristic algorithm that focuses in searching a local optimal solution within a search space. The algorithm starts with a single initial solution chosen randomly and makes continuous searches around its neighbourhood to find better solutions. If a better solution is found - within that neighbourhood - then the current solution is replaced by the better solution. This last process is repeated continously until the search budget is reached or if no improved neighbours can be found. It is considered as a single-solution based metaheuristic [17].
-
-This algorithm is essentially a local search algorithm. It tries to find a local optima, i.e., trying to find the local maximum within the search space, which represents the state who maximizes the value of a objective function (fitness function). This however is a limitation to the algorithm as it may not achieve the most desired score which is the global maximum, which represents the highest objective score. 
-
-During the search, a local maximum can be found and limit the search as it is not possible to find a better neighbour within that search scope (further "climbing" is not made) because the neighbours values are worse than the current found solution [16]. Another problem is that the search may lead to search spaces where the solution cannot be improved any further because of the neighbours sharing the same objective score, i.e., there is a high quantity of values that are equal to the current solution. All these equal values are designated as "flat" local maximums. A problem that also associated to these "flat" values is the **shoulder problem**. This identifies a range of equal objective values which prevents founding the best solution within that search space. The regions where all neighbours have the same values are called **plateau** regions.
-
-Another major limitation behind this algorithm lies upon the starting solution. If a bad solution is chosen to start the search, there is a higher chance that the search scope can be very limited not providing enough good solutions. In this case, the best solution can be found almost imediately which is a bad indicator for the search as it means the starting solution was not a good choice and the peak - within the search space of the starting solution - was almost instantly achieved.
-
-![](https://hackmd.io/_uploads/BJkFJBndn.png) [16]
 
 
 #### Genetic Algorithm
@@ -206,9 +191,9 @@ Selection types:
 - **Rank selection**
     - A ranking operation is made for each chromossome within the population. Each individual receives its rank according to the fitness value that each one was. The worst individual will have rank 1 while the best individual will have rank $N$ whereas $N$ refers to the number of chromossomes within the population. 
     - In this technique, the individuals in a population are initially ordered by their fitness scores in ascending order of fitness. After the ordering, each respective individual is assigned a rank starting from the initial position of the ordered values. The rank is assigned from 1 (worst individual with the lowest fitness score) to $N$ (best individual with the highest fitness score). Then this technique, as already mentioned previously, determines the selection using the ranks and not fitness scores themselves. For this matter, a selection probability is determined using the ranks of each individual and population size. There is two ways to calculate this selection probability which are:
-        - **Linear rank selection**: ![](https://hackmd.io/_uploads/ByfS-nqF2.png) whereas $i$ represents the $i^{th}$ individual in the population and $n$ represents the population size (total number of individuals). [26]
+        - **Linear rank selection**: ![](https://hackmd.io/_uploads/ByfS-nqF2.png) whereas $i$ represents the $i^{th}$ individual in the population and $n$ represents the population size (total number of individuals) [26].
 
-        - **Exponential rank selection**: ![](https://hackmd.io/_uploads/SJcIwRqFh.png) whereas $i$ represents the rank of the $i^{th}$ individual in the population and $c$ represents a normalization factor chosen so that the sum of the probabilities of all individuals equals to one.
+        - **Exponential rank selection**: ![](https://hackmd.io/_uploads/SJcIwRqFh.png) whereas $i$ represents the rank of the $i^{th}$ individual in the population and $c$ represents a normalization factor chosen so that the sum of the probabilities of all individuals equals to one [21].
 
 ![](https://hackmd.io/_uploads/r1b8iXp92.png) [22]
 
@@ -239,7 +224,7 @@ Selection types:
 Crossover operators
 
 - One-Point Crossover:
-    - Exchange of genes between parents occurs after a specific position within the chromosome sequence. The selection of the split position is determined randomly, choosing one allele within the range from the first to the penultimate position in the chromosome sequence. In this type of crossover, the head and tail of one chromossome cannot be exchanged and if they contain good genetic information this can be a drawback [22]. In this operator, after the spliting position has been decided, the succeeding genes are exchanged.
+    - Exchange of genes between parents occurs after a specific position within the chromosome sequence. The selection of the split position is determined randomly, choosing one allele within the range from the first to the penultimate position in the chromosome sequence. In this type of crossover, the head and tail of one chromossome cannot be passed onto the offspring and if they contain good genetic information this can be a drawback where the offspring can lack good genetic information [22]. In this operator, after the spliting position has been decided, the succeeding genes are exchanged.
     ![](https://hackmd.io/_uploads/H1f60aJon.png) [21]
     
 - N-Point Crossover:
@@ -417,7 +402,7 @@ The following sections will introduce each parameter importance, its drawbacks w
     - Ideally, selection pressure should be low in the early stages of a genetic algorithm in order to allow a wide search of the search space to evaluate almost all possible solutions (incentive on a exploration phase). As the generation process advances, selection pressure should gradually be higher to find the global optimum space and then proceed the search solely on that solution vicinity to decide on the best solution possible (incentive on a exploitation phase). The convergence should be lower in the beginning  phase and should rise towards to end to find the optimal solution [41].
     - Some authors applied different techniques to enable the control of selection pressure during the generation process in genetic algorithms:
         - Pham and Castellani [42] proposed an adaptive selection routine for evolutionary algorithms that consists in applying a stochastic noise to determine which individuals should mate (should be selected for reproduction). This work defends the importance of selection pressure and how its control can be favorable towards the optimization of the selection process in evolutionary algorithms. The authors divided their efforts in two main stages:
-            1. **Selection pressure adjustment**: as selection pressure is an important factor regarding population convergence for a optimal solution, the authors decided to control the selection pressure by adding individuals to two different structures and mating them between those two. Initially, a noise addition procedure was made to introduce some a random positive perturbation to the fitness of each individual [42]. The result of the mentioned operation is called as **mating chance** by the authors being calculated in the following way:
+            1. **Selection pressure adjustment**: as selection pressure is an important factor regarding population convergence for a optimal solution, the authors decided to control the selection pressure by adding individuals to two different structures and mating them between those two. Initially, a noise addition procedure was made to introduce a random positive perturbation to the fitness of each individual [42]. The result of the mentioned operation is called as **mating chance** by the authors being calculated in the following way:
                 ![](https://hackmd.io/_uploads/rkuese86h.png)
                 
                 - $f(i)$ - fitness of the individual $i$
@@ -478,41 +463,35 @@ The following sections will introduce each parameter importance, its drawbacks w
             - For the **moderate population sizes**, ILM/DHC proved to be the best technique for population size 150 and DHM/ILC proved to be best for population size 200. The second result can be explained according to the growing size of the populations. A higher population size can include individuals with high fitness and a higher mutation rate in the beginning is not needed for this situation, on the contrary a higher crossover rate is needed to generate better offspring from large population sizes [44]. As the generations go on, then the focus can go into mutation as the majority of individuals should have high fitness in the population and crossover is way less impactul than applying a mutation on the later generation levels.
             - For the **large population sizes**, DHM/ILC proved to be the best in relation to the other techniques because of the evidence showed in the last sections as the increase of the population size indicates a better performance for increasing crossover and decreasing mutation rates.
             - The standard methods in all experiments did not have better results than the dynamic approaches, proving that even the deterministic approaches present better results than the conventional values in standard parameter tuning techniques.
-        
-        - Another work, developed by Vannuci and Colla [48], introduces an adaptive approach to adjust the crossover and mutation rates of a standard genetic algorithm according to feedback obtained from the search process. This is applied with the use of a Fuzzy Inference System (FIS), the strategy to apply this according another factors is named as Fuzzy Adaptive Recombination Strategy (FARS). The authors propose the control of a set of indicators that assess the search performance through the FIS and according to these a tuning process happens in the recombination and mutation levels (crossover and mutation rates) [48].
-            - The objective of FARS is to iteratively adjust crossover and mutation rates of the genetic algorithms according to two main factors:
-                - **Trend of fitness**: the candidate solutions in a population are evaluated, in each generation, in order to perceive if the algorithm tends to obtain better or worse levels of fitness throughout the generations. The current generation is evaluated using the slope of the average fitness of the 25% fittest individuals. A weighted average of slope in $M_t$ previous generations is considered to prevent fluctuations  [48]. The trend is evaluated in each generation to verify if the levels of fitness are increasing or decreasing. The value is within the range $[-90,90]$.
-                - **Search temporal phase**: crossover and mutation rates are adjusted according to the current temporal phase of the algorithm (if it is in an initial or an advanced state of execution). Low mutation rates and high crossover rates are recommended for earlier stages of the algorithm as the exploration phase is more emphasized. As the genetic algorithm reaches its final stages a exploitation phase is recommended, with higher mutation rates and lower crossover rates in order to create better individuals within a pool that already has a great amount of high fitness individuals. The value is within the range $[0,1]$ representing the progress obtained according to max number of generations.
-            - Stability is another factor introduced by the authors, it is determined by the number of sign changes of the derivative of the average fitness of the 25% fitness individuals in $M_s$ previous generations [48]. The value is within the range $[0,1]$ where 0 refers to a stable behavior and 1 to a unstable behavior.
-            - The authors use two different FIS systems to optimize the crossover and mutation rates. They used one of them to only optimize the mutation rate and the other one to only optimize crossover rate. The inputs used for the FIS that optimizes mutation rate are phase and trend. The inputs used for FIS that optimizes the crossover rate also takes the phase and trend with an additional stability variable. These inputs are then converted into fuzzy sets (fuzzifier process) being this divided into the following sets:
-                - **Phase**: initial and advanced 
-                - **Trend**: negative, neutral and positive
-                - **Stability**: stable and unstable
-                - **Rates variation**: negative, constant and positive
-            :::warning
-            The fuzzy sets refer to the possible values that each variable can have for example the fuzzy set for phase variable is initial and advanced.
-            :::
-            - Each of the fuzzy sets have a specified membership function to define the degree of membership of an input value to a certain fuzzy set within the range $[0,1]$. 
-            
-            :::warning
-            The membership function used by the authors is not presented however by the looks of the graphs it seems like they used a triangular membership function for the phase and rate variation variables. The trend variable seems to be converted with a trapezoidal membership function. The stability variable seems to be converted into a fuzzy set with a s-function. 
-            :::
-            - A set of rules, defined by the authors, have been applied for minimization problems, which means the factor trend is desired to have the lowest value possible. With the use of inference engine of a FIS, the matching degree of a input variable with correspondence to a rule is determined and a decision is made for which rule to be executed. In this case a fuzzy output set is created after deciding the rules to apply to the inputs.
-                ![](https://hackmd.io/_uploads/HJtW_moJ6.png)
+        - Work developed by Shi, Eberhart and Chen [52] presents an adaptive approach regarding the crossover and mutation rates adjustment. The authors present an implementation of a evolutionary fuzzy expert system, they defend the use of genetic algorithm in order to help the fuzzy expert system adapt its membership functions and set of rules during its execution.
+            - The main theme of this work does not present relevance for the topic of crossover and mutation rate adjustment however the authors in order to present arguments to defend their view on the theme implemented a fuzzy expert system that adjusts crossover and mutation rates. This was done to further demonstrate how the fuzzy set rules were evolved with genetic algorithm that has fixed and adapted crossover and mutation rates.
+            - A fuzzy expert system is of a fuzzy logic nature, which include fuzzy sets that represent the domain with different degrees of membership. These degrees of membership are determined with membership functions associated to the fuzzy sets. These functions return a inference about a specific input variable determining if the latter is of a certain nature or degree within the range of [0,1]. 
+                - Each input variable is assigned a specific fuzzy set using membership functions in a process called fuzzification, after this process the input variables are mapped into linguistic values resulting in a output fuzzy set [53]. These values are determined using approximate reasoning (inference) with expert knowledge (set of rules determined by experts). This process enables a correct approximation of which variable is more likely to be part of a specific fuzzy set. The output of the fuzzy expert system is then obtained by a process called defuzzification which assigns representivative crisp data to the resultant output fuzzy set [53].
+                - The inference engine used in their work is the Mamdani inference system [54] where the output provided by each rule is a fuzzy set. The Mamdani fuzzy rule in a fuzzy expert system is 
+                    - If $x_1$ is $S_1$, and $x_2$ is $S_2$, ..., $x_k$ is $S_k$, then $y_1$ is $T_1$, ..., and $y_k$ is $T_k$ [53]
+                    - Each $y_k$ is a inferred output (consequent) associated to a fuzzy output set $T_k$ (after approximate reasoning) and each $x_k$ is a input variable (antecedent) associated to a fuzzy set $S_k$ (before approximate reasoning).
+            - The membership functions used were left triangle, triangle and right triangle which can be defined mathematically as
 
-            - A defuzzifier process occurs in the fuzzy output sets to be converted into a output value that can be used externaly to the FIS. The authors then obtain two output values $\delta_c$ (crossover) and $\delta_m$ (mutation) that are going to be added into the existing crossover and mutation rates as $\hat{r}_c = r_c + \delta_c$ and $\hat{r}_m = r_m + \delta_m$, where $\hat{r}_c$ represents the new crossover rate and $\hat{r}_m$ represents the new mutation rate to apply in the current generation.
+            ![image](https://hackmd.io/_uploads/H1nD5jQVp.png) [53]
+
+            - The adjustment of crossover and mutation rates was developed using a fuzzy expert system [53] with the following elements:
+                - **Input variables**: best fitness (BF) in the range $[0,1]$, number of generations unchanged regarding best fitness (UN) in the range $[0,20]$ and variance of fitnesses (VF) in the range $[0.0,0.2]$
+                - **Output variables**: crossover rate (CR) in the range $[0.005, 0.1]$ and mutation rate (MR) in the range $[0.4, 0.9]$
+                - **Fuzzy sets**: low, medium and high
+                - **Membership functions**: left triangle, triangle, right triangle
+                - **Fuzzy rules**:
+                    ![image](https://hackmd.io/_uploads/Sy_jAj7Np.png)
+                    ![image](https://hackmd.io/_uploads/r11hAoX4a.png)
+                - **Defuzzification**: centroid 
+
+            ![image](https://hackmd.io/_uploads/BybCq8oNa.png)
+
+            - The authors implemented a evolutionary fuzzy system in order to classify a iris data set. They implemented a evolutionary fuzzy system with and without crossover and mutation rate adaptation. For the experiments that implemented the adaptation of crossover and mutation rate they verified that these achieved the solution with a lower number of generations than the fuzzy system with fixed crossover and mutation rate. 
 
             :::warning
             ![](https://hackmd.io/_uploads/HJhbWkyla.png)
             :::
             
-            - The strategy applied by the authors was compared to other crossover and mutation optimization techniques such as:
-                - **Constant rates**: fixed rates for crossover and mutation across all generations. These rates were $r_c = 0.6$ for crossover and $r_m = 0.2$ for mutation.
-                - **Alternate rates**: two different configuration rates for crossover and mutation that alternate between a specified number of generations. These rates were $r_c = 0.8$ and $r_c = 0.4$ for crossover and $r_m = 0.1$ and $r_m = 0.3$ for mutation.
-                - **Mutation rate optimization**: a mutation rate control proposed by Back and Schutz [49], where the mutation rate is adjusted across the generations. For this method, the crossover rate remains fixed during the execution of the genetic algorithm.
-
-            - The experiments were applied for 100 runs of the genetic algorithm with the FARS, constant, alternate and mutation rate optimization methods for minimization problems which include a set of minimization functions. The authors verified that for simpler minimization problems, all the methods converged for a solution but FARS revelead itself to be the fastest to converge and ultimately reducing the computational time. For more moderate problems, FARS and mutation rate optimization methods were similar in terms of convergences however the former obtained a quicker convergence. For more complex problems, FARS proved to be the best method to achieve convergence as its crossover and mutation rate adjustment avoids local minima, which was the main reason explained by the authors about the lack of convergence of the other methods as these were affected by the presence of local minima.
-        
         - Self-adaptive methods have also been applied and some examples can be found in the works of Bäck, Eiben and Vaart [33], Bäck and Schütz [50], Breukelaar and Bäck [51]. 
             - A new self-adaptive method for crossover rates was proposed and a self-adaptive method for mutation rates was implemented by the authors [33]. The methods implemented are explained according different objectives:
                 - **Crossover evolution**: a self-adaptive crossover method where a initial crossover rate was randomly chosen in the interval $[0,1]$ and encoded into the individuals representation scheme. After an individual is selected in the selection process, a random number $r$ below 1 is compared with the encoded crossover rate $p_c$ of the individual. 
@@ -523,7 +502,7 @@ The following sections will introduce each parameter importance, its drawbacks w
                         In this case, for implementation each condition must be verified and the crossover method (exchange between methods of test cases) can occur as a normal crossover operation despite the authors have chosen to apply the uniform crossover operator. 
                         :::
                         
-                - **Mutation evolution**: the mutation method applied by the Bäck, Eiben and Vaart [33] is an already existing method proposed by Breukelaar and Bäck [50]. This method consists in adapting mutation rates that are encoded in the individuals. A initial mutation rate is encoded in the individuals representation being its value chosen randomly in the interval $[0.001, 0.25]$, this mutation rate will undergo mutation operations during the generations. The rate is mutated in the following way:
+                - **Mutation evolution**: the mutation method applied by the Bäck, Eiben and Vaart [33] is an already existing method proposed by Breukelaar and Bäck [51]. This method consists in adapting mutation rates that are encoded in the individuals. A initial mutation rate is encoded in the individuals representation being its value chosen randomly in the interval $[0.001, 0.25]$, this mutation rate will undergo mutation operations during the generations. The rate is mutated in the following way:
                     - The encoded mutation rate is mutated using the formula 
                     
                         ![](https://hackmd.io/_uploads/BJDnM7mgp.png) [51]
@@ -551,8 +530,37 @@ Michael Marcozzi - FIS
 According the work of dynamic crossover and mutation rates for the deterministic parameter control methods, $n$ that stands for chromossome size in time complexity calculation can be the number of test cases in a test suite which represents a solution.
 :::
 
-
 ###### Genetic Algorithm Quality (IMPORTANTE - POSSUI METRICAS)
+
+The performance of a genetic algorithm is essentially based upon the quality of the solution found in the search and how quick the algorithm achieved the desired solution [21]. 
+
+The time needed for the algorithm to achieve a solution can be measured in CPU or wall-clock time. Additionally, the time itself can also be measured in terms of average number of generations needed by the algorithm to achieve the solution [21]. The notion of convergence speed in a genetic algorithm can take these two forms primarily. The notion of solution quality is associated to the fitness function used in the genetic algorithm. This function is what determines how close a solution is to achieve a desired goal [10] as previously mentioned in section "Fitness Functions".
+
+There are three main combinations of solution quality and convergence time used to evaluate an genetic algorithm performance [21]:
+
+- **Maximum running time**: performance is reflected upon the quality of the final solution (fitnes value) during the time interval of execution;
+- **Maximum running time and minimum fitness**: performance is evaluated according to a minimum fitness value during a limited time of execution. The execution is successful if the minimum fitness value is obtained during that time interval;
+- **Minimum fitness**: performance is determined according to the execution time needed to reach this fitness value.
+
+The performance of a genetic algorithm is only properly evaluated when multiple executions of the algorithms with same parameter values (on the same problem) and statistical measures of each individual execution are carried out [21]. In summary, three performance measures can be defined in evolutionary computing:
+
+- **Efficiency**: speed of the algorithm to achieve a desired solution. A metric used to evaluate efficiency is **AES** (average number of evaluations to a solution);
+- **Effectiveness**: how good the solution is according to the problem context. The metrics that evaluate the effectiveness of the genetic algorithm are **MBF** (mean best fitness) and **SR** (success rate);
+- **SR** (success rate): percentage of runs where the desired solution was obtained during the executions of the genetic algorithm.
+
+Each measure was explained briefly in terms of principal objective, however one must take into account that each of them have different conditions in order to be applied. For instance:
+
+- The **success rate** (SR) measure demonstrates the percentage of algorithm runs where the desired solution was obtained. It can only be applied to problems where the optimal solution or value can be defined beforehand. This measure cannot be applied for problems that do not have a desired solution, being useless to determine the algorithm performance [21];
+- The **average number of evaluations to a solution** (AES) measure determines how many steps were required during the algorithm execution to find a solution. 
+    - This performance measure has its limitations when used:
+        1. Some executions can take more time than others because of the stochastic nature of evolutionary algorithms. There could be different values for AES on multiple instances of a genetic algorithm, with the same parameters or configurations, that are not caused by the implementation details themselves;
+        2. Genetic operators can have additional search procedures implemented in their structure [21]. These additional features are invisible to the AES measure as they only count the application of the genetic operator as one step;
+        3. Comparing evolutionary algorithms that use different search spaces or genetic operators, essentially of different natures, is a huge problem for this performance measure [21]. Algorithms of different natures and procedures won't have similar steps and consecutively the number of evaluations will largely differ.
+    - There is an alternative to AES considering the limitations stated above which is to measure the progress speed of the genetic algorithm according to the number of generations or to the number of fitness evaluations [21]. 
+- The **mean best fitness** (MBF) measure is used to evaluate the mean best fitness out of a set of genetic algorithm executions. Out of all the measures mentioned previously, this measure is always valid to use in genetic algorithms [21] despite the actually usefulness of it may differ in different problems. 
+
+
+The performance measures can be used in conjunction to determine an algorithm performance. For example, the ...
 
 ## Calorie Intake Calculation
 
@@ -576,9 +584,9 @@ According the work of dynamic crossover and mutation rates for the deterministic
 - Usar unittest testing framework para executar os testes gerados
     1. Gerar population de forma aleatória
     2. Com unittest executar o test suite gerado para avaliar branch and statement coverage
-        2.1. Utilizar dois ficheiros principais para escrita de test suites
+        2.1. Utilizar dois ficheiros principais para escrita de test suites: um ficheiro intermédio a ser usado durante a geração (utilizar phenotypes intermédios) e um ficheiro final após resultados dos algoritmos genéticos (os phenotypes finais após aplicadas as otimizações). Para executar o test suite utilizar python subprocess module para execução em paralelo com o module principal
     4. Obter resultados de coverage e usar para fitness
-    5. Fitness para operações genéticas
+    5. Utilizar fitness para operações genéticas
 :::
 
 ...
@@ -624,3 +632,51 @@ By maintaining a diverse population and applying genetic operators, genetic algo
 However, genetic algorithms might require more computational resources and can be slower compared to hill climbers, especially for problems with a large search space.
 In summary, hill climbers are more prone to finding local optima due to their localized search strategy, while genetic algorithms are better suited to explore the search space globally and have a higher chance of finding global optima. However, genetic algorithms might require more computational resources and be computationally expensive compared to hill climbers, making the choice of optimization algorithm dependent on the specific problem characteristics and available resources.
 :::
+
+# Implementation objectives
+
+- [X] Population control
+- [X] Selection
+- [X] Crossover and mutation
+    - [X] Deterministic
+    - [X] Adaptive
+    - [X] Self-adaptive
+- [X] Graphs
+    - [X] Population size (for population resize method)
+    - [X] Selection
+    - [X] Crossover and mutation rate (for deterministic, adaptive and self-adaptive) 
+    - [X] Best fitness value per generation
+    - [] Best fitness value
+
+# Comparison choice
+
+- Comparing between methods for each element use 2 runs and 100 generations with population size 20
+- For each individual optimization, use the desired configuration by the authors and apply the same for the standard methods (excluding the optimization parameters)
+- Additonal executions because of methods parameters
+
+- [X] Population methods 
+    - [X] Control
+    - [X] No Control
+- [X] Selection methods
+    - [X] Random
+    - [X] Roulette Wheel
+    - [X] Adaptive
+    - [X] Rank 
+    - [X] Tournament
+- [X] Crossover methods
+    - [x] One-point
+    - [x] Uniform
+    - [x] Deterministic
+    - [x] Adaptive
+    - [x] Self-adaptive
+- [x] Mutation methods
+    - [x] Add test case
+    - [x] Delete test case
+    - [x] Change parameters
+    - [x] Deterministic
+    - [x] Adaptive
+    - [x] Self-adaptive
+
+- Based upon the best results from the experiments above use the conjunction of methods
+
+- [ ] Methods
