@@ -92,3 +92,19 @@ best_fitness : int
 '''
 def obtain_best_fitness(fitness_values):
     return max(fitness_values)
+
+'''
+Function to obtain the mean fitness value from a set of fitness values
+
+Parameters:
+----------
+fitness_values : list
+    A list of fitness values
+
+Returns:
+-------
+mean_fitness : int
+    The mean fitness value of the fitness values
+'''
+def mean_best_fitness(fitness_values):
+    return sum(fitness_values)/len(fitness_values)

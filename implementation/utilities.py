@@ -387,7 +387,6 @@ def write_generation_stats_file(generation_stats, path):
             json.dump(generation_stats[stat], fp)
             print("Done writing JSON data into .json file")
 
-
 '''
 Function to read the generation stats from a json file
 
@@ -465,3 +464,19 @@ def read_best_generated_test_suite_data(path):
         data = json.load(fp)
     
     return data
+
+'''
+Function to calculate the standard deviation of a population of values
+
+Parameters:
+----------
+population: list
+    The population of values to calculate the standard deviation of
+
+Returns:
+-------
+standard_deviation: int
+    The standard deviation of the population of values
+'''
+def standard_deviation(population):
+    return np.std(population)

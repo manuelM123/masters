@@ -5,10 +5,10 @@ import resource
 import configparser
 import utilities as util
 
-population_control = ['False', 'True']
+population_control = ['True', 'False']
 selection_types = ['random', 'roulette_wheel', 'adaptive', 'rank', 'tournament']
-crossover_types = ['uniform', 'deterministic', 'self-adaptive', 'adaptive']
-mutation_types = ['add_test_case', 'delete_test_case', 'change_parameters', 'deterministic', 'adaptive', 'self-adaptive']
+crossover_types = ['deterministic', 'self-adaptive', 'adaptive', 'uniform']
+mutation_types = ['add_test_case', 'delete_test_case', 'deterministic', 'adaptive', 'self-adaptive', 'change_parameters']
 
 # [[population methods], [selection methods], [crossover methods], [mutation methods]]
 execution_activities = [
@@ -30,16 +30,16 @@ genetic_algorithm_configurations = {
     'max_number_functions': 4,
     'max_number_test_cases': 3,
     'tournament_size': 2,
-    'max_number_generations': 4,
-    'fitness_max_stagnation_period': 3,
+    'max_number_generations': 3,
+    'fitness_max_stagnation_period': 2,
     'max_number_fitness_evaluations': 1000,
     'fitness_function_type': 'branch_coverage',
-    'fitness_iteration_limit': 2
+    'fitness_iteration_limit': 1
 }
 
 # Configuration of the genetic operators
 genetic_operators_configurations = {
-    'population_size': 10,
+    'population_size': 5,
     'population_control': 'True',
     'selection_type': 'tournament',
     'crossover_type': 'uniform',
@@ -155,7 +155,6 @@ def general_execution():
 
 def population_execution(iteration):
     population_methods = []
-    population_control = ['True', 'False']
     for method in population_control:
         change_configurations(None, [['population_control', method]], None, [['generation_stats', 'results/generation_stats/population/' + 'population_' + method + "_" + str(iteration)], ['generation_data', 'results/generation_data/population/' + 'population_' + method + "_" + str(iteration)]])
         genetic_algorithm_execution(path_configuration_file, genetic_algorithm_configurations, genetic_operators_configurations, genetic_algorithm_optimizations_configurations, file_paths)
@@ -193,8 +192,7 @@ def selection_execution(iteration):
 
 def crossover_execution(iteration):
     crossover_methods = []
-    crossover_types = ['deterministic', 'adaptive', 'self-adaptive', 'uniform']
-    deterministic_crossover_adjustment_types = ['ilc', 'dhc']
+    deterministic_crossover_adjustment_types = ['dhc', 'ilc']
     for method in crossover_types:
         if method == 'deterministic':
             for deterministic_type in deterministic_crossover_adjustment_types:
@@ -224,7 +222,7 @@ def crossover_execution(iteration):
 
 def mutation_execution(iteration):
     mutation_methods = []
-    deterministic_mutation_adjustment_types = ['ilm', 'dhm']
+    deterministic_mutation_adjustment_types = ['dhm', 'ilm']
     for method in mutation_types:
         if method == 'deterministic':
             for deterministic_type in deterministic_mutation_adjustment_types:
@@ -363,23 +361,12 @@ def generate_benchmarks(benchmark_type, generations_methods, generations_data, p
         except OSError as e:
             print("Error: %s : %s" % (benchmark_result, e.strerror))
 
-    if 'population' in benchmark_type:
-        util.population_size_graph(populations_size, generations, benchmark_result, generations_methods)
-        util.fitness_values_graph(generations_fitness, generations, benchmark_result, generations_methods)
-        util.best_fitness_seen_graph(best_fitness_seen, generations, benchmark_result, generations_methods)
-    elif 'selection' in benchmark_type:
-        util.population_size_graph(populations_size, generations, benchmark_result, generations_methods)
-        util.fitness_values_graph(generations_fitness, generations, benchmark_result, generations_methods)
-        util.best_fitness_seen_graph(best_fitness_seen, generations, benchmark_result, generations_methods)
-    elif 'crossover' in benchmark_type:
-        util.population_size_graph(populations_size, generations, benchmark_result, generations_methods)
-        util.fitness_values_graph(generations_fitness, generations, benchmark_result, generations_methods)
-        util.best_fitness_seen_graph(best_fitness_seen, generations, benchmark_result, generations_methods)
+    util.population_size_graph(populations_size, generations, benchmark_result, generations_methods)
+    util.fitness_values_graph(generations_fitness, generations, benchmark_result, generations_methods)
+    util.best_fitness_seen_graph(best_fitness_seen, generations, benchmark_result, generations_methods)
+    if 'crossover' in benchmark_type:
         util.crossover_rate_values_graph(crossover_rates, generations, 'Average Crossover Rate', benchmark_result, generations_methods)
     elif 'mutation' in benchmark_type:
-        util.population_size_graph(populations_size, generations, benchmark_result, generations_methods)
-        util.fitness_values_graph(generations_fitness, generations, benchmark_result, generations_methods)
-        util.best_fitness_seen_graph(best_fitness_seen, generations, benchmark_result, generations_methods)
         util.mutation_rate_values_graph(mutation_rates, generations, 'Average Mutation Rate', benchmark_result, generations_methods)
 
 # Execute the folder setup
