@@ -8,6 +8,16 @@ selection_types = ['random', 'roulette_wheel', 'adaptive', 'rank', 'tournament']
 crossover_types = ['deterministic_ilc', 'deterministic_dhc', 'self-adaptive', 'adaptive', 'uniform']
 mutation_types = ['add_test_case', 'delete_test_case', 'deterministic_ilm', 'deterministic_dhm', 'adaptive', 'self-adaptive', 'change_parameters']
 
+def folder_setup():
+    if not os.path.exists('results_evaluation'):
+        os.makedirs('results_evaluation')
+
+    if not os.path.exists('results_evaluation/methods_execution'):
+        os.makedirs('results_evaluation/methods_execution')
+
+    if not os.path.exists('results_evaluation/algorithm_execution'):
+        os.makedirs('results_evaluation/algorithm_execution')
+
 '''
 Function to obtain the mean best fitness of a set of genetic parameters
 
@@ -41,15 +51,23 @@ def mean_best_fitness_methods(genetic_parameters, type, number_iterations):
 
     return genetic_parameter_mbf
 
+folder_setup()
+
 mbf_population = mean_best_fitness_methods(population_control, 'population', 5)
+util.mean_best_fitness_histogram(mbf_population, 'population', 'results_evaluation/methods_execution')
 print('Population: ' + str(mbf_population))
 
 mbf_selection = mean_best_fitness_methods(selection_types, 'selection', 5)
+util.mean_best_fitness_histogram(mbf_selection, 'selection', 'results_evaluation/methods_execution')
 print('Selection: ' + str(mbf_selection))
 
 mbf_crossover = mean_best_fitness_methods(crossover_types, 'crossover', 5)
+util.mean_best_fitness_histogram(mbf_crossover, 'crossover', 'results_evaluation/methods_execution')
 print('Crossover: ' + str(mbf_crossover))
 
 mbf_mutation = mean_best_fitness_methods(mutation_types, 'mutation', 5)
+util.mean_best_fitness_histogram(mbf_mutation, 'mutation', 'results_evaluation/methods_execution')
 print('Mutation: ' + str(mbf_mutation))
+
+
 

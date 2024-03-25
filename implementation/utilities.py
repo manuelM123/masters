@@ -325,6 +325,41 @@ def time_execution_histogram(time_execution_values, type, path, iteration):
     plt.savefig(path + '/' + type + '_time_execution_histogram_' + str(iteration) + '.png', bbox_inches='tight')
 
 '''
+Function to plot the mean best fitness of a generation method
+
+Parameters:
+----------
+mean_best_fitness_values: list
+    The mean best fitness values of a generation method
+
+type: str
+    The type of the generation method
+
+path: str
+    The path to save the graph
+'''
+def mean_best_fitness_histogram(mean_best_fitness_values, type, path):
+    if plt.get_fignums():
+            plt.close('all')
+    
+    fig, ax = plt.subplots()
+    for mean_best_fitness in mean_best_fitness_values:
+        generation_method_name = mean_best_fitness[0].split('_')[0].capitalize()
+        for word in range(1, len(mean_best_fitness[0].split('_'))):
+            generation_method_name += ' ' + mean_best_fitness[0].split('_')[word]
+
+        # in each bar make a space to prevent overlapping
+        ax.bar(generation_method_name, mean_best_fitness[1], yerr=mean_best_fitness[2],
+               align='center', ecolor='black', capsize=10)
+        
+    ax.set_xlabel('Generation Method')
+    ax.set_ylabel('Mean Best Fitness')
+    ax.set_title('Mean Best Fitness for ' + type.capitalize() + ' Methods')
+
+    plt.xticks(rotation=90, ha='right')
+    plt.savefig(path + '/' + type + '_mean_best_fitness_histogram.png', bbox_inches='tight')
+
+'''
 Function to plot the best fitness value during the execution of the genetic algorithm
 
 Parameters:
