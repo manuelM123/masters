@@ -424,6 +424,35 @@ def read_generation_stats_file(generation_methods, type):
 
     return generations_data
 
+
+'''
+Function to read the generation stats from a json file with a specific file type
+
+Parameters:
+----------
+parameter_type: str
+    The parameter type to read the generation stats from
+
+type: str
+    The type of the generation method   
+
+Returns:
+-------
+generations_data_type: list
+    The generation stats read from the json file
+'''
+def read_generations_stats_file_type(parameter_type, type, file_type):
+    generations_data_type = []
+    path = 'results/generation_data/' + type + "/" + parameter_type
+
+    # Verify if file exists
+    if os.path.exists(path + '/' + file_type + '.json'):
+        generation_read_path = path + '/' + file_type
+        with open(generation_read_path + '.json', 'rb') as fp:
+            data = json.load(fp)
+
+    return data
+
 '''
 Function to write the best generated test suite data into a json file
 
