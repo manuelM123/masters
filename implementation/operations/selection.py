@@ -28,6 +28,14 @@ Returns:
 -------
 parents_selection : list
     A list containing the parents selected from the population
+
+or
+
+first_list : list
+    A list containing the first half of the selected individuals
+
+second_list : list
+    A list containing the second half of the selected individuals
 '''
 def select(population, population_fitness, tournament_size, type):
     if type == 'random':
@@ -116,6 +124,7 @@ Parameters:
 ----------
 population : list
     The population to select the parents from
+
 Returns:
 -------
 parents_selection : list
@@ -174,6 +183,7 @@ Parameters:
 ----------
 population : list
     The population to select the parents from
+
 population_fitness : list
     The fitness of each individual in the population
     
@@ -181,6 +191,7 @@ Returns:
 -------
 first_list : list
     A list containing the first half of the selected individuals
+
 second_list : list
     A list containing the second half of the selected individuals
 '''
@@ -240,6 +251,9 @@ configurations : dict
 
 new_population : list
     The new population to insert the offsprings
+
+metadata : dict
+    The metadata of the algorithm
 
 Returns:
 -------

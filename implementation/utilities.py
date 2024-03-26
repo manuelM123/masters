@@ -38,10 +38,15 @@ Parameters:
 ----------
 path : str
     The path to write the test suite to
+
 test_suite : list
     The test suite to write to a file
+
 metadata : dict
     The metadata of the class context
+
+method_iteration : int
+    The method iteration to write the test suite to
 
 '''
 def write_metadata(path, test_suite, metadata, method_iteration):
@@ -103,6 +108,12 @@ Parameters:
 file : str
     The file to read the configuration from
 
+type : str
+    The type of configuration to read
+
+configuration_name : str
+    The name of the configuration to read
+
 Returns:
 -------
 config : list
@@ -129,6 +140,9 @@ generation_number_values: list
 
 path: str
     The path to save the graph
+
+benchmarks: list
+    The benchmarks to plot the population size variation per generation
 '''
 def population_size_graph(population_size_values, generation_number_values, path, benchmarks):
     if plt.get_fignums():
@@ -171,6 +185,9 @@ generation_number_values: list
 
 path: str
     The path to save the graph
+
+benchmarks: list
+    The benchmarks to plot the best fitness value variation per generation
 '''
 def fitness_values_graph(generation_fitness_values, generation_number_values, path, benchmarks):
     if plt.get_fignums():
@@ -217,6 +234,9 @@ title: str
 
 path: str
     The path to save the graph 
+
+benchmarks: list
+    The benchmarks to plot the crossover rate variation per generation
 '''
 def crossover_rate_values_graph(crossover_rate_values, generation_number_values, title, path, benchmarks):
     if plt.get_fignums():
@@ -261,6 +281,9 @@ title: str
 
 path: str
     The path to save the graph 
+
+benchmarks: list
+    The benchmarks to plot the mutation rate variation per generation
 '''
 def mutation_rate_values_graph(mutation_rate_values, generation_number_values, title, path, benchmarks):
     if plt.get_fignums():
@@ -303,6 +326,9 @@ type: str
 
 path: str
     The path to save the graph
+
+iteration: int
+    The iteration of the generation method
 '''
 def time_execution_histogram(time_execution_values, type, path, iteration):
     if plt.get_fignums():
@@ -367,8 +393,14 @@ Parameters:
 best_fitness_values: list
     The best fitness value per generation
 
+generation_number_values: list
+    The generation number values
+
 path: str
     The path to save the graph
+
+benchmarks: list
+    The benchmarks to plot the best fitness value during the execution of the genetic algorithm
 '''
 def best_fitness_seen_graph(best_fitness_values, generation_number_values, path, benchmarks):
     if plt.get_fignums():
@@ -459,7 +491,6 @@ def read_generation_stats_file(generation_methods, type):
 
     return generations_data
 
-
 '''
 Function to read the generation stats from a json file with a specific file type
 
@@ -471,9 +502,12 @@ parameter_type: str
 type: str
     The type of the generation method   
 
+file_type: str
+    The file type to read the generation stats from
+
 Returns:
 -------
-generations_data_type: list
+data: list
     The generation stats read from the json file
 '''
 def read_generations_stats_file_type(parameter_type, type, file_type):

@@ -58,6 +58,11 @@ class configurations(Enum):
 '''
 Function to initialize each generation during the genetic algorithm execution
 
+Parameters:
+----------
+population : list
+    The population of the genetic algorithm
+
 Returns:
 -------
 new_population : list
@@ -71,6 +76,12 @@ second_parents_list : list
 
 population_fitness : list	
     A list containing the fitness values of the population
+
+crossover_rate_values : list
+    A list containing the crossover rate values of the population
+
+mutation_rate_values : list
+    A list containing the mutation rate values of the population
 '''
 def initialize_generation(population):
     new_population = []
@@ -87,6 +98,9 @@ Function to update the genetic algorithm attributes after each generation
 
 Parameters:
 ----------
+population : list
+    The population of the genetic algorithm
+
 new_population : list
     The new population of the genetic algorithm
 
@@ -99,6 +113,9 @@ old_best_fitness : int
 generations_without_fitness_improvement : int
     The number of generations without fitness improvement
 
+best_fitness_seen : int
+    The best fitness value seen during the genetic algorithm execution
+
 configurations : dict
     The configurations of the genetic algorithm
 
@@ -107,17 +124,20 @@ Returns:
 population : list
     The population of the genetic algorithm
 
-population_fitness : list
-    A list containing the fitness values of the population
-
 current_number_generation : int
     The current number of the generation
+
+current_best_fitness : int
+    The best fitness value of the current generation
 
 old_best_fitness : int
     The best fitness value of updated for the next generation
 
 generations_without_fitness_improvement : int
     The number of generations without fitness improvement
+
+best_fitness_seen : int
+    The best fitness value seen during the genetic algorithm execution
 '''
 def update_genetic_algorithm_attributes(population, new_population, current_number_generation, old_best_fitness, generations_without_fitness_improvement, best_fitness_seen, configurations):
     # If the new population is not empty, the population is updated
@@ -149,8 +169,20 @@ current_number_generation : int
 current_best_fitness : int
     The best fitness value of the current generation
 
+current_best_fitness : int
+    The best fitness value of the current generation
+
+best_fitness_seen : int
+    The best fitness value seen during the genetic algorithm execution
+
 population : list
     The population of the genetic algorithm
+
+average_crossover_rate_value : float
+    The average crossover rate value of the population
+
+average_mutation_rate_value : float
+    The average mutation rate value of the population   
 '''
 def generation_stats(current_number_generation, old_best_fitness, current_best_fitness, best_fitness_seen, population, average_crossover_rate_value, average_mutation_rate_value):
     print("------------------------ GENERATION STATS ------------------------")
@@ -248,7 +280,7 @@ while current_number_generation < int(configurations.max_number_generations.valu
             if configurations.crossover_type.value == 'self-adaptive':
                 # ------------ SELF-ADAPTIVE CROSSOVER METHOD ------------
 
-                offsprings = crossover(parents_selected, metadata, current_number_generation, inputs, configurations, configurations.crossover_type.value, configurations.mutation_type.value)
+                offsprings = crossover(parents_selected, metadata, current_number_generation, inputs, configurations, configurations.crossover_type.value)
                 individual_suspended = offsprings[2]
                 mutated_individual_index = offsprings[3]
                 if mutated_individual_index != -1 and mutated_individual_index != None:
@@ -287,7 +319,7 @@ while current_number_generation < int(configurations.max_number_generations.valu
                 # ------------ DETERMINISTIC AND ADAPTIVE CROSSOVER METHOD ------------ 
 
                 if configurations.crossover_type.value == 'deterministic' or configurations.crossover_type.value == 'adaptive':
-                    crossover_rate = crossover(parents_selected, metadata, current_number_generation, inputs, configurations, configurations.crossover_type.value, configurations.mutation_type.value)
+                    crossover_rate = crossover(parents_selected, metadata, current_number_generation, inputs, configurations, configurations.crossover_type.value)
                     print("Crossover rate before applying crossover: " + str(crossover_rate))
                     crossover_rate_values.append(crossover_rate)
 
@@ -303,7 +335,7 @@ while current_number_generation < int(configurations.max_number_generations.valu
                 # ------------ OTHER CROSSOVER METHODS ------------
                 else:
                     if float(configurations.crossover_rate.value) > random.random():
-                        offsprings = crossover(parents_selected, metadata, current_number_generation, inputs, configurations, configurations.crossover_type.value, configurations.mutation_type.value)
+                        offsprings = crossover(parents_selected, metadata, current_number_generation, inputs, configurations, configurations.crossover_type.value)
 
                     else:
                         print("Crossover operation was not performed")

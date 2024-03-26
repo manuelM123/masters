@@ -72,6 +72,20 @@ file_paths = {
 # Configuration file path
 path_configuration_file = 'config.ini'
 
+'''
+Function to execute a subprocess and measure the time of execution
+
+Parameters:
+----------------
+command: list
+    List with the command to be executed
+
+Returns:
+----------------
+elapsed_time: float
+    Elapsed time of the subprocess execution
+
+'''
 def run_subprocess(command):
     start_time = resource.getrusage(resource.RUSAGE_CHILDREN).ru_utime
     subprocess.run(command)
@@ -79,6 +93,24 @@ def run_subprocess(command):
     elapsed_time = end_time - start_time
     return elapsed_time
 
+'''
+Function to change the configurations of the genetic algorithm
+
+Parameters:
+----------------
+
+genetic_algorithm_values: list
+    List with the values to be changed in the genetic algorithm configurations
+
+genetic_operators_values: list
+    List with the values to be changed in the genetic operators configurations
+
+genetic_algorithm_optimizations_values: list
+    List with the values to be changed in the genetic algorithm optimizations configurations
+
+file_paths_values: list
+    List with the values to be changed in the file paths configurations
+'''
 # genetic_algoritm_values = [['max_number_functions', 3], ['max_number_test_cases', 8]]
 def change_configurations(genetic_algorithm_values, genetic_operators_values, genetic_algorithm_optimizations_values, file_paths_values):
     if genetic_algorithm_values != None:
@@ -97,6 +129,26 @@ def change_configurations(genetic_algorithm_values, genetic_operators_values, ge
         for config in file_paths_values:
             file_paths[config[0]] = config[1]
 
+'''
+Function to adjust the configurations of the genetic algorithm
+
+Parameters:
+----------------
+config_path: str
+    Path of the configuration file
+
+genetic_algorithm_configurations: dict
+    Dictionary with the genetic algorithm configurations
+
+genetic_operators_configurations: dict
+    Dictionary with the genetic operators configurations
+
+genetic_algorithm_optimizations_configurations: dict
+    Dictionary with the genetic algorithm optimizations configurations
+
+file_paths: dict
+    Dictionary with the file paths configurations
+'''
 def genetic_algorithm_execution(config_path, genetic_algorithm_configurations, genetic_operators_configurations, genetic_algorithm_optimizations_configurations, file_paths):
     # Write the configuration file for the genetic algorithm
     config = configparser.ConfigParser()
@@ -153,6 +205,19 @@ def general_execution():
                     genetic_algorithm_execution(path_configuration_file, genetic_algorithm_configurations, genetic_operators_configurations, genetic_algorithm_optimizations_configurations, file_paths)
                     subprocess.run(['python3', 'genetic_algorithm.py'])
 
+'''
+Function to execute the population methods
+
+Parameters:
+----------------
+iteration: int
+    Iteration number
+
+Returns:
+----------------
+population_methods: list
+    List with the population methods executed
+'''
 def population_execution(iteration):
     population_methods = []
     for method in population_control:
@@ -172,6 +237,19 @@ def population_execution(iteration):
 
     return population_methods
 
+
+'''
+Function to execute the selection methods
+
+Parameters:
+----------------
+iteration: int
+
+Returns:
+----------------
+selection_methods: list
+    List with the selection methods executed
+'''
 def selection_execution(iteration):
     selection_methods = []
     for method in selection_types:
@@ -190,6 +268,18 @@ def selection_execution(iteration):
 
     return selection_methods
 
+'''
+Function to execute the crossover methods
+
+Parameters:
+----------------    
+iteration: int
+
+Returns:
+----------------
+crossover_methods: list
+    List with the crossover methods executed
+'''
 def crossover_execution(iteration):
     crossover_methods = []
     deterministic_crossover_adjustment_types = ['dhc', 'ilc']
@@ -220,6 +310,18 @@ def crossover_execution(iteration):
 
     return crossover_methods
 
+'''
+Function to execute the mutation methods
+
+Parameters:
+----------------
+iteration: int
+
+Returns:
+----------------
+mutation_methods: list
+    List with the mutation methods executed
+'''
 def mutation_execution(iteration):
     mutation_methods = []
     deterministic_mutation_adjustment_types = ['dhm', 'ilm']
@@ -250,6 +352,9 @@ def mutation_execution(iteration):
 
     return mutation_methods
 
+'''
+Function to setup the folders for the genetic algorithm execution results
+'''
 def folder_setup():
     # Verify if folder benchmarks exists
     if not os.path.exists('results/benchmarks'):
@@ -323,7 +428,24 @@ def folder_setup():
                 os.makedirs('results/best_generated_test_suite/' + folder)
             except OSError as e:
                 print("Error: %s : %s" % ('results/best_generated_test_suite/' + folder, e.strerror))
-                
+
+'''
+Function to generate the benchmarks
+
+Parameters:
+----------------
+benchmark_type: str
+    Type of the benchmark
+
+generations_methods: list
+    List with the methods executed
+
+generations_data: list
+    List with the data of the generations
+
+path: str
+    Path of the benchmark
+'''            
 def generate_benchmarks(benchmark_type, generations_methods, generations_data, path):
     generations = []
     populations_size = []

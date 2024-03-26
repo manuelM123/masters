@@ -25,6 +25,7 @@ class Solution:
     ----------
     metadata : dict
         The metadata of the class context
+
     max_number_functions : int
         The maximum number of other functions that can be generated
 
@@ -57,8 +58,10 @@ class Solution:
     ----------
     metadata : dict
         The metadata of the class context
+
     max_number_functions : int
         The maximum number of other functions that can be generated
+        
     max_number_test_cases : int
         The maximum number of test cases that can be generated
     

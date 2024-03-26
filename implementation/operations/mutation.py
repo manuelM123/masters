@@ -80,6 +80,12 @@ Parameters:
 individual : Solution
     The individual to delete the test case from
 
+metadata : dict
+    The metadata of the class context
+
+configurations : dict
+    The configurations of the algorithm 
+
 Returns:
 -------
 individual : Solution
@@ -105,6 +111,9 @@ individual : Solution
 
 metadata : dict
     The metadata of the class context
+
+configurations : dict
+    The configurations of the algorithm
 
 solution : Solution
     The solution to generate the new parameters from
@@ -171,6 +180,9 @@ Parameters:
 inputs : list
     The inputs of the fuzzy system
 
+configurations : dict
+    The configurations of the algorithm
+
 genetic_operator : string
     The type of genetic operator to adjust
 
@@ -179,7 +191,7 @@ Returns:
 mutation_rate : float
     The mutation rate adjusted using the fuzzy system
 '''
-def adaptive_mutation_adjustment(inputs,configurations, genetic_operator):
+def adaptive_mutation_adjustment(inputs, configurations, genetic_operator):
     fuzzy_system = Fuzzy_system(configurations.fuzzy_membership_path.value)
     mutation_rate = fuzzy_system.fuzzy_control_system(fuzzy_system.rules, inputs, genetic_operator)
     return mutation_rate

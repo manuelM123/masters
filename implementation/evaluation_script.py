@@ -8,6 +8,9 @@ selection_types = ['random', 'roulette_wheel', 'adaptive', 'rank', 'tournament']
 crossover_types = ['deterministic_ilc', 'deterministic_dhc', 'self-adaptive', 'adaptive', 'uniform']
 mutation_types = ['add_test_case', 'delete_test_case', 'deterministic_ilm', 'deterministic_dhm', 'adaptive', 'self-adaptive', 'change_parameters']
 
+'''
+Function to create the necessary folders for the evaluation results
+'''
 def folder_setup():
     if not os.path.exists('results_evaluation'):
         os.makedirs('results_evaluation')

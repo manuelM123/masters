@@ -11,11 +11,34 @@ Parameters:
 parents : list
     The parents to generate the offspring
 
+metadata : dict
+    The metadata of the class context
+
+current_iteration_number : int
+    The current generation number of the algorithm
+
+inputs : dict
+    The inputs for the fuzzy system
+
 configurations : dict
     The configurations of the algorithm
 
+type : string
+    The type of crossover operator to select
+
+Returns:
+----------
+
+offsprings : list
+    A list containing the two offsprings generated from the parents
+    
+or
+
+crossover_rate : float
+    The crossover rate adjusted using the deterministic rule
+
 '''
-def crossover(parents, metadata, current_iteration_number, inputs, configurations, type, mutation_type):
+def crossover(parents, metadata, current_iteration_number, inputs, configurations, type):
     if type == 'one_point':
         return one_point_crossover(parents, configurations, metadata)
     elif type == 'uniform':
@@ -25,7 +48,7 @@ def crossover(parents, metadata, current_iteration_number, inputs, configuration
     elif type == 'adaptive':
         return adaptive_crossover_adjustment(inputs, configurations, 'crossover')
     elif type == 'self-adaptive':
-        return self_adaptive_crossover_adjustment(parents, metadata, current_iteration_number, inputs, configurations, mutation_type)
+        return self_adaptive_crossover_adjustment(parents, metadata, current_iteration_number, inputs, configurations)
     else:
         raise ValueError('Crossover type is not specified correctly')
     
@@ -38,6 +61,9 @@ parents : list
 
 configurations : dict
     The configurations of the algorithm
+
+metadata : dict
+    The metadata of the class context
 
 Returns:
 -------
@@ -73,6 +99,9 @@ parents : list
 
 configurations : dict
     The configurations of the algorithm
+
+metadata : dict
+    The metadata of the class context
 
 Returns:
 -------
@@ -150,6 +179,9 @@ Parameters:
 inputs : list
     The inputs of the fuzzy system
 
+configurations : dict
+    The configurations of the algorithm
+
 genetic_operator : string
     The type of genetic operator to adjust
 
@@ -178,25 +210,25 @@ individuals : list
 metadata : dict
     The metadata of the class context
 
+current_iteration_number : int
+    The current generation number of the algorithm
+
 inputs : dict
     The inputs for the fuzzy system
 
 configurations : dict
     The configurations of the algorithm
 
-mutation_type : str
-    The type of mutation to be performed
-
 Returns:
 -------
 individuals : list
     A list containing the two offsprings generated from the parents, the individual that was suspended from the crossover operation and the index of the individual that was mutated
 '''
-def self_adaptive_crossover_adjustment(individuals, metadata, current_iteration_number, inputs, configurations, type):
+def self_adaptive_crossover_adjustment(individuals, metadata, current_iteration_number, inputs, configurations):
     individual_suspended = None
     mutated_individual_index = None
-    individuals[0], first_decision = self_adaptive_crossover_decision(individuals[0], metadata, current_iteration_number, inputs, configurations, type) 
-    individuals[1], second_decision = self_adaptive_crossover_decision(individuals[1], metadata, current_iteration_number, inputs, configurations, type)
+    individuals[0], first_decision = self_adaptive_crossover_decision(individuals[0], metadata, current_iteration_number, inputs, configurations) 
+    individuals[1], second_decision = self_adaptive_crossover_decision(individuals[1], metadata, current_iteration_number, inputs, configurations)
 
     if first_decision and second_decision:
         individuals = uniform_crossover(individuals, configurations, metadata)
@@ -241,9 +273,6 @@ inputs : dict
 configurations : dict
     The configurations of the algorithm
 
-mutation_type : str
-    The type of mutation to be performed
-
 Returns:
 -------
 individual : Solution
@@ -253,7 +282,7 @@ decision : bool
     A boolean value indicating whether the crossover operator will be performed or not which means the individual will be mutated if the crossover operator is not performed in
     the current iteration of the algorithm
 '''
-def self_adaptive_crossover_decision(individual, metadata, current_iteration_number, inputs, configurations, type):
+def self_adaptive_crossover_decision(individual, metadata, current_iteration_number, inputs, configurations):
     random_number = random.uniform(0, 1)
     print("Random number: " + str(random_number))
     print("Crossover rate: " + str(individual.adaptive_crossover_rate))

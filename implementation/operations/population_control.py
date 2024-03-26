@@ -44,6 +44,9 @@ test_suite : list
 configurations : dict
     The configurations of the algorithm
 
+metadata : dict
+    The metadata of the class context
+
 Returns:
 -------
 individual : Solution
@@ -77,6 +80,9 @@ lt_max : int
 
 lt_min : int
     The minimum lifetime value
+
+offpsring : Solution
+    The offspring to calculate the remaining lifetime of
 
 Returns:
 -------
@@ -162,6 +168,9 @@ current_number_generation : int
 max_generations : int
     The maximum number of generations of the algorithm
 
+alpha : float
+    The alpha value to adjust the growth size
+
 Returns:
 -------
 growth_size : int
@@ -187,7 +196,7 @@ old_best_fitness : int
 initial_best_fitness : int
     The best fitness value of initial population
 
-current_iteration_number : int
+current_number_generation : int
     The current number of generation of the algorithm
 
 number_iterations : int
@@ -297,6 +306,9 @@ Parameters:
 ----------
 population : list
     The population to adjust the remaining lifetime of individuals
+
+best_individual_fitness : int
+    The best fitness value of the population
 
 configurations : dict
     The configurations of the algorithm
