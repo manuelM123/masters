@@ -1,0 +1,279 @@
+Generation number: 0
+---------------------------------------------------------------
+Individuals selection: 4|4
+Individuals selection: 1|2
+# ----------- Parents selected ----------- #
+Parent: [[[-1, [59.95, 143.41, 58, 'M', 0.19, 'M']], [1, [152.66]], [4, [0.18]], [8, []]], [[-1, [78.82, 149.64, 17, 'M', 0.24, 'N']], [5, ['S']], [8, []], [2, [69]], [5, ['N']]]] - Fitness: 0.64 - Remaining life time: 8 - Adaptive max selections: 0
+Parent: [[[-1, [43.98, 215.48, 52, 'F', 0.05, 'E']], [1, [180.74]], [5, ['V']], [0, [169.46]]], [[-1, [130.44, 146.72, 10, 'M', 0.1, 'N']], [3, ['M']], [3, ['N']]], [[-1, [198.52, 194.48, 35, 'N', 0.06, 'V']], [7, []], [7, []]]] - Fitness: 0.53 - Remaining life time: 1 - Adaptive max selections: 0
+-------------------------------------------
+Random values
+0.37198284147664995|
+0.27236142181787437|
+Individual test suite: [[[-1, [59.95, 143.41, 58, 'M', 0.19, 'M']], [1, [152.66]], [4, [0.18]], [8, []]], [[-1, [78.82, 149.64, 17, 'M', 0.24, 'N']], [5, ['S']], [8, []], [2, [69]], [5, ['N']]]]
+Previous fitness: -1
+New fitness: 0.64
+Individual test suite: [[[-1, [43.98, 215.48, 52, 'F', 0.05, 'E']], [1, [180.74]], [5, ['V']], [0, [169.46]]], [[-1, [130.44, 146.72, 10, 'M', 0.1, 'N']], [3, ['M']], [3, ['N']]]]
+Previous fitness: -1
+New fitness: 0.51
+Mutation applied to offspring 1 using other method | Offspring 1: [[[-1, [59.95, 143.41, 58, 'M', 0.19, 'M']], [1, [152.66]], [4, [0.18]], [8, []]], [[-1, [78.82, 149.64, 17, 'M', 0.24, 'N']], [5, ['S']], [8, []], [2, [69]], [5, ['N']]]]
+Change parameters
+Position test case 1
+Position method 3
+Function:2
+Individual test suite: [[[-1, [59.95, 143.41, 58, 'M', 0.19, 'M']], [1, [152.66]], [4, [0.18]], [8, []]], [[-1, [78.82, 149.64, 17, 'M', 0.24, 'N']], [5, ['S']], [8, []], [0, [136.2]], [5, ['N']]]]
+Previous fitness: -1
+New fitness: 0.64
+Offspring 1 after mutation: [[[-1, [59.95, 143.41, 58, 'M', 0.19, 'M']], [1, [152.66]], [4, [0.18]], [8, []]], [[-1, [78.82, 149.64, 17, 'M', 0.24, 'N']], [5, ['S']], [8, []], [0, [136.2]], [5, ['N']]]]
+Offsprings before rlt setting: 
+Offspring 1: -1
+Offspring 2: -1
+#----------------------------------------------------------------#
+Offsprings after rlt setting: 
+Offspring 1: 8
+Offspring 2: 0
+#----------------------------------------------------------------#
+Individuals selection: 4|3
+Individuals selection: 2|1
+# ----------- Parents selected ----------- #
+Parent: [[[-1, [59.95, 143.41, 58, 'M', 0.19, 'M']], [1, [152.66]], [4, [0.18]], [8, []]], [[-1, [78.82, 149.64, 17, 'M', 0.24, 'N']], [5, ['S']], [8, []], [0, [136.2]], [5, ['N']]]] - Fitness: 0.64 - Remaining life time: 8 - Adaptive max selections: 0
+Parent: [[[-1, [43.98, 215.48, 52, 'F', 0.05, 'E']], [1, [180.74]], [5, ['V']], [0, [169.46]]], [[-1, [130.44, 146.72, 10, 'M', 0.1, 'N']], [3, ['M']], [3, ['N']]], [[-1, [198.52, 194.48, 35, 'N', 0.06, 'V']], [7, []], [7, []]]] - Fitness: 0.53 - Remaining life time: 1 - Adaptive max selections: 0
+-------------------------------------------
+Random values
+0.16577313757564383|
+0.2533111663999307|
+Individual test suite: [[[-1, [59.95, 143.41, 58, 'M', 0.19, 'M']], [1, [152.66]], [4, [0.18]], [8, []]], [[-1, [78.82, 149.64, 17, 'M', 0.24, 'N']], [5, ['S']], [8, []], [0, [136.2]], [5, ['N']]]]
+Previous fitness: -1
+New fitness: 0.64
+Individual test suite: [[[-1, [43.98, 215.48, 52, 'F', 0.05, 'E']], [1, [180.74]], [5, ['V']], [0, [169.46]]], [[-1, [130.44, 146.72, 10, 'M', 0.1, 'N']], [3, ['M']], [3, ['N']]]]
+Previous fitness: -1
+New fitness: 0.51
+Offsprings before rlt setting: 
+Offspring 1: -1
+Offspring 2: -1
+#----------------------------------------------------------------#
+Offsprings after rlt setting: 
+Offspring 1: 8
+Offspring 2: 0
+#----------------------------------------------------------------#
+Individuals selection: 1|1
+Individuals selection: 1|1
+# ----------- Parents selected ----------- #
+Parent: [[[-1, [60.05, 215.33, 44, 'F', 0.19, 'L']], [2, [80]], [1, [205.95]]], [[-1, [67.68, 178.27, 24, 'M', 0.3, 'V']], [0, [162.88]], [7, []]]] - Fitness: 0.52 - Remaining life time: 1 - Adaptive max selections: 0
+Parent: [[[-1, [60.05, 215.33, 44, 'F', 0.19, 'L']], [2, [80]], [1, [205.95]]], [[-1, [67.68, 178.27, 24, 'M', 0.3, 'V']], [0, [162.88]], [7, []]]] - Fitness: 0.52 - Remaining life time: 1 - Adaptive max selections: 0
+-------------------------------------------
+Random values
+0.9163587286798065|
+0.9302445212813442|
+Individual test suite: [[[-1, [60.05, 215.33, 44, 'F', 0.19, 'L']], [2, [80]], [1, [205.95]]], [[-1, [67.68, 178.27, 24, 'M', 0.3, 'V']], [0, [162.88]], [7, []]]]
+Previous fitness: -1
+New fitness: 0.52
+Individual test suite: [[[-1, [60.05, 215.33, 44, 'F', 0.19, 'L']], [2, [80]], [1, [205.95]]], [[-1, [67.68, 178.27, 24, 'M', 0.3, 'V']], [0, [162.88]], [7, []]]]
+Previous fitness: -1
+New fitness: 0.52
+Offsprings before rlt setting: 
+Offspring 1: -1
+Offspring 2: -1
+#----------------------------------------------------------------#
+Offsprings after rlt setting: 
+Offspring 1: 1
+Offspring 2: 1
+#----------------------------------------------------------------#
+Best solution: [[[-1, [59.95, 143.41, 58, 'M', 0.19, 'M']], [1, [152.66]], [4, [0.18]], [8, []]], [[-1, [78.82, 149.64, 17, 'M', 0.24, 'N']], [5, ['S']], [8, []], [0, [136.2]], [5, ['N']]]] - Fitness: 0.64
+Old best fitness: 0
+------------------------ GENERATION STATS ------------------------
+Generation: 1 - Old best fitness: 0.64 - Best fitness: 0.64 - Best fitness seen: 0.64 - Average fitness: 0.56 - Generations without fitness improvement: 0 - Population size: 6
+------------------------------------------------------------------
+Population size values: [6] - Generation number values: [1] - Generation fitness values: [0.64] - Crossover rate values: [0] - Mutation rate values: [0] - Iteration number population control: 2
+------------------------------------------------------------------
+Generation number: 1
+---------------------------------------------------------------
+Individuals selection: 2|5
+Individuals selection: 1|1
+# ----------- Parents selected ----------- #
+Parent: [[[-1, [59.95, 143.41, 58, 'M', 0.19, 'M']], [1, [152.66]], [4, [0.18]], [8, []]], [[-1, [78.82, 149.64, 17, 'M', 0.24, 'N']], [5, ['S']], [8, []], [0, [136.2]], [5, ['N']]]] - Fitness: 0.64 - Remaining life time: 10 - Adaptive max selections: 0
+Parent: [[[-1, [43.98, 215.48, 52, 'F', 0.05, 'E']], [1, [180.74]], [5, ['V']], [0, [169.46]]], [[-1, [130.44, 146.72, 10, 'M', 0.1, 'N']], [3, ['M']], [3, ['N']]]] - Fitness: 0.51 - Remaining life time: 1 - Adaptive max selections: 0
+-------------------------------------------
+Random values
+0.1463377137922407|
+0.06390127435004134|
+Individual test suite: [[[-1, [59.95, 143.41, 58, 'M', 0.19, 'M']], [1, [152.66]], [4, [0.18]], [8, []]], [[-1, [78.82, 149.64, 17, 'M', 0.24, 'N']], [5, ['S']], [8, []], [0, [136.2]], [5, ['N']]]]
+Previous fitness: -1
+New fitness: 0.64
+Individual test suite: [[[-1, [43.98, 215.48, 52, 'F', 0.05, 'E']], [1, [180.74]], [5, ['V']], [0, [169.46]]], [[-1, [130.44, 146.72, 10, 'M', 0.1, 'N']], [3, ['M']], [3, ['N']]]]
+Previous fitness: -1
+New fitness: 0.51
+Offsprings before rlt setting: 
+Offspring 1: -1
+Offspring 2: -1
+#----------------------------------------------------------------#
+Offsprings after rlt setting: 
+Offspring 1: 10
+Offspring 2: 1
+#----------------------------------------------------------------#
+Individuals selection: 6|5
+Individuals selection: 4|6
+# ----------- Parents selected ----------- #
+Parent: [[[-1, [59.95, 143.41, 58, 'M', 0.19, 'M']], [1, [152.66]], [4, [0.18]], [8, []]], [[-1, [78.82, 149.64, 17, 'M', 0.24, 'N']], [5, ['S']], [8, []], [0, [136.2]], [5, ['N']]]] - Fitness: 0.64 - Remaining life time: 10 - Adaptive max selections: 0
+Parent: [[[-1, [59.95, 143.41, 58, 'M', 0.19, 'M']], [1, [152.66]], [4, [0.18]], [8, []]], [[-1, [78.82, 149.64, 17, 'M', 0.24, 'N']], [5, ['S']], [8, []], [0, [136.2]], [5, ['N']]]] - Fitness: 0.64 - Remaining life time: 10 - Adaptive max selections: 0
+-------------------------------------------
+Crossover operation was not performed
+Offsprings before rlt setting: 
+Offspring 1: 10
+Offspring 2: 10
+#----------------------------------------------------------------#
+Offsprings after rlt setting: 
+Offspring 1: 10
+Offspring 2: 10
+#----------------------------------------------------------------#
+Individuals selection: 1|6
+Individuals selection: 5|2
+# ----------- Parents selected ----------- #
+Parent: [[[-1, [59.95, 143.41, 58, 'M', 0.19, 'M']], [1, [152.66]], [4, [0.18]], [8, []]], [[-1, [78.82, 149.64, 17, 'M', 0.24, 'N']], [5, ['S']], [8, []], [0, [136.2]], [5, ['N']]]] - Fitness: 0.64 - Remaining life time: 10 - Adaptive max selections: 0
+Parent: [[[-1, [59.95, 143.41, 58, 'M', 0.19, 'M']], [1, [152.66]], [4, [0.18]], [8, []]], [[-1, [78.82, 149.64, 17, 'M', 0.24, 'N']], [5, ['S']], [8, []], [0, [136.2]], [5, ['N']]]] - Fitness: 0.64 - Remaining life time: 10 - Adaptive max selections: 0
+-------------------------------------------
+Random values
+0.6585345897174403|
+0.8774665992482773|
+Individual test suite: [[[-1, [59.95, 143.41, 58, 'M', 0.19, 'M']], [1, [152.66]], [4, [0.18]], [8, []]], [[-1, [78.82, 149.64, 17, 'M', 0.24, 'N']], [5, ['S']], [8, []], [0, [136.2]], [5, ['N']]]]
+Previous fitness: -1
+New fitness: 0.64
+Individual test suite: [[[-1, [59.95, 143.41, 58, 'M', 0.19, 'M']], [1, [152.66]], [4, [0.18]], [8, []]], [[-1, [78.82, 149.64, 17, 'M', 0.24, 'N']], [5, ['S']], [8, []], [0, [136.2]], [5, ['N']]]]
+Previous fitness: -1
+New fitness: 0.64
+Offsprings before rlt setting: 
+Offspring 1: -1
+Offspring 2: -1
+#----------------------------------------------------------------#
+Offsprings after rlt setting: 
+Offspring 1: 10
+Offspring 2: 10
+#----------------------------------------------------------------#
+Old best fitness: 0.64
+------------------------ GENERATION STATS ------------------------
+Generation: 2 - Old best fitness: 0.64 - Best fitness: 0.64 - Best fitness seen: 0.64 - Average fitness: 0.62 - Generations without fitness improvement: 1 - Population size: 6
+------------------------------------------------------------------
+Population size values: [6, 6] - Generation number values: [1, 2] - Generation fitness values: [0.64, 0.64] - Crossover rate values: [0, 0] - Mutation rate values: [0, 0] - Iteration number population control: 3
+------------------------------------------------------------------
+Generation number: 2
+---------------------------------------------------------------
+Individuals selection: 1|5
+Individuals selection: 6|4
+# ----------- Parents selected ----------- #
+Parent: [[[-1, [59.95, 143.41, 58, 'M', 0.19, 'M']], [1, [152.66]], [4, [0.18]], [8, []]], [[-1, [78.82, 149.64, 17, 'M', 0.24, 'N']], [5, ['S']], [8, []], [0, [136.2]], [5, ['N']]]] - Fitness: 0.64 - Remaining life time: 10 - Adaptive max selections: 0
+Parent: [[[-1, [59.95, 143.41, 58, 'M', 0.19, 'M']], [1, [152.66]], [4, [0.18]], [8, []]], [[-1, [78.82, 149.64, 17, 'M', 0.24, 'N']], [5, ['S']], [8, []], [0, [136.2]], [5, ['N']]]] - Fitness: 0.64 - Remaining life time: 10 - Adaptive max selections: 0
+-------------------------------------------
+Crossover operation was not performed
+Offsprings before rlt setting: 
+Offspring 1: 10
+Offspring 2: 10
+#----------------------------------------------------------------#
+Offsprings after rlt setting: 
+Offspring 1: 10
+Offspring 2: 10
+#----------------------------------------------------------------#
+Individuals selection: 1|5
+Individuals selection: 4|4
+# ----------- Parents selected ----------- #
+Parent: [[[-1, [59.95, 143.41, 58, 'M', 0.19, 'M']], [1, [152.66]], [4, [0.18]], [8, []]], [[-1, [78.82, 149.64, 17, 'M', 0.24, 'N']], [5, ['S']], [8, []], [0, [136.2]], [5, ['N']]]] - Fitness: 0.64 - Remaining life time: 10 - Adaptive max selections: 0
+Parent: [[[-1, [59.95, 143.41, 58, 'M', 0.19, 'M']], [1, [152.66]], [4, [0.18]], [8, []]], [[-1, [78.82, 149.64, 17, 'M', 0.24, 'N']], [5, ['S']], [8, []], [0, [136.2]], [5, ['N']]]] - Fitness: 0.64 - Remaining life time: 10 - Adaptive max selections: 0
+-------------------------------------------
+Random values
+0.11087432756651949|
+0.9628568256294432|
+Individual test suite: [[[-1, [59.95, 143.41, 58, 'M', 0.19, 'M']], [1, [152.66]], [4, [0.18]], [8, []]], [[-1, [78.82, 149.64, 17, 'M', 0.24, 'N']], [5, ['S']], [8, []], [0, [136.2]], [5, ['N']]]]
+Previous fitness: -1
+New fitness: 0.64
+Individual test suite: [[[-1, [59.95, 143.41, 58, 'M', 0.19, 'M']], [1, [152.66]], [4, [0.18]], [8, []]], [[-1, [78.82, 149.64, 17, 'M', 0.24, 'N']], [5, ['S']], [8, []], [0, [136.2]], [5, ['N']]]]
+Previous fitness: -1
+New fitness: 0.64
+Offsprings before rlt setting: 
+Offspring 1: -1
+Offspring 2: -1
+#----------------------------------------------------------------#
+Offsprings after rlt setting: 
+Offspring 1: 10
+Offspring 2: 10
+#----------------------------------------------------------------#
+Individuals selection: 5|6
+Individuals selection: 4|1
+# ----------- Parents selected ----------- #
+Parent: [[[-1, [59.95, 143.41, 58, 'M', 0.19, 'M']], [1, [152.66]], [4, [0.18]], [8, []]], [[-1, [78.82, 149.64, 17, 'M', 0.24, 'N']], [5, ['S']], [8, []], [0, [136.2]], [5, ['N']]]] - Fitness: 0.64 - Remaining life time: 10 - Adaptive max selections: 0
+Parent: [[[-1, [59.95, 143.41, 58, 'M', 0.19, 'M']], [1, [152.66]], [4, [0.18]], [8, []]], [[-1, [78.82, 149.64, 17, 'M', 0.24, 'N']], [5, ['S']], [8, []], [0, [136.2]], [5, ['N']]]] - Fitness: 0.64 - Remaining life time: 10 - Adaptive max selections: 0
+-------------------------------------------
+Crossover operation was not performed
+Mutation applied to offspring 1 using other method | Offspring 1: [[[-1, [59.95, 143.41, 58, 'M', 0.19, 'M']], [1, [152.66]], [4, [0.18]], [8, []]], [[-1, [78.82, 149.64, 17, 'M', 0.24, 'N']], [5, ['S']], [8, []], [0, [136.2]], [5, ['N']]]]
+Change parameters
+Position test case 0
+Position method 2
+Function:4
+Individual test suite: [[[-1, [59.95, 143.41, 58, 'M', 0.19, 'M']], [1, [152.66]], [8, []], [8, []]], [[-1, [78.82, 149.64, 17, 'M', 0.24, 'N']], [5, ['S']], [8, []], [0, [136.2]], [5, ['N']]]]
+Previous fitness: -1
+New fitness: 0.64
+Offspring 1 after mutation: [[[-1, [59.95, 143.41, 58, 'M', 0.19, 'M']], [1, [152.66]], [8, []], [8, []]], [[-1, [78.82, 149.64, 17, 'M', 0.24, 'N']], [5, ['S']], [8, []], [0, [136.2]], [5, ['N']]]]
+Offsprings before rlt setting: 
+Offspring 1: -1
+Offspring 2: 10
+#----------------------------------------------------------------#
+Offsprings after rlt setting: 
+Offspring 1: 10
+Offspring 2: 10
+#----------------------------------------------------------------#
+Old best fitness: 0.64
+------------------------ GENERATION STATS ------------------------
+Generation: 3 - Old best fitness: 0.64 - Best fitness: 0.64 - Best fitness seen: 0.64 - Average fitness: 0.64 - Generations without fitness improvement: 2 - Population size: 6
+------------------------------------------------------------------
+Population size values: [6, 6, 6] - Generation number values: [1, 2, 3] - Generation fitness values: [0.64, 0.64, 0.64] - Crossover rate values: [0, 0, 0] - Mutation rate values: [0, 0, 0] - Iteration number population control: 4
+------------------------------------------------------------------
+Started writing list data into a json file
+Done writing JSON data into .json file
+Done writing JSON data into .json file
+Done writing JSON data into .json file
+Done writing JSON data into .json file
+Done writing JSON data into .json file
+Done writing JSON data into .json file
+Started writing list data into a json file
+Done writing JSON data into .json file
+-----------------------------------------------
+New Population After Genetic Algorithm Execution
+-------------------------------------
+Test Suite - [[[-1, [59.95, 143.41, 58, 'M', 0.19, 'M']], [1, [152.66]], [8, []], [8, []]], [[-1, [78.82, 149.64, 17, 'M', 0.24, 'N']], [5, ['S']], [8, []], [0, [136.2]], [5, ['N']]]]
+Fitness - 0.64
+Crossover Rate - 0.5299107294093179
+Mutation Rate - 0.011167060534962858
+Adaptive Max Selections - 0
+Remaining Life Time - 1
+-------------------------------------
+Test Suite - [[[-1, [59.95, 143.41, 58, 'M', 0.19, 'M']], [1, [152.66]], [8, []], [8, []]], [[-1, [78.82, 149.64, 17, 'M', 0.24, 'N']], [5, ['S']], [8, []], [0, [136.2]], [5, ['N']]]]
+Fitness - 0.64
+Crossover Rate - 0.4243185647870973
+Mutation Rate - 0.6420758079209925
+Adaptive Max Selections - 0
+Remaining Life Time - 1
+-------------------------------------
+Test Suite - [[[-1, [59.95, 143.41, 58, 'M', 0.19, 'M']], [1, [152.66]], [8, []], [8, []]], [[-1, [78.82, 149.64, 17, 'M', 0.24, 'N']], [5, ['S']], [8, []], [0, [136.2]], [5, ['N']]]]
+Fitness - 0.64
+Crossover Rate - 0.6045142846195377
+Mutation Rate - 0.27757149619959687
+Adaptive Max Selections - 0
+Remaining Life Time - 1
+-------------------------------------
+Test Suite - [[[-1, [59.95, 143.41, 58, 'M', 0.19, 'M']], [1, [152.66]], [8, []], [8, []]], [[-1, [78.82, 149.64, 17, 'M', 0.24, 'N']], [5, ['S']], [8, []], [0, [136.2]], [5, ['N']]]]
+Fitness - 0.64
+Crossover Rate - 0.732962197831825
+Mutation Rate - 0.6646156419808054
+Adaptive Max Selections - 0
+Remaining Life Time - 1
+-------------------------------------
+Test Suite - [[[-1, [59.95, 143.41, 58, 'M', 0.19, 'M']], [1, [152.66]], [8, []], [8, []]], [[-1, [78.82, 149.64, 17, 'M', 0.24, 'N']], [5, ['S']], [8, []], [0, [136.2]], [5, ['N']]]]
+Fitness - 0.64
+Crossover Rate - 0.17078347817044037
+Mutation Rate - 0.7231258220533652
+Adaptive Max Selections - 0
+Remaining Life Time - 1
+-------------------------------------
+Test Suite - [[[-1, [59.95, 143.41, 58, 'M', 0.19, 'M']], [1, [152.66]], [8, []], [8, []]], [[-1, [78.82, 149.64, 17, 'M', 0.24, 'N']], [5, ['S']], [8, []], [0, [136.2]], [5, ['N']]]]
+Fitness - 0.64
+Crossover Rate - 0.5323105814209897
+Mutation Rate - 0.6633383500308992
+Adaptive Max Selections - 0
+Remaining Life Time - 1

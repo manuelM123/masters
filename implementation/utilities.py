@@ -350,6 +350,26 @@ def time_execution_histogram(time_execution_values, type, path, iteration):
     plt.xticks(rotation=90, ha='right')
     plt.savefig(path + '/' + type + '_time_execution_histogram_' + str(iteration) + '.png', bbox_inches='tight')
 
+def mean_time_execution_histogram(time_execution_values, type, path):
+    if plt.get_fignums():
+            plt.close('all')
+
+    fig, ax = plt.subplots()
+    for time_execution in time_execution_values:
+        generation_method_name = time_execution[1].split('_')[0].capitalize()
+        for word in range(1, len(time_execution[1].split('_'))):
+            generation_method_name += ' ' + time_execution[1].split('_')[word]
+
+        # in each bar make a space to prevent overlapping
+        ax.bar(generation_method_name, time_execution[0])
+
+    ax.set_xlabel('Generation Method')
+    ax.set_ylabel('Average Time of Execution (s)')
+    ax.set_title('Average Time of Execution for ' + type.capitalize() + ' Methods')
+
+    plt.xticks(rotation=90, ha='right')
+    plt.savefig(path + '/' + type.lower() + '_time_execution_histogram.png', bbox_inches='tight')
+
 '''
 Function to plot the mean best fitness of a generation method
 
@@ -511,9 +531,8 @@ data: list
     The generation stats read from the json file
 '''
 def read_generations_stats_file_type(parameter_type, type, file_type):
-    generations_data_type = []
+    data = []
     path = 'results/generation_data/' + type + "/" + parameter_type
-
     # Verify if file exists
     if os.path.exists(path + '/' + file_type + '.json'):
         generation_read_path = path + '/' + file_type
@@ -523,22 +542,22 @@ def read_generations_stats_file_type(parameter_type, type, file_type):
     return data
 
 '''
-Function to write the best generated test suite data into a json file
+Function to write data into json file
 
 Parameters:
 ----------
 path: str
     The path to save the json file
 
-test_suite: list
-    The best generated test suite to write into a json file
+data: list
+    The data to write into a json file
 
 '''
-def write_best_generated_test_suite_data(path, test_suite):
+def write_data_file(path, data, file_name):
     print("Started writing list data into a json file")
 
-    with open(path + "/best_generated_test_suite.json", "w") as fp:
-        json.dump(test_suite, fp)
+    with open(path + "/" + file_name + ".json", "w") as fp:
+        json.dump(data, fp)
         print("Done writing JSON data into .json file")
 
 '''
@@ -578,3 +597,7 @@ standard_deviation: int
 '''
 def standard_deviation(population):
     return np.std(population)
+
+
+def mean_time_execution(time_execution_values):
+    return sum(time_execution_values) / len(time_execution_values)

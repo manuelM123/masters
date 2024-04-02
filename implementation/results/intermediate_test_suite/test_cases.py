@@ -1,21 +1,16 @@
 from cut import *
 
 def test_case_0():
-	cut = calorie_intake_calc(46.71,211.73,56,'N',0.21,'N')
-	result_tdee_calculation = cut.tdee_calculation()
+	cut = calorie_intake_calc(116.99,187.92,62,'N',0.13,'V')
+	cut.age = 47
 	cut.amount_exercise = 'V'
-	cut.weight = 72.06
-	cut.age = 57
-	cut.gender = 'M'
-	result_tdee_calculation = cut.tdee_calculation()
-	cut.weight = 185.28
-	cut.age = 67
-	result_katch_mcardle_equation = cut.katch_mcardle_equation()
+	result_determine_calorie_intake = cut.determine_calorie_intake()
 
 def test_case_1():
-	cut = calorie_intake_calc(186.27,204.26,66,'N',0.26,'M')
-	result_mifflin_stjeor_equation = cut.mifflin_stjeor_equation()
-	cut.bodyfat = 0.12
-	cut.height = 185.7
-	cut.bodyfat = 0.3
+	cut = calorie_intake_calc(118.72,162.05,48,'N',0.21,'M')
+	result_tdee_calculation = cut.tdee_calculation()
+
+def test_case_2():
+	cut = calorie_intake_calc(160.39,207.34,65,'M',0.26,'S')
+	result_tdee_calculation = cut.tdee_calculation()
 

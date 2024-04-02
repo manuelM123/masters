@@ -420,7 +420,6 @@ while current_number_generation < int(configurations.max_number_generations.valu
                 print("Offspring 2: " + str(offsprings[1].remaining_lifetime))
                 print("#----------------------------------------------------------------#")
 
-                            
                 # Adding offsprings to the new population
                 new_population.append(offsprings[0])
                 new_population.append(offsprings[1])
@@ -496,7 +495,7 @@ util.write_generation_stats_file([generation_number_values, population_size_valu
 util.write_metadata(configurations.best_generated_test_suite.value, best_solution.test_suite, metadata, None)
 
 # Write the best solution in a genotype format to a file
-util.write_best_generated_test_suite_data(configurations.best_generated_test_suite.value, best_solution.test_suite)
+util.write_data_file(configurations.best_generated_test_suite.value, best_solution.test_suite, "best_generated_test_suite")
 
 # Print the new population
 print("-----------------------------------------------")
