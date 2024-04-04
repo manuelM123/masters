@@ -1,0 +1,1 @@
+{"generation_number_values": [1, 2, 3], "population_size_values": [20, 20, 20], "generation_fitness_values": [0.62, 0.59, 0.59], "crossover_rate_values": [0.7626315789473687, 0.7578103448275862, 0.7531389961389962], "mutation_rate_values": [0, 0, 0], "best_fitness_seen_values": [0.71, 0.71, 0.71], "time_execution": 79.53160400000002}

@@ -7,6 +7,7 @@ from operations.crossover import *
 from operations.mutation import *
 from operations.fuzzy_system import *
 import utilities as util
+import copy
 import sys
 import statistics as stats
 sys.dont_write_bytecode = True
@@ -423,13 +424,6 @@ while current_number_generation < int(configurations.max_number_generations.valu
                 # Adding offsprings to the new population
                 new_population.append(offsprings[0])
                 new_population.append(offsprings[1])
-
-    # Update the best solution
-    new_population_best_solution = obtain_best_individual(new_population)
-    if new_population_best_solution.fitness > best_solution.fitness:
-        best_solution = new_population_best_solution
-        print("Best solution: " + str(best_solution.test_suite) + " - Fitness: " + str(best_solution.fitness))  
-    # ---------------------------------------------------------------
                 
     # ------------ POPULATION CONTROL METHOD ------------
 
@@ -443,6 +437,8 @@ while current_number_generation < int(configurations.max_number_generations.valu
             new_population, iteration_number_population_control = population_resizing(new_population, current_best_fitness, old_best_fitness, 
                                                                                   initial_best_fitness, current_number_generation, iteration_number_population_control,
                                                                                   metadata, configurations)
+            
+            print("New population size: ", len(new_population))
     else:
         if current_best_fitness > old_best_fitness:
             iteration_number_population_control = 0
@@ -450,6 +446,13 @@ while current_number_generation < int(configurations.max_number_generations.valu
             iteration_number_population_control += 1
 
     # ------------ END POPULATION CONTROL METHOD ------------
+    
+    # Update the best solution
+    if len(new_population) > 1:
+        new_population_best_solution = obtain_best_individual(new_population)
+        if new_population_best_solution.fitness > best_solution.fitness:
+            best_solution = copy.deepcopy(new_population_best_solution)
+            print("Best solution: " + str(best_solution.test_suite) + " - Fitness: " + str(best_solution.fitness))  
 
     # Reset population and iterations
     population, current_number_generation, current_best_fitness, old_best_fitness, generations_without_fitness_improvement, best_fitness_seen = update_genetic_algorithm_attributes(population, new_population, 
@@ -463,6 +466,8 @@ while current_number_generation < int(configurations.max_number_generations.valu
     print("Population size values: " + str(population_size_values) + " - Generation number values: " + str(generation_number_values) + " - Generation fitness values: " + str(generation_fitness_values) 
           + " - Crossover rate values: " + str(crossover_rate_generations) + " - Mutation rate values: " + str(mutation_rate_generations) + " - Iteration number population control: " + str(iteration_number_population_control))
     print("------------------------------------------------------------------")
+    
+    # ---------------------------------------------------------------
             
 # ---- End genetic algorithm execution ----
     
@@ -484,8 +489,8 @@ if configurations.mutation_type.value == 'deterministic' or configurations.mutat
 # ---- Genetic algorithm data writing ----
 
 # If the path does not exist, create it
-if not os.path.exists(configurations.generation_data_path.value):
-    os.makedirs(configurations.generation_data_path.value)       
+#if not os.path.exists(configurations.generation_data_path.value):
+    #os.makedirs(configurations.generation_data_path.value)       
 
 util.write_generation_stats_file([generation_number_values, population_size_values, generation_fitness_values, crossover_rate_generations, mutation_rate_generations, best_fitness_seen_values], configurations.generation_data_path.value)
 
@@ -495,7 +500,7 @@ util.write_generation_stats_file([generation_number_values, population_size_valu
 util.write_metadata(configurations.best_generated_test_suite.value, best_solution.test_suite, metadata, None)
 
 # Write the best solution in a genotype format to a file
-util.write_data_file(configurations.best_generated_test_suite.value, best_solution.test_suite, "best_generated_test_suite")
+util.write_best_generated_test_suite_data(configurations.best_generated_test_suite.value, best_solution.test_suite, "best_generated_test_suite")
 
 # Print the new population
 print("-----------------------------------------------")

@@ -108,7 +108,7 @@ Parameters:
 file : str
     The file to read the configuration from
 
-type : str
+type_method : str
     The type of configuration to read
 
 configuration_name : str
@@ -119,11 +119,11 @@ Returns:
 config : list
     Configuration requested 
 '''
-def obtain_configuration(file, type, configuration_name):
+def obtain_configuration(file, type_method, configuration_name):
     if os.path.exists(file):
         config = configparser.ConfigParser()
         config.read(file)
-        return config.get(type, configuration_name)
+        return config.get(type_method, configuration_name)
     else:
         raise FileNotFoundError('File does not exist')
     
@@ -321,7 +321,7 @@ Parameters:
 time_execution_values: list
     The average time of execution per generation method
 
-type: str
+type_method: str
     The type of the generation method
 
 path: str
@@ -330,7 +330,7 @@ path: str
 iteration: int
     The iteration of the generation method
 '''
-def time_execution_histogram(time_execution_values, type, path, iteration):
+def time_execution_histogram(time_execution_values, type_method, path, iteration):
     if plt.get_fignums():
             plt.close('all')
 
@@ -345,12 +345,12 @@ def time_execution_histogram(time_execution_values, type, path, iteration):
 
     ax.set_xlabel('Generation Method')
     ax.set_ylabel('Average Time of Execution (s)')
-    ax.set_title('Average Time of Execution for ' + type.capitalize() + ' Methods')
+    ax.set_title('Average Time of Execution for ' + type_method.capitalize() + ' Methods')
 
     plt.xticks(rotation=90, ha='right')
-    plt.savefig(path + '/' + type + '_time_execution_histogram_' + str(iteration) + '.png', bbox_inches='tight')
+    plt.savefig(path + '/' + type_method + '_time_execution_histogram_' + str(iteration) + '.png', bbox_inches='tight')
 
-def mean_time_execution_histogram(time_execution_values, type, path):
+def mean_time_execution_histogram(time_execution_values, type_method, path):
     if plt.get_fignums():
             plt.close('all')
 
@@ -365,10 +365,10 @@ def mean_time_execution_histogram(time_execution_values, type, path):
 
     ax.set_xlabel('Generation Method')
     ax.set_ylabel('Average Time of Execution (s)')
-    ax.set_title('Average Time of Execution for ' + type.capitalize() + ' Methods')
+    ax.set_title('Average Time of Execution for ' + type_method.capitalize() + ' Methods')
 
     plt.xticks(rotation=90, ha='right')
-    plt.savefig(path + '/' + type.lower() + '_time_execution_histogram.png', bbox_inches='tight')
+    plt.savefig(path + '/' + type_method.lower() + '_time_execution_histogram.png', bbox_inches='tight')
 
 '''
 Function to plot the mean best fitness of a generation method
@@ -378,13 +378,13 @@ Parameters:
 mean_best_fitness_values: list
     The mean best fitness values of a generation method
 
-type: str
+type_method: str
     The type of the generation method
 
 path: str
     The path to save the graph
 '''
-def mean_best_fitness_histogram(mean_best_fitness_values, type, path):
+def mean_best_fitness_histogram(mean_best_fitness_values, type_method, path):
     if plt.get_fignums():
             plt.close('all')
     
@@ -400,10 +400,10 @@ def mean_best_fitness_histogram(mean_best_fitness_values, type, path):
         
     ax.set_xlabel('Generation Method')
     ax.set_ylabel('Mean Best Fitness')
-    ax.set_title('Mean Best Fitness for ' + type.capitalize() + ' Methods')
+    ax.set_title('Mean Best Fitness for ' + type_method.capitalize() + ' Methods')
 
     plt.xticks(rotation=90, ha='right')
-    plt.savefig(path + '/' + type + '_mean_best_fitness_histogram.png', bbox_inches='tight')
+    plt.savefig(path + '/' + type_method + '_mean_best_fitness_histogram.png', bbox_inches='tight')
 
 '''
 Function to plot the best fitness value during the execution of the genetic algorithm
@@ -464,15 +464,16 @@ path: str
 '''
 def write_generation_stats_file(generation_stats, path):
     print("Started writing list data into a json file")
-
+    dic = {}
     generation_stats_name = ['generation_number_values', 'population_size_values', 'generation_fitness_values', 'crossover_rate_values', 'mutation_rate_values', 'best_fitness_seen_values']
 
     for stat in range(len(generation_stats_name)):
-        generation_data_path_stat = path + '/' + generation_stats_name[stat]
-
-        with open(generation_data_path_stat + ".json", "w") as fp:
-            json.dump(generation_stats[stat], fp)
-            print("Done writing JSON data into .json file")
+        dic[generation_stats_name[stat]] = generation_stats[stat]
+    
+    with open(path + ".json", "w") as fp:
+        #json.dump(generation_stats[stat], fp)
+        json.dump(dic, fp)
+        print("Done writing JSON data into .json file")
 
 '''
 Function to read the generation stats from a json file
@@ -482,7 +483,7 @@ Parameters:
 generation_methods: list
     The generation methods to read the generation stats from
 
-type: str
+type_method: str
     The type of the generation method
 
 Returns:
@@ -490,22 +491,28 @@ Returns:
 generations_data: list
     The generation stats read from the json file
 '''
-def read_generation_stats_file(generation_methods, type):
-    print("Started reading list data from a json file")
+def read_generation_stats_file(generation_methods, type_method):
+    print("Started reading data from a json file")
     
-    generation_stats_name = ['generation_number_values', 'population_size_values', 'generation_fitness_values', 'crossover_rate_values', 'mutation_rate_values', 'best_fitness_seen_values']
+    generation_stats_name = ['generation_number_values', 'population_size_values', 'generation_fitness_values', 'crossover_rate_values', 'mutation_rate_values', 'best_fitness_seen_values', 'time_execution']
     generations_data = []
+    dic = {}
     
     for generation_method in range(len(generation_methods)):
         generation_data_read = []
-        path = 'results/generation_data/' + type + "/" + generation_methods[generation_method]
+        path = 'results/generation_data/' + type_method + "/" + generation_methods[generation_method]
         for stat in range(len(generation_stats_name)):
+            with open(path + ".json", "rb") as fp:
+                dic = json.load(fp)
+
+            generation_data_read.append([generation_stats_name[stat], dic[generation_stats_name[stat]]])
+            
             # Verify if file exists
-            if os.path.exists(path + '/' + generation_stats_name[stat] + '.json'):
-                generation_read_path = path + '/' + generation_stats_name[stat]
-                with open(generation_read_path + '.json', 'rb') as fp:
-                    data = json.load(fp)
-                    generation_data_read.append([generation_stats_name[stat], data])
+            #if os.path.exists(path + '/' + generation_stats_name[stat] + '.json'):
+            #    generation_read_path = path + '/' + generation_stats_name[stat]
+            #    with open(generation_read_path + '.json', 'rb') as fp:
+            #        data = json.load(fp)
+            #        generation_data_read.append([generation_stats_name[stat], data])
         
         generations_data.append(generation_data_read)
 
@@ -519,25 +526,23 @@ Parameters:
 parameter_type: str
     The parameter type to read the generation stats from
 
-type: str
+type_method: str
     The type of the generation method   
 
-file_type: str
-    The file type to read the generation stats from
+data_type: str
+    The data type to read the generation stats from
 
 Returns:
 -------
-data: list
+data: dictionary
     The generation stats read from the json file
 '''
-def read_generations_stats_file_type(parameter_type, type, file_type):
+def read_generations_stats_file_type(parameter_type, type_method, data_type):
     data = []
-    path = 'results/generation_data/' + type + "/" + parameter_type
-    # Verify if file exists
-    if os.path.exists(path + '/' + file_type + '.json'):
-        generation_read_path = path + '/' + file_type
-        with open(generation_read_path + '.json', 'rb') as fp:
-            data = json.load(fp)
+    path = 'results/generation_data/' + type_method + "/" + parameter_type
+    with open(path + '.json', 'rb') as fp:
+        dic = json.load(fp)
+        data = dic[data_type]
 
     return data
 
@@ -554,6 +559,22 @@ data: list
 
 '''
 def write_data_file(path, data, file_name):
+    dic = {}
+
+    print("Started reading data from a json file")
+    with open(path + ".json", "rb") as fp:
+        dic = json.load(fp)
+
+    print("Started writing data into a json file")
+
+    dic[file_name] = data
+
+    with open(path + ".json", "w") as fp:
+        json.dump(dic, fp)
+        print("Done writing JSON data into .json file")
+
+
+def write_best_generated_test_suite_data(path, data, file_name):
     print("Started writing list data into a json file")
 
     with open(path + "/" + file_name + ".json", "w") as fp:

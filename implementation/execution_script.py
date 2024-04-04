@@ -30,16 +30,16 @@ genetic_algorithm_configurations = {
     'max_number_functions': 4,
     'max_number_test_cases': 3,
     'tournament_size': 2,
-    'max_number_generations': 3,
-    'fitness_max_stagnation_period': 2,
+    'max_number_generations': 5,
+    'fitness_max_stagnation_period': 3,
     'max_number_fitness_evaluations': 1000,
     'fitness_function_type': 'branch_coverage',
-    'fitness_iteration_limit': 1
+    'fitness_iteration_limit': 2
 }
 
 # Configuration of the genetic operators
 genetic_operators_configurations = {
-    'population_size': 5,
+    'population_size': 20,
     'population_control': 'True',
     'selection_type': 'tournament',
     'crossover_type': 'uniform',
@@ -502,6 +502,7 @@ folder_setup()
 for iteration in range(1,3):
     # Execute the population methods
     population_methods = population_execution(iteration)
+    print(population_methods)
     population_generations_data = util.read_generation_stats_file(population_methods, 'population')
     print("Population Generations Data")
     print(population_generations_data)
