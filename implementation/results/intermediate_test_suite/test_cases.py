@@ -1,11 +1,13 @@
 from cut import *
 
 def test_case_0():
-	cut = calorie_intake_calc(194.11,187.13,54,'F',0.05,'V')
+	cut = calorie_intake_calc(68.65,151.57,54,'N',0.18,'S')
 
 def test_case_1():
-	cut = calorie_intake_calc(61.17,160.52,37,'N',0.11,'E')
-	cut.amount_exercise = 'S'
+	cut = calorie_intake_calc(164.53,175.8,19,'N',0.11,'V')
+	cut.amount_exercise = 'E'
 	result_determine_calorie_intake = cut.determine_calorie_intake()
-	cut.weight = 93.53
+	cut.age = 53
+	result_tdee_calculation = cut.tdee_calculation()
+	result_tdee_calculation = cut.tdee_calculation()
 

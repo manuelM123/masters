@@ -15,7 +15,7 @@ class calorie_intake_calc:
     bodyfat : float
         bodyfat percentage of the person in the interval [0,0.3]
     amount_exercise : str
-        ammount of exercise the person does, either sedentary 'S', light 'L', moderate 'M', very active 'V' or extra active 'E'
+        amount of exercise the person does, either sedentary 'S', light 'L', moderate 'M', very active 'V' or extra active 'E'
 
     Methods
     -------

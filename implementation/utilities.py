@@ -368,7 +368,7 @@ def mean_time_execution_histogram(time_execution_values, type_method, path):
     ax.set_title('Average Time of Execution for ' + type_method.capitalize() + ' Methods')
 
     plt.xticks(rotation=90, ha='right')
-    plt.savefig(path + '/' + type_method.lower() + '_time_execution_histogram.png', bbox_inches='tight')
+    plt.savefig(path + '/' + type_method + '_time_execution_histogram.png', bbox_inches='tight')
 
 '''
 Function to plot the mean best fitness of a generation method
@@ -404,6 +404,27 @@ def mean_best_fitness_histogram(mean_best_fitness_values, type_method, path):
 
     plt.xticks(rotation=90, ha='right')
     plt.savefig(path + '/' + type_method + '_mean_best_fitness_histogram.png', bbox_inches='tight')
+
+
+def mean_generations_histogram(mean_generation_values, type_method, path):
+    if plt.get_fignums():
+            plt.close('all')
+    
+    fig, ax = plt.subplots()
+    for mean_number_generation in mean_generation_values:
+        generation_method_name = mean_number_generation[0].split('_')[0].capitalize()
+        for word in range(1, len(mean_number_generation[0].split('_'))):
+            generation_method_name += ' ' + mean_number_generation[0].split('_')[word]
+
+        # in each bar make a space to prevent overlapping
+        ax.bar(generation_method_name, mean_number_generation[1], align='center', ecolor='black', capsize=10)
+        
+    ax.set_xlabel('Generation Method')
+    ax.set_ylabel('Mean Number Generations')
+    ax.set_title('Mean Number Generations for ' + type_method.capitalize() + ' Methods')
+
+    plt.xticks(rotation=90, ha='right')
+    plt.savefig(path + '/' + type_method + '_mean_number_generations_histogram.png', bbox_inches='tight')
 
 '''
 Function to plot the best fitness value during the execution of the genetic algorithm
@@ -622,3 +643,7 @@ def standard_deviation(population):
 
 def mean_time_execution(time_execution_values):
     return sum(time_execution_values) / len(time_execution_values)
+
+
+def mean_generations_execution(generation_values):
+    return sum(generation_values) / len(generation_values)
