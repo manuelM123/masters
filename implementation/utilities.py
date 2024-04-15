@@ -3,6 +3,7 @@ import json
 import configparser 
 import numpy as np
 import matplotlib.pyplot as plt
+from solution import Solution
 
 '''
 Function to read metadata in a genotype format from a file
@@ -640,10 +641,31 @@ standard_deviation: int
 def standard_deviation(population):
     return np.std(population)
 
-
 def mean_time_execution(time_execution_values):
     return sum(time_execution_values) / len(time_execution_values)
 
-
 def mean_generations_execution(generation_values):
     return sum(generation_values) / len(generation_values)
+
+def write_population_data_file(path, data):
+    print("Started writing list data into a json file")
+
+    json_string = json.dumps([ob.__dict__ for ob in data])
+    with open(path + "/population.json", "w") as file:
+        file.write(json_string)
+
+def read_population_data_file(path):
+    print("Started reading list data from a json file")
+
+    with open(path + "/population.json", "r") as file:
+        data = json.load(file)
+
+    # Reconstruct Solution objects from the loaded JSON data
+    population = []
+    for ob in data:
+        solution = Solution()
+        solution.__dict__.update(ob)
+        solution.test_suite = ob['test_suite']
+        population.append(solution)
+
+    return population

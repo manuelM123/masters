@@ -4,6 +4,8 @@ import subprocess
 import resource
 import configparser
 import utilities as util
+from enum import Enum
+from operations.population_control import *
 
 population_control = ['True', 'False']
 selection_types = ['random', 'roulette_wheel', 'adaptive', 'rank', 'tournament']
@@ -34,12 +36,13 @@ genetic_algorithm_configurations = {
     'fitness_max_stagnation_period': 3,
     'max_number_fitness_evaluations': 1000,
     'fitness_function_type': 'branch_coverage',
-    'fitness_iteration_limit': 2
+    'fitness_iteration_limit': 2, 
+    'execution_script': 'True'
 }
 
 # Configuration of the genetic operators
 genetic_operators_configurations = {
-    'population_size': 20,
+    'population_size': 10,
     'population_control': 'True',
     'selection_type': 'tournament',
     'crossover_type': 'uniform',
@@ -69,8 +72,28 @@ file_paths = {
     'benchmark': 'results/benchmarks'
 }
 
+'''
+Class that contains the configurations of the genetic algorithm
+
+It is used to store the configurations of the genetic algorithm, genetic operators, genetic algorithm optimizations and file paths
+'''
+class configurations(Enum):
+    # Genetic algorithm configurations
+    max_number_functions = util.obtain_configuration("config.ini", "genetic_algorithm_configurations", "max_number_functions")
+    max_number_test_cases = util.obtain_configuration("config.ini", "genetic_algorithm_configurations", "max_number_test_cases")
+    fitness_function_type = util.obtain_configuration("config.ini", "genetic_algorithm_configurations", "fitness_function_type")
+
+    # Genetic operators configurations
+    population_size = util.obtain_configuration("config.ini", "genetic_operators_configurations", "population_size")
+
+    # File paths
+    intermediate_test_suite_path = util.obtain_configuration("config.ini", "file_paths", "intermediate_test_suite")
+
 # Configuration file path
 path_configuration_file = 'config.ini'
+
+# Read the metadata file
+metadata_file = util.read_metadata(util.obtain_configuration("config.ini", "metadata", "metadata_location"))
 
 '''
 Function to execute a subprocess and measure the time of execution
@@ -498,6 +521,10 @@ def generate_benchmarks(benchmark_type, generations_methods, generations_data, p
 
 # Execute the folder setup
 folder_setup()
+
+population = create_population(metadata_file, int(configurations.population_size.value), configurations)
+# write population in current directory
+util.write_population_data_file(os.getcwd(), population)
 
 for iteration in range(1,3):
     # Execute the population methods

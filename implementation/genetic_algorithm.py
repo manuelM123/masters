@@ -28,6 +28,7 @@ class configurations(Enum):
     max_number_fitness_evaluations = util.obtain_configuration("config.ini", "genetic_algorithm_configurations", "max_number_fitness_evaluations")
     fitness_function_type = util.obtain_configuration("config.ini", "genetic_algorithm_configurations", "fitness_function_type")
     fitness_iteration_limit = util.obtain_configuration("config.ini", "genetic_algorithm_configurations", "fitness_iteration_limit")
+    execution_script = util.obtain_configuration("config.ini", "genetic_algorithm_configurations", "execution_script")
 
     # Genetic operators configurations
     population_size = util.obtain_configuration("config.ini", "genetic_operators_configurations", "population_size")
@@ -202,7 +203,18 @@ def generation_stats(current_number_generation, old_best_fitness, current_best_f
 
 # Initializing parameters and variables for the genetic algorithm
 metadata = util.read_metadata(util.obtain_configuration("config.ini", "metadata", "metadata_location"))
-population = create_population(metadata, int(configurations.population_size.value), configurations)
+population = []
+
+if eval(configurations.execution_script.value):
+    print("Execution script is enabled")
+    population = util.read_population_data_file(os.getcwd())
+    for individual in population:
+        print("Individual: " + str(individual.test_suite) + " - Fitness: " + str(individual.fitness) + " - Remaining life time: " + str(individual.remaining_lifetime))
+    print("Population size: " + str(len(population)))
+else:
+    population = create_population(metadata, int(configurations.population_size.value), configurations)
+
+
 population_fitness = obtain_fitness_values(population)
 initial_best_fitness = obtain_best_fitness(population_fitness)
 current_best_fitness = 0
