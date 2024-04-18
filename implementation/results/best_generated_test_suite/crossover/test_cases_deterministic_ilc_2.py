@@ -1,18 +1,15 @@
 from cut import *
 
 def test_case_0():
-	cut = calorie_intake_calc(154.0,184.77,42,'N',0.18,'M')
+	cut = calorie_intake_calc(95.74,170.07,59,'M',0.27,'M')
+	result_determine_calorie_intake = cut.determine_calorie_intake()
 
 def test_case_1():
-	cut = calorie_intake_calc(111.89,152.85,65,'F',0.22,'E')
-	cut.bodyfat = 0.05
-	cut.height = 140.08
-	result_mifflin_stjeor_equation = cut.mifflin_stjeor_equation()
+	cut = calorie_intake_calc(107.41,157.82,51,'N',0.23,'S')
+	result_katch_mcardle_equation = cut.katch_mcardle_equation()
 
 def test_case_2():
-	cut = calorie_intake_calc(138.01,183.9,25,'F',0.15,'S')
-	cut.amount_exercise = 'S'
-	cut.height = 172.55
+	cut = calorie_intake_calc(50.31,183.55,80,'F',0.28,'N')
+	cut.weight = 70.09
 	result_katch_mcardle_equation = cut.katch_mcardle_equation()
-	cut.gender = 'M'
 

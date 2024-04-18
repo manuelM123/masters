@@ -1,23 +1,13 @@
 from cut import *
 
 def test_case_0():
-	cut = calorie_intake_calc(156.62,190.36,79,'N',0.25,'L')
+	cut = calorie_intake_calc(81.92,160.15,75,'F',0.26,'V')
+	cut.height = 157.01
+	cut.gender = 'F'
+	result_determine_calorie_intake = cut.determine_calorie_intake()
+	cut.age = 45
 
 def test_case_1():
-	cut = calorie_intake_calc(137.89,165.36,45,'F',0.03,'M')
-	cut.gender = 'M'
-	cut.age = 28
-
-def test_case_2():
-	cut = calorie_intake_calc(107.29,182.46,45,'N',0.12,'E')
-	cut.weight = 192.74
-	cut.gender = 'N'
-	cut.age = 40
-
-def test_case_3():
-	cut = calorie_intake_calc(96.52,181.82,42,'F',0.04,'E')
-	result_mifflin_stjeor_equation = cut.mifflin_stjeor_equation()
-	cut.gender = 'M'
-	cut.gender = 'M'
-	cut.height = 164.45
+	cut = calorie_intake_calc(175.71,220.86,48,'M',0.12,'M')
+	cut.age = 75
 

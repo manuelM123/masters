@@ -252,7 +252,7 @@ def population_execution(iteration):
         population_methods.append('population_' + method + "_" + str(iteration))
         util.write_metadata('results/best_generated_test_suite/population', util.read_best_generated_test_suite_data('results/best_generated_test_suite'),
                             util.read_metadata(util.obtain_configuration("config.ini", "metadata", "metadata_location")), method + "_" + str(iteration))
-
+        util.write_best_generated_test_suite_data('results/best_generated_test_suite/population', util.read_best_generated_test_suite_data('results/best_generated_test_suite'), method + "_" + str(iteration))
         util.write_data_file('results/generation_data/population/' + 'population_' + method + "_" + str(iteration), time, 'time_execution')
     util.time_execution_histogram(time_execution_values, 'population', 'results/benchmarks/time_execution/population', iteration)
 
@@ -284,7 +284,7 @@ def selection_execution(iteration):
         selection_methods.append('selection_' + method + "_" + str(iteration))
         util.write_metadata('results/best_generated_test_suite/selection', util.read_best_generated_test_suite_data('results/best_generated_test_suite'),
                             util.read_metadata(util.obtain_configuration("config.ini", "metadata", "metadata_location")), method + "_" + str(iteration))
-
+        util.write_best_generated_test_suite_data('results/best_generated_test_suite/selection', util.read_best_generated_test_suite_data('results/best_generated_test_suite'), method + "_" + str(iteration))
         util.write_data_file('results/generation_data/selection/' + 'selection_' + method + "_" + str(iteration), time, 'time_execution')
     util.time_execution_histogram(time_execution_values, 'selection', 'results/benchmarks/time_execution/selection', iteration)
 
@@ -318,6 +318,7 @@ def crossover_execution(iteration):
                 crossover_methods.append('crossover_' + method + "_" + deterministic_type + "_" + str(iteration))
                 util.write_metadata('results/best_generated_test_suite/crossover', util.read_best_generated_test_suite_data('results/best_generated_test_suite'),
                             util.read_metadata(util.obtain_configuration("config.ini", "metadata", "metadata_location")), method + "_" + deterministic_type + "_" + str(iteration))
+                util.write_best_generated_test_suite_data('results/best_generated_test_suite/crossover', util.read_best_generated_test_suite_data('results/best_generated_test_suite'), method + "_" + deterministic_type + "_" + str(iteration))
                 util.write_data_file('results/generation_data/crossover/' + 'crossover_' + method + "_" + deterministic_type + "_" + str(iteration), time, 'time_execution')
         else:
             change_configurations(None, [['crossover_type', method]], None, [['generation_stats', 'results/generation_stats/crossover/' + 'crossover_' + method + "_" + str(iteration)], ['generation_data', 'results/generation_data/crossover/' + 'crossover_' + method + "_" + str(iteration)]])
@@ -328,6 +329,7 @@ def crossover_execution(iteration):
             crossover_methods.append('crossover_' + method + "_" + str(iteration))
             util.write_metadata('results/best_generated_test_suite/crossover', util.read_best_generated_test_suite_data('results/best_generated_test_suite'),
                             util.read_metadata(util.obtain_configuration("config.ini", "metadata", "metadata_location")), method + "_" + str(iteration))
+            util.write_best_generated_test_suite_data('results/best_generated_test_suite/crossover', util.read_best_generated_test_suite_data('results/best_generated_test_suite'), method + "_" + str(iteration))
             util.write_data_file('results/generation_data/crossover/' + 'crossover_' + method + "_" + str(iteration), time, 'time_execution')
 
     util.time_execution_histogram(time_execution_values, 'crossover', 'results/benchmarks/time_execution/crossover', iteration)
@@ -362,6 +364,7 @@ def mutation_execution(iteration):
                 mutation_methods.append('mutation_' + method + "_" + deterministic_type + "_" + str(iteration))
                 util.write_metadata('results/best_generated_test_suite/mutation', util.read_best_generated_test_suite_data('results/best_generated_test_suite'),
                             util.read_metadata(util.obtain_configuration("config.ini", "metadata", "metadata_location")), method + "_" + deterministic_type + "_" + str(iteration))
+                util.write_best_generated_test_suite_data('results/best_generated_test_suite/mutation', util.read_best_generated_test_suite_data('results/best_generated_test_suite'), method + "_" + deterministic_type + "_" + str(iteration))
                 util.write_data_file('results/generation_data/mutation/' + 'mutation_' + method + "_" + deterministic_type + "_" + str(iteration), time, 'time_execution')
         else:
             change_configurations(None, [['mutation_type', method]], None, [['generation_stats', 'results/generation_stats/mutation/' + 'mutation_' + method + "_" + str(iteration)], ['generation_data', 'results/generation_data/mutation/' + 'mutation_' + method + "_" + str(iteration)]])
@@ -372,6 +375,7 @@ def mutation_execution(iteration):
             mutation_methods.append('mutation_' + method + "_" + str(iteration))
             util.write_metadata('results/best_generated_test_suite/mutation', util.read_best_generated_test_suite_data('results/best_generated_test_suite'),
                             util.read_metadata(util.obtain_configuration("config.ini", "metadata", "metadata_location")), method + "_" + str(iteration))
+            util.write_best_generated_test_suite_data('results/best_generated_test_suite/mutation', util.read_best_generated_test_suite_data('results/best_generated_test_suite'), method + "_" + str(iteration))
             util.write_data_file('results/generation_data/mutation/' + 'mutation_' + method + "_" + str(iteration), time, 'time_execution')
 
     util.time_execution_histogram(time_execution_values, 'mutation', 'results/benchmarks/time_execution/mutation', iteration)
