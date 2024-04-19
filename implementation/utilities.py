@@ -372,12 +372,12 @@ def mean_time_execution_histogram(time_execution_values, type_method, path):
     plt.savefig(path + '/' + type_method + '_time_execution_histogram.png', bbox_inches='tight')
 
 '''
-Function to plot the mean best fitness of a generation method
+Function to plot the mean best fitness of a generation method or the mean fitness values of a generation method
 
 Parameters:
 ----------
-mean_best_fitness_values: list
-    The mean best fitness values of a generation method
+fitness_values: list
+    The fitness values of a generation method
 
 type_method: str
     The type of the generation method
@@ -385,26 +385,29 @@ type_method: str
 path: str
     The path to save the graph
 '''
-def mean_best_fitness_histogram(mean_best_fitness_values, type_method, path):
+def mean_fitness_histogram(fitness_values, type_method, path, type_graph):
     if plt.get_fignums():
             plt.close('all')
     
     fig, ax = plt.subplots()
-    for mean_best_fitness in mean_best_fitness_values:
-        generation_method_name = mean_best_fitness[0].split('_')[0].capitalize()
-        for word in range(1, len(mean_best_fitness[0].split('_'))):
-            generation_method_name += ' ' + mean_best_fitness[0].split('_')[word]
+    for fitness in fitness_values:
+        generation_method_name = fitness[0].split('_')[0].capitalize()
+        for word in range(1, len(fitness[0].split('_'))):
+            generation_method_name += ' ' + fitness[0].split('_')[word]
 
         # in each bar make a space to prevent overlapping
-        ax.bar(generation_method_name, mean_best_fitness[1], yerr=mean_best_fitness[2],
+        ax.bar(generation_method_name, fitness[1], yerr=fitness[2],
                align='center', ecolor='black', capsize=10)
         
     ax.set_xlabel('Generation Method')
-    ax.set_ylabel('Mean Best Fitness')
-    ax.set_title('Mean Best Fitness for ' + type_method.capitalize() + ' Methods')
-
+    ax.set_ylabel(type_graph)
+    ax.set_title(type_graph + ' for ' + type_method.capitalize() + ' Methods')
     plt.xticks(rotation=90, ha='right')
-    plt.savefig(path + '/' + type_method + '_mean_best_fitness_histogram.png', bbox_inches='tight')
+
+    if type_graph == 'Mean Best Fitness':
+        plt.savefig(path + '/' + type_method + '_mean_best_fitness_histogram.png', bbox_inches='tight')
+    elif type_graph == 'Mean Fitness':
+        plt.savefig(path + '/' + type_method + '_mean_fitness_histogram.png', bbox_inches='tight')
 
 
 def mean_generations_histogram(mean_generation_values, type_method, path):

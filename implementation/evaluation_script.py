@@ -25,102 +25,100 @@ def folder_setup():
         os.makedirs('results_evaluation/methods_execution/time_execution')
 
 '''
-Function to obtain the mean best fitness of a set of genetic parameters
+Function to calculate the mean of the data for the different methods according to the type of data 
 
 Parameters:
-----------
-genetic_parameters : list
-    The genetic parameters to evaluate
+    genetic_parameters: list
+        List of the genetic parameters to evaluate
 
-type : str
-    The type of genetic algorithm element to evaluate
+    type_method: string
+        Type of method to evaluate
 
-number_iterations : int
-    The number of iterations to evaluate
+    number_iterations: int
+        Number of iterations to evaluate    
 
-Returns:
--------
-genetic_parameter_mbf : list
-    A list containing the mean best fitness of each genetic parameter evaluated
+    type_data: string
+        Type of data to evaluate    
+
+    json_key: string
+        Key to evaluate in the generation data json file 
+
 '''
-def mean_best_fitness_methods(genetic_parameters, type, number_iterations):
-    genetic_parameter_mbf = []
+def mean_data_methods(genetic_parameters, type_method, number_iterations, type_data, json_key):
+    mean_data = []
     for parameter in genetic_parameters:
         iteration_data = []
         for iteration in range(1, number_iterations + 1):
-            element_data = util.read_generations_stats_file_type(type + '_' + parameter + '_' + str(iteration), type, 'best_fitness_seen_values')
-            mean_best_fitness = ff.mean_best_fitness(element_data)
-            iteration_data.append(mean_best_fitness)
+            element_data = util.read_generations_stats_file_type(type_method + '_' + parameter + '_' + str(iteration), type_method, json_key)
+            if type_data == 'best_fitness' or type_data == 'fitness_values':
+                iteration_data.append(ff.mean_best_fitness(element_data))
+            elif type_data == 'time_execution':
+                iteration_data.append(element_data)
+            elif type_data == 'generation_number':
+                iteration_data.append(max(element_data))
 
-        mean_best_fitness_parameter = ff.mean_best_fitness(iteration_data)
-        genetic_parameter_mbf.append([type + '_' + parameter, mean_best_fitness_parameter, util.standard_deviation(iteration_data)])
+        if type_data == 'best_fitness' or type_data == 'fitness_values':
+            mean_best_fitness_parameter = ff.mean_best_fitness(iteration_data)
+            mean_data.append([type_method + '_' + parameter, mean_best_fitness_parameter, util.standard_deviation(iteration_data)])
+        elif type_data == 'time_execution':
+            mean_time_parameter = util.mean_time_execution(iteration_data)
+            mean_data.append([mean_time_parameter, type_method + '_' + parameter])
+        elif type_data == 'generation_number':
+            mean_number_generation = util.mean_generations_execution(iteration_data)
+            mean_data.append([type_method + '_' + parameter, mean_number_generation])
 
-    return genetic_parameter_mbf
-
-def mean_time_execution_methods(genetic_parameters, type, number_iterations):
-    time_execution_data = []
-    for parameter in genetic_parameters:
-        iteration_data = []
-        for iteration in range(1, number_iterations + 1):
-            element_data = util.read_generations_stats_file_type(type + '_' + parameter + '_' + str(iteration), type, 'time_execution')
-            iteration_data.append(element_data)
-
-        mean_time_parameter = util.mean_time_execution(iteration_data)
-        time_execution_data.append([mean_time_parameter, type + '_' + parameter])
-
-    return time_execution_data
-
-def mean_number_generations_methods(genetic_parameters, type, number_iterations):
-    generations_number_data = []
-    for parameter in genetic_parameters:
-        iteration_data = []
-        for iteration in range(1, number_iterations + 1):
-            element_data = util.read_generations_stats_file_type(type + '_' + parameter + '_' + str(iteration), type, 'generation_number_values')
-            iteration_data.append(max(element_data))
-
-        mean_number_generation = util.mean_generations_execution(iteration_data)
-        generations_number_data.append([type + '_' + parameter, mean_number_generation])
-
-    return generations_number_data
+    return mean_data
 
 folder_setup()
 
-mbf_population = mean_best_fitness_methods(population_control, 'population', 10)
-time_execution_population = mean_time_execution_methods(population_control, 'population', 10)
-number_generations_population = mean_number_generations_methods(population_control, 'population', 10)
-util.mean_best_fitness_histogram(mbf_population, 'population', 'results_evaluation/methods_execution')
+mbf_population = mean_data_methods(population_control, 'population', 10, 'best_fitness', 'best_fitness_seen_values')
+mean_fitness_population = mean_data_methods(population_control, 'population', 10, 'fitness_values', 'generation_fitness_values')
+time_execution_population = mean_data_methods(population_control, 'population', 10, 'time_execution', 'time_execution')
+number_generations_population = mean_data_methods(population_control, 'population', 10, 'generation_number', 'generation_number_values')
+util.mean_fitness_histogram(mbf_population, 'population', 'results_evaluation/methods_execution', 'Mean Best Fitness')
+util.mean_fitness_histogram(mean_fitness_population, 'population', 'results_evaluation/methods_execution', 'Mean Fitness')
 util.mean_time_execution_histogram(time_execution_population, 'population', 'results_evaluation/methods_execution/time_execution')
 util.mean_generations_histogram(number_generations_population, 'population', 'results_evaluation/methods_execution')
-print('Population: ' + str(mbf_population))
+print('Population Mean Best Fitness: ' + str(mbf_population) + "\n")
+print('Population Mean Fitness: ' + str(mean_fitness_population) + "\n")
 print('Population Time Execution: ' + str(time_execution_population) + "\n")
 print('Population Number Generations: ' + str(number_generations_population) + "\n")
 
-mbf_selection = mean_best_fitness_methods(selection_types, 'selection', 10)
-time_execution_selection = mean_time_execution_methods(selection_types, 'selection', 10)
-number_generations_selection = mean_number_generations_methods(selection_types, 'selection', 10)
-util.mean_best_fitness_histogram(mbf_selection, 'selection', 'results_evaluation/methods_execution')
+mbf_selection = mean_data_methods(selection_types, 'selection', 10, 'best_fitness', 'best_fitness_seen_values')
+mean_fitness_selection = mean_data_methods(selection_types, 'selection', 10, 'fitness_values', 'generation_fitness_values')
+time_execution_selection = mean_data_methods(selection_types, 'selection', 10, 'time_execution', 'time_execution')
+number_generations_selection = mean_data_methods(selection_types, 'selection', 10, 'generation_number', 'generation_number_values')
+util.mean_fitness_histogram(mbf_selection, 'selection', 'results_evaluation/methods_execution', 'Mean Best Fitness')
+util.mean_fitness_histogram(mean_fitness_selection, 'selection', 'results_evaluation/methods_execution', 'Mean Fitness')
 util.mean_time_execution_histogram(time_execution_selection, 'selection', 'results_evaluation/methods_execution/time_execution')
 util.mean_generations_histogram(number_generations_selection, 'selection', 'results_evaluation/methods_execution')
-print('Selection: ' + str(mbf_selection))
+print('Selection Mean Best Fitness: ' + str(mbf_selection) + "\n")
+print('Selection Mean Fitness: ' + str(mean_fitness_selection) + "\n")
 print('Selection Time Execution: ' + str(time_execution_selection) + "\n")
 print('Selection Number Generations: ' + str(number_generations_selection) + "\n")
 
-mbf_crossover = mean_best_fitness_methods(crossover_types, 'crossover', 10)
-time_execution_crossover = mean_time_execution_methods(crossover_types, 'crossover', 10)
-number_generations_crossover = mean_number_generations_methods(crossover_types, 'crossover', 10)
-util.mean_best_fitness_histogram(mbf_crossover, 'crossover', 'results_evaluation/methods_execution')
+mbf_crossover = mean_data_methods(crossover_types, 'crossover', 10, 'best_fitness', 'best_fitness_seen_values')
+mean_fitness_crossover = mean_data_methods(crossover_types, 'crossover', 10, 'fitness_values', 'generation_fitness_values')
+time_execution_crossover = mean_data_methods(crossover_types, 'crossover', 10, 'time_execution', 'time_execution')
+number_generations_crossover = mean_data_methods(crossover_types, 'crossover', 10, 'generation_number', 'generation_number_values')
+util.mean_fitness_histogram(mbf_crossover, 'crossover', 'results_evaluation/methods_execution', 'Mean Best Fitness')
+util.mean_fitness_histogram(mean_fitness_crossover, 'crossover', 'results_evaluation/methods_execution', 'Mean Fitness')
 util.mean_time_execution_histogram(time_execution_crossover, 'crossover', 'results_evaluation/methods_execution/time_execution')
 util.mean_generations_histogram(number_generations_crossover, 'crossover', 'results_evaluation/methods_execution')
-print('Crossover: ' + str(mbf_crossover))
+print('Crossover Mean Best Fitness: ' + str(mbf_crossover) + "\n")
+print('Crossover Mean Fitness: ' + str(mean_fitness_crossover) + "\n")
 print('Crossover Time Execution: ' + str(time_execution_crossover) + "\n")
 print('Crossover Number Generations: ' + str(number_generations_crossover) + "\n")
 
-mbf_mutation = mean_best_fitness_methods(mutation_types, 'mutation', 10)
-time_execution_mutation = mean_time_execution_methods(mutation_types, 'mutation', 10)
-number_generations_mutation = mean_number_generations_methods(mutation_types, 'mutation', 10)
-util.mean_best_fitness_histogram(mbf_mutation, 'mutation', 'results_evaluation/methods_execution')
+mbf_mutation = mean_data_methods(mutation_types, 'mutation', 10, 'best_fitness', 'best_fitness_seen_values')
+mean_fitness_mutation = mean_data_methods(mutation_types, 'mutation', 10, 'fitness_values', 'generation_fitness_values')
+time_execution_mutation = mean_data_methods(mutation_types, 'mutation', 10, 'time_execution', 'time_execution')
+number_generations_mutation = mean_data_methods(mutation_types, 'mutation', 10, 'generation_number', 'generation_number_values')
+util.mean_fitness_histogram(mbf_mutation, 'mutation', 'results_evaluation/methods_execution', 'Mean Best Fitness')
+util.mean_fitness_histogram(mean_fitness_mutation, 'mutation', 'results_evaluation/methods_execution', 'Mean Fitness')
 util.mean_time_execution_histogram(time_execution_mutation, 'mutation', 'results_evaluation/methods_execution/time_execution')
 util.mean_generations_histogram(number_generations_mutation, 'mutation', 'results_evaluation/methods_execution')
-print('Mutation: ' + str(mbf_mutation))
+print('Mutation Mean Best Fitness: ' + str(mbf_mutation) + "\n")
+print('Mutation Mean Fitness: ' + str(mean_fitness_mutation) + "\n")
 print('Mutation Time Execution: ' + str(time_execution_mutation) + "\n")
 print('Mutation Number Generations: ' + str(number_generations_mutation) + "\n")
