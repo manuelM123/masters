@@ -644,12 +644,52 @@ standard_deviation: int
 def standard_deviation(population):
     return np.std(population)
 
+'''
+Function to calculate the mean of the time execution values
+
+Parameters:
+----------
+time_execution_values: list
+    The time execution values to calculate the mean of
+
+Returns:
+-------
+mean_time_execution: float
+    The mean of the time execution values
+
+'''
 def mean_time_execution(time_execution_values):
     return sum(time_execution_values) / len(time_execution_values)
 
+'''
+Function to calculate the mean of the generation values
+
+Parameters:
+----------
+generation_values: list
+    The generation values to calculate the mean of
+
+Returns:
+-------
+mean_generations_execution: float
+    The mean of the generation values
+'''
 def mean_generations_execution(generation_values):
     return sum(generation_values) / len(generation_values)
 
+
+'''
+Function to write the population data into a json file
+
+Parameters:
+----------
+path: str
+    The path to save the json file
+
+data: list
+    The population data to write into a json file
+
+'''
 def write_population_data_file(path, data):
     print("Started writing list data into a json file")
 
@@ -657,6 +697,19 @@ def write_population_data_file(path, data):
     with open(path + "/population.json", "w") as file:
         file.write(json_string)
 
+'''
+Function to read the population data from a json file
+
+Parameters:
+----------
+path: str
+    The path to read the json file
+
+Returns:
+-------
+population: list
+    The population data read from the json file
+'''
 def read_population_data_file(path):
     print("Started reading list data from a json file")
 

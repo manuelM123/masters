@@ -541,29 +541,29 @@ for iteration in range(1,3):
     generate_benchmarks('population_' + str(iteration), population_methods, population_generations_data, 'results/benchmarks/population/')
 
     # Execute the selection methods
-    #selection_methods = selection_execution(iteration)
-    #selection_generations_data = util.read_generation_stats_file(selection_methods, 'selection')
-    #print("Selection Generations Data")
-    #print(selection_generations_data)
-    #print("------------------------------------------")
-    #generate_benchmarks('selection_' + str(iteration), selection_methods, selection_generations_data, 'results/benchmarks/selection/')
-    #
-    ## Execute the crossover methods
-    #crossover_methods = crossover_execution(iteration)
-    #print(crossover_methods)
-    #crossover_generations_data = util.read_generation_stats_file(crossover_methods, 'crossover')
-    #print("Crossover Generations Data")
-    #print(crossover_generations_data)
-    #print("------------------------------------------")
-    #generate_benchmarks('crossover_' + str(iteration), crossover_methods, crossover_generations_data, 'results/benchmarks/crossover/')
-    #
-    ## Execute the mutation methods
-    #mutation_methods = mutation_execution(iteration)
-    #mutation_generations_data = util.read_generation_stats_file(mutation_methods, 'mutation')
-    #print("Mutation Generations Data")
-    #print(mutation_generations_data)
-    #print("------------------------------------------")
-    #generate_benchmarks('mutation_' + str(iteration), mutation_methods, mutation_generations_data, 'results/benchmarks/mutation/')
+    selection_methods = selection_execution(iteration)
+    selection_generations_data = util.read_generation_stats_file(selection_methods, 'selection')
+    print("Selection Generations Data")
+    print(selection_generations_data)
+    print("------------------------------------------")
+    generate_benchmarks('selection_' + str(iteration), selection_methods, selection_generations_data, 'results/benchmarks/selection/')
+    
+    # Execute the crossover methods
+    crossover_methods = crossover_execution(iteration)
+    print(crossover_methods)
+    crossover_generations_data = util.read_generation_stats_file(crossover_methods, 'crossover')
+    print("Crossover Generations Data")
+    print(crossover_generations_data)
+    print("------------------------------------------")
+    generate_benchmarks('crossover_' + str(iteration), crossover_methods, crossover_generations_data, 'results/benchmarks/crossover/')
+    
+    # Execute the mutation methods
+    mutation_methods = mutation_execution(iteration)
+    mutation_generations_data = util.read_generation_stats_file(mutation_methods, 'mutation')
+    print("Mutation Generations Data")
+    print(mutation_generations_data)
+    print("------------------------------------------")
+    generate_benchmarks('mutation_' + str(iteration), mutation_methods, mutation_generations_data, 'results/benchmarks/mutation/')
 
 # Execute the genetic algorithm              
 #general_execution()
