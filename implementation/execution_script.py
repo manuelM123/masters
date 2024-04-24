@@ -29,8 +29,8 @@ metadata = {
 
 # Configuration of the genetic algorithm
 genetic_algorithm_configurations = {
-    'max_number_functions': 4,
-    'max_number_test_cases': 3,
+    'max_number_functions': 20,
+    'max_number_test_cases': 20,
     'tournament_size': 2,
     'max_number_generations': 5,
     'fitness_max_stagnation_period': 3,
@@ -42,7 +42,7 @@ genetic_algorithm_configurations = {
 
 # Configuration of the genetic operators
 genetic_operators_configurations = {
-    'population_size': 10,
+    'population_size': 20,
     'population_control': 'True',
     'selection_type': 'tournament',
     'crossover_type': 'uniform',
@@ -541,29 +541,29 @@ for iteration in range(1,3):
     generate_benchmarks('population_' + str(iteration), population_methods, population_generations_data, 'results/benchmarks/population/')
 
     # Execute the selection methods
-    selection_methods = selection_execution(iteration)
-    selection_generations_data = util.read_generation_stats_file(selection_methods, 'selection')
-    print("Selection Generations Data")
-    print(selection_generations_data)
-    print("------------------------------------------")
-    generate_benchmarks('selection_' + str(iteration), selection_methods, selection_generations_data, 'results/benchmarks/selection/')
-    
-    # Execute the crossover methods
-    crossover_methods = crossover_execution(iteration)
-    print(crossover_methods)
-    crossover_generations_data = util.read_generation_stats_file(crossover_methods, 'crossover')
-    print("Crossover Generations Data")
-    print(crossover_generations_data)
-    print("------------------------------------------")
-    generate_benchmarks('crossover_' + str(iteration), crossover_methods, crossover_generations_data, 'results/benchmarks/crossover/')
-    
-    # Execute the mutation methods
-    mutation_methods = mutation_execution(iteration)
-    mutation_generations_data = util.read_generation_stats_file(mutation_methods, 'mutation')
-    print("Mutation Generations Data")
-    print(mutation_generations_data)
-    print("------------------------------------------")
-    generate_benchmarks('mutation_' + str(iteration), mutation_methods, mutation_generations_data, 'results/benchmarks/mutation/')
+    #selection_methods = selection_execution(iteration)
+    #selection_generations_data = util.read_generation_stats_file(selection_methods, 'selection')
+    #print("Selection Generations Data")
+    #print(selection_generations_data)
+    #print("------------------------------------------")
+    #generate_benchmarks('selection_' + str(iteration), selection_methods, selection_generations_data, 'results/benchmarks/selection/')
+    #
+    ## Execute the crossover methods
+    #crossover_methods = crossover_execution(iteration)
+    #print(crossover_methods)
+    #crossover_generations_data = util.read_generation_stats_file(crossover_methods, 'crossover')
+    #print("Crossover Generations Data")
+    #print(crossover_generations_data)
+    #print("------------------------------------------")
+    #generate_benchmarks('crossover_' + str(iteration), crossover_methods, crossover_generations_data, 'results/benchmarks/crossover/')
+    #
+    ## Execute the mutation methods
+    #mutation_methods = mutation_execution(iteration)
+    #mutation_generations_data = util.read_generation_stats_file(mutation_methods, 'mutation')
+    #print("Mutation Generations Data")
+    #print(mutation_generations_data)
+    #print("------------------------------------------")
+    #generate_benchmarks('mutation_' + str(iteration), mutation_methods, mutation_generations_data, 'results/benchmarks/mutation/')
 
 # Execute the genetic algorithm              
 #general_execution()

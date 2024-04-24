@@ -89,8 +89,7 @@ class calorie_intake_calc:
 
     @bodyfat.setter
     def bodyfat(self, bodyfat):
-        if bodyfat is not None:
-            if bodyfat < 0 or bodyfat > 0.3:
+        if bodyfat > 0.3:
                 raise ValueError('Bodyfat must be in the interval [0,0.3]')
         self.__bodyfat = bodyfat
 
@@ -161,7 +160,8 @@ class calorie_intake_calc:
     float which is the TDEE of the person in kcal/day
     '''
     def tdee_calculation(self): 
-        if self.bodyfat is None:
+        # Bodyfat negative values are considered as the person does not know their bodyfat percentage
+        if self.bodyfat < 0:
             bmr = self.mifflin_stjeor_equation()
         else:
             bmr = self.katch_mcardle_equation()
