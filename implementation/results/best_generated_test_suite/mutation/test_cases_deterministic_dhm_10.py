@@ -1,45 +1,29 @@
 from cut import *
 
 def test_case_0():
-	cut = calorie_intake_calc(174.12,151.09,70,'F',0.18,'N')
-	result_tdee_calculation = cut.tdee_calculation()
-	cut.bodyfat = 0.11
-	result_katch_mcardle_equation = cut.katch_mcardle_equation()
-	cut.bodyfat = 0.22
-	cut.height = 141.44
-	result_mifflin_stjeor_equation = cut.mifflin_stjeor_equation()
-	cut.gender = 'M'
-	cut.weight = 71.36
-	result_mifflin_stjeor_equation = cut.mifflin_stjeor_equation()
+	cut = calorie_intake_calc(134.35,144.7,8,'M',-0.43,'L')
 
 def test_case_1():
-	cut = calorie_intake_calc(56.71,140.01,40,'F',0.23,'S')
-	cut.height = 153.13
-	cut.weight = 182.41
-	cut.weight = 77.64
+	cut = calorie_intake_calc(201.68,164.96,51,'F',-0.05,'S')
 	result_tdee_calculation = cut.tdee_calculation()
-	result_katch_mcardle_equation = cut.katch_mcardle_equation()
-	result_mifflin_stjeor_equation = cut.mifflin_stjeor_equation()
-	result_katch_mcardle_equation = cut.katch_mcardle_equation()
 
 def test_case_2():
-	cut = calorie_intake_calc(169.4,188.01,45,'F',0.17,'L')
-	result_determine_calorie_intake = cut.determine_calorie_intake()
-	result_determine_calorie_intake = cut.determine_calorie_intake()
+	cut = calorie_intake_calc(148.86,218.49,52,'N',-0.16,'E')
 	result_katch_mcardle_equation = cut.katch_mcardle_equation()
-	cut.height = 166.2
-	cut.height = 178.21
-	cut.height = 218.71
 
 def test_case_3():
-	cut = calorie_intake_calc(139.2,201.85,72,'M',0.04,'E')
+	cut = calorie_intake_calc(116.51,145.55,46,'F',-0.23,'V')
+	result_determine_calorie_intake = cut.determine_calorie_intake()
+	cut.bodyfat = 0.19
+
+def test_case_4():
+	cut = calorie_intake_calc(170.48,190.95,53,'M',-0.08,'E')
 	result_mifflin_stjeor_equation = cut.mifflin_stjeor_equation()
+	cut.gender = 'M'
 	result_determine_calorie_intake = cut.determine_calorie_intake()
-	cut.height = 148.9
 	result_katch_mcardle_equation = cut.katch_mcardle_equation()
+	cut.height = 191.29
+	cut.height = 189.76
 	result_mifflin_stjeor_equation = cut.mifflin_stjeor_equation()
-	result_determine_calorie_intake = cut.determine_calorie_intake()
-	result_determine_calorie_intake = cut.determine_calorie_intake()
-	cut.amount_exercise = 'N'
-	result_katch_mcardle_equation = cut.katch_mcardle_equation()
+	cut.age = 20
 

@@ -214,7 +214,6 @@ if eval(configurations.execution_script.value):
 else:
     population = create_population(metadata, int(configurations.population_size.value), configurations)
 
-
 population_fitness = obtain_fitness_values(population)
 initial_best_fitness = obtain_best_fitness(population_fitness)
 current_best_fitness = 0

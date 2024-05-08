@@ -1,75 +1,75 @@
 from cut import *
 
 def test_case_0():
-	cut = calorie_intake_calc(144.06,150.74,28,'N',0.03,'S')
+	cut = calorie_intake_calc(169.96,194.49,60,'M',-0.14,'M')
+	cut.height = 168.96
+	cut.height = 204.04
 	result_determine_calorie_intake = cut.determine_calorie_intake()
-	cut.bodyfat = 0.0
-	cut.age = 37
-	cut.height = 184.94
-	cut.weight = 71.99
+	cut.weight = 184.2
+	result_tdee_calculation = cut.tdee_calculation()
+	cut.height = 208.94
+	cut.amount_exercise = 'E'
 	result_determine_calorie_intake = cut.determine_calorie_intake()
 
 def test_case_1():
-	cut = calorie_intake_calc(58.33,151.46,21,'M',0.06,'E')
-	cut.age = 78
-	result_tdee_calculation = cut.tdee_calculation()
-	cut.bodyfat = 0.26
+	cut = calorie_intake_calc(167.61,175.62,5,'N',-0.42,'N')
+	cut.amount_exercise = 'N'
+	result_mifflin_stjeor_equation = cut.mifflin_stjeor_equation()
+	result_katch_mcardle_equation = cut.katch_mcardle_equation()
 	result_determine_calorie_intake = cut.determine_calorie_intake()
-	cut.weight = 108.86
+	cut.bodyfat = -0.48
+	cut.amount_exercise = 'M'
+	cut.amount_exercise = 'M'
+	result_determine_calorie_intake = cut.determine_calorie_intake()
+	cut.amount_exercise = 'V'
 
 def test_case_2():
-	cut = calorie_intake_calc(176.46,178.35,21,'M',0.12,'L')
-	result_mifflin_stjeor_equation = cut.mifflin_stjeor_equation()
-	cut.amount_exercise = 'M'
-	cut.gender = 'M'
-	cut.weight = 147.84
-	cut.age = 39
-	result_determine_calorie_intake = cut.determine_calorie_intake()
-	cut.age = 30
-	cut.gender = 'M'
-	result_katch_mcardle_equation = cut.katch_mcardle_equation()
+	cut = calorie_intake_calc(127.7,155.58,24,'M',0.56,'M')
 
 def test_case_3():
-	cut = calorie_intake_calc(178.55,211.08,59,'M',0.12,'N')
-	cut.height = 217.37
-	cut.bodyfat = 0.14
-	result_katch_mcardle_equation = cut.katch_mcardle_equation()
+	cut = calorie_intake_calc(66.03,165.19,52,'F',0.11,'L')
+	result_tdee_calculation = cut.tdee_calculation()
+	cut.age = 43
 	result_mifflin_stjeor_equation = cut.mifflin_stjeor_equation()
-	cut.age = 78
 	cut.amount_exercise = 'N'
-	cut.weight = 98.07
-	cut.age = 44
+	result_tdee_calculation = cut.tdee_calculation()
 
 def test_case_4():
-	cut = calorie_intake_calc(105.64,212.24,59,'F',0.01,'S')
-	result_katch_mcardle_equation = cut.katch_mcardle_equation()
-	result_katch_mcardle_equation = cut.katch_mcardle_equation()
+	cut = calorie_intake_calc(113.85,143.08,65,'F',0.3,'S')
+	result_mifflin_stjeor_equation = cut.mifflin_stjeor_equation()
 	result_tdee_calculation = cut.tdee_calculation()
-	cut.weight = 181.64
 	result_mifflin_stjeor_equation = cut.mifflin_stjeor_equation()
 
 def test_case_5():
-	cut = calorie_intake_calc(41.56,144.68,50,'M',0.15,'E')
+	cut = calorie_intake_calc(143.92,193.02,43,'M',0.37,'E')
+	cut.amount_exercise = 'S'
 	result_katch_mcardle_equation = cut.katch_mcardle_equation()
-	cut.amount_exercise = 'E'
-	result_katch_mcardle_equation = cut.katch_mcardle_equation()
-	cut.amount_exercise = 'V'
-	result_mifflin_stjeor_equation = cut.mifflin_stjeor_equation()
-	cut.amount_exercise = 'E'
-	cut.age = 25
-	cut.age = 16
-	result_mifflin_stjeor_equation = cut.mifflin_stjeor_equation()
+	result_tdee_calculation = cut.tdee_calculation()
+	cut.bodyfat = -0.1
 
 def test_case_6():
-	cut = calorie_intake_calc(91.9,145.27,48,'F',0.24,'L')
-	cut.amount_exercise = 'S'
-	cut.gender = 'N'
+	cut = calorie_intake_calc(193.9,204.2,75,'M',-0.15,'S')
 
 def test_case_7():
-	cut = calorie_intake_calc(142.25,220.06,21,'N',0.17,'L')
-	cut.weight = 48.7
-	cut.gender = 'N'
-	result_determine_calorie_intake = cut.determine_calorie_intake()
-	cut.amount_exercise = 'L'
-	cut.weight = 48.12
+	cut = calorie_intake_calc(63.75,195.9,31,'F',0.41,'V')
+	cut.height = 152.72
+	cut.weight = 61.8
+	cut.amount_exercise = 'N'
+	cut.amount_exercise = 'V'
+	cut.age = 13
+	result_tdee_calculation = cut.tdee_calculation()
+	result_tdee_calculation = cut.tdee_calculation()
+
+def test_case_8():
+	cut = calorie_intake_calc(116.14,137.96,56,'N',-0.4,'L')
+	cut.amount_exercise = 'S'
+	cut.age = 68
+	cut.height = 147.86
+	cut.amount_exercise = 'V'
+	cut.height = 212.24
+	cut.bodyfat = -0.44
+	cut.bodyfat = 0.28
+	result_katch_mcardle_equation = cut.katch_mcardle_equation()
+	cut.bodyfat = 0.47
+	cut.gender = 'M'
 

@@ -345,8 +345,8 @@ def time_execution_histogram(time_execution_values, type_method, path, iteration
         ax.bar(generation_method_name, time_execution[0])
 
     ax.set_xlabel('Generation Method')
-    ax.set_ylabel('Average Time of Execution (s)')
-    ax.set_title('Average Time of Execution for ' + type_method.capitalize() + ' Methods')
+    ax.set_ylabel('Average Execution Time (s)')
+    ax.set_title('Average Execution Time for ' + type_method.capitalize() + ' Methods')
 
     plt.xticks(rotation=90, ha='right')
     plt.savefig(path + '/' + type_method + '_time_execution_histogram_' + str(iteration) + '.png', bbox_inches='tight')
@@ -365,8 +365,8 @@ def mean_time_execution_histogram(time_execution_values, type_method, path):
         ax.bar(generation_method_name, time_execution[0])
 
     ax.set_xlabel('Generation Method')
-    ax.set_ylabel('Average Time of Execution (s)')
-    ax.set_title('Average Time of Execution for ' + type_method.capitalize() + ' Methods')
+    ax.set_ylabel('Average Execution Time (s)')
+    ax.set_title('Average Execution Time for ' + type_method.capitalize() + ' Methods')
 
     plt.xticks(rotation=90, ha='right')
     plt.savefig(path + '/' + type_method + '_time_execution_histogram.png', bbox_inches='tight')
