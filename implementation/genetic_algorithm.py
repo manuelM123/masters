@@ -220,7 +220,7 @@ current_best_fitness = 0
 old_best_fitness = 0
 best_fitness_seen = population[0].fitness
 current_number_generation = 0
-iteration_number_population_control = 1
+iteration_number_population_control = 0
 generations_without_fitness_improvement = 0
 crossover_rate = float(configurations.crossover_rate.value)
 mutation_rate = float(configurations.mutation_rate.value)
@@ -288,7 +288,7 @@ while current_number_generation < int(configurations.max_number_generations.valu
 
             # ------------------------ Crossover Operations ------------------------
 
-            inputs = [obtain_best_fitness(population_fitness), iteration_number_population_control, stats.variance(population_fitness)]
+            inputs = [best_fitness_seen, iteration_number_population_control, stats.variance(population_fitness)]
             if configurations.crossover_type.value == 'self-adaptive':
                 # ------------ SELF-ADAPTIVE CROSSOVER METHOD ------------
 
@@ -436,6 +436,9 @@ while current_number_generation < int(configurations.max_number_generations.valu
                 new_population.append(offsprings[0])
                 new_population.append(offsprings[1])
                 
+    new_population_fitness = obtain_fitness_values(new_population)
+    current_best_fitness = obtain_best_fitness(new_population_fitness)
+
     # ------------ POPULATION CONTROL METHOD ------------
 
     if eval(configurations.population_control.value):
@@ -443,15 +446,13 @@ while current_number_generation < int(configurations.max_number_generations.valu
         print("New population size: " + str(len(new_population)))
         print("------------------------------------------------------------------")
         if len(new_population) > 1:
-            new_population_fitness = obtain_fitness_values(new_population)
-            current_best_fitness = obtain_best_fitness(new_population_fitness)
             new_population, iteration_number_population_control = population_resizing(new_population, current_best_fitness, old_best_fitness, 
                                                                                   initial_best_fitness, current_number_generation, iteration_number_population_control,
                                                                                   metadata, configurations)
             
             print("New population size: ", len(new_population))
     else:
-        if current_best_fitness > old_best_fitness:
+        if current_best_fitness > best_fitness_seen:
             iteration_number_population_control = 0
         else:
             iteration_number_population_control += 1
