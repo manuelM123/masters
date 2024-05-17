@@ -214,7 +214,6 @@ def self_adaptive_mutation_adjustment(offspring):
     print("Random value: " + str(random_value))
     return float((1 + ((1 - offspring.adaptive_mutation_rate) / offspring.adaptive_mutation_rate) * (math.exp((-0.22) * random_value))) ** (-1))
 
-
 '''
 Function to determine the average mutation rate of the population
 

@@ -166,9 +166,9 @@ def tournament_selection(population, tournament_size):
     parents_selected = []
     if tournament_size <= len(population):
         print("Tournament selection")
-        while len(parents_selected) != 2:
-            selected_individuals = random.choices(population, k=tournament_size)
-            sorted_selected_individuals = sorted(selected_individuals, key=lambda x:x.fitness)
+        while len(parents_selected) < 2:
+            selected_individuals = random.sample(population, tournament_size)
+            sorted_selected_individuals = sorted(selected_individuals, key=lambda x:x.fitness, reverse=True)
             
             parents_selected.append(sorted_selected_individuals[0])
             

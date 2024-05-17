@@ -1,27 +1,37 @@
 from cut import *
 
 def test_case_0():
-	cut = calorie_intake_calc(39.68,170.51,13,'F',0.77,'E')
+	cut = calorie_intake_calc(90.6,166.02,47,'F',0.05,'M')
+	result_tdee_calculation = cut.tdee_calculation()
+	cut.gender = 'M'
+	result_tdee_calculation = cut.tdee_calculation()
+	result_katch_mcardle_equation = cut.katch_mcardle_equation()
+	result_katch_mcardle_equation = cut.katch_mcardle_equation()
+	result_mifflin_stjeor_equation = cut.mifflin_stjeor_equation()
+	cut.amount_exercise = 'M'
 
 def test_case_1():
-	cut = calorie_intake_calc(43.15,144.96,67,'N',0.75,'S')
-	result_mifflin_stjeor_equation = cut.mifflin_stjeor_equation()
-	result_mifflin_stjeor_equation = cut.mifflin_stjeor_equation()
-	cut.weight = 190.4
-	cut.height = 222.1
-	cut.age = 82
-	result_tdee_calculation = cut.tdee_calculation()
-	result_determine_calorie_intake = cut.determine_calorie_intake()
+	cut = calorie_intake_calc(191.13,157.31,33,'F',0.29,'S')
 	result_katch_mcardle_equation = cut.katch_mcardle_equation()
+	result_determine_calorie_intake = cut.determine_calorie_intake()
+	cut.bodyfat = 0.41
+	cut.age = 40
+	result_mifflin_stjeor_equation = cut.mifflin_stjeor_equation()
+	result_determine_calorie_intake = cut.determine_calorie_intake()
+	cut.amount_exercise = 'S'
+	cut.height = 181.97
+	cut.gender = 'N'
 
 def test_case_2():
-	cut = calorie_intake_calc(84.97,187.8,37,'M',-0.15,'E')
-	cut.bodyfat = -0.41
-	result_mifflin_stjeor_equation = cut.mifflin_stjeor_equation()
+	cut = calorie_intake_calc(125.45,178.39,75,'M',-0.3,'L')
 	result_determine_calorie_intake = cut.determine_calorie_intake()
-	cut.bodyfat = 0.54
-	cut.amount_exercise = 'E'
-	cut.weight = 173.92
-	cut.age = 35
+	result_mifflin_stjeor_equation = cut.mifflin_stjeor_equation()
+	cut.height = 142.11
+	cut.height = 166.02
+	cut.weight = 121.05
 	result_tdee_calculation = cut.tdee_calculation()
+	cut.height = 191.1
+	result_katch_mcardle_equation = cut.katch_mcardle_equation()
+	result_determine_calorie_intake = cut.determine_calorie_intake()
+	cut.weight = 62.38
 
