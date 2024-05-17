@@ -136,7 +136,7 @@ def rank_selection(population):
     for i in range(len(sorted_population_fitness)):
         sorted_population_fitness[i].rank = i + 1
     while len(parents_selected) < 2 :
-        individuals_selection = random.choices(sorted_population_fitness, k=2)
+        individuals_selection = random.sample(sorted_population_fitness, 2)
         print("Individuals selection: " +  str(individuals_selection[0].rank) + "|" + str(individuals_selection[1].rank))
         if individuals_selection[0].rank > individuals_selection[1].rank:
             parents_selected.append(individuals_selection[0])
