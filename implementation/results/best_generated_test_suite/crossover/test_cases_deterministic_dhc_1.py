@@ -1,30 +1,30 @@
 from cut import *
 
 def test_case_0():
-	cut = calorie_intake_calc(65.36,149.39,71,'F',-0.17,'S')
-	cut.bodyfat = 0.05
-	result_tdee_calculation = cut.tdee_calculation()
-	cut.weight = 174.39
-	result_determine_calorie_intake = cut.determine_calorie_intake()
-	result_katch_mcardle_equation = cut.katch_mcardle_equation()
+	cut = calorie_intake_calc(45.48,156.24,35,'M',-0.48,'S')
 	result_mifflin_stjeor_equation = cut.mifflin_stjeor_equation()
 	result_tdee_calculation = cut.tdee_calculation()
-	cut.amount_exercise = 'V'
-	cut.height = 216.11
+	cut.weight = 50.0
 	result_tdee_calculation = cut.tdee_calculation()
+	result_tdee_calculation = cut.tdee_calculation()
+	cut.bodyfat = 0.66
+	cut.weight = 38.82
+	cut.bodyfat = 0.5
 
 def test_case_1():
-	cut = calorie_intake_calc(204.96,221.43,79,'N',-0.24,'E')
+	cut = calorie_intake_calc(74.62,204.43,65,'F',-0.32,'E')
+	result_determine_calorie_intake = cut.determine_calorie_intake()
+	cut.bodyfat = 0.71
+	result_katch_mcardle_equation = cut.katch_mcardle_equation()
 
 def test_case_2():
-	cut = calorie_intake_calc(113.03,198.47,78,'N',-0.36,'L')
-	cut.age = 84
-	cut.bodyfat = 0.63
-	result_tdee_calculation = cut.tdee_calculation()
-	cut.amount_exercise = 'V'
-	cut.height = 146.84
-	result_katch_mcardle_equation = cut.katch_mcardle_equation()
+	cut = calorie_intake_calc(167.13,188.43,53,'F',-0.24,'L')
+	cut.age = 35
 	result_determine_calorie_intake = cut.determine_calorie_intake()
+	cut.height = 165.29
+	cut.age = 21
 	result_mifflin_stjeor_equation = cut.mifflin_stjeor_equation()
-	cut.amount_exercise = 'L'
+	result_katch_mcardle_equation = cut.katch_mcardle_equation()
+	cut.height = 174.15
+	cut.weight = 39.3
 

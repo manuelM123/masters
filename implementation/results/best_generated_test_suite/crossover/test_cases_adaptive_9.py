@@ -1,29 +1,42 @@
 from cut import *
 
 def test_case_0():
-	cut = calorie_intake_calc(65.36,149.39,71,'F',-0.17,'S')
-	cut.bodyfat = 0.05
-	result_tdee_calculation = cut.tdee_calculation()
-	cut.weight = 174.39
+	cut = calorie_intake_calc(201.11,156.81,45,'F',-0.44,'V')
+	cut.gender = 'M'
+	cut.bodyfat = -0.32
 	result_determine_calorie_intake = cut.determine_calorie_intake()
-	result_katch_mcardle_equation = cut.katch_mcardle_equation()
-	result_mifflin_stjeor_equation = cut.mifflin_stjeor_equation()
-	result_tdee_calculation = cut.tdee_calculation()
+	cut.gender = 'N'
+	result_determine_calorie_intake = cut.determine_calorie_intake()
+	cut.gender = 'M'
 	cut.amount_exercise = 'V'
-	cut.height = 216.11
-	result_tdee_calculation = cut.tdee_calculation()
+	cut.age = 53
+	cut.bodyfat = 0.16
+	cut.gender = 'F'
 
 def test_case_1():
-	cut = calorie_intake_calc(116.51,156.26,7,'M',-0.36,'S')
-	cut.bodyfat = 0.7
-	cut.gender = 'N'
-	cut.height = 185.44
-	cut.bodyfat = 0.34
-	result_katch_mcardle_equation = cut.katch_mcardle_equation()
-	cut.weight = 212.5
+	cut = calorie_intake_calc(129.39,200.26,44,'F',0.3,'L')
+	result_mifflin_stjeor_equation = cut.mifflin_stjeor_equation()
+	cut.height = 178.53
+	result_determine_calorie_intake = cut.determine_calorie_intake()
 	result_tdee_calculation = cut.tdee_calculation()
-	cut.height = 171.12
+	cut.amount_exercise = 'N'
+	cut.gender = 'N'
+	result_mifflin_stjeor_equation = cut.mifflin_stjeor_equation()
 
 def test_case_2():
-	cut = calorie_intake_calc(152.27,193.99,33,'N',0.72,'N')
+	cut = calorie_intake_calc(184.34,144.5,5,'N',-0.08,'S')
+	result_tdee_calculation = cut.tdee_calculation()
+	cut.bodyfat = 0.57
+	cut.bodyfat = 0.16
+	cut.height = 203.78
+	cut.weight = 128.03
+
+def test_case_3():
+	cut = calorie_intake_calc(127.8,158.1,78,'F',0.51,'M')
+	result_mifflin_stjeor_equation = cut.mifflin_stjeor_equation()
+	cut.amount_exercise = 'S'
+	result_katch_mcardle_equation = cut.katch_mcardle_equation()
+	result_katch_mcardle_equation = cut.katch_mcardle_equation()
+	cut.age = 21
+	result_determine_calorie_intake = cut.determine_calorie_intake()
 

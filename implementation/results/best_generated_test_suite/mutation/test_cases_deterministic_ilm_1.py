@@ -1,43 +1,54 @@
 from cut import *
 
 def test_case_0():
-	cut = calorie_intake_calc(181.51,188.47,13,'F',0.52,'N')
+	cut = calorie_intake_calc(165.39,157.64,80,'F',0.15,'E')
+	result_mifflin_stjeor_equation = cut.mifflin_stjeor_equation()
+	cut.weight = 194.75
+	result_katch_mcardle_equation = cut.katch_mcardle_equation()
+	result_tdee_calculation = cut.tdee_calculation()
+	cut.amount_exercise = 'L'
+	result_tdee_calculation = cut.tdee_calculation()
+	cut.bodyfat = 0.08
+	cut.age = 69
+	cut.age = 22
 
 def test_case_1():
-	cut = calorie_intake_calc(157.04,162.52,47,'F',-0.26,'E')
-	cut.age = 13
-	result_determine_calorie_intake = cut.determine_calorie_intake()
-
-def test_case_2():
-	cut = calorie_intake_calc(180.9,185.99,45,'M',0.47,'S')
-	cut.age = 31
+	cut = calorie_intake_calc(148.96,199.29,27,'F',0.13,'S')
+	cut.age = 9
+	result_katch_mcardle_equation = cut.katch_mcardle_equation()
 	result_tdee_calculation = cut.tdee_calculation()
-	cut.bodyfat = -0.32
-	cut.age = 52
-	result_mifflin_stjeor_equation = cut.mifflin_stjeor_equation()
-
-def test_case_3():
-	cut = calorie_intake_calc(96.24,175.33,50,'M',0.63,'L')
-	cut.height = 183.3
-	cut.amount_exercise = 'E'
-	cut.amount_exercise = 'V'
-	cut.amount_exercise = 'E'
-	result_tdee_calculation = cut.tdee_calculation()
-
-def test_case_4():
-	cut = calorie_intake_calc(66.83,145.86,7,'M',-0.5,'N')
-	result_determine_calorie_intake = cut.determine_calorie_intake()
-	cut.amount_exercise = 'S'
-
-def test_case_5():
-	cut = calorie_intake_calc(93.52,172.9,52,'N',-0.17,'V')
 	cut.gender = 'N'
 	result_determine_calorie_intake = cut.determine_calorie_intake()
-	cut.gender = 'F'
-	cut.age = 57
+	cut.weight = 95.8
 
-def test_case_6():
-	cut = calorie_intake_calc(132.55,219.53,28,'M',0.15,'L')
-	cut.weight = 72.02
+def test_case_2():
+	cut = calorie_intake_calc(71.87,178.85,36,'M',-0.33,'V')
 	result_katch_mcardle_equation = cut.katch_mcardle_equation()
+	cut.height = 162.77
+	cut.height = 178.63
+	result_tdee_calculation = cut.tdee_calculation()
+	cut.height = 171.14
+	cut.age = 15
+	cut.height = 175.0
+	cut.bodyfat = 0.19
+	cut.age = 55
+
+def test_case_3():
+	cut = calorie_intake_calc(144.75,210.51,14,'F',0.1,'S')
+	result_determine_calorie_intake = cut.determine_calorie_intake()
+	result_determine_calorie_intake = cut.determine_calorie_intake()
+	result_mifflin_stjeor_equation = cut.mifflin_stjeor_equation()
+	cut.bodyfat = 0.41
+	cut.weight = 178.08
+	cut.height = 210.41
+	cut.amount_exercise = 'S'
+	cut.bodyfat = 0.18
+	cut.gender = 'M'
+	cut.amount_exercise = 'V'
+
+def test_case_4():
+	cut = calorie_intake_calc(184.77,200.31,79,'M',-0.42,'N')
+	result_determine_calorie_intake = cut.determine_calorie_intake()
+	cut.bodyfat = -0.31
+	result_determine_calorie_intake = cut.determine_calorie_intake()
 

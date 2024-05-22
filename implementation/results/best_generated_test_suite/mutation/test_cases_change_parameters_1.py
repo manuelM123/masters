@@ -1,29 +1,55 @@
 from cut import *
 
 def test_case_0():
-	cut = calorie_intake_calc(65.36,149.39,71,'F',-0.17,'S')
-	cut.bodyfat = 0.05
-	result_tdee_calculation = cut.tdee_calculation()
-	cut.weight = 174.39
+	cut = calorie_intake_calc(201.11,156.81,45,'F',-0.44,'V')
+	cut.gender = 'M'
+	cut.bodyfat = -0.32
 	result_determine_calorie_intake = cut.determine_calorie_intake()
-	result_katch_mcardle_equation = cut.katch_mcardle_equation()
-	result_mifflin_stjeor_equation = cut.mifflin_stjeor_equation()
-	result_tdee_calculation = cut.tdee_calculation()
+	cut.gender = 'N'
+	result_determine_calorie_intake = cut.determine_calorie_intake()
+	cut.gender = 'M'
 	cut.amount_exercise = 'V'
-	cut.height = 216.11
-	result_tdee_calculation = cut.tdee_calculation()
+	cut.age = 53
+	cut.bodyfat = 0.16
+	cut.gender = 'F'
 
 def test_case_1():
-	cut = calorie_intake_calc(116.51,156.26,7,'M',-0.36,'S')
-	cut.bodyfat = 0.7
-	cut.gender = 'N'
-	cut.height = 185.44
-	cut.bodyfat = 0.34
-	cut.bodyfat = 0.44
-	cut.weight = 212.5
-	result_tdee_calculation = cut.tdee_calculation()
-	cut.height = 171.12
+	cut = calorie_intake_calc(74.62,204.43,65,'F',-0.32,'E')
+	result_determine_calorie_intake = cut.determine_calorie_intake()
+	cut.bodyfat = 0.71
+	result_katch_mcardle_equation = cut.katch_mcardle_equation()
 
 def test_case_2():
-	cut = calorie_intake_calc(105.83,197.4,11,'F',-0.32,'V')
+	cut = calorie_intake_calc(184.34,144.5,5,'N',-0.08,'S')
+	result_tdee_calculation = cut.tdee_calculation()
+	cut.bodyfat = 0.57
+	cut.bodyfat = 0.16
+	cut.height = 203.78
+	cut.weight = 128.03
+
+def test_case_3():
+	cut = calorie_intake_calc(197.63,188.28,52,'N',0.67,'E')
+	cut.amount_exercise = 'V'
+	cut.bodyfat = -0.48
+	cut.weight = 43.94
+	cut.height = 136.53
+
+def test_case_4():
+	cut = calorie_intake_calc(202.51,184.45,53,'M',0.77,'S')
+	cut.bodyfat = -0.42
+	cut.height = 152.32
+	result_mifflin_stjeor_equation = cut.mifflin_stjeor_equation()
+	cut.height = 150.19
+
+def test_case_5():
+	cut = calorie_intake_calc(171.95,141.93,77,'N',0.67,'L')
+	result_determine_calorie_intake = cut.determine_calorie_intake()
+	result_tdee_calculation = cut.tdee_calculation()
+	cut.age = 46
+	cut.amount_exercise = 'L'
+	cut.amount_exercise = 'M'
+	result_determine_calorie_intake = cut.determine_calorie_intake()
+	result_determine_calorie_intake = cut.determine_calorie_intake()
+	cut.weight = 200.04
+	cut.gender = 'F'
 

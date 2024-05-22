@@ -1,43 +1,37 @@
 from cut import *
 
 def test_case_0():
-	cut = calorie_intake_calc(181.51,188.47,13,'F',0.52,'N')
+	cut = calorie_intake_calc(165.39,157.64,80,'F',0.15,'E')
+	result_mifflin_stjeor_equation = cut.mifflin_stjeor_equation()
+	cut.weight = 194.75
+	result_katch_mcardle_equation = cut.katch_mcardle_equation()
+	result_tdee_calculation = cut.tdee_calculation()
+	cut.height = 151.11
+	cut.amount_exercise = 'V'
+	cut.bodyfat = 0.08
+	cut.age = 69
+	cut.age = 22
 
 def test_case_1():
-	cut = calorie_intake_calc(157.04,162.52,47,'F',-0.26,'E')
-	cut.age = 13
-	result_determine_calorie_intake = cut.determine_calorie_intake()
+	cut = calorie_intake_calc(140.78,171.49,8,'F',-0.01,'E')
+	cut.gender = 'F'
 
 def test_case_2():
-	cut = calorie_intake_calc(180.9,185.99,45,'M',0.47,'S')
-	cut.age = 31
-	result_tdee_calculation = cut.tdee_calculation()
-	cut.bodyfat = -0.32
-	cut.age = 52
+	cut = calorie_intake_calc(167.13,188.43,53,'F',-0.24,'L')
+	cut.age = 35
+	result_determine_calorie_intake = cut.determine_calorie_intake()
+	cut.height = 165.29
+	cut.age = 21
 	result_mifflin_stjeor_equation = cut.mifflin_stjeor_equation()
+	result_katch_mcardle_equation = cut.katch_mcardle_equation()
+	cut.height = 174.15
+	cut.weight = 39.3
 
 def test_case_3():
-	cut = calorie_intake_calc(96.24,175.33,50,'M',0.63,'L')
-	cut.height = 183.3
-	cut.amount_exercise = 'E'
-	cut.amount_exercise = 'V'
-	cut.amount_exercise = 'E'
-	result_tdee_calculation = cut.tdee_calculation()
-
-def test_case_4():
-	cut = calorie_intake_calc(66.83,145.86,7,'M',-0.5,'N')
-	result_determine_calorie_intake = cut.determine_calorie_intake()
-	cut.amount_exercise = 'S'
-
-def test_case_5():
-	cut = calorie_intake_calc(93.52,172.9,52,'N',-0.17,'V')
-	cut.gender = 'N'
-	result_determine_calorie_intake = cut.determine_calorie_intake()
+	cut = calorie_intake_calc(78.03,170.43,18,'M',0.05,'L')
 	cut.gender = 'F'
-	cut.age = 57
-
-def test_case_6():
-	cut = calorie_intake_calc(132.55,219.53,28,'M',0.15,'L')
-	cut.weight = 72.02
-	result_katch_mcardle_equation = cut.katch_mcardle_equation()
+	cut.height = 155.48
+	cut.weight = 147.99
+	cut.amount_exercise = 'N'
+	result_mifflin_stjeor_equation = cut.mifflin_stjeor_equation()
 

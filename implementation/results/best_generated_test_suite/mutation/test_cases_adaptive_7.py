@@ -1,26 +1,52 @@
 from cut import *
 
 def test_case_0():
-	cut = calorie_intake_calc(38.83,141.0,69,'N',-0.14,'V')
-	cut.gender = 'F'
-	cut.amount_exercise = 'L'
-	cut.weight = 66.68
+	cut = calorie_intake_calc(201.11,156.81,45,'F',-0.44,'V')
+	cut.gender = 'M'
+	cut.bodyfat = -0.32
 	result_determine_calorie_intake = cut.determine_calorie_intake()
-	cut.height = 200.18
-	result_katch_mcardle_equation = cut.katch_mcardle_equation()
-	result_determine_calorie_intake = cut.determine_calorie_intake()
-
-def test_case_1():
-	cut = calorie_intake_calc(115.1,141.86,75,'F',-0.28,'E')
-	cut.weight = 54.55
-	result_katch_mcardle_equation = cut.katch_mcardle_equation()
-	cut.weight = 209.58
-	cut.age = 16
+	cut.gender = 'N'
 	result_determine_calorie_intake = cut.determine_calorie_intake()
 	cut.gender = 'M'
+	cut.amount_exercise = 'V'
+	cut.age = 53
+	cut.bodyfat = 0.16
+	cut.gender = 'F'
+
+def test_case_1():
+	cut = calorie_intake_calc(129.39,200.26,44,'F',0.3,'L')
+	result_mifflin_stjeor_equation = cut.mifflin_stjeor_equation()
+	cut.height = 178.53
 	result_determine_calorie_intake = cut.determine_calorie_intake()
+	result_tdee_calculation = cut.tdee_calculation()
+	cut.amount_exercise = 'N'
+	result_tdee_calculation = cut.tdee_calculation()
+	result_katch_mcardle_equation = cut.katch_mcardle_equation()
 
 def test_case_2():
-	cut = calorie_intake_calc(167.07,196.84,31,'M',0.33,'L')
-	cut.height = 143.92
+	cut = calorie_intake_calc(184.34,144.5,5,'N',-0.08,'S')
+	result_tdee_calculation = cut.tdee_calculation()
+	cut.bodyfat = 0.57
+	cut.bodyfat = 0.16
+	cut.height = 203.78
+	cut.weight = 128.03
+
+def test_case_3():
+	cut = calorie_intake_calc(197.63,188.28,52,'N',0.67,'E')
+	cut.amount_exercise = 'V'
+	cut.bodyfat = -0.48
+	cut.weight = 43.94
+	cut.height = 136.53
+
+def test_case_4():
+	cut = calorie_intake_calc(160.42,199.4,41,'M',-0.12,'E')
+	cut.amount_exercise = 'E'
+	result_tdee_calculation = cut.tdee_calculation()
+	cut.age = 67
+	result_tdee_calculation = cut.tdee_calculation()
+	cut.gender = 'M'
+	cut.gender = 'N'
+	cut.age = 48
+	result_determine_calorie_intake = cut.determine_calorie_intake()
+	cut.height = 185.45
 

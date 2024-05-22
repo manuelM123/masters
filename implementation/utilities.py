@@ -406,8 +406,8 @@ def mean_fitness_histogram(fitness_values, type_method, path, type_graph):
 
     if type_graph == 'Mean Best Fitness':
         plt.savefig(path + '/' + type_method + '_mean_best_fitness_histogram.png', bbox_inches='tight')
-    elif type_graph == 'Mean Fitness':
-        plt.savefig(path + '/' + type_method + '_mean_fitness_histogram.png', bbox_inches='tight')
+    elif type_graph == 'Generations Mean Best Fitness':
+        plt.savefig(path + '/' + type_method + '_generations_mean_best_fitness_histogram.png', bbox_inches='tight')
 
 
 def mean_generations_histogram(mean_generation_values, type_method, path):

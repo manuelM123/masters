@@ -451,13 +451,14 @@ while current_number_generation < int(configurations.max_number_generations.valu
                                                                                   metadata, configurations)
             
             print("New population size: ", len(new_population))
+            
+    # ------------ END POPULATION CONTROL METHOD ------------
     else:
         if current_best_fitness > best_fitness_seen:
             iteration_number_population_control = 0
         else:
             iteration_number_population_control += 1
 
-    # ------------ END POPULATION CONTROL METHOD ------------
     
     # Update the best solution
     if len(new_population) > 1:
