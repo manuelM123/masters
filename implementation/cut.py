@@ -127,6 +127,8 @@ class calorie_intake_calc:
             return (10 * self.weight) + (6.25 * self.height) - (5 * self.age) - 161
         elif self.gender.upper() == 'M':
             return (10 * self.weight) + (6.25 * self.height) - (5 * self.age) + 5
+        else:
+            raise ValueError('Gender is not specified correctly')
         
     '''
     A method used to calculate the calorie intake of a person using the Katch-McArdle equation using the bodyfat percentage and
@@ -174,6 +176,8 @@ class calorie_intake_calc:
             return bmr * 1.725
         elif self.amount_exercise.upper() == 'E':
             return bmr * 1.9
+        else:
+            raise ValueError('Exercise amount not specified correctly. The amount of exercise must be either sedentary (S), light (L), moderate (M), very active (V) or extra active (E)')
         
     '''
     For a person to lose weight, they must be in a calorie deficit which means they must consume less calories than they expend which value recommend by the NHS is 600 kcal/day
