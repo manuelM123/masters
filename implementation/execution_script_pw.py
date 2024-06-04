@@ -32,7 +32,6 @@ genetic_algorithm_configurations = {
     'tournament_size': 2,
     'max_number_generations': 2,
     'fitness_max_stagnation_period': 3,
-    'max_number_fitness_evaluations': 1000,
     'fitness_function_type': 'branch_coverage',
     'fitness_iteration_limit': 2
 }

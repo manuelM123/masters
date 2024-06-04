@@ -25,7 +25,6 @@ class configurations(Enum):
     tournament_size = util.obtain_configuration("config.ini", "genetic_algorithm_configurations", "tournament_size")
     max_number_generations = util.obtain_configuration("config.ini", "genetic_algorithm_configurations", "max_number_generations")
     fitness_max_stagnation_period = util.obtain_configuration("config.ini", "genetic_algorithm_configurations", "fitness_max_stagnation_period")
-    max_number_fitness_evaluations = util.obtain_configuration("config.ini", "genetic_algorithm_configurations", "max_number_fitness_evaluations")
     fitness_function_type = util.obtain_configuration("config.ini", "genetic_algorithm_configurations", "fitness_function_type")
     fitness_iteration_limit = util.obtain_configuration("config.ini", "genetic_algorithm_configurations", "fitness_iteration_limit")
     execution_script = util.obtain_configuration("config.ini", "genetic_algorithm_configurations", "execution_script")

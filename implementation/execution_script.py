@@ -34,7 +34,6 @@ genetic_algorithm_configurations = {
     'tournament_size': 2,
     'max_number_generations': 5,
     'fitness_max_stagnation_period': 3,
-    'max_number_fitness_evaluations': 1000,
     'fitness_function_type': 'branch_coverage',
     'fitness_iteration_limit': 2, 
     'execution_script': 'True'
@@ -82,6 +81,7 @@ class configurations(Enum):
     max_number_functions = util.obtain_configuration("config.ini", "genetic_algorithm_configurations", "max_number_functions")
     max_number_test_cases = util.obtain_configuration("config.ini", "genetic_algorithm_configurations", "max_number_test_cases")
     fitness_function_type = util.obtain_configuration("config.ini", "genetic_algorithm_configurations", "fitness_function_type")
+    execution_script = util.obtain_configuration("config.ini", "genetic_algorithm_configurations", "execution_script")
 
     # Genetic operators configurations
     population_size = util.obtain_configuration("config.ini", "genetic_operators_configurations", "population_size")
@@ -529,6 +529,7 @@ folder_setup()
 population = create_population(metadata_file, int(configurations.population_size.value), configurations)
 # write population in current directory
 util.write_population_data_file(os.getcwd(), population)
+change_configurations([['execution_script', 'True']], None, None, None)
 
 for iteration in range(1,3):
     # Execute the population methods
@@ -567,3 +568,5 @@ for iteration in range(1,3):
 
 # Execute the genetic algorithm              
 #general_execution()
+
+change_configurations([['execution_script', 'False']], None, None, None)
