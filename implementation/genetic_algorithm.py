@@ -27,7 +27,6 @@ class configurations(Enum):
     fitness_max_stagnation_period = util.obtain_configuration("config.ini", "genetic_algorithm_configurations", "fitness_max_stagnation_period")
     fitness_function_type = util.obtain_configuration("config.ini", "genetic_algorithm_configurations", "fitness_function_type")
     fitness_iteration_limit = util.obtain_configuration("config.ini", "genetic_algorithm_configurations", "fitness_iteration_limit")
-    execution_script = util.obtain_configuration("config.ini", "genetic_algorithm_configurations", "execution_script")
 
     # Genetic operators configurations
     population_size = util.obtain_configuration("config.ini", "genetic_operators_configurations", "population_size")
@@ -53,6 +52,10 @@ class configurations(Enum):
     generation_stats_path = util.obtain_configuration("config.ini", "file_paths", "generation_stats")
     best_generated_test_suite = util.obtain_configuration("config.ini", "file_paths", "best_generated_test_suite")
     generation_data_path = util.obtain_configuration("config.ini", "file_paths", "generation_data")
+
+    # Scripts
+    execution_script = util.obtain_configuration("config.ini", "scripts", "execution_script")
+    execution_optimizations = util.obtain_configuration("config.ini", "scripts", "execution_optimizations")
 
 # ------------ Genetic algorithm auxiliary functions ------------
     

@@ -161,6 +161,8 @@ def population_size_graph(population_size_values, generation_number_values, path
                 benchmark_label = benchmarks[benchmark].split('_')[0].capitalize() + ' ' + benchmarks[benchmark].split('_')[1] + ' ' + benchmarks[benchmark].split('_')[2] + ' ' + benchmarks[benchmark].split('_')[3]
             elif 'deterministic' in benchmarks[benchmark] or 'change' in benchmarks[benchmark]:
                 benchmark_label = benchmarks[benchmark].split('_')[0].capitalize() + ' ' + benchmarks[benchmark].split('_')[1] + ' ' + benchmarks[benchmark].split('_')[2]
+            elif 'tga' in benchmarks[benchmark] or 'asga' in benchmarks[benchmark] or 'sacga' in benchmarks[benchmark] or 'oga' in benchmarks[benchmark]:
+                benchmark_label = benchmarks[benchmark].split('_')[0].upper()
             else:
                 benchmark_label = benchmarks[benchmark].split('_')[0].capitalize() + ' ' + benchmarks[benchmark].split('_')[1]
 
@@ -206,6 +208,8 @@ def fitness_values_graph(generation_fitness_values, generation_number_values, pa
                 benchmark_label = benchmarks[benchmark].split('_')[0].capitalize() + ' ' + benchmarks[benchmark].split('_')[1] + ' ' + benchmarks[benchmark].split('_')[2] + ' ' + benchmarks[benchmark].split('_')[3]
             elif 'deterministic' in benchmarks[benchmark] or 'change' in benchmarks[benchmark]:
                 benchmark_label = benchmarks[benchmark].split('_')[0].capitalize() + ' ' + benchmarks[benchmark].split('_')[1] + ' ' + benchmarks[benchmark].split('_')[2]
+            elif 'tga' in benchmarks[benchmark] or 'asga' in benchmarks[benchmark] or 'sacga' in benchmarks[benchmark] or 'oga' in benchmarks[benchmark]:
+                benchmark_label = benchmarks[benchmark].split('_')[0].upper()
             else:
                 benchmark_label = benchmarks[benchmark].split('_')[0].capitalize() + ' ' + benchmarks[benchmark].split('_')[1]
 
@@ -254,6 +258,8 @@ def crossover_rate_values_graph(crossover_rate_values, generation_number_values,
         for benchmark in range(len(benchmarks)):
             if 'deterministic' in benchmarks[benchmark]:
                 benchmark_label = benchmarks[benchmark].split('_')[0].capitalize() + ' ' + benchmarks[benchmark].split('_')[1] + ' ' + benchmarks[benchmark].split('_')[2]
+            elif 'tga' in benchmarks[benchmark] or 'asga' in benchmarks[benchmark] or 'sacga' in benchmarks[benchmark] or 'oga' in benchmarks[benchmark]:
+                benchmark_label = benchmarks[benchmark].split('_')[0].upper()
             else:
                 benchmark_label = benchmarks[benchmark].split('_')[0].capitalize() + ' ' + benchmarks[benchmark].split('_')[1]
 
@@ -302,6 +308,8 @@ def mutation_rate_values_graph(mutation_rate_values, generation_number_values, t
                 benchmark_label = benchmarks[benchmark].split('_')[0].capitalize() + ' ' + benchmarks[benchmark].split('_')[1] + ' ' + benchmarks[benchmark].split('_')[2] + ' ' + benchmarks[benchmark].split('_')[3]
             elif 'deterministic' in benchmarks[benchmark] or 'change' in benchmarks[benchmark]:
                 benchmark_label = benchmarks[benchmark].split('_')[0].capitalize() + ' ' + benchmarks[benchmark].split('_')[1] + ' ' + benchmarks[benchmark].split('_')[2]
+            elif 'tga' in benchmarks[benchmark] or 'asga' in benchmarks[benchmark] or 'sacga' in benchmarks[benchmark] or 'oga' in benchmarks[benchmark]:
+                benchmark_label = benchmarks[benchmark].split('_')[0].upper()
             else:
                 benchmark_label = benchmarks[benchmark].split('_')[0].capitalize() + ' ' + benchmarks[benchmark].split('_')[1]
 
@@ -337,16 +345,26 @@ def time_execution_histogram(time_execution_values, type_method, path, iteration
 
     fig, ax = plt.subplots()
     for time_execution in time_execution_values:
-        generation_method_name = time_execution[1].split('_')[0].capitalize()
+        if 'tga' in time_execution[1].split('_')[0] or 'asga' in time_execution[1].split('_')[0] or 'sacga' in time_execution[1].split('_')[0] or 'oga' in time_execution[1].split('_')[0]:
+            generation_method_name = time_execution[1].split('_')[0].upper()
+        else:
+            generation_method_name = time_execution[1].split('_')[0].capitalize()
+
         for word in range(1, len(time_execution[1].split('_'))):
             generation_method_name += ' ' + time_execution[1].split('_')[word]
 
         # in each bar make a space to prevent overlapping
         ax.bar(generation_method_name, time_execution[0])
 
-    ax.set_xlabel('Generation Method')
+    if 'tga' in time_execution[1].split('_')[0] or 'asga' in time_execution[1].split('_')[0] or 'sacga' in time_execution[1].split('_')[0] or 'oga' in time_execution[1].split('_')[0]:
+        ax.set_xlabel('Genetic Algorithm')
+    else:
+        ax.set_xlabel('Generation Method')
     ax.set_ylabel('Average Execution Time (s)')
-    ax.set_title('Average Execution Time for ' + type_method.capitalize() + ' Methods')
+    if type_method == 'population' or type_method == 'selection' or type_method == 'crossover' or type_method == 'mutation':
+        ax.set_title('Average Execution Time for ' + type_method.capitalize() + ' Methods')
+    else:
+        ax.set_title('Average Execution Time for Genetic Algorithms')
 
     plt.xticks(rotation=90, ha='right')
     plt.savefig(path + '/' + type_method + '_time_execution_histogram_' + str(iteration) + '.png', bbox_inches='tight')
@@ -357,14 +375,20 @@ def mean_time_execution_histogram(time_execution_values, type_method, path):
 
     fig, ax = plt.subplots()
     for time_execution in time_execution_values:
-        generation_method_name = time_execution[1].split('_')[0].capitalize()
+        if 'tga' in time_execution[1].split('_')[0] or 'asga' in time_execution[1].split('_')[0] or 'sacga' in time_execution[1].split('_')[0] or 'oga' in time_execution[1].split('_')[0]:
+            generation_method_name = time_execution[1].split('_')[0].upper()
+        else:
+            generation_method_name = time_execution[1].split('_')[0].capitalize()
         for word in range(1, len(time_execution[1].split('_'))):
             generation_method_name += ' ' + time_execution[1].split('_')[word]
 
         # in each bar make a space to prevent overlapping
         ax.bar(generation_method_name, time_execution[0])
 
-    ax.set_xlabel('Generation Method')
+    if 'tga' in time_execution[1].split('_')[0] or 'asga' in time_execution[1].split('_')[0] or 'sacga' in time_execution[1].split('_')[0] or 'oga' in time_execution[1].split('_')[0]:
+        ax.set_xlabel('Genetic Algorithm')
+    else:
+        ax.set_xlabel('Generation Method')
     ax.set_ylabel('Average Execution Time (s)')
     ax.set_title('Average Execution Time for ' + type_method.capitalize() + ' Methods')
 
@@ -391,7 +415,10 @@ def mean_fitness_histogram(fitness_values, type_method, path, type_graph):
     
     fig, ax = plt.subplots()
     for fitness in fitness_values:
-        generation_method_name = fitness[0].split('_')[0].capitalize()
+        if 'tga' in fitness[1].split('_')[0] or 'asga' in fitness[1].split('_')[0] or 'sacga' in fitness[1].split('_')[0] or 'oga' in fitness[1].split('_')[0]:
+            generation_method_name = fitness[1].split('_')[0].upper()
+        else:
+            generation_method_name = fitness[0].split('_')[0].capitalize()
         for word in range(1, len(fitness[0].split('_'))):
             generation_method_name += ' ' + fitness[0].split('_')[word]
 
@@ -399,7 +426,10 @@ def mean_fitness_histogram(fitness_values, type_method, path, type_graph):
         ax.bar(generation_method_name, fitness[1], yerr=fitness[2],
                align='center', ecolor='black', capsize=10)
         
-    ax.set_xlabel('Generation Method')
+    if 'tga' in fitness[1].split('_')[0] or 'asga' in fitness[1].split('_')[0] or 'sacga' in fitness[1].split('_')[0] or 'oga' in fitness[1].split('_')[0]:
+        ax.set_xlabel('Genetic Algorithm')
+    else:
+        ax.set_xlabel('Generation Method')
     ax.set_ylabel(type_graph)
     ax.set_title(type_graph + ' for ' + type_method.capitalize() + ' Methods')
     plt.xticks(rotation=90, ha='right')
@@ -416,14 +446,20 @@ def mean_generations_histogram(mean_generation_values, type_method, path):
     
     fig, ax = plt.subplots()
     for mean_number_generation in mean_generation_values:
-        generation_method_name = mean_number_generation[0].split('_')[0].capitalize()
+        if 'tga' in mean_number_generation[1].split('_')[0] or 'asga' in mean_number_generation[1].split('_')[0] or 'sacga' in mean_number_generation[1].split('_')[0] or 'oga' in mean_number_generation[1].split('_')[0]:
+            generation_method_name = mean_number_generation[1].split('_')[0].upper()
+        else:
+            generation_method_name = mean_number_generation[0].split('_')[0].capitalize()
         for word in range(1, len(mean_number_generation[0].split('_'))):
             generation_method_name += ' ' + mean_number_generation[0].split('_')[word]
 
         # in each bar make a space to prevent overlapping
         ax.bar(generation_method_name, mean_number_generation[1], align='center', ecolor='black', capsize=10)
         
-    ax.set_xlabel('Generation Method')
+    if 'tga' in mean_number_generation[1].split('_')[0] or 'asga' in mean_number_generation[1].split('_')[0] or 'sacga' in mean_number_generation[1].split('_')[0] or 'oga' in mean_number_generation[1].split('_')[0]:
+        ax.set_xlabel('Genetic Algorithm')
+    else:
+        ax.set_xlabel('Generation Method')
     ax.set_ylabel('Mean Number Generations')
     ax.set_title('Mean Number Generations for ' + type_method.capitalize() + ' Methods')
 
@@ -463,6 +499,8 @@ def best_fitness_seen_graph(best_fitness_values, generation_number_values, path,
                 benchmark_label = benchmarks[benchmark].split('_')[0].capitalize() + ' ' + benchmarks[benchmark].split('_')[1] + ' ' + benchmarks[benchmark].split('_')[2] + ' ' + benchmarks[benchmark].split('_')[3]
             elif 'deterministic' in benchmarks[benchmark] or 'change' in benchmarks[benchmark]:
                 benchmark_label = benchmarks[benchmark].split('_')[0].capitalize() + ' ' + benchmarks[benchmark].split('_')[1] + ' ' + benchmarks[benchmark].split('_')[2]
+            elif 'tga' in benchmarks[benchmark] or 'asga' in benchmarks[benchmark] or 'sacga' in benchmarks[benchmark] or 'oga' in benchmarks[benchmark]:
+                benchmark_label = benchmarks[benchmark].split('_')[0].upper()
             else:
                 benchmark_label = benchmarks[benchmark].split('_')[0].capitalize() + ' ' + benchmarks[benchmark].split('_')[1]
 
