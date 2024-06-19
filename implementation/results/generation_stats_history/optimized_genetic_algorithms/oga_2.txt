@@ -1,0 +1,4 @@
+------------------------ GENERATION STATS ------------------------
+Generation: 1 - Old best fitness: 0.55 - Best fitness: 0.55 - Best fitness seen: 0.55 - Average fitness: 0.51 - Generations without fitness improvement: 0 - Population size: 5
+------------------------ GENERATION STATS ------------------------
+Generation: 2 - Old best fitness: 0.55 - Best fitness: 0.55 - Best fitness seen: 0.55 - Average fitness: 0.52 - Generations without fitness improvement: 1 - Population size: 5

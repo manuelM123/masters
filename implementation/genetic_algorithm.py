@@ -52,6 +52,7 @@ class configurations(Enum):
     generation_stats_path = util.obtain_configuration("config.ini", "file_paths", "generation_stats")
     best_generated_test_suite = util.obtain_configuration("config.ini", "file_paths", "best_generated_test_suite")
     generation_data_path = util.obtain_configuration("config.ini", "file_paths", "generation_data")
+    generation_stats_history_path = util.obtain_configuration("config.ini", "file_paths", "generation_stats_history")
 
     # Scripts
     execution_script = util.obtain_configuration("config.ini", "scripts", "execution_script")
@@ -481,6 +482,8 @@ while current_number_generation < int(configurations.max_number_generations.valu
     print("Population size values: " + str(population_size_values) + " - Generation number values: " + str(generation_number_values) + " - Generation fitness values: " + str(generation_fitness_values) 
           + " - Crossover rate values: " + str(crossover_rate_generations) + " - Mutation rate values: " + str(mutation_rate_generations) + " - Iteration number population control: " + str(iteration_number_population_control))
     print("------------------------------------------------------------------")
+
+    util.generation_stats_history_file(current_number_generation, old_best_fitness, current_best_fitness, best_fitness_seen, generations_without_fitness_improvement, population, configurations.generation_stats_history_path.value)
     
     # ---------------------------------------------------------------
             

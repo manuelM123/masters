@@ -4,6 +4,7 @@ import configparser
 import numpy as np
 import matplotlib.pyplot as plt
 from solution import Solution
+from operations import fitness_functions as ff
 
 '''
 Function to read metadata in a genotype format from a file
@@ -763,3 +764,40 @@ def read_population_data_file(path):
         population.append(solution)
 
     return population
+
+
+'''
+Function to write the generation stats history into a json file
+
+Parameters:
+----------
+current_number_generation: int
+    The current number generation
+
+old_best_fitness: float
+    The old best fitness value
+
+current_best_fitness: float
+    The current best fitness value
+
+best_fitness_seen: float
+    The best fitness seen
+
+generations_without_fitness_improvement: int
+    The generations without fitness improvement
+
+population: list
+    The population data
+'''
+def generation_stats_history_file(current_number_generation, old_best_fitness, current_best_fitness, best_fitness_seen, generations_without_fitness_improvement, population, path):
+    print("Started writing list data into a .txt file")
+
+    # If file does not exist, create it
+    if not os.path.exists(path + ".txt"):
+        f = open(path + ".txt", "w+")
+
+    with open(path + ".txt", 'a') as file:
+        file.write("------------------------ GENERATION STATS ------------------------\n")
+        file.write("Generation: " + str(current_number_generation) + " - Old best fitness: " + str(old_best_fitness) + " - Best fitness: " + str(current_best_fitness) + " - Best fitness seen: " + str(best_fitness_seen) + " - Average fitness: " + str(round(ff.calculate_average_fitness(population),2)) + " - Generations without fitness improvement: " + str(generations_without_fitness_improvement) + " - Population size: " + str(len(population)) + "\n")
+    
+    print("Done writing generation stats history into .txt file")

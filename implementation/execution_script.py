@@ -30,6 +30,7 @@ class configurations(Enum):
 
     # File paths
     intermediate_test_suite_path = util.obtain_configuration("config.ini", "file_paths", "intermediate_test_suite")
+    generation_stats_history_path = util.obtain_configuration("config.ini", "file_paths", "generation_stats_history")
 
     # Scripts
     execution_script = util.obtain_configuration("config.ini", "scripts", "execution_script")
@@ -294,13 +295,13 @@ def optimized_genetic_algorithms_execution(iteration):
     for genetic_algorithm in genetic_algorithms:
 
         if genetic_algorithm == 'tga':
-            change_configurations(None, [['population_control', 'False'], ['selection_type', 'tournament'], ['crossover_type', 'uniform'], ['mutation_type', 'change_parameters']], None, [['generation_stats', 'results/generation_stats/optimized_genetic_algorithms/' + genetic_algorithm + "_" + str(iteration)], ['generation_data', 'results/generation_data/optimized_genetic_algorithms/' + genetic_algorithm + "_" + str(iteration)]], None)
+            change_configurations(None, [['population_control', 'False'], ['selection_type', 'tournament'], ['crossover_type', 'uniform'], ['mutation_type', 'change_parameters']], None, [['generation_stats', 'results/generation_stats/optimized_genetic_algorithms/' + genetic_algorithm + "_" + str(iteration)], ['generation_data', 'results/generation_data/optimized_genetic_algorithms/' + genetic_algorithm + "_" + str(iteration)], ['generation_stats_history', 'results/generation_stats_history/optimized_genetic_algorithms/' + genetic_algorithm + "_" + str(iteration)]], None)
         elif genetic_algorithm == 'asga':
-            change_configurations(None, [['population_control', 'True'], ['selection_type', 'adaptive']], None, [['generation_stats', 'results/generation_stats/optimized_genetic_algorithms/' + genetic_algorithm + "_" + str(iteration)], ['generation_data', 'results/generation_data/optimized_genetic_algorithms/' + genetic_algorithm + "_" + str(iteration)]], None)
+            change_configurations(None, [['population_control', 'True'], ['selection_type', 'adaptive']], None, [['generation_stats', 'results/generation_stats/optimized_genetic_algorithms/' + genetic_algorithm + "_" + str(iteration)], ['generation_data', 'results/generation_data/optimized_genetic_algorithms/' + genetic_algorithm + "_" + str(iteration)], ['generation_stats_history', 'results/generation_stats_history/optimized_genetic_algorithms/' + genetic_algorithm + "_" + str(iteration)]], None)
         elif genetic_algorithm == 'sacga':
-            change_configurations(None, [['population_control', 'True'], ['crossover_type', 'self-adaptive']], None, [['generation_stats', 'results/generation_stats/optimized_genetic_algorithms/' + genetic_algorithm + "_" + str(iteration)], ['generation_data', 'results/generation_data/optimized_genetic_algorithms/' + genetic_algorithm + "_" + str(iteration)]], None)
+            change_configurations(None, [['population_control', 'True'], ['crossover_type', 'self-adaptive']], None, [['generation_stats', 'results/generation_stats/optimized_genetic_algorithms/' + genetic_algorithm + "_" + str(iteration)], ['generation_data', 'results/generation_data/optimized_genetic_algorithms/' + genetic_algorithm + "_" + str(iteration)], ['generation_stats_history', 'results/generation_stats_history/optimized_genetic_algorithms/' + genetic_algorithm + "_" + str(iteration)]], None)
         elif genetic_algorithm == 'oga':
-            change_configurations(None, [['population_control', 'True'], ['selection_type', 'rank'], ['crossover_type', 'adaptive'], ['mutation_type', 'self-adaptive']], None, [['generation_stats', 'results/generation_stats/optimized_genetic_algorithms/' + genetic_algorithm + "_" + str(iteration)], ['generation_data', 'results/generation_data/optimized_genetic_algorithms/' + genetic_algorithm + "_" + str(iteration)]], None)
+            change_configurations(None, [['population_control', 'True'], ['selection_type', 'rank'], ['crossover_type', 'adaptive'], ['mutation_type', 'self-adaptive']], None, [['generation_stats', 'results/generation_stats/optimized_genetic_algorithms/' + genetic_algorithm + "_" + str(iteration)], ['generation_data', 'results/generation_data/optimized_genetic_algorithms/' + genetic_algorithm + "_" + str(iteration)], ['generation_stats_history', 'results/generation_stats_history/optimized_genetic_algorithms/' + genetic_algorithm + "_" + str(iteration)]], None)
 
         configuration_update(path_configuration_file, metadata, genetic_algorithm_configurations, genetic_operators_configurations, genetic_algorithm_optimizations_configurations, file_paths)
         time = run_subprocess(['python3', 'genetic_algorithm.py'])
@@ -385,7 +386,7 @@ def folder_setup():
             except OSError as e:
                 print("Error: %s : %s" % ('results/benchmarks/time_execution/' + folder, e.strerror))
 
-        # Verify if folder time_execution exists for each method
+        # Verify if folder best_generated_test_suite exists for each method
         if not os.path.exists('results/best_generated_test_suite/' + folder):
             os.makedirs('results/best_generated_test_suite/' + folder)
         else:
@@ -394,6 +395,18 @@ def folder_setup():
                 os.makedirs('results/best_generated_test_suite/' + folder)
             except OSError as e:
                 print("Error: %s : %s" % ('results/best_generated_test_suite/' + folder, e.strerror))
+
+        # Verify if folder generation_stats_history exists for each method
+        if not os.path.exists('results/generation_stats_history/' + folder):
+            os.makedirs('results/generation_stats_history/' + folder)
+        else:
+            try:
+                shutil.rmtree('results/generation_stats_history/' + folder)
+                os.makedirs('results/generation_stats_history/' + folder)
+            except OSError as e:
+                print("Error: %s : %s" % ('results/generation_stats_history/' + folder, e.strerror))
+
+        
 
 '''
 Function to generate the benchmarks
