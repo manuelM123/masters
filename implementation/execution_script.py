@@ -299,7 +299,7 @@ def optimized_genetic_algorithms_execution(iteration):
         elif genetic_algorithm == 'asga':
             change_configurations(None, [['population_control', 'True'], ['selection_type', 'adaptive']], None, [['generation_stats', 'results/generation_stats/optimized_genetic_algorithms/' + genetic_algorithm + "_" + str(iteration)], ['generation_data', 'results/generation_data/optimized_genetic_algorithms/' + genetic_algorithm + "_" + str(iteration)], ['generation_stats_history', 'results/generation_stats_history/optimized_genetic_algorithms/' + genetic_algorithm + "_" + str(iteration)]], None)
         elif genetic_algorithm == 'sacga':
-            change_configurations(None, [['population_control', 'True'], ['crossover_type', 'self-adaptive']], None, [['generation_stats', 'results/generation_stats/optimized_genetic_algorithms/' + genetic_algorithm + "_" + str(iteration)], ['generation_data', 'results/generation_data/optimized_genetic_algorithms/' + genetic_algorithm + "_" + str(iteration)], ['generation_stats_history', 'results/generation_stats_history/optimized_genetic_algorithms/' + genetic_algorithm + "_" + str(iteration)]], None)
+            change_configurations(None, [['population_control', 'True'], ['selection_type', 'rank'], ['crossover_type', 'self-adaptive']], None, [['generation_stats', 'results/generation_stats/optimized_genetic_algorithms/' + genetic_algorithm + "_" + str(iteration)], ['generation_data', 'results/generation_data/optimized_genetic_algorithms/' + genetic_algorithm + "_" + str(iteration)], ['generation_stats_history', 'results/generation_stats_history/optimized_genetic_algorithms/' + genetic_algorithm + "_" + str(iteration)]], None)
         elif genetic_algorithm == 'oga':
             change_configurations(None, [['population_control', 'True'], ['selection_type', 'rank'], ['crossover_type', 'adaptive'], ['mutation_type', 'self-adaptive']], None, [['generation_stats', 'results/generation_stats/optimized_genetic_algorithms/' + genetic_algorithm + "_" + str(iteration)], ['generation_data', 'results/generation_data/optimized_genetic_algorithms/' + genetic_algorithm + "_" + str(iteration)], ['generation_stats_history', 'results/generation_stats_history/optimized_genetic_algorithms/' + genetic_algorithm + "_" + str(iteration)]], None)
 
@@ -489,9 +489,6 @@ population = create_population(metadata_file, int(configurations.population_size
 # Write population in current directory
 util.write_population_data_file(os.getcwd(), population)
 
-change_configurations(None, None, None, None, [['execution_script', 'True']])
-configuration_update(path_configuration_file, metadata, genetic_algorithm_configurations, genetic_operators_configurations, genetic_algorithm_optimizations_configurations, file_paths)
-
 for iteration in range(1,3):
     if eval(configurations.execution_optimizations.value):
         algorithms = optimized_genetic_algorithms_execution(iteration)
@@ -535,51 +532,3 @@ for iteration in range(1,3):
         print(mutation_generations_data)
         print("------------------------------------------")
         generate_benchmarks('mutation_' + str(iteration), mutation_methods, mutation_generations_data, 'results/benchmarks/mutation/')
-
-change_configurations(None, None, None, None, [['execution_script', 'False']])
-configuration_update(path_configuration_file, metadata, genetic_algorithm_configurations, genetic_operators_configurations, genetic_algorithm_optimizations_configurations, file_paths)
-
-
-'''
-[metadata]
-metadata_location = metadata.json
-
-[genetic_algorithm_configurations]
-max_number_functions = 5
-max_number_test_cases = 5
-tournament_size = 2
-max_number_generations = 1000
-fitness_max_stagnation_period = 100
-fitness_function_type = branch_coverage
-fitness_iteration_limit = 5
-
-[genetic_operators_configurations]
-population_size = 55
-population_control = False
-selection_type = tournament
-crossover_type = uniform
-crossover_rate = 0.5
-crossover_rate_adjustment_type = ilc
-mutation_type = change_parameters
-mutation_rate = 0.15
-mutation_rate_adjustment_type = dhm
-
-[genetic_algorithm_optimizations_configurations]
-population_decrease_rate = 0.2
-uniform_number_crossover = 0.5
-lt_max = 20
-lt_min = 4
-alpha = 0.7
-
-[file_paths]
-fuzzy_membership_functions = results/fuzzy_membership_functions
-intermediate_test_suite = results/intermediate_test_suite
-generation_stats = results/generation_stats/population/population_True_1
-best_generated_test_suite = results/best_generated_test_suite
-generation_data = results/generation_data/population/population_True_1
-benchmark = results/benchmarks
-
-[scripts]
-execution_script = False
-execution_optimizations = True
-'''
