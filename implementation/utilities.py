@@ -391,7 +391,11 @@ def mean_time_execution_histogram(time_execution_values, type_method, path):
     else:
         ax.set_xlabel('Generation Method')
     ax.set_ylabel('Average Execution Time (s)')
-    ax.set_title('Average Execution Time for ' + type_method.capitalize() + ' Methods')
+
+    if type_method != 'optimized_genetic_algorithms':
+        ax.set_title('Average Execution Time for ' + type_method.capitalize() + ' Methods')
+    else:
+        ax.set_title('Average Execution Time for Optimized Genetic Algorithms')
 
     plt.xticks(rotation=90, ha='right')
     plt.savefig(path + '/' + type_method + '_time_execution_histogram.png', bbox_inches='tight')
@@ -416,8 +420,8 @@ def mean_fitness_histogram(fitness_values, type_method, path, type_graph):
     
     fig, ax = plt.subplots()
     for fitness in fitness_values:
-        if 'tga' in fitness[1].split('_')[0] or 'asga' in fitness[1].split('_')[0] or 'sacga' in fitness[1].split('_')[0] or 'oga' in fitness[1].split('_')[0]:
-            generation_method_name = fitness[1].split('_')[0].upper()
+        if 'tga' in fitness[0].split('_')[0] or 'asga' in fitness[0].split('_')[0] or 'sacga' in fitness[0].split('_')[0] or 'oga' in fitness[0].split('_')[0]:
+            generation_method_name = fitness[0].split('_')[0].upper()
         else:
             generation_method_name = fitness[0].split('_')[0].capitalize()
         for word in range(1, len(fitness[0].split('_'))):
@@ -427,12 +431,16 @@ def mean_fitness_histogram(fitness_values, type_method, path, type_graph):
         ax.bar(generation_method_name, fitness[1], yerr=fitness[2],
                align='center', ecolor='black', capsize=10)
         
-    if 'tga' in fitness[1].split('_')[0] or 'asga' in fitness[1].split('_')[0] or 'sacga' in fitness[1].split('_')[0] or 'oga' in fitness[1].split('_')[0]:
+    if 'tga' in fitness[0].split('_')[0] or 'asga' in fitness[0].split('_')[0] or 'sacga' in fitness[0].split('_')[0] or 'oga' in fitness[0].split('_')[0]:
         ax.set_xlabel('Genetic Algorithm')
     else:
         ax.set_xlabel('Generation Method')
     ax.set_ylabel(type_graph)
-    ax.set_title(type_graph + ' for ' + type_method.capitalize() + ' Methods')
+
+    if type_method != 'optimized_genetic_algorithms':
+        ax.set_title(type_graph + ' for ' + type_method.capitalize() + ' Methods')
+    else:
+        ax.set_title(type_graph + ' for Optimized Genetic Algorithms')
     plt.xticks(rotation=90, ha='right')
 
     if type_graph == 'Mean Best Fitness':
@@ -447,8 +455,8 @@ def mean_generations_histogram(mean_generation_values, type_method, path):
     
     fig, ax = plt.subplots()
     for mean_number_generation in mean_generation_values:
-        if 'tga' in mean_number_generation[1].split('_')[0] or 'asga' in mean_number_generation[1].split('_')[0] or 'sacga' in mean_number_generation[1].split('_')[0] or 'oga' in mean_number_generation[1].split('_')[0]:
-            generation_method_name = mean_number_generation[1].split('_')[0].upper()
+        if 'tga' in mean_number_generation[0].split('_')[0] or 'asga' in mean_number_generation[0].split('_')[0] or 'sacga' in mean_number_generation[0].split('_')[0] or 'oga' in mean_number_generation[0].split('_')[0]:
+            generation_method_name = mean_number_generation[0].split('_')[0].upper()
         else:
             generation_method_name = mean_number_generation[0].split('_')[0].capitalize()
         for word in range(1, len(mean_number_generation[0].split('_'))):
@@ -457,12 +465,16 @@ def mean_generations_histogram(mean_generation_values, type_method, path):
         # in each bar make a space to prevent overlapping
         ax.bar(generation_method_name, mean_number_generation[1], align='center', ecolor='black', capsize=10)
         
-    if 'tga' in mean_number_generation[1].split('_')[0] or 'asga' in mean_number_generation[1].split('_')[0] or 'sacga' in mean_number_generation[1].split('_')[0] or 'oga' in mean_number_generation[1].split('_')[0]:
+    if 'tga' in mean_number_generation[0].split('_')[0] or 'asga' in mean_number_generation[0].split('_')[0] or 'sacga' in mean_number_generation[0].split('_')[0] or 'oga' in mean_number_generation[0].split('_')[0]:
         ax.set_xlabel('Genetic Algorithm')
     else:
         ax.set_xlabel('Generation Method')
     ax.set_ylabel('Mean Number Generations')
-    ax.set_title('Mean Number Generations for ' + type_method.capitalize() + ' Methods')
+
+    if type_method != 'optimized_genetic_algorithms':
+        ax.set_title('Mean Number Generations for ' + type_method.capitalize() + ' Methods')
+    else:
+        ax.set_title('Mean Number Generations for Optimized Genetic Algorithms')
 
     plt.xticks(rotation=90, ha='right')
     plt.savefig(path + '/' + type_method + '_mean_number_generations_histogram.png', bbox_inches='tight')

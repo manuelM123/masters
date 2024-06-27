@@ -489,6 +489,9 @@ population = create_population(metadata_file, int(configurations.population_size
 # Write population in current directory
 util.write_population_data_file(os.getcwd(), population)
 
+change_configurations(None, None, None, None, [['execution_script', 'True']])
+configuration_update(path_configuration_file, metadata, genetic_algorithm_configurations, genetic_operators_configurations, genetic_algorithm_optimizations_configurations, file_paths)
+
 for iteration in range(1,3):
     if eval(configurations.execution_optimizations.value):
         algorithms = optimized_genetic_algorithms_execution(iteration)
@@ -532,3 +535,6 @@ for iteration in range(1,3):
         print(mutation_generations_data)
         print("------------------------------------------")
         generate_benchmarks('mutation_' + str(iteration), mutation_methods, mutation_generations_data, 'results/benchmarks/mutation/')
+
+change_configurations(None, None, None, None, [['execution_script', 'False']])
+configuration_update(path_configuration_file, metadata, genetic_algorithm_configurations, genetic_operators_configurations, genetic_algorithm_optimizations_configurations, file_paths)

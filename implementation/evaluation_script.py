@@ -7,6 +7,7 @@ population_control = ['True', 'False']
 selection_types = ['random', 'roulette_wheel', 'adaptive', 'rank', 'tournament']
 crossover_types = ['deterministic_ilc', 'deterministic_dhc', 'self-adaptive', 'adaptive', 'uniform']
 mutation_types = ['add_test_case', 'delete_test_case', 'deterministic_ilm', 'deterministic_dhm', 'adaptive', 'self-adaptive', 'change_parameters']
+optimized_genetic_algorithms = ['tga', 'asga', 'sacga', 'oga']
 
 '''
 Function to create the necessary folders for the evaluation results
@@ -18,11 +19,14 @@ def folder_setup():
     if not os.path.exists('results_evaluation/methods_execution'):
         os.makedirs('results_evaluation/methods_execution')
 
-    if not os.path.exists('results_evaluation/algorithm_execution'):
-        os.makedirs('results_evaluation/algorithm_execution')
+    if not os.path.exists('results_evaluation/algorithms_execution'):
+        os.makedirs('results_evaluation/algorithms_execution')
 
     if not os.path.exists('results_evaluation/methods_execution/time_execution'):
         os.makedirs('results_evaluation/methods_execution/time_execution')
+
+    if not os.path.exists('results_evaluation/algorithms_execution/time_execution'):
+        os.makedirs('results_evaluation/algorithms_execution/time_execution')
 
 '''
 Function to calculate the mean of the data for the different methods according to the type of data 
@@ -49,7 +53,10 @@ def mean_data_methods(genetic_parameters, type_method, number_iterations, type_d
     for parameter in genetic_parameters:
         iteration_data = []
         for iteration in range(1, number_iterations + 1):
-            element_data = util.read_generations_stats_file_type(type_method + '_' + parameter + '_' + str(iteration), type_method, json_key)
+            if parameter != 'tga' and parameter != 'asga' and parameter != 'sacga' and parameter != 'oga':
+                element_data = util.read_generations_stats_file_type(type_method + '_' + parameter + '_' + str(iteration), type_method, json_key)
+            else:
+                element_data = util.read_generations_stats_file_type(parameter + '_' + str(iteration), type_method, json_key)
             if type_data == 'best_fitness' or type_data == 'fitness_values':
                 iteration_data.append(ff.mean_best_fitness(element_data))
             elif type_data == 'time_execution':
@@ -59,18 +66,28 @@ def mean_data_methods(genetic_parameters, type_method, number_iterations, type_d
 
         if type_data == 'best_fitness' or type_data == 'fitness_values':
             mean_best_fitness_parameter = ff.mean_best_fitness(iteration_data)
-            mean_data.append([type_method + '_' + parameter, mean_best_fitness_parameter, util.standard_deviation(iteration_data)])
+            if parameter != 'tga' and parameter != 'asga' and parameter != 'sacga' and parameter != 'oga':
+                mean_data.append([type_method + '_' + parameter, mean_best_fitness_parameter, util.standard_deviation(iteration_data)])
+            else:
+                mean_data.append([parameter, mean_best_fitness_parameter, util.standard_deviation(iteration_data)])
         elif type_data == 'time_execution':
             mean_time_parameter = util.mean_time_execution(iteration_data)
-            mean_data.append([mean_time_parameter, type_method + '_' + parameter])
+            if parameter != 'tga' and parameter != 'asga' and parameter != 'sacga' and parameter != 'oga':
+                mean_data.append([mean_time_parameter, type_method + '_' + parameter])
+            else:
+                mean_data.append([mean_time_parameter, parameter])
         elif type_data == 'generation_number':
             mean_number_generation = util.mean_generations_execution(iteration_data)
-            mean_data.append([type_method + '_' + parameter, mean_number_generation])
+            if parameter != 'tga' and parameter != 'asga' and parameter != 'sacga' and parameter != 'oga':
+                mean_data.append([type_method + '_' + parameter, mean_number_generation])
+            else:
+                mean_data.append([parameter, mean_number_generation])
 
     return mean_data
 
 folder_setup()
 
+'''
 mbf_population = mean_data_methods(population_control, 'population', 10, 'best_fitness', 'best_fitness_seen_values')
 mean_fitness_population = mean_data_methods(population_control, 'population', 10, 'fitness_values', 'generation_fitness_values')
 time_execution_population = mean_data_methods(population_control, 'population', 10, 'time_execution', 'time_execution')
@@ -122,3 +139,19 @@ print('Mutation Mean Best Fitness: ' + str(mbf_mutation) + "\n")
 print('Mutation Generations Mean Best Fitness: ' + str(mean_fitness_mutation) + "\n")
 print('Mutation Time Execution: ' + str(time_execution_mutation) + "\n")
 print('Mutation Number Generations: ' + str(number_generations_mutation) + "\n")
+'''
+
+mbf_genetic_algorithm = mean_data_methods(optimized_genetic_algorithms, 'optimized_genetic_algorithms', 10, 'best_fitness', 'best_fitness_seen_values')
+mean_fitness_genetic_algorithm = mean_data_methods(optimized_genetic_algorithms, 'optimized_genetic_algorithms', 10, 'fitness_values', 'generation_fitness_values')
+time_execution_genetic_algorithm = mean_data_methods(optimized_genetic_algorithms, 'optimized_genetic_algorithms', 10, 'time_execution', 'time_execution')
+number_generations_genetic_algorithm = mean_data_methods(optimized_genetic_algorithms, 'optimized_genetic_algorithms', 10, 'generation_number', 'generation_number_values')
+util.mean_fitness_histogram(mbf_genetic_algorithm, 'optimized_genetic_algorithms', 'results_evaluation/algorithms_execution', 'Mean Best Fitness')
+util.mean_fitness_histogram(mean_fitness_genetic_algorithm, 'optimized_genetic_algorithms', 'results_evaluation/algorithms_execution', 'Generations Mean Best Fitness')
+util.mean_time_execution_histogram(time_execution_genetic_algorithm, 'optimized_genetic_algorithms', 'results_evaluation/algorithms_execution/time_execution')
+util.mean_generations_histogram(number_generations_genetic_algorithm, 'optimized_genetic_algorithms', 'results_evaluation/algorithms_execution')
+print('Mean Best Fitness: ' + str(mbf_genetic_algorithm) + "\n")
+print('Generations Mean Best Fitness: ' + str(mean_fitness_genetic_algorithm) + "\n")
+print('Time Execution: ' + str(time_execution_genetic_algorithm) + "\n")
+print('Number Generations: ' + str(number_generations_genetic_algorithm) + "\n")
+
+

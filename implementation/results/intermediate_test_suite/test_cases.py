@@ -1,15 +1,8 @@
 from cut import *
 
 def test_case_0():
-	cut = calorie_intake_calc(165.25,152.24,27,'F',0.23,'N')
-	result_mifflin_stjeor_equation = cut.mifflin_stjeor_equation()
-
-def test_case_1():
-	cut = calorie_intake_calc(206.7,140.22,64,'F',0.26,'S')
-	cut.weight = 138.65
-	cut.weight = 156.21
-
-def test_case_2():
-	cut = calorie_intake_calc(207.1,145.81,48,'N',0.36,'N')
-	result_mifflin_stjeor_equation = cut.mifflin_stjeor_equation()
+	cut = calorie_intake_calc(123.0,151.9,45,'M',0.64,'M')
+	cut.height = 179.92
+	result_determine_calorie_intake = cut.determine_calorie_intake()
+	cut.weight = 185.98
 
