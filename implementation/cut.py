@@ -79,8 +79,6 @@ class calorie_intake_calc:
 
     @gender.setter
     def gender(self, gender: str):
-        if gender.upper() not in ['M','F']:
-            raise ValueError('Gender is not specified correctly')
         self.__gender = gender
 
     @property
@@ -90,7 +88,7 @@ class calorie_intake_calc:
     @bodyfat.setter
     def bodyfat(self, bodyfat):
         if bodyfat > 0.3:
-                raise ValueError('Bodyfat must be in the interval [0,0.3]')
+                raise ValueError('Bodyfat cannot be higher than 0.3')
         self.__bodyfat = bodyfat
 
     @property
@@ -99,8 +97,6 @@ class calorie_intake_calc:
     
     @amount_exercise.setter
     def amount_exercise(self, amount_exercise: str):
-        if amount_exercise.upper() not in ['S','L','M','V','E']:
-            raise ValueError('Exercise amount not specified correctly. The amount of exercise must be either sedentary (S), light (L), moderate (M), very active (V) or extra active (E)')
         self.__amount_exercise = amount_exercise
         
     '''

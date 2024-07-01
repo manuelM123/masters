@@ -50,6 +50,7 @@ Parameters:
 '''
 def mean_data_methods(genetic_parameters, type_method, number_iterations, type_data, json_key):
     mean_data = []
+    success_rate = []
     for parameter in genetic_parameters:
         iteration_data = []
         for iteration in range(1, number_iterations + 1):
@@ -59,6 +60,8 @@ def mean_data_methods(genetic_parameters, type_method, number_iterations, type_d
                 element_data = util.read_generations_stats_file_type(parameter + '_' + str(iteration), type_method, json_key)
             if type_data == 'best_fitness' or type_data == 'fitness_values':
                 iteration_data.append(ff.mean_best_fitness(element_data))
+                if max(element_data) >= 0.85:
+                    success_rate.append([parameter, max(element_data)])
             elif type_data == 'time_execution':
                 iteration_data.append(element_data)
             elif type_data == 'generation_number':
@@ -83,7 +86,7 @@ def mean_data_methods(genetic_parameters, type_method, number_iterations, type_d
             else:
                 mean_data.append([parameter, mean_number_generation])
 
-    return mean_data
+    return mean_data, success_rate
 
 folder_setup()
 
@@ -141,10 +144,10 @@ print('Mutation Time Execution: ' + str(time_execution_mutation) + "\n")
 print('Mutation Number Generations: ' + str(number_generations_mutation) + "\n")
 '''
 
-mbf_genetic_algorithm = mean_data_methods(optimized_genetic_algorithms, 'optimized_genetic_algorithms', 10, 'best_fitness', 'best_fitness_seen_values')
-mean_fitness_genetic_algorithm = mean_data_methods(optimized_genetic_algorithms, 'optimized_genetic_algorithms', 10, 'fitness_values', 'generation_fitness_values')
-time_execution_genetic_algorithm = mean_data_methods(optimized_genetic_algorithms, 'optimized_genetic_algorithms', 10, 'time_execution', 'time_execution')
-number_generations_genetic_algorithm = mean_data_methods(optimized_genetic_algorithms, 'optimized_genetic_algorithms', 10, 'generation_number', 'generation_number_values')
+mbf_genetic_algorithm, success_rate_data = mean_data_methods(optimized_genetic_algorithms, 'optimized_genetic_algorithms', 10, 'best_fitness', 'best_fitness_seen_values')
+mean_fitness_genetic_algorithm, _ = mean_data_methods(optimized_genetic_algorithms, 'optimized_genetic_algorithms', 10, 'fitness_values', 'generation_fitness_values')
+time_execution_genetic_algorithm, _ = mean_data_methods(optimized_genetic_algorithms, 'optimized_genetic_algorithms', 10, 'time_execution', 'time_execution')
+number_generations_genetic_algorithm, _ = mean_data_methods(optimized_genetic_algorithms, 'optimized_genetic_algorithms', 10, 'generation_number', 'generation_number_values')
 util.mean_fitness_histogram(mbf_genetic_algorithm, 'optimized_genetic_algorithms', 'results_evaluation/algorithms_execution', 'Mean Best Fitness')
 util.mean_fitness_histogram(mean_fitness_genetic_algorithm, 'optimized_genetic_algorithms', 'results_evaluation/algorithms_execution', 'Generations Mean Best Fitness')
 util.mean_time_execution_histogram(time_execution_genetic_algorithm, 'optimized_genetic_algorithms', 'results_evaluation/algorithms_execution/time_execution')
@@ -153,5 +156,6 @@ print('Mean Best Fitness: ' + str(mbf_genetic_algorithm) + "\n")
 print('Generations Mean Best Fitness: ' + str(mean_fitness_genetic_algorithm) + "\n")
 print('Time Execution: ' + str(time_execution_genetic_algorithm) + "\n")
 print('Number Generations: ' + str(number_generations_genetic_algorithm) + "\n")
+print('Success Rate: ' + str(success_rate_data) + "\n")
 
 
