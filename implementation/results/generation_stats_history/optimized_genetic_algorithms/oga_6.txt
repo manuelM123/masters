@@ -1,226 +1,340 @@
 ------------------------ GENERATION STATS ------------------------
-Generation: 1 - Old best fitness: 0.81 - Best fitness: 0.81 - Best fitness seen: 0.81 - Average fitness: 0.57 - Generations without fitness improvement: 0 - Population size: 543
+Generation: 1 - Old best fitness: 0.85 - Best fitness: 0.85 - Best fitness seen: 0.85 - Average fitness: 0.6 - Generations without fitness improvement: 0 - Population size: 536
 ------------------------ GENERATION STATS ------------------------
-Generation: 2 - Old best fitness: 0.81 - Best fitness: 0.81 - Best fitness seen: 0.81 - Average fitness: 0.62 - Generations without fitness improvement: 1 - Population size: 436
+Generation: 2 - Old best fitness: 0.85 - Best fitness: 0.85 - Best fitness seen: 0.85 - Average fitness: 0.66 - Generations without fitness improvement: 1 - Population size: 429
 ------------------------ GENERATION STATS ------------------------
-Generation: 3 - Old best fitness: 0.82 - Best fitness: 0.82 - Best fitness seen: 0.82 - Average fitness: 0.65 - Generations without fitness improvement: 0 - Population size: 414
+Generation: 3 - Old best fitness: 0.87 - Best fitness: 0.87 - Best fitness seen: 0.87 - Average fitness: 0.68 - Generations without fitness improvement: 0 - Population size: 417
 ------------------------ GENERATION STATS ------------------------
-Generation: 4 - Old best fitness: 0.84 - Best fitness: 0.84 - Best fitness seen: 0.84 - Average fitness: 0.66 - Generations without fitness improvement: 0 - Population size: 412
+Generation: 4 - Old best fitness: 0.85 - Best fitness: 0.85 - Best fitness seen: 0.87 - Average fitness: 0.72 - Generations without fitness improvement: 1 - Population size: 335
 ------------------------ GENERATION STATS ------------------------
-Generation: 5 - Old best fitness: 0.84 - Best fitness: 0.84 - Best fitness seen: 0.84 - Average fitness: 0.69 - Generations without fitness improvement: 1 - Population size: 330
+Generation: 5 - Old best fitness: 0.87 - Best fitness: 0.87 - Best fitness seen: 0.87 - Average fitness: 0.73 - Generations without fitness improvement: 2 - Population size: 321
 ------------------------ GENERATION STATS ------------------------
-Generation: 6 - Old best fitness: 0.84 - Best fitness: 0.84 - Best fitness seen: 0.84 - Average fitness: 0.7 - Generations without fitness improvement: 2 - Population size: 264
+Generation: 6 - Old best fitness: 0.85 - Best fitness: 0.85 - Best fitness seen: 0.87 - Average fitness: 0.75 - Generations without fitness improvement: 3 - Population size: 258
 ------------------------ GENERATION STATS ------------------------
-Generation: 7 - Old best fitness: 0.82 - Best fitness: 0.82 - Best fitness seen: 0.84 - Average fitness: 0.72 - Generations without fitness improvement: 3 - Population size: 212
+Generation: 7 - Old best fitness: 0.85 - Best fitness: 0.85 - Best fitness seen: 0.87 - Average fitness: 0.75 - Generations without fitness improvement: 4 - Population size: 207
 ------------------------ GENERATION STATS ------------------------
-Generation: 8 - Old best fitness: 0.82 - Best fitness: 0.82 - Best fitness seen: 0.84 - Average fitness: 0.72 - Generations without fitness improvement: 4 - Population size: 144
+Generation: 8 - Old best fitness: 0.87 - Best fitness: 0.87 - Best fitness seen: 0.87 - Average fitness: 0.73 - Generations without fitness improvement: 5 - Population size: 176
 ------------------------ GENERATION STATS ------------------------
-Generation: 9 - Old best fitness: 0.82 - Best fitness: 0.82 - Best fitness seen: 0.84 - Average fitness: 0.71 - Generations without fitness improvement: 5 - Population size: 116
+Generation: 9 - Old best fitness: 0.85 - Best fitness: 0.85 - Best fitness seen: 0.87 - Average fitness: 0.75 - Generations without fitness improvement: 6 - Population size: 141
 ------------------------ GENERATION STATS ------------------------
-Generation: 10 - Old best fitness: 0.84 - Best fitness: 0.84 - Best fitness seen: 0.84 - Average fitness: 0.68 - Generations without fitness improvement: 6 - Population size: 119
+Generation: 10 - Old best fitness: 0.87 - Best fitness: 0.87 - Best fitness seen: 0.87 - Average fitness: 0.73 - Generations without fitness improvement: 7 - Population size: 141
 ------------------------ GENERATION STATS ------------------------
-Generation: 11 - Old best fitness: 0.84 - Best fitness: 0.84 - Best fitness seen: 0.84 - Average fitness: 0.7 - Generations without fitness improvement: 7 - Population size: 96
+Generation: 11 - Old best fitness: 0.87 - Best fitness: 0.87 - Best fitness seen: 0.87 - Average fitness: 0.73 - Generations without fitness improvement: 8 - Population size: 114
 ------------------------ GENERATION STATS ------------------------
-Generation: 12 - Old best fitness: 0.81 - Best fitness: 0.81 - Best fitness seen: 0.84 - Average fitness: 0.71 - Generations without fitness improvement: 8 - Population size: 77
+Generation: 12 - Old best fitness: 0.84 - Best fitness: 0.84 - Best fitness seen: 0.87 - Average fitness: 0.71 - Generations without fitness improvement: 9 - Population size: 92
 ------------------------ GENERATION STATS ------------------------
-Generation: 13 - Old best fitness: 0.86 - Best fitness: 0.86 - Best fitness seen: 0.86 - Average fitness: 0.67 - Generations without fitness improvement: 0 - Population size: 107
+Generation: 13 - Old best fitness: 0.84 - Best fitness: 0.84 - Best fitness seen: 0.87 - Average fitness: 0.7 - Generations without fitness improvement: 10 - Population size: 64
 ------------------------ GENERATION STATS ------------------------
-Generation: 14 - Old best fitness: 0.82 - Best fitness: 0.82 - Best fitness seen: 0.86 - Average fitness: 0.7 - Generations without fitness improvement: 1 - Population size: 87
+Generation: 14 - Old best fitness: 0.84 - Best fitness: 0.84 - Best fitness seen: 0.87 - Average fitness: 0.69 - Generations without fitness improvement: 11 - Population size: 51
 ------------------------ GENERATION STATS ------------------------
-Generation: 15 - Old best fitness: 0.82 - Best fitness: 0.82 - Best fitness seen: 0.86 - Average fitness: 0.71 - Generations without fitness improvement: 2 - Population size: 71
+Generation: 15 - Old best fitness: 0.78 - Best fitness: 0.78 - Best fitness seen: 0.87 - Average fitness: 0.69 - Generations without fitness improvement: 12 - Population size: 42
 ------------------------ GENERATION STATS ------------------------
-Generation: 16 - Old best fitness: 0.82 - Best fitness: 0.82 - Best fitness seen: 0.86 - Average fitness: 0.7 - Generations without fitness improvement: 3 - Population size: 44
+Generation: 16 - Old best fitness: 0.78 - Best fitness: 0.78 - Best fitness seen: 0.87 - Average fitness: 0.7 - Generations without fitness improvement: 13 - Population size: 31
 ------------------------ GENERATION STATS ------------------------
-Generation: 17 - Old best fitness: 0.82 - Best fitness: 0.82 - Best fitness seen: 0.86 - Average fitness: 0.71 - Generations without fitness improvement: 4 - Population size: 36
+Generation: 17 - Old best fitness: 0.83 - Best fitness: 0.83 - Best fitness seen: 0.87 - Average fitness: 0.61 - Generations without fitness improvement: 14 - Population size: 60
 ------------------------ GENERATION STATS ------------------------
-Generation: 18 - Old best fitness: 0.81 - Best fitness: 0.81 - Best fitness seen: 0.86 - Average fitness: 0.75 - Generations without fitness improvement: 5 - Population size: 29
+Generation: 18 - Old best fitness: 0.83 - Best fitness: 0.83 - Best fitness seen: 0.87 - Average fitness: 0.67 - Generations without fitness improvement: 15 - Population size: 48
 ------------------------ GENERATION STATS ------------------------
-Generation: 19 - Old best fitness: 0.82 - Best fitness: 0.82 - Best fitness seen: 0.86 - Average fitness: 0.72 - Generations without fitness improvement: 6 - Population size: 36
+Generation: 19 - Old best fitness: 0.83 - Best fitness: 0.83 - Best fitness seen: 0.87 - Average fitness: 0.7 - Generations without fitness improvement: 16 - Population size: 39
 ------------------------ GENERATION STATS ------------------------
-Generation: 20 - Old best fitness: 0.81 - Best fitness: 0.81 - Best fitness seen: 0.86 - Average fitness: 0.71 - Generations without fitness improvement: 7 - Population size: 29
+Generation: 20 - Old best fitness: 0.83 - Best fitness: 0.83 - Best fitness seen: 0.87 - Average fitness: 0.75 - Generations without fitness improvement: 17 - Population size: 32
 ------------------------ GENERATION STATS ------------------------
-Generation: 21 - Old best fitness: 0.86 - Best fitness: 0.86 - Best fitness seen: 0.86 - Average fitness: 0.6 - Generations without fitness improvement: 8 - Population size: 60
+Generation: 21 - Old best fitness: 0.83 - Best fitness: 0.83 - Best fitness seen: 0.87 - Average fitness: 0.75 - Generations without fitness improvement: 18 - Population size: 20
 ------------------------ GENERATION STATS ------------------------
-Generation: 22 - Old best fitness: 0.81 - Best fitness: 0.81 - Best fitness seen: 0.86 - Average fitness: 0.74 - Generations without fitness improvement: 9 - Population size: 48
+Generation: 22 - Old best fitness: 0.76 - Best fitness: 0.76 - Best fitness seen: 0.87 - Average fitness: 0.74 - Generations without fitness improvement: 19 - Population size: 9
 ------------------------ GENERATION STATS ------------------------
-Generation: 23 - Old best fitness: 0.82 - Best fitness: 0.82 - Best fitness seen: 0.86 - Average fitness: 0.71 - Generations without fitness improvement: 10 - Population size: 46
+Generation: 23 - Old best fitness: 0.76 - Best fitness: 0.76 - Best fitness seen: 0.87 - Average fitness: 0.76 - Generations without fitness improvement: 20 - Population size: 2
 ------------------------ GENERATION STATS ------------------------
-Generation: 24 - Old best fitness: 0.82 - Best fitness: 0.82 - Best fitness seen: 0.86 - Average fitness: 0.59 - Generations without fitness improvement: 11 - Population size: 37
+Generation: 24 - Old best fitness: 0.57 - Best fitness: 0.57 - Best fitness seen: 0.87 - Average fitness: 0.54 - Generations without fitness improvement: 21 - Population size: 2
 ------------------------ GENERATION STATS ------------------------
-Generation: 25 - Old best fitness: 0.82 - Best fitness: 0.82 - Best fitness seen: 0.86 - Average fitness: 0.63 - Generations without fitness improvement: 12 - Population size: 31
+Generation: 25 - Old best fitness: 0.57 - Best fitness: 0.57 - Best fitness seen: 0.87 - Average fitness: 0.57 - Generations without fitness improvement: 22 - Population size: 2
 ------------------------ GENERATION STATS ------------------------
-Generation: 26 - Old best fitness: 0.8 - Best fitness: 0.8 - Best fitness seen: 0.86 - Average fitness: 0.66 - Generations without fitness improvement: 13 - Population size: 25
+Generation: 26 - Old best fitness: 0.57 - Best fitness: 0.57 - Best fitness seen: 0.87 - Average fitness: 0.54 - Generations without fitness improvement: 23 - Population size: 2
 ------------------------ GENERATION STATS ------------------------
-Generation: 27 - Old best fitness: 0.81 - Best fitness: 0.81 - Best fitness seen: 0.86 - Average fitness: 0.69 - Generations without fitness improvement: 14 - Population size: 31
+Generation: 27 - Old best fitness: 0.57 - Best fitness: 0.57 - Best fitness seen: 0.87 - Average fitness: 0.57 - Generations without fitness improvement: 24 - Population size: 2
 ------------------------ GENERATION STATS ------------------------
-Generation: 28 - Old best fitness: 0.81 - Best fitness: 0.81 - Best fitness seen: 0.86 - Average fitness: 0.77 - Generations without fitness improvement: 15 - Population size: 26
+Generation: 28 - Old best fitness: 0.57 - Best fitness: 0.57 - Best fitness seen: 0.87 - Average fitness: 0.56 - Generations without fitness improvement: 25 - Population size: 2
 ------------------------ GENERATION STATS ------------------------
-Generation: 29 - Old best fitness: 0.8 - Best fitness: 0.8 - Best fitness seen: 0.86 - Average fitness: 0.78 - Generations without fitness improvement: 16 - Population size: 6
+Generation: 29 - Old best fitness: 0.57 - Best fitness: 0.57 - Best fitness seen: 0.87 - Average fitness: 0.56 - Generations without fitness improvement: 26 - Population size: 2
 ------------------------ GENERATION STATS ------------------------
-Generation: 30 - Old best fitness: 0.8 - Best fitness: 0.8 - Best fitness seen: 0.86 - Average fitness: 0.79 - Generations without fitness improvement: 17 - Population size: 2
+Generation: 30 - Old best fitness: 0.57 - Best fitness: 0.57 - Best fitness seen: 0.87 - Average fitness: 0.56 - Generations without fitness improvement: 27 - Population size: 2
 ------------------------ GENERATION STATS ------------------------
-Generation: 31 - Old best fitness: 0.8 - Best fitness: 0.8 - Best fitness seen: 0.86 - Average fitness: 0.79 - Generations without fitness improvement: 18 - Population size: 2
+Generation: 31 - Old best fitness: 0.57 - Best fitness: 0.57 - Best fitness seen: 0.87 - Average fitness: 0.56 - Generations without fitness improvement: 28 - Population size: 2
 ------------------------ GENERATION STATS ------------------------
-Generation: 32 - Old best fitness: 0.8 - Best fitness: 0.8 - Best fitness seen: 0.86 - Average fitness: 0.8 - Generations without fitness improvement: 19 - Population size: 2
+Generation: 32 - Old best fitness: 0.57 - Best fitness: 0.57 - Best fitness seen: 0.87 - Average fitness: 0.57 - Generations without fitness improvement: 29 - Population size: 2
 ------------------------ GENERATION STATS ------------------------
-Generation: 33 - Old best fitness: 0.56 - Best fitness: 0.56 - Best fitness seen: 0.86 - Average fitness: 0.56 - Generations without fitness improvement: 20 - Population size: 2
+Generation: 33 - Old best fitness: 0.55 - Best fitness: 0.55 - Best fitness seen: 0.87 - Average fitness: 0.55 - Generations without fitness improvement: 30 - Population size: 2
 ------------------------ GENERATION STATS ------------------------
-Generation: 34 - Old best fitness: 0.56 - Best fitness: 0.56 - Best fitness seen: 0.86 - Average fitness: 0.56 - Generations without fitness improvement: 21 - Population size: 2
+Generation: 34 - Old best fitness: 0.75 - Best fitness: 0.75 - Best fitness seen: 0.87 - Average fitness: 0.6 - Generations without fitness improvement: 31 - Population size: 13
 ------------------------ GENERATION STATS ------------------------
-Generation: 35 - Old best fitness: 0.56 - Best fitness: 0.56 - Best fitness seen: 0.86 - Average fitness: 0.53 - Generations without fitness improvement: 22 - Population size: 2
+Generation: 35 - Old best fitness: 0.78 - Best fitness: 0.78 - Best fitness seen: 0.87 - Average fitness: 0.61 - Generations without fitness improvement: 32 - Population size: 24
 ------------------------ GENERATION STATS ------------------------
-Generation: 36 - Old best fitness: 0.56 - Best fitness: 0.56 - Best fitness seen: 0.86 - Average fitness: 0.56 - Generations without fitness improvement: 23 - Population size: 2
+Generation: 36 - Old best fitness: 0.8 - Best fitness: 0.8 - Best fitness seen: 0.87 - Average fitness: 0.65 - Generations without fitness improvement: 33 - Population size: 33
 ------------------------ GENERATION STATS ------------------------
-Generation: 37 - Old best fitness: 0.54 - Best fitness: 0.54 - Best fitness seen: 0.86 - Average fitness: 0.52 - Generations without fitness improvement: 24 - Population size: 2
+Generation: 37 - Old best fitness: 0.86 - Best fitness: 0.86 - Best fitness seen: 0.87 - Average fitness: 0.64 - Generations without fitness improvement: 34 - Population size: 66
 ------------------------ GENERATION STATS ------------------------
-Generation: 38 - Old best fitness: 0.54 - Best fitness: 0.54 - Best fitness seen: 0.86 - Average fitness: 0.52 - Generations without fitness improvement: 25 - Population size: 2
+Generation: 38 - Old best fitness: 0.83 - Best fitness: 0.83 - Best fitness seen: 0.87 - Average fitness: 0.7 - Generations without fitness improvement: 35 - Population size: 53
 ------------------------ GENERATION STATS ------------------------
-Generation: 39 - Old best fitness: 0.54 - Best fitness: 0.54 - Best fitness seen: 0.86 - Average fitness: 0.52 - Generations without fitness improvement: 26 - Population size: 2
+Generation: 39 - Old best fitness: 0.84 - Best fitness: 0.84 - Best fitness seen: 0.87 - Average fitness: 0.69 - Generations without fitness improvement: 36 - Population size: 56
 ------------------------ GENERATION STATS ------------------------
-Generation: 40 - Old best fitness: 0.54 - Best fitness: 0.54 - Best fitness seen: 0.86 - Average fitness: 0.54 - Generations without fitness improvement: 27 - Population size: 2
+Generation: 40 - Old best fitness: 0.84 - Best fitness: 0.84 - Best fitness seen: 0.87 - Average fitness: 0.73 - Generations without fitness improvement: 37 - Population size: 45
 ------------------------ GENERATION STATS ------------------------
-Generation: 41 - Old best fitness: 0.54 - Best fitness: 0.54 - Best fitness seen: 0.86 - Average fitness: 0.54 - Generations without fitness improvement: 28 - Population size: 2
+Generation: 41 - Old best fitness: 0.83 - Best fitness: 0.83 - Best fitness seen: 0.87 - Average fitness: 0.75 - Generations without fitness improvement: 38 - Population size: 37
 ------------------------ GENERATION STATS ------------------------
-Generation: 42 - Old best fitness: 0.54 - Best fitness: 0.54 - Best fitness seen: 0.86 - Average fitness: 0.54 - Generations without fitness improvement: 29 - Population size: 2
+Generation: 42 - Old best fitness: 0.83 - Best fitness: 0.83 - Best fitness seen: 0.87 - Average fitness: 0.76 - Generations without fitness improvement: 39 - Population size: 31
 ------------------------ GENERATION STATS ------------------------
-Generation: 43 - Old best fitness: 0.54 - Best fitness: 0.54 - Best fitness seen: 0.86 - Average fitness: 0.54 - Generations without fitness improvement: 30 - Population size: 2
+Generation: 43 - Old best fitness: 0.83 - Best fitness: 0.83 - Best fitness seen: 0.87 - Average fitness: 0.78 - Generations without fitness improvement: 40 - Population size: 26
 ------------------------ GENERATION STATS ------------------------
-Generation: 44 - Old best fitness: 0.54 - Best fitness: 0.54 - Best fitness seen: 0.86 - Average fitness: 0.54 - Generations without fitness improvement: 31 - Population size: 2
+Generation: 44 - Old best fitness: 0.83 - Best fitness: 0.83 - Best fitness seen: 0.87 - Average fitness: 0.77 - Generations without fitness improvement: 41 - Population size: 15
 ------------------------ GENERATION STATS ------------------------
-Generation: 45 - Old best fitness: 0.54 - Best fitness: 0.54 - Best fitness seen: 0.86 - Average fitness: 0.54 - Generations without fitness improvement: 32 - Population size: 2
+Generation: 45 - Old best fitness: 0.83 - Best fitness: 0.83 - Best fitness seen: 0.87 - Average fitness: 0.77 - Generations without fitness improvement: 42 - Population size: 7
 ------------------------ GENERATION STATS ------------------------
-Generation: 46 - Old best fitness: 0.54 - Best fitness: 0.54 - Best fitness seen: 0.86 - Average fitness: 0.54 - Generations without fitness improvement: 33 - Population size: 2
+Generation: 46 - Old best fitness: 0.77 - Best fitness: 0.77 - Best fitness seen: 0.87 - Average fitness: 0.76 - Generations without fitness improvement: 43 - Population size: 5
 ------------------------ GENERATION STATS ------------------------
-Generation: 47 - Old best fitness: 0.82 - Best fitness: 0.82 - Best fitness seen: 0.86 - Average fitness: 0.57 - Generations without fitness improvement: 34 - Population size: 143
+Generation: 47 - Old best fitness: 0.76 - Best fitness: 0.76 - Best fitness seen: 0.87 - Average fitness: 0.76 - Generations without fitness improvement: 44 - Population size: 5
 ------------------------ GENERATION STATS ------------------------
-Generation: 48 - Old best fitness: 0.82 - Best fitness: 0.82 - Best fitness seen: 0.86 - Average fitness: 0.63 - Generations without fitness improvement: 35 - Population size: 116
+Generation: 48 - Old best fitness: 0.76 - Best fitness: 0.76 - Best fitness seen: 0.87 - Average fitness: 0.76 - Generations without fitness improvement: 45 - Population size: 5
 ------------------------ GENERATION STATS ------------------------
-Generation: 49 - Old best fitness: 0.81 - Best fitness: 0.81 - Best fitness seen: 0.86 - Average fitness: 0.69 - Generations without fitness improvement: 36 - Population size: 93
+Generation: 49 - Old best fitness: 0.81 - Best fitness: 0.81 - Best fitness seen: 0.87 - Average fitness: 0.64 - Generations without fitness improvement: 46 - Population size: 23
 ------------------------ GENERATION STATS ------------------------
-Generation: 50 - Old best fitness: 0.81 - Best fitness: 0.81 - Best fitness seen: 0.86 - Average fitness: 0.73 - Generations without fitness improvement: 37 - Population size: 76
+Generation: 50 - Old best fitness: 0.81 - Best fitness: 0.81 - Best fitness seen: 0.87 - Average fitness: 0.72 - Generations without fitness improvement: 47 - Population size: 20
 ------------------------ GENERATION STATS ------------------------
-Generation: 51 - Old best fitness: 0.82 - Best fitness: 0.82 - Best fitness seen: 0.86 - Average fitness: 0.73 - Generations without fitness improvement: 38 - Population size: 63
+Generation: 51 - Old best fitness: 0.83 - Best fitness: 0.83 - Best fitness seen: 0.87 - Average fitness: 0.72 - Generations without fitness improvement: 48 - Population size: 31
 ------------------------ GENERATION STATS ------------------------
-Generation: 52 - Old best fitness: 0.81 - Best fitness: 0.81 - Best fitness seen: 0.86 - Average fitness: 0.72 - Generations without fitness improvement: 39 - Population size: 52
+Generation: 52 - Old best fitness: 0.85 - Best fitness: 0.85 - Best fitness seen: 0.87 - Average fitness: 0.71 - Generations without fitness improvement: 49 - Population size: 43
 ------------------------ GENERATION STATS ------------------------
-Generation: 53 - Old best fitness: 0.81 - Best fitness: 0.81 - Best fitness seen: 0.86 - Average fitness: 0.72 - Generations without fitness improvement: 40 - Population size: 42
+Generation: 53 - Old best fitness: 0.85 - Best fitness: 0.85 - Best fitness seen: 0.87 - Average fitness: 0.79 - Generations without fitness improvement: 50 - Population size: 36
 ------------------------ GENERATION STATS ------------------------
-Generation: 54 - Old best fitness: 0.81 - Best fitness: 0.81 - Best fitness seen: 0.86 - Average fitness: 0.72 - Generations without fitness improvement: 41 - Population size: 28
+Generation: 54 - Old best fitness: 0.85 - Best fitness: 0.85 - Best fitness seen: 0.87 - Average fitness: 0.79 - Generations without fitness improvement: 51 - Population size: 29
 ------------------------ GENERATION STATS ------------------------
-Generation: 55 - Old best fitness: 0.81 - Best fitness: 0.81 - Best fitness seen: 0.86 - Average fitness: 0.73 - Generations without fitness improvement: 42 - Population size: 14
+Generation: 55 - Old best fitness: 0.85 - Best fitness: 0.85 - Best fitness seen: 0.87 - Average fitness: 0.8 - Generations without fitness improvement: 52 - Population size: 22
 ------------------------ GENERATION STATS ------------------------
-Generation: 56 - Old best fitness: 0.81 - Best fitness: 0.81 - Best fitness seen: 0.86 - Average fitness: 0.73 - Generations without fitness improvement: 43 - Population size: 10
+Generation: 56 - Old best fitness: 0.85 - Best fitness: 0.85 - Best fitness seen: 0.87 - Average fitness: 0.82 - Generations without fitness improvement: 53 - Population size: 18
 ------------------------ GENERATION STATS ------------------------
-Generation: 57 - Old best fitness: 0.73 - Best fitness: 0.73 - Best fitness seen: 0.86 - Average fitness: 0.71 - Generations without fitness improvement: 44 - Population size: 6
+Generation: 57 - Old best fitness: 0.85 - Best fitness: 0.85 - Best fitness seen: 0.87 - Average fitness: 0.82 - Generations without fitness improvement: 54 - Population size: 11
 ------------------------ GENERATION STATS ------------------------
-Generation: 58 - Old best fitness: 0.72 - Best fitness: 0.72 - Best fitness seen: 0.86 - Average fitness: 0.71 - Generations without fitness improvement: 45 - Population size: 4
+Generation: 58 - Old best fitness: 0.85 - Best fitness: 0.85 - Best fitness seen: 0.87 - Average fitness: 0.82 - Generations without fitness improvement: 55 - Population size: 10
 ------------------------ GENERATION STATS ------------------------
-Generation: 59 - Old best fitness: 0.75 - Best fitness: 0.75 - Best fitness seen: 0.86 - Average fitness: 0.62 - Generations without fitness improvement: 46 - Population size: 14
+Generation: 59 - Old best fitness: 0.85 - Best fitness: 0.85 - Best fitness seen: 0.87 - Average fitness: 0.82 - Generations without fitness improvement: 56 - Population size: 6
 ------------------------ GENERATION STATS ------------------------
-Generation: 60 - Old best fitness: 0.78 - Best fitness: 0.78 - Best fitness seen: 0.86 - Average fitness: 0.6 - Generations without fitness improvement: 47 - Population size: 24
+Generation: 60 - Old best fitness: 0.81 - Best fitness: 0.81 - Best fitness seen: 0.87 - Average fitness: 0.81 - Generations without fitness improvement: 57 - Population size: 5
 ------------------------ GENERATION STATS ------------------------
-Generation: 61 - Old best fitness: 0.82 - Best fitness: 0.82 - Best fitness seen: 0.86 - Average fitness: 0.59 - Generations without fitness improvement: 48 - Population size: 47
+Generation: 61 - Old best fitness: 0.81 - Best fitness: 0.81 - Best fitness seen: 0.87 - Average fitness: 0.69 - Generations without fitness improvement: 58 - Population size: 9
 ------------------------ GENERATION STATS ------------------------
-Generation: 62 - Old best fitness: 0.84 - Best fitness: 0.84 - Best fitness seen: 0.86 - Average fitness: 0.62 - Generations without fitness improvement: 49 - Population size: 58
+Generation: 62 - Old best fitness: 0.82 - Best fitness: 0.82 - Best fitness seen: 0.87 - Average fitness: 0.73 - Generations without fitness improvement: 59 - Population size: 15
 ------------------------ GENERATION STATS ------------------------
-Generation: 63 - Old best fitness: 0.81 - Best fitness: 0.81 - Best fitness seen: 0.86 - Average fitness: 0.68 - Generations without fitness improvement: 50 - Population size: 47
+Generation: 63 - Old best fitness: 0.8 - Best fitness: 0.8 - Best fitness seen: 0.87 - Average fitness: 0.78 - Generations without fitness improvement: 60 - Population size: 13
 ------------------------ GENERATION STATS ------------------------
-Generation: 64 - Old best fitness: 0.79 - Best fitness: 0.79 - Best fitness seen: 0.86 - Average fitness: 0.7 - Generations without fitness improvement: 51 - Population size: 39
+Generation: 64 - Old best fitness: 0.8 - Best fitness: 0.8 - Best fitness seen: 0.87 - Average fitness: 0.73 - Generations without fitness improvement: 61 - Population size: 10
 ------------------------ GENERATION STATS ------------------------
-Generation: 65 - Old best fitness: 0.78 - Best fitness: 0.78 - Best fitness seen: 0.86 - Average fitness: 0.68 - Generations without fitness improvement: 52 - Population size: 32
+Generation: 65 - Old best fitness: 0.8 - Best fitness: 0.8 - Best fitness seen: 0.87 - Average fitness: 0.73 - Generations without fitness improvement: 62 - Population size: 8
 ------------------------ GENERATION STATS ------------------------
-Generation: 66 - Old best fitness: 0.76 - Best fitness: 0.76 - Best fitness seen: 0.86 - Average fitness: 0.71 - Generations without fitness improvement: 53 - Population size: 24
+Generation: 66 - Old best fitness: 0.77 - Best fitness: 0.77 - Best fitness seen: 0.87 - Average fitness: 0.74 - Generations without fitness improvement: 63 - Population size: 7
 ------------------------ GENERATION STATS ------------------------
-Generation: 67 - Old best fitness: 0.81 - Best fitness: 0.81 - Best fitness seen: 0.86 - Average fitness: 0.64 - Generations without fitness improvement: 54 - Population size: 52
+Generation: 67 - Old best fitness: 0.79 - Best fitness: 0.79 - Best fitness seen: 0.87 - Average fitness: 0.65 - Generations without fitness improvement: 64 - Population size: 19
 ------------------------ GENERATION STATS ------------------------
-Generation: 68 - Old best fitness: 0.81 - Best fitness: 0.81 - Best fitness seen: 0.86 - Average fitness: 0.62 - Generations without fitness improvement: 55 - Population size: 42
+Generation: 68 - Old best fitness: 0.79 - Best fitness: 0.79 - Best fitness seen: 0.87 - Average fitness: 0.76 - Generations without fitness improvement: 65 - Population size: 16
 ------------------------ GENERATION STATS ------------------------
-Generation: 69 - Old best fitness: 0.81 - Best fitness: 0.81 - Best fitness seen: 0.86 - Average fitness: 0.65 - Generations without fitness improvement: 56 - Population size: 34
+Generation: 69 - Old best fitness: 0.81 - Best fitness: 0.81 - Best fitness seen: 0.87 - Average fitness: 0.69 - Generations without fitness improvement: 66 - Population size: 24
 ------------------------ GENERATION STATS ------------------------
-Generation: 70 - Old best fitness: 0.77 - Best fitness: 0.77 - Best fitness seen: 0.86 - Average fitness: 0.63 - Generations without fitness improvement: 57 - Population size: 28
+Generation: 70 - Old best fitness: 0.89 - Best fitness: 0.89 - Best fitness seen: 0.89 - Average fitness: 0.64 - Generations without fitness improvement: 0 - Population size: 68
 ------------------------ GENERATION STATS ------------------------
-Generation: 71 - Old best fitness: 0.77 - Best fitness: 0.77 - Best fitness seen: 0.86 - Average fitness: 0.63 - Generations without fitness improvement: 58 - Population size: 23
+Generation: 71 - Old best fitness: 0.87 - Best fitness: 0.87 - Best fitness seen: 0.89 - Average fitness: 0.71 - Generations without fitness improvement: 1 - Population size: 55
 ------------------------ GENERATION STATS ------------------------
-Generation: 72 - Old best fitness: 0.77 - Best fitness: 0.77 - Best fitness seen: 0.86 - Average fitness: 0.6 - Generations without fitness improvement: 59 - Population size: 20
+Generation: 72 - Old best fitness: 0.85 - Best fitness: 0.85 - Best fitness seen: 0.89 - Average fitness: 0.75 - Generations without fitness improvement: 2 - Population size: 45
 ------------------------ GENERATION STATS ------------------------
-Generation: 73 - Old best fitness: 0.72 - Best fitness: 0.72 - Best fitness seen: 0.86 - Average fitness: 0.55 - Generations without fitness improvement: 60 - Population size: 20
+Generation: 73 - Old best fitness: 0.89 - Best fitness: 0.89 - Best fitness seen: 0.89 - Average fitness: 0.69 - Generations without fitness improvement: 3 - Population size: 63
 ------------------------ GENERATION STATS ------------------------
-Generation: 74 - Old best fitness: 0.72 - Best fitness: 0.72 - Best fitness seen: 0.86 - Average fitness: 0.6 - Generations without fitness improvement: 61 - Population size: 16
+Generation: 74 - Old best fitness: 0.85 - Best fitness: 0.85 - Best fitness seen: 0.89 - Average fitness: 0.74 - Generations without fitness improvement: 4 - Population size: 52
 ------------------------ GENERATION STATS ------------------------
-Generation: 75 - Old best fitness: 0.78 - Best fitness: 0.78 - Best fitness seen: 0.86 - Average fitness: 0.61 - Generations without fitness improvement: 62 - Population size: 42
+Generation: 75 - Old best fitness: 0.85 - Best fitness: 0.85 - Best fitness seen: 0.89 - Average fitness: 0.77 - Generations without fitness improvement: 5 - Population size: 42
 ------------------------ GENERATION STATS ------------------------
-Generation: 76 - Old best fitness: 0.82 - Best fitness: 0.82 - Best fitness seen: 0.86 - Average fitness: 0.62 - Generations without fitness improvement: 63 - Population size: 64
+Generation: 76 - Old best fitness: 0.87 - Best fitness: 0.87 - Best fitness seen: 0.89 - Average fitness: 0.75 - Generations without fitness improvement: 6 - Population size: 46
 ------------------------ GENERATION STATS ------------------------
-Generation: 77 - Old best fitness: 0.82 - Best fitness: 0.82 - Best fitness seen: 0.86 - Average fitness: 0.65 - Generations without fitness improvement: 64 - Population size: 52
+Generation: 77 - Old best fitness: 0.89 - Best fitness: 0.89 - Best fitness seen: 0.89 - Average fitness: 0.73 - Generations without fitness improvement: 7 - Population size: 54
 ------------------------ GENERATION STATS ------------------------
-Generation: 78 - Old best fitness: 0.81 - Best fitness: 0.81 - Best fitness seen: 0.86 - Average fitness: 0.7 - Generations without fitness improvement: 65 - Population size: 42
+Generation: 78 - Old best fitness: 0.83 - Best fitness: 0.83 - Best fitness seen: 0.89 - Average fitness: 0.7 - Generations without fitness improvement: 8 - Population size: 44
 ------------------------ GENERATION STATS ------------------------
-Generation: 79 - Old best fitness: 0.79 - Best fitness: 0.79 - Best fitness seen: 0.86 - Average fitness: 0.73 - Generations without fitness improvement: 66 - Population size: 34
+Generation: 79 - Old best fitness: 0.85 - Best fitness: 0.85 - Best fitness seen: 0.89 - Average fitness: 0.68 - Generations without fitness improvement: 9 - Population size: 51
 ------------------------ GENERATION STATS ------------------------
-Generation: 80 - Old best fitness: 0.8 - Best fitness: 0.8 - Best fitness seen: 0.86 - Average fitness: 0.72 - Generations without fitness improvement: 67 - Population size: 34
+Generation: 80 - Old best fitness: 0.87 - Best fitness: 0.87 - Best fitness seen: 0.89 - Average fitness: 0.66 - Generations without fitness improvement: 10 - Population size: 57
 ------------------------ GENERATION STATS ------------------------
-Generation: 81 - Old best fitness: 0.79 - Best fitness: 0.79 - Best fitness seen: 0.86 - Average fitness: 0.72 - Generations without fitness improvement: 68 - Population size: 28
+Generation: 81 - Old best fitness: 0.83 - Best fitness: 0.83 - Best fitness seen: 0.89 - Average fitness: 0.67 - Generations without fitness improvement: 11 - Population size: 47
 ------------------------ GENERATION STATS ------------------------
-Generation: 82 - Old best fitness: 0.79 - Best fitness: 0.79 - Best fitness seen: 0.86 - Average fitness: 0.7 - Generations without fitness improvement: 69 - Population size: 23
+Generation: 82 - Old best fitness: 0.83 - Best fitness: 0.83 - Best fitness seen: 0.89 - Average fitness: 0.65 - Generations without fitness improvement: 12 - Population size: 39
 ------------------------ GENERATION STATS ------------------------
-Generation: 83 - Old best fitness: 0.77 - Best fitness: 0.77 - Best fitness seen: 0.86 - Average fitness: 0.69 - Generations without fitness improvement: 70 - Population size: 18
+Generation: 83 - Old best fitness: 0.85 - Best fitness: 0.85 - Best fitness seen: 0.89 - Average fitness: 0.68 - Generations without fitness improvement: 13 - Population size: 50
 ------------------------ GENERATION STATS ------------------------
-Generation: 84 - Old best fitness: 0.77 - Best fitness: 0.77 - Best fitness seen: 0.86 - Average fitness: 0.7 - Generations without fitness improvement: 71 - Population size: 13
+Generation: 84 - Old best fitness: 0.85 - Best fitness: 0.85 - Best fitness seen: 0.89 - Average fitness: 0.77 - Generations without fitness improvement: 14 - Population size: 40
 ------------------------ GENERATION STATS ------------------------
-Generation: 85 - Old best fitness: 0.77 - Best fitness: 0.77 - Best fitness seen: 0.86 - Average fitness: 0.72 - Generations without fitness improvement: 72 - Population size: 9
+Generation: 85 - Old best fitness: 0.85 - Best fitness: 0.85 - Best fitness seen: 0.89 - Average fitness: 0.78 - Generations without fitness improvement: 15 - Population size: 32
 ------------------------ GENERATION STATS ------------------------
-Generation: 86 - Old best fitness: 0.74 - Best fitness: 0.74 - Best fitness seen: 0.86 - Average fitness: 0.67 - Generations without fitness improvement: 73 - Population size: 6
+Generation: 86 - Old best fitness: 0.85 - Best fitness: 0.85 - Best fitness seen: 0.89 - Average fitness: 0.81 - Generations without fitness improvement: 16 - Population size: 26
 ------------------------ GENERATION STATS ------------------------
-Generation: 87 - Old best fitness: 0.74 - Best fitness: 0.74 - Best fitness seen: 0.86 - Average fitness: 0.73 - Generations without fitness improvement: 74 - Population size: 5
+Generation: 87 - Old best fitness: 0.87 - Best fitness: 0.87 - Best fitness seen: 0.89 - Average fitness: 0.74 - Generations without fitness improvement: 17 - Population size: 34
 ------------------------ GENERATION STATS ------------------------
-Generation: 88 - Old best fitness: 0.77 - Best fitness: 0.77 - Best fitness seen: 0.86 - Average fitness: 0.68 - Generations without fitness improvement: 75 - Population size: 11
+Generation: 88 - Old best fitness: 0.85 - Best fitness: 0.85 - Best fitness seen: 0.89 - Average fitness: 0.81 - Generations without fitness improvement: 18 - Population size: 28
 ------------------------ GENERATION STATS ------------------------
-Generation: 89 - Old best fitness: 0.79 - Best fitness: 0.79 - Best fitness seen: 0.86 - Average fitness: 0.64 - Generations without fitness improvement: 76 - Population size: 23
+Generation: 89 - Old best fitness: 0.85 - Best fitness: 0.85 - Best fitness seen: 0.89 - Average fitness: 0.77 - Generations without fitness improvement: 19 - Population size: 22
 ------------------------ GENERATION STATS ------------------------
-Generation: 90 - Old best fitness: 0.79 - Best fitness: 0.79 - Best fitness seen: 0.86 - Average fitness: 0.72 - Generations without fitness improvement: 77 - Population size: 20
+Generation: 90 - Old best fitness: 0.75 - Best fitness: 0.75 - Best fitness seen: 0.89 - Average fitness: 0.75 - Generations without fitness improvement: 20 - Population size: 15
 ------------------------ GENERATION STATS ------------------------
-Generation: 91 - Old best fitness: 0.77 - Best fitness: 0.77 - Best fitness seen: 0.86 - Average fitness: 0.73 - Generations without fitness improvement: 78 - Population size: 16
+Generation: 91 - Old best fitness: 0.79 - Best fitness: 0.79 - Best fitness seen: 0.89 - Average fitness: 0.67 - Generations without fitness improvement: 21 - Population size: 37
 ------------------------ GENERATION STATS ------------------------
-Generation: 92 - Old best fitness: 0.77 - Best fitness: 0.77 - Best fitness seen: 0.86 - Average fitness: 0.72 - Generations without fitness improvement: 79 - Population size: 13
+Generation: 92 - Old best fitness: 0.85 - Best fitness: 0.85 - Best fitness seen: 0.89 - Average fitness: 0.67 - Generations without fitness improvement: 22 - Population size: 70
 ------------------------ GENERATION STATS ------------------------
-Generation: 93 - Old best fitness: 0.77 - Best fitness: 0.77 - Best fitness seen: 0.86 - Average fitness: 0.73 - Generations without fitness improvement: 80 - Population size: 12
+Generation: 93 - Old best fitness: 0.83 - Best fitness: 0.83 - Best fitness seen: 0.89 - Average fitness: 0.7 - Generations without fitness improvement: 23 - Population size: 56
 ------------------------ GENERATION STATS ------------------------
-Generation: 94 - Old best fitness: 0.75 - Best fitness: 0.75 - Best fitness seen: 0.86 - Average fitness: 0.73 - Generations without fitness improvement: 81 - Population size: 8
+Generation: 94 - Old best fitness: 0.82 - Best fitness: 0.82 - Best fitness seen: 0.89 - Average fitness: 0.68 - Generations without fitness improvement: 24 - Population size: 45
 ------------------------ GENERATION STATS ------------------------
-Generation: 95 - Old best fitness: 0.77 - Best fitness: 0.77 - Best fitness seen: 0.86 - Average fitness: 0.61 - Generations without fitness improvement: 82 - Population size: 14
+Generation: 95 - Old best fitness: 0.81 - Best fitness: 0.81 - Best fitness seen: 0.89 - Average fitness: 0.73 - Generations without fitness improvement: 25 - Population size: 37
 ------------------------ GENERATION STATS ------------------------
-Generation: 96 - Old best fitness: 0.79 - Best fitness: 0.79 - Best fitness seen: 0.86 - Average fitness: 0.64 - Generations without fitness improvement: 83 - Population size: 25
+Generation: 96 - Old best fitness: 0.79 - Best fitness: 0.79 - Best fitness seen: 0.89 - Average fitness: 0.71 - Generations without fitness improvement: 26 - Population size: 31
 ------------------------ GENERATION STATS ------------------------
-Generation: 97 - Old best fitness: 0.8 - Best fitness: 0.8 - Best fitness seen: 0.86 - Average fitness: 0.66 - Generations without fitness improvement: 84 - Population size: 31
+Generation: 97 - Old best fitness: 0.76 - Best fitness: 0.76 - Best fitness seen: 0.89 - Average fitness: 0.74 - Generations without fitness improvement: 27 - Population size: 26
 ------------------------ GENERATION STATS ------------------------
-Generation: 98 - Old best fitness: 0.81 - Best fitness: 0.81 - Best fitness seen: 0.86 - Average fitness: 0.69 - Generations without fitness improvement: 85 - Population size: 37
+Generation: 98 - Old best fitness: 0.81 - Best fitness: 0.81 - Best fitness seen: 0.89 - Average fitness: 0.66 - Generations without fitness improvement: 28 - Population size: 45
 ------------------------ GENERATION STATS ------------------------
-Generation: 99 - Old best fitness: 0.81 - Best fitness: 0.81 - Best fitness seen: 0.86 - Average fitness: 0.73 - Generations without fitness improvement: 86 - Population size: 31
+Generation: 99 - Old best fitness: 0.8 - Best fitness: 0.8 - Best fitness seen: 0.89 - Average fitness: 0.72 - Generations without fitness improvement: 29 - Population size: 37
 ------------------------ GENERATION STATS ------------------------
-Generation: 100 - Old best fitness: 0.81 - Best fitness: 0.81 - Best fitness seen: 0.86 - Average fitness: 0.73 - Generations without fitness improvement: 87 - Population size: 26
+Generation: 100 - Old best fitness: 0.82 - Best fitness: 0.82 - Best fitness seen: 0.89 - Average fitness: 0.69 - Generations without fitness improvement: 30 - Population size: 42
 ------------------------ GENERATION STATS ------------------------
-Generation: 101 - Old best fitness: 0.81 - Best fitness: 0.81 - Best fitness seen: 0.86 - Average fitness: 0.73 - Generations without fitness improvement: 88 - Population size: 17
+Generation: 101 - Old best fitness: 0.8 - Best fitness: 0.8 - Best fitness seen: 0.89 - Average fitness: 0.73 - Generations without fitness improvement: 31 - Population size: 34
 ------------------------ GENERATION STATS ------------------------
-Generation: 102 - Old best fitness: 0.79 - Best fitness: 0.79 - Best fitness seen: 0.86 - Average fitness: 0.71 - Generations without fitness improvement: 89 - Population size: 14
+Generation: 102 - Old best fitness: 0.82 - Best fitness: 0.82 - Best fitness seen: 0.89 - Average fitness: 0.68 - Generations without fitness improvement: 32 - Population size: 42
 ------------------------ GENERATION STATS ------------------------
-Generation: 103 - Old best fitness: 0.82 - Best fitness: 0.82 - Best fitness seen: 0.86 - Average fitness: 0.64 - Generations without fitness improvement: 90 - Population size: 28
+Generation: 103 - Old best fitness: 0.81 - Best fitness: 0.81 - Best fitness seen: 0.89 - Average fitness: 0.74 - Generations without fitness improvement: 33 - Population size: 34
 ------------------------ GENERATION STATS ------------------------
-Generation: 104 - Old best fitness: 0.81 - Best fitness: 0.81 - Best fitness seen: 0.86 - Average fitness: 0.65 - Generations without fitness improvement: 91 - Population size: 23
+Generation: 104 - Old best fitness: 0.81 - Best fitness: 0.81 - Best fitness seen: 0.89 - Average fitness: 0.69 - Generations without fitness improvement: 34 - Population size: 28
 ------------------------ GENERATION STATS ------------------------
-Generation: 105 - Old best fitness: 0.81 - Best fitness: 0.81 - Best fitness seen: 0.86 - Average fitness: 0.64 - Generations without fitness improvement: 92 - Population size: 20
+Generation: 105 - Old best fitness: 0.81 - Best fitness: 0.81 - Best fitness seen: 0.89 - Average fitness: 0.73 - Generations without fitness improvement: 35 - Population size: 23
 ------------------------ GENERATION STATS ------------------------
-Generation: 106 - Old best fitness: 0.81 - Best fitness: 0.81 - Best fitness seen: 0.86 - Average fitness: 0.68 - Generations without fitness improvement: 93 - Population size: 16
+Generation: 106 - Old best fitness: 0.83 - Best fitness: 0.83 - Best fitness seen: 0.89 - Average fitness: 0.7 - Generations without fitness improvement: 36 - Population size: 31
 ------------------------ GENERATION STATS ------------------------
-Generation: 107 - Old best fitness: 0.73 - Best fitness: 0.73 - Best fitness seen: 0.86 - Average fitness: 0.7 - Generations without fitness improvement: 94 - Population size: 11
+Generation: 107 - Old best fitness: 0.77 - Best fitness: 0.77 - Best fitness seen: 0.89 - Average fitness: 0.59 - Generations without fitness improvement: 37 - Population size: 26
 ------------------------ GENERATION STATS ------------------------
-Generation: 108 - Old best fitness: 0.73 - Best fitness: 0.73 - Best fitness seen: 0.86 - Average fitness: 0.71 - Generations without fitness improvement: 95 - Population size: 10
+Generation: 108 - Old best fitness: 0.79 - Best fitness: 0.79 - Best fitness seen: 0.89 - Average fitness: 0.58 - Generations without fitness improvement: 38 - Population size: 29
 ------------------------ GENERATION STATS ------------------------
-Generation: 109 - Old best fitness: 0.81 - Best fitness: 0.81 - Best fitness seen: 0.86 - Average fitness: 0.58 - Generations without fitness improvement: 96 - Population size: 54
+Generation: 109 - Old best fitness: 0.83 - Best fitness: 0.83 - Best fitness seen: 0.89 - Average fitness: 0.64 - Generations without fitness improvement: 39 - Population size: 40
 ------------------------ GENERATION STATS ------------------------
-Generation: 110 - Old best fitness: 0.75 - Best fitness: 0.75 - Best fitness seen: 0.86 - Average fitness: 0.64 - Generations without fitness improvement: 97 - Population size: 44
+Generation: 110 - Old best fitness: 0.83 - Best fitness: 0.83 - Best fitness seen: 0.89 - Average fitness: 0.72 - Generations without fitness improvement: 40 - Population size: 32
 ------------------------ GENERATION STATS ------------------------
-Generation: 111 - Old best fitness: 0.74 - Best fitness: 0.74 - Best fitness seen: 0.86 - Average fitness: 0.62 - Generations without fitness improvement: 98 - Population size: 30
+Generation: 111 - Old best fitness: 0.83 - Best fitness: 0.83 - Best fitness seen: 0.89 - Average fitness: 0.76 - Generations without fitness improvement: 41 - Population size: 26
 ------------------------ GENERATION STATS ------------------------
-Generation: 112 - Old best fitness: 0.79 - Best fitness: 0.79 - Best fitness seen: 0.86 - Average fitness: 0.58 - Generations without fitness improvement: 99 - Population size: 41
+Generation: 112 - Old best fitness: 0.87 - Best fitness: 0.87 - Best fitness seen: 0.89 - Average fitness: 0.67 - Generations without fitness improvement: 42 - Population size: 40
 ------------------------ GENERATION STATS ------------------------
-Generation: 113 - Old best fitness: 0.79 - Best fitness: 0.79 - Best fitness seen: 0.86 - Average fitness: 0.65 - Generations without fitness improvement: 100 - Population size: 34
+Generation: 113 - Old best fitness: 0.87 - Best fitness: 0.87 - Best fitness seen: 0.89 - Average fitness: 0.71 - Generations without fitness improvement: 43 - Population size: 32
+------------------------ GENERATION STATS ------------------------
+Generation: 114 - Old best fitness: 0.87 - Best fitness: 0.87 - Best fitness seen: 0.89 - Average fitness: 0.77 - Generations without fitness improvement: 44 - Population size: 26
+------------------------ GENERATION STATS ------------------------
+Generation: 115 - Old best fitness: 0.82 - Best fitness: 0.82 - Best fitness seen: 0.89 - Average fitness: 0.77 - Generations without fitness improvement: 45 - Population size: 21
+------------------------ GENERATION STATS ------------------------
+Generation: 116 - Old best fitness: 0.84 - Best fitness: 0.84 - Best fitness seen: 0.89 - Average fitness: 0.73 - Generations without fitness improvement: 46 - Population size: 32
+------------------------ GENERATION STATS ------------------------
+Generation: 117 - Old best fitness: 0.84 - Best fitness: 0.84 - Best fitness seen: 0.89 - Average fitness: 0.75 - Generations without fitness improvement: 47 - Population size: 25
+------------------------ GENERATION STATS ------------------------
+Generation: 118 - Old best fitness: 0.85 - Best fitness: 0.85 - Best fitness seen: 0.89 - Average fitness: 0.71 - Generations without fitness improvement: 48 - Population size: 31
+------------------------ GENERATION STATS ------------------------
+Generation: 119 - Old best fitness: 0.85 - Best fitness: 0.85 - Best fitness seen: 0.89 - Average fitness: 0.76 - Generations without fitness improvement: 49 - Population size: 26
+------------------------ GENERATION STATS ------------------------
+Generation: 120 - Old best fitness: 0.77 - Best fitness: 0.77 - Best fitness seen: 0.89 - Average fitness: 0.75 - Generations without fitness improvement: 50 - Population size: 14
+------------------------ GENERATION STATS ------------------------
+Generation: 121 - Old best fitness: 0.78 - Best fitness: 0.78 - Best fitness seen: 0.89 - Average fitness: 0.72 - Generations without fitness improvement: 51 - Population size: 16
+------------------------ GENERATION STATS ------------------------
+Generation: 122 - Old best fitness: 0.79 - Best fitness: 0.79 - Best fitness seen: 0.89 - Average fitness: 0.68 - Generations without fitness improvement: 52 - Population size: 21
+------------------------ GENERATION STATS ------------------------
+Generation: 123 - Old best fitness: 0.79 - Best fitness: 0.79 - Best fitness seen: 0.89 - Average fitness: 0.72 - Generations without fitness improvement: 53 - Population size: 18
+------------------------ GENERATION STATS ------------------------
+Generation: 124 - Old best fitness: 0.79 - Best fitness: 0.79 - Best fitness seen: 0.89 - Average fitness: 0.68 - Generations without fitness improvement: 54 - Population size: 15
+------------------------ GENERATION STATS ------------------------
+Generation: 125 - Old best fitness: 0.87 - Best fitness: 0.87 - Best fitness seen: 0.89 - Average fitness: 0.63 - Generations without fitness improvement: 55 - Population size: 58
+------------------------ GENERATION STATS ------------------------
+Generation: 126 - Old best fitness: 0.83 - Best fitness: 0.83 - Best fitness seen: 0.89 - Average fitness: 0.68 - Generations without fitness improvement: 56 - Population size: 47
+------------------------ GENERATION STATS ------------------------
+Generation: 127 - Old best fitness: 0.81 - Best fitness: 0.81 - Best fitness seen: 0.89 - Average fitness: 0.73 - Generations without fitness improvement: 57 - Population size: 39
+------------------------ GENERATION STATS ------------------------
+Generation: 128 - Old best fitness: 0.83 - Best fitness: 0.83 - Best fitness seen: 0.89 - Average fitness: 0.64 - Generations without fitness improvement: 58 - Population size: 47
+------------------------ GENERATION STATS ------------------------
+Generation: 129 - Old best fitness: 0.81 - Best fitness: 0.81 - Best fitness seen: 0.89 - Average fitness: 0.64 - Generations without fitness improvement: 59 - Population size: 39
+------------------------ GENERATION STATS ------------------------
+Generation: 130 - Old best fitness: 0.76 - Best fitness: 0.76 - Best fitness seen: 0.89 - Average fitness: 0.65 - Generations without fitness improvement: 60 - Population size: 32
+------------------------ GENERATION STATS ------------------------
+Generation: 131 - Old best fitness: 0.82 - Best fitness: 0.82 - Best fitness seen: 0.89 - Average fitness: 0.64 - Generations without fitness improvement: 61 - Population size: 59
+------------------------ GENERATION STATS ------------------------
+Generation: 132 - Old best fitness: 0.82 - Best fitness: 0.82 - Best fitness seen: 0.89 - Average fitness: 0.67 - Generations without fitness improvement: 62 - Population size: 48
+------------------------ GENERATION STATS ------------------------
+Generation: 133 - Old best fitness: 0.82 - Best fitness: 0.82 - Best fitness seen: 0.89 - Average fitness: 0.64 - Generations without fitness improvement: 63 - Population size: 32
+------------------------ GENERATION STATS ------------------------
+Generation: 134 - Old best fitness: 0.78 - Best fitness: 0.78 - Best fitness seen: 0.89 - Average fitness: 0.64 - Generations without fitness improvement: 64 - Population size: 26
+------------------------ GENERATION STATS ------------------------
+Generation: 135 - Old best fitness: 0.77 - Best fitness: 0.77 - Best fitness seen: 0.89 - Average fitness: 0.67 - Generations without fitness improvement: 65 - Population size: 21
+------------------------ GENERATION STATS ------------------------
+Generation: 136 - Old best fitness: 0.72 - Best fitness: 0.72 - Best fitness seen: 0.89 - Average fitness: 0.62 - Generations without fitness improvement: 66 - Population size: 13
+------------------------ GENERATION STATS ------------------------
+Generation: 137 - Old best fitness: 0.68 - Best fitness: 0.68 - Best fitness seen: 0.89 - Average fitness: 0.61 - Generations without fitness improvement: 67 - Population size: 14
+------------------------ GENERATION STATS ------------------------
+Generation: 138 - Old best fitness: 0.68 - Best fitness: 0.68 - Best fitness seen: 0.89 - Average fitness: 0.63 - Generations without fitness improvement: 68 - Population size: 12
+------------------------ GENERATION STATS ------------------------
+Generation: 139 - Old best fitness: 0.64 - Best fitness: 0.64 - Best fitness seen: 0.89 - Average fitness: 0.63 - Generations without fitness improvement: 69 - Population size: 7
+------------------------ GENERATION STATS ------------------------
+Generation: 140 - Old best fitness: 0.64 - Best fitness: 0.64 - Best fitness seen: 0.89 - Average fitness: 0.62 - Generations without fitness improvement: 70 - Population size: 6
+------------------------ GENERATION STATS ------------------------
+Generation: 141 - Old best fitness: 0.64 - Best fitness: 0.64 - Best fitness seen: 0.89 - Average fitness: 0.63 - Generations without fitness improvement: 71 - Population size: 5
+------------------------ GENERATION STATS ------------------------
+Generation: 142 - Old best fitness: 0.81 - Best fitness: 0.81 - Best fitness seen: 0.89 - Average fitness: 0.6 - Generations without fitness improvement: 72 - Population size: 16
+------------------------ GENERATION STATS ------------------------
+Generation: 143 - Old best fitness: 0.81 - Best fitness: 0.81 - Best fitness seen: 0.89 - Average fitness: 0.68 - Generations without fitness improvement: 73 - Population size: 13
+------------------------ GENERATION STATS ------------------------
+Generation: 144 - Old best fitness: 0.81 - Best fitness: 0.81 - Best fitness seen: 0.89 - Average fitness: 0.69 - Generations without fitness improvement: 74 - Population size: 12
+------------------------ GENERATION STATS ------------------------
+Generation: 145 - Old best fitness: 0.81 - Best fitness: 0.81 - Best fitness seen: 0.89 - Average fitness: 0.73 - Generations without fitness improvement: 75 - Population size: 10
+------------------------ GENERATION STATS ------------------------
+Generation: 146 - Old best fitness: 0.83 - Best fitness: 0.83 - Best fitness seen: 0.89 - Average fitness: 0.66 - Generations without fitness improvement: 76 - Population size: 18
+------------------------ GENERATION STATS ------------------------
+Generation: 147 - Old best fitness: 0.83 - Best fitness: 0.83 - Best fitness seen: 0.89 - Average fitness: 0.77 - Generations without fitness improvement: 77 - Population size: 15
+------------------------ GENERATION STATS ------------------------
+Generation: 148 - Old best fitness: 0.85 - Best fitness: 0.85 - Best fitness seen: 0.89 - Average fitness: 0.71 - Generations without fitness improvement: 78 - Population size: 25
+------------------------ GENERATION STATS ------------------------
+Generation: 149 - Old best fitness: 0.85 - Best fitness: 0.85 - Best fitness seen: 0.89 - Average fitness: 0.67 - Generations without fitness improvement: 79 - Population size: 21
+------------------------ GENERATION STATS ------------------------
+Generation: 150 - Old best fitness: 0.84 - Best fitness: 0.84 - Best fitness seen: 0.89 - Average fitness: 0.79 - Generations without fitness improvement: 80 - Population size: 18
+------------------------ GENERATION STATS ------------------------
+Generation: 151 - Old best fitness: 0.86 - Best fitness: 0.86 - Best fitness seen: 0.89 - Average fitness: 0.73 - Generations without fitness improvement: 81 - Population size: 28
+------------------------ GENERATION STATS ------------------------
+Generation: 152 - Old best fitness: 0.82 - Best fitness: 0.82 - Best fitness seen: 0.89 - Average fitness: 0.72 - Generations without fitness improvement: 82 - Population size: 23
+------------------------ GENERATION STATS ------------------------
+Generation: 153 - Old best fitness: 0.82 - Best fitness: 0.82 - Best fitness seen: 0.89 - Average fitness: 0.63 - Generations without fitness improvement: 83 - Population size: 20
+------------------------ GENERATION STATS ------------------------
+Generation: 154 - Old best fitness: 0.81 - Best fitness: 0.81 - Best fitness seen: 0.89 - Average fitness: 0.66 - Generations without fitness improvement: 84 - Population size: 16
+------------------------ GENERATION STATS ------------------------
+Generation: 155 - Old best fitness: 0.81 - Best fitness: 0.81 - Best fitness seen: 0.89 - Average fitness: 0.76 - Generations without fitness improvement: 85 - Population size: 13
+------------------------ GENERATION STATS ------------------------
+Generation: 156 - Old best fitness: 0.85 - Best fitness: 0.85 - Best fitness seen: 0.89 - Average fitness: 0.62 - Generations without fitness improvement: 86 - Population size: 25
+------------------------ GENERATION STATS ------------------------
+Generation: 157 - Old best fitness: 0.81 - Best fitness: 0.81 - Best fitness seen: 0.89 - Average fitness: 0.66 - Generations without fitness improvement: 87 - Population size: 21
+------------------------ GENERATION STATS ------------------------
+Generation: 158 - Old best fitness: 0.83 - Best fitness: 0.83 - Best fitness seen: 0.89 - Average fitness: 0.65 - Generations without fitness improvement: 88 - Population size: 32
+------------------------ GENERATION STATS ------------------------
+Generation: 159 - Old best fitness: 0.8 - Best fitness: 0.8 - Best fitness seen: 0.89 - Average fitness: 0.67 - Generations without fitness improvement: 89 - Population size: 26
+------------------------ GENERATION STATS ------------------------
+Generation: 160 - Old best fitness: 0.8 - Best fitness: 0.8 - Best fitness seen: 0.89 - Average fitness: 0.66 - Generations without fitness improvement: 90 - Population size: 21
+------------------------ GENERATION STATS ------------------------
+Generation: 161 - Old best fitness: 0.8 - Best fitness: 0.8 - Best fitness seen: 0.89 - Average fitness: 0.69 - Generations without fitness improvement: 91 - Population size: 18
+------------------------ GENERATION STATS ------------------------
+Generation: 162 - Old best fitness: 0.8 - Best fitness: 0.8 - Best fitness seen: 0.89 - Average fitness: 0.7 - Generations without fitness improvement: 92 - Population size: 15
+------------------------ GENERATION STATS ------------------------
+Generation: 163 - Old best fitness: 0.8 - Best fitness: 0.8 - Best fitness seen: 0.89 - Average fitness: 0.7 - Generations without fitness improvement: 93 - Population size: 13
+------------------------ GENERATION STATS ------------------------
+Generation: 164 - Old best fitness: 0.79 - Best fitness: 0.79 - Best fitness seen: 0.89 - Average fitness: 0.72 - Generations without fitness improvement: 94 - Population size: 11
+------------------------ GENERATION STATS ------------------------
+Generation: 165 - Old best fitness: 0.79 - Best fitness: 0.79 - Best fitness seen: 0.89 - Average fitness: 0.76 - Generations without fitness improvement: 95 - Population size: 10
+------------------------ GENERATION STATS ------------------------
+Generation: 166 - Old best fitness: 0.79 - Best fitness: 0.79 - Best fitness seen: 0.89 - Average fitness: 0.76 - Generations without fitness improvement: 96 - Population size: 8
+------------------------ GENERATION STATS ------------------------
+Generation: 167 - Old best fitness: 0.83 - Best fitness: 0.83 - Best fitness seen: 0.89 - Average fitness: 0.63 - Generations without fitness improvement: 97 - Population size: 27
+------------------------ GENERATION STATS ------------------------
+Generation: 168 - Old best fitness: 0.83 - Best fitness: 0.83 - Best fitness seen: 0.89 - Average fitness: 0.68 - Generations without fitness improvement: 98 - Population size: 23
+------------------------ GENERATION STATS ------------------------
+Generation: 169 - Old best fitness: 0.87 - Best fitness: 0.87 - Best fitness seen: 0.89 - Average fitness: 0.66 - Generations without fitness improvement: 99 - Population size: 44
+------------------------ GENERATION STATS ------------------------
+Generation: 170 - Old best fitness: 0.87 - Best fitness: 0.87 - Best fitness seen: 0.89 - Average fitness: 0.68 - Generations without fitness improvement: 100 - Population size: 36

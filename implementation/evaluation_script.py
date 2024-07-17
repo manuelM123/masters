@@ -60,7 +60,7 @@ def mean_data_methods(genetic_parameters, type_method, number_iterations, type_d
                 element_data = util.read_generations_stats_file_type(parameter + '_' + str(iteration), type_method, json_key)
             if type_data == 'best_fitness' or type_data == 'fitness_values':
                 iteration_data.append(ff.mean_best_fitness(element_data))
-                if max(element_data) >= 0.85:
+                if max(element_data) >= 0.87:
                     success_rate.append([parameter, max(element_data)])
             elif type_data == 'time_execution':
                 iteration_data.append(element_data)
@@ -157,5 +157,3 @@ print('Generations Mean Best Fitness: ' + str(mean_fitness_genetic_algorithm) + 
 print('Time Execution: ' + str(time_execution_genetic_algorithm) + "\n")
 print('Number Generations: ' + str(number_generations_genetic_algorithm) + "\n")
 print('Success Rate: ' + str(success_rate_data) + "\n")
-
-
