@@ -31,10 +31,6 @@ def read_metadata(file):
        
 ''' 
 Function to write the generated test suite to a file in a phenotype format
-test suite has the following structure:
-[ [test_case_1], [test_case_2], ... ] 
-test_case_i has the following structure:
-[ [identifier, [parameters], [genetic operators]] ]
 
 Parameters:
 ----------
@@ -370,6 +366,21 @@ def time_execution_histogram(time_execution_values, type_method, path, iteration
     plt.xticks(rotation=90, ha='right')
     plt.savefig(path + '/' + type_method + '_time_execution_histogram_' + str(iteration) + '.png', bbox_inches='tight')
 
+
+'''
+Function to plot the mean time of execution per generation method
+
+Parameters:
+----------
+time_execution_values: list
+    The mean time of execution per generation method
+
+type_method: str
+    The type of the generation method
+
+path: str
+    The path to save the graph
+'''
 def mean_time_execution_histogram(time_execution_values, type_method, path):
     if plt.get_fignums():
             plt.close('all')
@@ -413,6 +424,9 @@ type_method: str
 
 path: str
     The path to save the graph
+
+type_graph: str
+    The type of the graph to plot
 '''
 def mean_fitness_histogram(fitness_values, type_method, path, type_graph):
     if plt.get_fignums():
@@ -448,7 +462,20 @@ def mean_fitness_histogram(fitness_values, type_method, path, type_graph):
     elif type_graph == 'Generations Mean Best Fitness':
         plt.savefig(path + '/' + type_method + '_generations_mean_best_fitness_histogram.png', bbox_inches='tight')
 
+'''
+Function to plot the mean number of generations of a generation method
 
+Parameters:
+----------
+mean_generation_values: list
+    The mean number of generations of a generation method
+
+type_method: str
+    The type of the generation method
+
+path: str
+    The path to save the graph
+'''
 def mean_generations_histogram(mean_generation_values, type_method, path):
     if plt.get_fignums():
             plt.close('all')
@@ -526,7 +553,6 @@ def best_fitness_seen_graph(best_fitness_values, generation_number_values, path,
 
     plt.savefig(path + '/best_fitness_seen.png')
 
-# generation_stats = [generation_number_values, population_size_values, generation_fitness_values, crossover_rate_generations, mutation_rate_generations]
 '''
 Function to write the generation stats into a json file
 
@@ -582,13 +608,6 @@ def read_generation_stats_file(generation_methods, type_method):
                 dic = json.load(fp)
 
             generation_data_read.append([generation_stats_name[stat], dic[generation_stats_name[stat]]])
-            
-            # Verify if file exists
-            #if os.path.exists(path + '/' + generation_stats_name[stat] + '.json'):
-            #    generation_read_path = path + '/' + generation_stats_name[stat]
-            #    with open(generation_read_path + '.json', 'rb') as fp:
-            #        data = json.load(fp)
-            #        generation_data_read.append([generation_stats_name[stat], data])
         
         generations_data.append(generation_data_read)
 
@@ -633,6 +652,9 @@ path: str
 data: list
     The data to write into a json file
 
+file_name: str
+    The name of the file to save the json file
+
 '''
 def write_data_file(path, data, file_name):
     dic = {}
@@ -650,6 +672,20 @@ def write_data_file(path, data, file_name):
         print("Done writing JSON data into .json file")
 
 
+'''
+Function to write the best generated test suite data into a json file
+
+Parameters:
+----------
+path: str
+    The path to save the json file
+
+data: list
+    The best generated test suite data to write into a json file
+
+file_name: str
+    The name of the file to save the json file
+'''
 def write_best_generated_test_suite_data(path, data, file_name):
     print("Started writing list data into a json file")
 
@@ -728,7 +764,6 @@ mean_generations_execution: float
 def mean_generations_execution(generation_values):
     return sum(generation_values) / len(generation_values)
 
-
 '''
 Function to write the population data into a json file
 
@@ -777,7 +812,6 @@ def read_population_data_file(path):
 
     return population
 
-
 '''
 Function to write the generation stats history into a json file
 
@@ -800,6 +834,9 @@ generations_without_fitness_improvement: int
 
 population: list
     The population data
+
+path: str
+    The path to save the txt file
 '''
 def generation_stats_history_file(current_number_generation, old_best_fitness, current_best_fitness, best_fitness_seen, generations_without_fitness_improvement, population, path):
     print("Started writing list data into a .txt file")

@@ -14,6 +14,12 @@ individual : Solution
 metadata : dict
     The metadata of the class context
 
+current_iteration_number : int
+    The current generation number of the algorithm
+
+inputs : list
+    The inputs of the fuzzy system
+
 configurations : dict
     The configurations of the algorithm
 

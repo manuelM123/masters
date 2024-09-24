@@ -180,7 +180,7 @@ def calculate_growth_size(current_best_fitness, old_best_fitness, initial_best_f
     return int(alpha * (max_generations - current_number_generation) * ((current_best_fitness - old_best_fitness) / initial_best_fitness))
 
 ''' 
-Function that implements the population resizing process adapted by Rajakumar and George from "APOGA: An Adaptive Population Pool Size Based Genetic Algorithm", DOI: https://doi.org/10.1016/j.aasri.2013.10.043
+Function that implements the population resizing process adapted by Rajakumar and George from "APOGA: An Adaptive Population Pool Size Based Genetic Algorithm"
 
 Parameters:
 ----------
@@ -238,7 +238,7 @@ def population_resizing(population, current_best_fitness, old_best_fitness, init
     return population, number_iterations
 
 '''
-Function that implements the population growth process adapted by Rajakumar and George from "APOGA: An Adaptive Population Pool Size Based Genetic Algorithm", DOI: https://doi.org/10.1016/j.aasri.2013.10.043
+Function that implements the population growth process adapted by Rajakumar and George from "APOGA: An Adaptive Population Pool Size Based Genetic Algorithm"
 
 Parameters:
 ----------
@@ -300,7 +300,7 @@ def grow_population(population, current_best_fitness, old_best_fitness, initial_
     return population
     
 '''
-Function that implements the population shrink process adapted by Rajakumar and George from "APOGA: An Adaptive Population Pool Size Based Genetic Algorithm", DOI: https://doi.org/10.1016/j.aasri.2013.10.043
+Function that implements the population shrink process adapted by Rajakumar and George from "APOGA: An Adaptive Population Pool Size Based Genetic Algorithm"
 
 Parameters:
 ----------

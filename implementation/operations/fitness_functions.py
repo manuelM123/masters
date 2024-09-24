@@ -5,16 +5,20 @@ import os
 Function to calculate the fitness of a test suite
 The fitness is calculated using the coverage module
 A specification of each type of coverage is needed
+
 Parameters:
 ----------
 test_suite : list
     The test suite to calculate the fitness of
+
+type : str
+    The type of coverage to calculate the fitness of the test suite
+
 Returns:
 -------
 fitness : int
     The fitness of the test 
 '''
-# Using coverage module within a subprocess to calculate the fitness of a test suite 
 def calculate_coverage_fitness(test_suite, type):
     if type == 'statement_coverage':
         subprocess.run(['coverage', 'run', '--timid', '-m', 'pytest', '-q', 'results/intermediate_test_suite'], stdout=subprocess.DEVNULL, stderr=subprocess.DEVNULL)
@@ -67,7 +71,7 @@ population : list
 
 Returns:
 -------
-average_fitness : int
+average_fitness : float
     The average fitness of the population
 '''
 def calculate_average_fitness(population):
@@ -87,7 +91,7 @@ fitness_values : list
 
 Returns:
 -------
-best_fitness : int
+best_fitness : float
     The best fitness value of the population
 '''
 def obtain_best_fitness(fitness_values):
@@ -103,7 +107,7 @@ fitness_values : list
 
 Returns:
 -------
-mean_fitness : int
+mean_fitness : float
     The mean fitness value of the fitness values
 '''
 def mean_best_fitness(fitness_values):

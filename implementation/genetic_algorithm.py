@@ -171,8 +171,8 @@ Parameters:
 current_number_generation : int
     The current number of the generation
 
-current_best_fitness : int
-    The best fitness value of the current generation
+old_best_fitness : int
+    The best fitness value of the previous generation
 
 current_best_fitness : int
     The best fitness value of the current generation

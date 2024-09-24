@@ -5,9 +5,9 @@ class calorie_intake_calc:
     Attributes
     ----------
     weight : float
-        weight of the person in kg in the interval [40,200]
+        weight of the person in kg in the interval [40,210]
     height : float
-        height of the person in cm in the interval [140,210]
+        height of the person in cm in the interval [140,220]
     age : int
         age of the person in years in the interval [10,80]
     gender : str

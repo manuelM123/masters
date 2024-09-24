@@ -118,15 +118,12 @@ class Fuzzy_system:
         return [rule1, rule1_2, rule2, rule2_1, rule3, rule3_1, rule4, rule4_1, rule5, rule5_1, rule6, rule6_1, rule7, rule7_1, rule8, rule8_1]
 
     '''
-    Function to define the fuzzy control system to compute the crossover and mutation rates according to the antecedents of the fuzzy system
+    Function to define the fuzzy control system to compute the crossover and mutation rates
 
     Parameters:
     ----------
     rules: list of rules
         The rules of the fuzzy system
-
-    antecedents: list of antecedents
-        The antecedents of the fuzzy system
     
     inputs: list
         The inputs of the fuzzy system
@@ -159,7 +156,7 @@ class Fuzzy_system:
             raise ValueError('Genetic operator is not specified correctly')
         
     '''
-    Function to plot the membership functions 
+    Function to plot the fuzzy sets of the fuzzy system 
 
     Parameters:
     ----------
@@ -168,6 +165,9 @@ class Fuzzy_system:
 
     consequents: skfuzzy.control.Consequent
         The consequents of the fuzzy system
+
+    path: string
+        The path to save the visual representations of the fuzzy sets
     '''
     def plot_fuzzy_sets(self, antecedents, consequents, path):
         if plt.get_fignums():

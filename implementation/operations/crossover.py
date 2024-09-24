@@ -197,7 +197,7 @@ def adaptive_crossover_adjustment(inputs, configurations, genetic_operator):
 
 '''
 Function that implements the self-adaptive crossover operator to generate offsprings from two parents according to
-the mechanism proposed by Back, Eiben and Vaart in the work An empirical study on GAs "without parameters".
+the mechanism proposed by Back, Eiben and Vaart in the work "An empirical study on GAs "without parameters"".
 
 The individual that is suspended from the crossover operation will be set on hold and will be used in the next iteration where only one parent will be selected and this
 will be used to generate the offspring with the other individual chosen in the selection process.
@@ -254,7 +254,7 @@ def self_adaptive_crossover_adjustment(individuals, metadata, current_iteration_
 
 '''
 Function that decides whether the crossover operator will be performed or not according to the mechanism proposed by Back, Eiben and Vaart 
-in the work An empirical study on GAs "without parameters".
+in the work "An empirical study on GAs "without parameters"".
 
 Parameters:
 ----------
