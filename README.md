@@ -140,6 +140,6 @@ A configuration file was created to hold a set of different attributes for easie
 
 ### Execution 
 
-Run "genetic_algorithm.py" as is for a singular run of a GA with the configurations defined in the configuration file.
-Run "execution_script.py" to run a set of GA iterations. 
-Run "evaluation_script.py" after the "execution_script.py" run to obtain benchmarks after the algorithms runs. Change the value of iteration in method "mean_data_methods" if number of executions does not reflect the number of executions in the results directory
+- Run "genetic_algorithm.py" as is for a singular run of a GA with the configurations defined in the configuration file.
+- Run "execution_script.py" to run a set of GA iterations. 
+- Run "evaluation_script.py" after the "execution_script.py" run to obtain benchmarks after the algorithms runs. Change the value of iteration in method "mean_data_methods" if number of executions does not reflect the number of executions in the results directory
